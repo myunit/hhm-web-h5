@@ -288,13 +288,14 @@ label.label-checkbox input[type="radio"]:checked + .item-media i.icon-form-check
 .my-div-feature-column .row{ line-height:1.76rem; font-size:.82rem; color:#f86b4f;  border-left: .29rem solid #f86b4f; padding-right:.588rem; border-bottom:1px solid #d3d3d3; margin:0;}
 .my-div-feature-column .my-div-feature-title{ margin-left:3%;}
 
-.my-div-feature-column ul{ padding-bottom:.588rem;}
-.my-div-feature-column li{ float:left; width:5.47rem; margin:.588rem 0 0 .588rem; background:#f5f5f5;}
+
+.my-div-feature-column ul{ padding:0 .588rem .588rem 0;}
+.my-div-feature-column li{ float:left; width:30%; margin:.588rem 0 0 3.33%; background:#f5f5f5;}
 .my-div-feature-column li a{ display:block;}
 .my-div-feature-column li h3{ margin:0; padding:.4rem .2rem; font-weight:normal;}
 .my-div-feature-column li p{ padding:0 .2rem .4rem .2rem;}
 
-.my-div-feature-column-b li{ float:left; width:5.41rem; margin:.588rem 0 0 .588rem; background:#f5f5f5;}
+.my-div-feature-column-b li{ float:left; width:30%; margin:.588rem 0 0 3.33%; background:#f5f5f5;}
 .my-div-feature-column-b li img{ border:1px solid #d3d3d3;}
 
 
