@@ -56,6 +56,10 @@ body{ font-size:.71rem;}
 .my-div-booking-list .button{display:inline-block;}
 .my-span-more{ line-height:3.4rem; font-size:.82rem; display:inline-block; color:#888;}
 
+.search-input .icon-clear{ position:absolute; right:.3rem; left:auto; float:left;}
+.search-input .icon-search{ left:.3rem; float:none; right:auto;}
+
+
 
 
 /*-------------------------------------登录页面自定义样式--------------------------------------*/
