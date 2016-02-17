@@ -138,16 +138,17 @@ label.label-checkbox input[type="radio"]:checked + .item-media i.icon-form-check
 .my-tab .active{ background:#efeff4; color:#f86b4f;border-right:1px solid #efeff4; font-weight:bold;}
 .my-tab .tab-link:after{ background:#7C7A7A;}
 .my-tabs{ float:left; margin-left:4rem;}
-.my-tabs .content-block{ padding:0 .47rem; margin:0;}
+.my-tabs .content-block{ padding:0 3%; margin:0;}
 .my-img-list{ }
-.my-img-list li{ float:left; width:4.29rem; margin:0 .47rem .47rem 0;}
+.my-img-list li{ float:left; width:31%; margin:0 3.5% 3.5% 0;}
 .my-img-list li:nth-child(3n){ margin-right:0;}
 .my-img-list a{ display:block; background:#fff; text-align:center; color:#3d4145;}
 .my-img-list a .my-img-auto{ padding:.2rem; display:block;}
 
 /*商品列表页面*/
-.my-product-list li{ float:left; margin:0 .24rem .24rem 0; width:9.25rem; background:#fff;}
-.my-product-list li .my-img-auto{ width:9.25rem; display:block;}
+
+.my-product-list li{ float:left; margin:0 1% 1% 0; width:49.5%; background:#fff;}
+.my-product-list li .my-img-auto{  display:block;}
 .my-product-list li:nth-child(2n){ margin-right:0;}
 .my-product-list li h3{ padding:.53rem; border-top:1px solid #f0f0f0; font-weight:normal; margin:0;}
 .my-product-list li .row{ margin-bottom:.53rem;}
