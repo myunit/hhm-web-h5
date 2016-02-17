@@ -67,7 +67,7 @@
     </div>
 </div>
 
-<div class="popup popup-cart">
+<div id="popup-cart" class="popup popup-cart">
     <a href="#" class="icon icon-close close-popup"></a>
     <div class="list-block media-list">
         <ul>
@@ -94,12 +94,12 @@
             <li><a href="#">箱</a></li>
         </ul>
         <ul class="my-ul-spec my-ul clearfix">
-            <li class="my-spec-on"><a href="#">500g</a></li>
+            <li><a href="#">500g</a></li>
             <li><a href="#">1000g</a></li>
             <li><a href="#">2000g</a></li>
             <li><a href="#">3000g</a></li>
         </ul>
-        <p class="my-26-text">购买数量&nbsp;&nbsp;&nbsp;<span class="p-num fn-op-num"> <em class="em-op em-op-d">-</em><input name="txt" type="text" class="txt txt-num" value="1"><em class="em-op em-op-a">+</em></span></p>
+        <p class="my-26-text">购买数量&nbsp;&nbsp;&nbsp;<span class="p-num fn-op-num"> <em class="em-op em-op-d">-</em><input name="txt" type="text" class="txt txt-num" v-model="addCartNum"><em class="em-op em-op-a">+</em></span></p>
     </div>
     <a href="#" class="my-a-cart">加入采购车</a>
 </div>

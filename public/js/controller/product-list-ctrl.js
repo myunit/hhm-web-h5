@@ -34,7 +34,8 @@ require(['Vue'],
         el: '#product-list',
         data: {
           type: type,
-          search: ''
+          search: '',
+          addCartNum: 1
         },
         computed: {
           categoryTitle: function () {
@@ -55,6 +56,31 @@ require(['Vue'],
         vm.search = '';
       });
 
+      $(page).on('click','.em-op-d', function () {
+        vm.addCartNum--;
+      });
+
+      $(page).on('click','.em-op-a', function () {
+        vm.addCartNum++;
+      });
+
+    });
+
+    var cartVm = new Vue({
+      el: '#popup-cart',
+      data: {
+        addCartNum: 1
+      }
+    });
+
+    $(document).on('click','.em-op-d', function () {
+      if (cartVm.addCartNum > 1) {
+        cartVm.addCartNum--;
+      }
+    });
+
+    $(document).on('click','.em-op-a', function () {
+      cartVm.addCartNum++;
     });
 
     $.init();
