@@ -34,8 +34,7 @@ require(['Vue'],
         el: '#product-list',
         data: {
           type: type,
-          search: '',
-          addCartNum: 1
+          search: ''
         },
         computed: {
           categoryTitle: function () {
@@ -55,15 +54,6 @@ require(['Vue'],
       $(page).on('click','.icon-clear', function () {
         vm.search = '';
       });
-
-      $(page).on('click','.em-op-d', function () {
-        vm.addCartNum--;
-      });
-
-      $(page).on('click','.em-op-a', function () {
-        vm.addCartNum++;
-      });
-
     });
 
     var cartVm = new Vue({
@@ -81,6 +71,11 @@ require(['Vue'],
 
     $(document).on('click','.em-op-a', function () {
       cartVm.addCartNum++;
+    });
+
+    $(document).on('click','.my-ul-spec li', function () {
+      $('.my-ul-spec li').removeClass('my-spec-on');
+      $(this).addClass('my-spec-on');
     });
 
     $.init();
