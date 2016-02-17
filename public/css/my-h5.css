@@ -305,7 +305,7 @@ label.label-checkbox input[type="radio"]:checked + .item-media i.icon-form-check
 
 /*采购报表结果*/
 .my-table-buy-report{ margin-top:2.6rem;}
-.my-table-fix th{font-size:.76rem; padding:.7rem;border-bottom:1px solid #d3d3d3; background:#efeff4; text-align:left;} 
+.my-table-fix th{font-size:.76rem; padding:.7rem;border-bottom:1px solid #d3d3d3; background:#efeff4; text-align:left;}
 .my-table-buy-report td{font-size:.76rem; padding:.7rem;border-bottom:1px solid #d3d3d3;text-align:left;}
 .my-table-buy-report tr:nth-child(odd) td{ background:#fff; }
 .my-table-buy-report tr td:last-child,.my-table-fix tr th:last-child{ text-align:right; }
@@ -376,7 +376,7 @@ label.label-checkbox input[type="radio"]:checked + .item-media i.icon-form-check
 .my-booking-detail{ margin:0 0 .588rem 0;}
 .my-booking-detail li{ padding:.588rem .75rem;border-bottom:1px solid #d3d3d3;}
 .my-booking-detail li:last-child{ border:none;}
-.my-a-booking-detail{ text-align:right;} 
+.my-a-booking-detail{ text-align:right;}
 .my-a-booking-detail a{ display:inline-block;}
 .my-div-img-row img{ margin-right:.82rem;}
 .my-div-img-row{ padding-right: 1.5rem;
@@ -386,11 +386,11 @@ label.label-checkbox input[type="radio"]:checked + .item-media i.icon-form-check
   background-position: 97% center;
   background-position: -webkit-calc(100% - .5rem) center;
   background-position: calc(100% - .5rem) center; width:100%;}
- 
+
  /*-------------------------------------------------------------账户管理，地址管理页-------------------------------------------------------------*/
- 
+
 .my-div-account{ max-height:none !important;}
-.my-div-account img{ width:3.7rem; height:3.7rem; overflow:hidden; border-radius:50%;}  
+.my-div-account img{ width:3.7rem; height:3.7rem; overflow:hidden; border-radius:50%;}
 .my-address .row{ padding:0 .75rem;}
 .my-address .my-right-text{ line-height:1.6rem;}
 
@@ -453,3 +453,7 @@ label.label-checkbox input[type="radio"]:checked + .item-media i.icon-form-check
 .icon-notice:before { content: "\e626"; }
 .icon-check:before { content: "\e627"; }
 .icon-addcart:before { content: "\e628"; }
+
+[v-cloak] {
+  display: none;
+}

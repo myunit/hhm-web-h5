@@ -1,8 +1,8 @@
 <div class="page-group">
     <div id="product-list" class="page page-current">
-        <header class="bar bar-nav">
+        <header class="bar bar-nav" v-cloak>
             <a class="icon icon-left pull-left my-red-text"></a>
-            <h1 class="title">{{categoryTitle}}</h1>
+            <h1 class="title">${categoryTitle}</h1>
         </header>
 
         <div class="bar bar-header-secondary row my-search-top">
@@ -70,6 +70,7 @@
 
     </div>
 </div>
+
 <div class="popup popup-cart">
     <a href="#" class="icon icon-close close-popup"></a>
     <div class="list-block media-list">

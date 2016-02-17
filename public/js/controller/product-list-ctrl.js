@@ -18,6 +18,9 @@ require.config({
 require(['Vue'],
   function (Vue) {
     'use strict';
+    Vue.config.delimiters = ['${', '}'];
+    Vue.config.unsafeDelimiters = ['{!!', '!!}'];
+
     $(document).on("pageInit", "#product-list", function(e, id, page) {
       var type = 0;
       if (window.location.pathname === '/product/sales') {
@@ -25,11 +28,21 @@ require(['Vue'],
       } else if (window.location.pathname === '/product/new') {
         type = 2;
       }
-      console.log('type:' + type);
       var vm = new Vue({
         el: '#product-list',
         data: {
-          categoryTitle: '特卖'
+          type: type
+        },
+        computed: {
+          categoryTitle: function () {
+            if (this.type === 1) {
+              return '特卖';
+            } else if (this.type === 2) {
+              return '新品';
+            } else {
+              return '';
+            }
+          }
         }
       });
 
