@@ -27,11 +27,14 @@ require(['Vue'],
         type = 1;
       } else if (window.location.pathname === '/product/new') {
         type = 2;
+      } else if (window.location.pathname === '/product/group') {
+        type = 3;
       }
       var vm = new Vue({
         el: '#product-list',
         data: {
-          type: type
+          type: type,
+          search: ''
         },
         computed: {
           categoryTitle: function () {
@@ -39,6 +42,8 @@ require(['Vue'],
               return '特卖';
             } else if (this.type === 2) {
               return '新品';
+            } else if (this.type === 3) {
+              return '组合商品';
             } else {
               return '';
             }
@@ -46,6 +51,9 @@ require(['Vue'],
         }
       });
 
+      $(page).on('click','.icon-clear', function () {
+        vm.search = '';
+      });
 
     });
 

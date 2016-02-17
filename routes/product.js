@@ -14,4 +14,8 @@ router.get('/new', function(req, res, next) {
   res.render('product-list', { title: '新品-好好卖' });
 });
 
+router.get('/group', function(req, res, next) {
+  res.render('product-list', { title: '组合商品-好好卖' });
+});
+
 module.exports = router;

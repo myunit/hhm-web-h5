@@ -18,14 +18,31 @@ require.config({
 require(['Vue'],
   function (Vue) {
     'use strict';
-    $(function() {
-      $(".swiper-container").swiper({
-        spaceBetween: 30,
-        continuous: true,
-        autoplay: 2500,
-        autoplayDisableOnInteraction: false
+    Vue.config.delimiters = ['${', '}'];
+    Vue.config.unsafeDelimiters = ['{!!', '!!}'];
+
+    $(document).on("pageInit", "#index-page", function(e, id, page) {
+      var vm = new Vue({
+        el: '#index-page',
+        data: {
+          search: ''
+        }
+      });
+
+      $(page).on('click','.icon-clear', function () {
+        vm.search = '';
+      });
+
+      $(function() {
+        $(".swiper-container").swiper({
+          spaceBetween: 30,
+          continuous: true,
+          autoplay: 2500,
+          autoplayDisableOnInteraction: false
+        });
       });
     });
+
     $.init();
   }
 );

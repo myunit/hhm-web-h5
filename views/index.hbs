@@ -1,5 +1,5 @@
 <div class="page-group">
-    <div class="page page-current">
+    <div id="index-page" class="page page-current">
         <header class="bar bar-nav">
             <h1 class="title">LOGO</h1>
         </header>
@@ -7,11 +7,10 @@
 
         <div class="bar bar-header-secondary my-search-home">
             <div class="searchbar">
-                <a class="searchbar-cancel">取消</a>
                 <div class="search-input">
                     <label class="icon icon-search" for="search"></label>
-                    <input type="search" id="search" placeholder="商品名称" />
-                    <a href="javascript:;" class="icon icon-clear"></a>
+                    <input type="search" id="search" placeholder="商品名称" v-model="search"/>
+                    <a href="#" class="icon icon-clear"></a>
                 </div>
             </div>
             <a class="my-a-message" href="#">
@@ -55,14 +54,18 @@
                     <h3><span class="icon icon-clock"></span> 限时秒杀</h3>
                     <p class="my-p-time-flash-deal"><span>12</span> : <span>20</span> : <span>56</span></p>
                     <p>
-                        <a href="#"><img src="images/demo/home-miaosha.jpg" style="width: 6.06rem;" alt="" /></a>
+                        <a class="external" href="/product/secKill">
+                            <img src="images/demo/home-miaosha.jpg" style="width: 6.06rem;" alt="" />
+                        </a>
                     </p>
                 </div>
                 <div class="col-60">
                     <div class="my-div-group">
                         <h3><span class="icon icon-group"></span> 组合商品</h3>
                         <p>
-                            <a href="#"><img src="images/demo/home-group.jpg" style="width: 8.7rem;" alt="" /></a>
+                            <a class="external" href="/product/group">
+                                <img src="images/demo/home-group.jpg" style="width: 8.7rem;" alt="" />
+                            </a>
                         </p>
                     </div>
 
