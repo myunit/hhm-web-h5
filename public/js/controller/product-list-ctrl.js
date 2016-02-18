@@ -56,7 +56,7 @@ require(['Vue', 'Utils'],
             } else if (this.type === 4) {
               return '推荐商品';
             } else {
-              return '';
+              return '商品列表';
             }
           }
         }
