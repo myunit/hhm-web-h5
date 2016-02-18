@@ -18,4 +18,8 @@ router.get('/group', function(req, res, next) {
   res.render('product-list', { title: '组合商品-好好卖' });
 });
 
+router.get('/recommend', function(req, res, next) {
+  res.render('product-list', { title: '组合商品-好好卖' });
+});
+
 module.exports = router;

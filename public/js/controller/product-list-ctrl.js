@@ -6,17 +6,21 @@
 require.config({
   baseUrl: '../js',
   paths: {
-    'Vue': './lib/vue.min'
+    'Vue': './lib/vue.min',
+    'Utils': './lib/utils'
   },
   shim: {
     'Vue': {
       exports: 'Vue'
+    },
+    'Utils': {
+      exports: 'Utils'
     }
   }
 });
 
-require(['Vue'],
-  function (Vue) {
+require(['Vue', 'Utils'],
+  function (Vue, Utils) {
     'use strict';
     Vue.config.delimiters = ['${', '}'];
     Vue.config.unsafeDelimiters = ['{!!', '!!}'];
@@ -29,7 +33,12 @@ require(['Vue'],
         type = 2;
       } else if (window.location.pathname === '/product/group') {
         type = 3;
+      } else if (window.location.pathname === '/product/recommend') {
+        type = 4;
+        var searchObj = Utils.getSearch(window.location);
+        console.log('searchObj: ' + JSON.stringify(searchObj));
       }
+
       var vm = new Vue({
         el: '#product-list',
         data: {
@@ -44,6 +53,8 @@ require(['Vue'],
               return '新品';
             } else if (this.type === 3) {
               return '组合商品';
+            } else if (this.type === 4) {
+              return '推荐商品';
             } else {
               return '';
             }
