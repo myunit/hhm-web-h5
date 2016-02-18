@@ -25,8 +25,29 @@ require(['Vue'],
       var vm = new Vue({
         el: '#product-secKill-detail',
         data: {
+          isLike: false
+        },
+        computed: {
+          liked: function () {
+            return this.isLike ? '已收藏':'收藏';
+          }
         }
       });
+
+      $(page).on('click','.icon-like', function () {
+        $(this).toggleClass('icon-likeactive');
+        vm.isLike = !vm.isLike;
+      });
+
+      $(function () {
+        $(".swiper-container").swiper({
+          spaceBetween: 30,
+          continuous: true,
+          autoplay: 2500,
+          autoplayDisableOnInteraction: false
+        });
+      });
+
     });
 
     $.init();

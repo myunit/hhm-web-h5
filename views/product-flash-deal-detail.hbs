@@ -18,7 +18,7 @@
         </nav>
 
         <div class="content native-scroll">
-            <div class="swiper-container" data-space-between="10">
+            <div class="swiper-container swiper-container-horizontal" data-space-between="10">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide"><img src="../images/demo/banner640.gif" alt=""></div>
                     <div class="swiper-slide"><img src="../images/demo/banner6401.gif" alt=""></div>
@@ -30,10 +30,10 @@
             <div class="row my-product-title">
                 <div class="col-80 my-28-text">商品名称商品名称商品名称商品名称 商品名称商品名称商品名称...
                 </div>
-                <div class="col-20">
+                <div class="col-20" v-cloak>
                     <a href="#">
                         <span class="icon icon-like"></span>
-                        <span>收藏</span>
+                        <span>${liked}</span>
                     </a>
                 </div>
             </div>
@@ -95,4 +95,4 @@
 <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
-<script type='text/javascript' src='../js/lib/requirejs.min.js' data-main='../js/controller/product-sec-kill-ctrl'></script>
+<script type='text/javascript' src='../js/lib/requirejs.min.js' data-main='../js/controller/product-sec-kill-detail-ctrl'></script>
