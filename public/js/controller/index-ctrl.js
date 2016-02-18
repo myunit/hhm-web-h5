@@ -21,19 +21,40 @@ require(['Vue'],
     Vue.config.delimiters = ['${', '}'];
     Vue.config.unsafeDelimiters = ['{!!', '!!}'];
 
-    $(document).on("pageInit", "#index-page", function(e, id, page) {
+    $(document).on("pageInit", "#index-page", function (e, id, page) {
       var vm = new Vue({
         el: '#index-page',
         data: {
-          search: ''
+          search: '',
+          hour: '02',
+          min: '00',
+          sec: '00'
         }
       });
 
-      $(page).on('click','.icon-clear', function () {
+      var time = 2 * 3600 * 1000;
+
+
+      var killInterval = setInterval(function () {
+        var hour = Math.floor((time % 86400000) / 3600000);
+        var min = Math.floor(((time % 86400000) % 3600000) / 60000);
+        var sec = Math.floor(((time % 86400000) % 3600000 % 60000) / 1000)
+        vm.hour = hour > 9 ? hour : '0' + hour;
+        vm.min = min > 9 ? min : '0' + min;
+        vm.sec = sec > 9 ? sec : '0' + sec;
+
+        if (hour === 0 && min === 0 && sec === 0) {
+          clearInterval(killInterval);
+        } else {
+          time -= 1000;
+        }
+      }, 1000);
+
+      $(page).on('click', '.icon-clear', function () {
         vm.search = '';
       });
 
-      $(function() {
+      $(function () {
         $(".swiper-container").swiper({
           spaceBetween: 30,
           continuous: true,
