@@ -34,6 +34,14 @@ router.get('/secKill-detail', function(req, res, next) {
   res.render('product-detail', { title: '商品详情-好好卖' });
 });
 
+router.get('/detail', function(req, res, next) {
+  res.render('product-detail', { title: '商品详情-好好卖' });
+});
+
+router.get('/group-detail', function(req, res, next) {
+  res.render('product-group-detail', { title: '商品详情-好好卖' });
+});
+
 router.get('/class', function(req, res, next) {
   res.render('product-class', { title: '商品分类-好好卖' });
 });

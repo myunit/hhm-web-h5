@@ -1,7 +1,7 @@
 /**
  * @author qianqing
  * @create by 16-2-18
- * @description product second kill detail controller
+ * @description product group detail
  */
 require.config({
   baseUrl: '../js',
@@ -21,9 +21,9 @@ require(['Vue'],
     Vue.config.delimiters = ['${', '}'];
     Vue.config.unsafeDelimiters = ['{!!', '!!}'];
 
-    $(document).on("pageInit", "#product-detail", function(e, id, page) {
+    $(document).on("pageInit", "#product-group-detail", function(e, id, page) {
       var vm = new Vue({
-        el: '#product-detail',
+        el: '#product-group-detail',
         data: {
           isLike: false,
           cartNum: 3
