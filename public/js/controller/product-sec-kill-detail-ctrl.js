@@ -25,7 +25,8 @@ require(['Vue'],
       var vm = new Vue({
         el: '#product-secKill-detail',
         data: {
-          isLike: false
+          isLike: false,
+          cartNum: 3
         },
         computed: {
           liked: function () {
@@ -41,6 +42,10 @@ require(['Vue'],
 
       $(page).on('click','.my-back-top', function () {
         $('.content').scrollTop(0);
+      });
+
+      $(page).on('click','#addIntoCart', function () {
+        vm.cartNum++;
       });
 
       $(function () {

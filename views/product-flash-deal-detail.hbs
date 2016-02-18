@@ -7,13 +7,13 @@
 
         <nav class="bar bar-tab my-product-bar">
             <div class="row">
-                <div class="col-33">
+                <div class="col-33" v-cloak>
                     <a href="#">
                         <span class="icon icon-cart"></span>
-                        <span class="badge">3</span>
+                        <span class="badge">${cartNum}</span>
                     </a>
                 </div>
-                <div class="col-66"><a href="#" class="my-28-text">加入采购车</a></div>
+                <div class="col-66"><a href="#" id="addIntoCart" class="my-28-text">加入采购车</a></div>
             </div>
         </nav>
 
