@@ -39,6 +39,10 @@ require(['Vue'],
         vm.isLike = !vm.isLike;
       });
 
+      $(page).on('click','.my-back-top', function () {
+        $('.content').scrollTop(0);
+      });
+
       $(function () {
         $(".swiper-container").swiper({
           spaceBetween: 30,
