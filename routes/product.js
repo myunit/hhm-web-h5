@@ -30,4 +30,8 @@ router.get('/secKill-detail', function(req, res, next) {
   res.render('product-flash-deal-detail', { title: '商品详情-好好卖' });
 });
 
+router.get('/class', function(req, res, next) {
+  res.render('product-class', { title: '商品分类-好好卖' });
+});
+
 module.exports = router;
