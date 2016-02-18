@@ -27,7 +27,7 @@ router.get('/secKill', function(req, res, next) {
 });
 
 router.get('/secKill-detail', function(req, res, next) {
-  res.render('product-flash-deal-list', { title: '商品详情-好好卖' });
+  res.render('product-flash-deal-detail', { title: '商品详情-好好卖' });
 });
 
 module.exports = router;
