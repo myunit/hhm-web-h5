@@ -15,5 +15,9 @@ router.get('/complete', function(req, res, next) {
   res.render('booking-complete', { title: '提交完成-好好卖' });
 });
 
+router.get('/pay-way', function(req, res, next) {
+  res.render('booking-pay-way', { title: '在线支付-好好卖' });
+});
+
 
 module.exports = router;
