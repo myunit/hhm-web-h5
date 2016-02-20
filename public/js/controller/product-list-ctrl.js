@@ -47,29 +47,31 @@ require(['Vue', 'Utils'],
       $(page).on('click','.icon-clear', function () {
         vm.search = '';
       });
+
+      var cartVm = new Vue({
+        el: '#popup-cart',
+        data: {
+          addCartNum: 1
+        }
+      });
+
+      $(document).on('click','.em-op-d', function () {
+        if (cartVm.addCartNum > 1) {
+          cartVm.addCartNum--;
+        }
+      });
+
+      $(document).on('click','.em-op-a', function () {
+        cartVm.addCartNum++;
+      });
+
+      $(document).on('click','.my-ul-spec li', function () {
+        $('.my-ul-spec li').removeClass('my-spec-on');
+        $(this).addClass('my-spec-on');
+      });
     });
 
-    var cartVm = new Vue({
-      el: '#popup-cart',
-      data: {
-        addCartNum: 1
-      }
-    });
 
-    $(document).on('click','.em-op-d', function () {
-      if (cartVm.addCartNum > 1) {
-        cartVm.addCartNum--;
-      }
-    });
-
-    $(document).on('click','.em-op-a', function () {
-      cartVm.addCartNum++;
-    });
-
-    $(document).on('click','.my-ul-spec li', function () {
-      $('.my-ul-spec li').removeClass('my-spec-on');
-      $(this).addClass('my-spec-on');
-    });
 
     $.init();
   }
