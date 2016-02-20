@@ -31,7 +31,7 @@ require(['Vue'],
 
       $(page).on('click', '#submitBook', function () {
         if(vm.payment === 1) {
-          $.router.load('/book/pay-way');
+          $.router.load('/book/pay-way', true);
           return;
         }
 
@@ -43,6 +43,7 @@ require(['Vue'],
     });
 
     $(document).on("pageInit", "#book-complete", function (e, id, page) {
+      $("title").text('提交完成');
       var vm = new Vue({
         el: '#book-complete',
         data: {
@@ -51,6 +52,7 @@ require(['Vue'],
     });
 
     $(document).on("pageInit", "#book-pay-way", function (e, id, page) {
+      $("title").text('在线支付');
       var vm = new Vue({
         el: '#book-pay-way',
         data: {
