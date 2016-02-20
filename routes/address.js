@@ -11,12 +11,12 @@ router.get('/', function(req, res, next) {
   res.render('address-select', { title: '选择地址-好好卖' });
 });
 
-router.get('/new', function(req, res, next) {
-  res.render('address-new', { title: '新增地址-好好卖' });
+router.get('/add', function(req, res, next) {
+  res.render('address-edit', { title: '新增地址-好好卖' });
 });
 
 router.get('/modify', function(req, res, next) {
-  res.render('address-modify', { title: '修改地址-好好卖' });
+  res.render('address-edit', { title: '修改地址-好好卖' });
 });
 
 

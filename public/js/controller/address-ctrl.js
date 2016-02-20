@@ -3,3 +3,44 @@
  * @create by 16-2-20
  * @description address controller
  */
+require.config({
+  baseUrl: '../js',
+  paths: {
+    'Vue': './lib/vue.min'
+  },
+  shim: {
+    'Vue': {
+      exports: 'Vue'
+    }
+  }
+});
+
+require(['Vue'],
+  function (Vue) {
+    'use strict';
+    Vue.config.delimiters = ['${', '}'];
+    Vue.config.unsafeDelimiters = ['{!!', '!!}'];
+
+    $(document).on("pageInit", "#address-select", function (e, id, page) {
+      var vm = new Vue({
+        el: '#address-select',
+        data: {}
+      });
+
+    });
+
+    $(document).on("pageInit", "#address-edit", function (e, id, page) {
+      var vm = new Vue({
+        el: '#address-edit',
+        data: {}
+      });
+
+      $("#city-picker").cityPicker({
+        toolbarTemplate: '<header class="bar bar-nav"><button class="button button-link pull-right close-picker">\
+        确定</button><h1 class="title">选择收货地址</h1></header>'
+      });
+    });
+
+    $.init();
+  }
+);
