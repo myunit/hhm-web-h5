@@ -235,6 +235,7 @@ label.label-checkbox input[type="radio"]:checked + .item-media i.icon-form-check
 .my-select-address .row{ padding:.588rem .75rem; border-top:1px solid #d3d3d3;}
 .my-select-address  .item-media{ display:inline-block !important; margin-right:.2rem;}
 .content-block-title.my-gray-text{ margin-top:.75rem;}
+.content-block-title {color: #000000}
 
 /*-------------------------------------购物车页面自定义样式--------------------------------------*/
 .my-nav-bar-fix{ bottom:2.82rem; z-index:999;}
