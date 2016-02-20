@@ -57,8 +57,33 @@ require(['Vue'],
         $('.content').scrollTop(0);
       });
 
-      $(page).on('click','#addIntoCart', function () {
-        vm.cartNum++;
+
+
+      var cartVm = new Vue({
+        el: '#popup-cart',
+        data: {
+          addCartNum: 1
+        }
+      });
+
+      $(document).on('click','.my-a-cart', function () {
+        vm.cartNum += cartVm.addCartNum;
+        cartVm.addCartNum = 1;
+      });
+
+      $(document).on('click','.em-op-d', function () {
+        if (cartVm.addCartNum > 1) {
+          cartVm.addCartNum--;
+        }
+      });
+
+      $(document).on('click','.em-op-a', function () {
+        cartVm.addCartNum++;
+      });
+
+      $(document).on('click','.my-ul-spec li', function () {
+        $('.my-ul-spec li').removeClass('my-spec-on');
+        $(this).addClass('my-spec-on');
       });
 
       $(function () {
@@ -95,8 +120,31 @@ require(['Vue'],
         $('.content').scrollTop(0);
       });
 
-      $(page).on('click','#addIntoCart', function () {
-        vm.cartNum++;
+      var cartVm = new Vue({
+        el: '#popup-cart',
+        data: {
+          addCartNum: 1
+        }
+      });
+
+      $(document).on('click','.my-a-cart', function () {
+        vm.cartNum += cartVm.addCartNum;
+        cartVm.addCartNum = 1;
+      });
+
+      $(document).on('click','.em-op-d', function () {
+        if (cartVm.addCartNum > 1) {
+          cartVm.addCartNum--;
+        }
+      });
+
+      $(document).on('click','.em-op-a', function () {
+        cartVm.addCartNum++;
+      });
+
+      $(document).on('click','.my-ul-spec li', function () {
+        $('.my-ul-spec li').removeClass('my-spec-on');
+        $(this).addClass('my-spec-on');
       });
 
       $(function () {
