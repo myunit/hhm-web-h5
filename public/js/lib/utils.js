@@ -18,8 +18,14 @@ define(function () {
     return searchObj;
   };
 
+  var isWeiXin = function (navigator) {
+    var ua = navigator.userAgent.toLowerCase();
+    return ua.indexOf('micromessenger') != -1;
+  };
+
 
   return {
-    getSearch: getSearch
+    getSearch: getSearch,
+    isWeiXin: isWeiXin
   }
 });

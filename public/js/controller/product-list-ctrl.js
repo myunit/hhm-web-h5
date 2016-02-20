@@ -35,30 +35,12 @@ require(['Vue', 'Utils'],
         type = 3;
       } else if (window.location.pathname === '/product/recommend') {
         type = 4;
-        var searchObj = Utils.getSearch(window.location);
-        console.log('searchObj: ' + JSON.stringify(searchObj));
       }
 
       var vm = new Vue({
         el: '#product-list',
         data: {
-          type: type,
           search: ''
-        },
-        computed: {
-          categoryTitle: function () {
-            if (this.type === 1) {
-              return '特卖';
-            } else if (this.type === 2) {
-              return '新品';
-            } else if (this.type === 3) {
-              return '组合商品';
-            } else if (this.type === 4) {
-              return '推荐商品';
-            } else {
-              return '商品列表';
-            }
-          }
         }
       });
 
