@@ -21,9 +21,9 @@ require(['Vue'],
     Vue.config.delimiters = ['${', '}'];
     Vue.config.unsafeDelimiters = ['{!!', '!!}'];
 
-    $(document).on("pageInit", "#book-confirm", function (e, id, page) {
+    $(document).on("pageInit", "#page-book-confirm", function (e, id, page) {
       var vm = new Vue({
-        el: '#book-confirm',
+        el: '#page-book-confirm',
         data: {
           payment: 1
         }
@@ -42,19 +42,19 @@ require(['Vue'],
       });
     });
 
-    $(document).on("pageInit", "#book-complete", function (e, id, page) {
+    $(document).on("pageInit", "#page-book-complete", function (e, id, page) {
       $("title").text('提交完成');
       var vm = new Vue({
-        el: '#book-complete',
+        el: '#page-book-complete',
         data: {
         }
       });
     });
 
-    $(document).on("pageInit", "#book-pay-way", function (e, id, page) {
+    $(document).on("pageInit", "#page-book-pay-way", function (e, id, page) {
       $("title").text('在线支付');
       var vm = new Vue({
-        el: '#book-pay-way',
+        el: '#page-book-pay-way',
         data: {
         }
       });

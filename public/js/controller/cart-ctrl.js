@@ -21,9 +21,9 @@ require(['Vue'],
     Vue.config.delimiters = ['${', '}'];
     Vue.config.unsafeDelimiters = ['{!!', '!!}'];
 
-    $(document).on("pageInit", "#cart", function (e, id, page) {
+    $(document).on("pageInit", "#page-cart", function (e, id, page) {
       var vm = new Vue({
-        el: '#cart',
+        el: '#page-cart',
         data: {
           allChecked: false
         }

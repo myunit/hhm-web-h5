@@ -21,9 +21,9 @@ require(['Vue'],
     Vue.config.delimiters = ['${', '}'];
     Vue.config.unsafeDelimiters = ['{!!', '!!}'];
 
-    $(document).on("pageInit", "#product-class", function (e, id, page) {
+    $(document).on("pageInit", "#page-product-class", function (e, id, page) {
       var vm = new Vue({
-        el: '#product-class',
+        el: '#page-product-class',
         data: {
           search: ''
         }
@@ -34,10 +34,10 @@ require(['Vue'],
       });
     });
 
-    $(document).on("pageInit", "#product-detail", function(e, id, page) {
+    $(document).on("pageInit", "#page-product-detail", function(e, id, page) {
       $("title").text('商品详情');
       var vm = new Vue({
-        el: '#product-detail',
+        el: '#page-product-detail',
         data: {
           isLike: false,
           cartNum: 3
@@ -98,10 +98,10 @@ require(['Vue'],
 
     });
 
-    $(document).on("pageInit", "#product-group-detail", function(e, id, page) {
+    $(document).on("pageInit", "#page-product-group-detail", function(e, id, page) {
       $("title").text('组合商品详情');
       var vm = new Vue({
-        el: '#product-group-detail',
+        el: '#page-product-group-detail',
         data: {
           isLike: false,
           cartNum: 3
@@ -159,7 +159,7 @@ require(['Vue'],
       });
     });
 
-    $(document).on("pageInit", "#product-list", function(e, id, page) {
+    $(document).on("pageInit", "#page-product-list", function(e, id, page) {
       var type = 0;
       if (window.location.pathname === '/product/sales') {
         type = 1;
@@ -172,7 +172,7 @@ require(['Vue'],
       }
 
       var vm = new Vue({
-        el: '#product-list',
+        el: '#page-product-list',
         data: {
           search: ''
         }
@@ -205,10 +205,10 @@ require(['Vue'],
       });
     });
 
-    $(document).on("pageInit", "#product-flash-deal-list", function(e, id, page) {
+    $(document).on("pageInit", "#page-product-flash-deal-list", function(e, id, page) {
       $("title").text('秒杀列表');
       var vm = new Vue({
-        el: '#product-flash-deal-list',
+        el: '#page-product-flash-deal-list',
         data: {
           search: ''
         }
