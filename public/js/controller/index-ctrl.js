@@ -22,6 +22,7 @@ require(['Vue'],
     Vue.config.unsafeDelimiters = ['{!!', '!!}'];
 
     $(document).on("pageInit", "#page-index", function (e, id, page) {
+      $("title").text('首页');
       var vm = new Vue({
         el: '#page-index',
         data: {
@@ -78,12 +79,53 @@ require(['Vue'],
         }
       });
 
+      $(page).on('click', '#login', function () {
+        if (!vm.isDisable) {
+          $.router.load('/choose-shop-style');
+        }
+      });
+    });
 
+    $(document).on("pageInit", "#page-choose-shop-style", function (e, id, page) {
+      $("title").text('完善店铺类型');
+      var vm = new Vue({
+        el: '#page-choose-shop-style',
+        data: {
+        }
+      });
+    });
 
-      $(page).on('click', '.icon-clear', function () {
-        vm.search = '';
+    $(document).on("pageInit", "#page-register", function (e, id, page) {
+      $("title").text('注册');
+      var vm = new Vue({
+        el: '#page-register',
+        data: {
+          captchaTip: '获取验证码',
+          isSendCaptcha: false,
+          isDisable: true
+        }
       });
 
+      $(page).on('click', '#sendCaptcha', function () {
+        var time = 60;
+        vm.captchaTip = time + '秒';
+        vm.isSendCaptcha = true;
+        vm.isDisable = false;
+        var sendCaptchaInterval = setInterval(function () {
+          time--;
+          if(time > 9) {
+            vm.captchaTip = time + '秒';
+          } else {
+            vm.captchaTip = '0' + time + '秒';
+          }
+          if (time === 0) {
+            vm.captchaTip = '获取验证码';
+            vm.isSendCaptcha = false;
+            vm.isDisable = true;
+            clearInterval(sendCaptchaInterval);
+          }
+        }, 1000);
+      });
     });
 
     $.init();
