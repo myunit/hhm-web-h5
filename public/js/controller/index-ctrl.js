@@ -21,9 +21,9 @@ require(['Vue'],
     Vue.config.delimiters = ['${', '}'];
     Vue.config.unsafeDelimiters = ['{!!', '!!}'];
 
-    $(document).on("pageInit", "#index-page", function (e, id, page) {
+    $(document).on("pageInit", "#page-index", function (e, id, page) {
       var vm = new Vue({
-        el: '#index-page',
+        el: '#page-index',
         data: {
           search: '',
           hour: '02',
@@ -62,6 +62,28 @@ require(['Vue'],
           autoplayDisableOnInteraction: false
         });
       });
+    });
+
+    $(document).on("pageInit", "#page-login", function (e, id, page) {
+      var vm = new Vue({
+        el: '#page-login',
+        data: {
+          phone: '',
+          password: ''
+        },
+        computed: {
+          'isDisable': function () {
+            return !(this.phone.length && this.password.length);
+          }
+        }
+      });
+
+
+
+      $(page).on('click', '.icon-clear', function () {
+        vm.search = '';
+      });
+
     });
 
     $.init();

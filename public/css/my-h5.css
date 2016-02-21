@@ -17,6 +17,7 @@ body{ font-size:.71rem;}
 .button{ border: 1px solid #cacaca;color: #666;}
 .button.button-big{ font-size:.94rem;}
 .button.button-fill { background:#f86b4f;}
+.button.button-fill.button-disable { background: #cfcfcf;}
 .button-fill-white{ background:#fff; color:#3d4145; border-color:#fff;}
 .button-fill-white-red{ background:#fff; color:#f7816d; border-color:#fff;}
 .button-red {border-color: #f86b4f;color: #f86b4f;}
