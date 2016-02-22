@@ -163,11 +163,12 @@ require(['Vue'],
           return;
         }
 
-        if (vm.password === vm.rePassword) {
+        if (vm.password != vm.rePassword) {
           $.toast("密码输入不一致");
           return;
         }
 
+        $.router.load('/choose-shop-style');
       });
 
     });
