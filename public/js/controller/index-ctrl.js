@@ -102,15 +102,30 @@ require(['Vue'],
         data: {
           captchaTip: '获取验证码',
           isSendCaptcha: false,
-          isDisable: true
+          isDisable: true,
+          captchaMsg: '',
+          captcha: '',
+          password: '',
+          rePassword: '',
+          phone: ''
         }
       });
 
       $(page).on('click', '#sendCaptcha', function () {
+        if (vm.isSendCaptcha) {
+          return;
+        }
+
+        if (!vm.phone) {
+          $.toast("手机号不能为空");
+          return;
+        }
+
         var time = 60;
         vm.captchaTip = time + '秒';
         vm.isSendCaptcha = true;
         vm.isDisable = false;
+        vm.captchaMsg = '如果您未收到短信，请在60秒后再次获取';
         var sendCaptchaInterval = setInterval(function () {
           time--;
           if(time > 9) {
@@ -122,10 +137,39 @@ require(['Vue'],
             vm.captchaTip = '获取验证码';
             vm.isSendCaptcha = false;
             vm.isDisable = true;
+            vm.captchaMsg = '';
             clearInterval(sendCaptchaInterval);
           }
         }, 1000);
       });
+
+      $(page).on('click', '#submitReg', function () {
+        if (!vm.isSendCaptcha) {
+          return;
+        }
+
+        if (!vm.phone) {
+          $.toast("手机号不能为空");
+          return;
+        }
+
+        if (!vm.captcha) {
+          $.toast("验证码不能为空");
+          return;
+        }
+
+        if (!vm.password) {
+          $.toast("密码不能为空");
+          return;
+        }
+
+        if (vm.password === vm.rePassword) {
+          $.toast("密码输入不一致");
+          return;
+        }
+
+      });
+
     });
 
     $.init();

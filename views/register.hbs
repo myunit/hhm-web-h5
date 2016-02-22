@@ -9,7 +9,7 @@
                                 <div class="item-media"><i class="icon icon-mobile"></i></div>
                                 <div class="item-inner">
                                     <div class="item-input">
-                                        <input type="text" value="13575154152">
+                                        <input type="text" placeholder="请输入手机号" v-model="phone">
                                     </div>
                                 </div>
                             </div>
@@ -20,14 +20,14 @@
                                 <div class="item-inner">
                                     <a v-cloak href="#" id="sendCaptcha" class="my-a-reset my-26-text" :class= "{'my-black-text':!isSendCaptcha , 'my-gray-text':isSendCaptcha}">${captchaTip}</a>
                                     <div class="item-input">
-                                        <input type="password" placeholder="请输入验证码">
+                                        <input type="password" placeholder="请输入验证码" v-model="captcha">
                                     </div>
                                 </div>
                             </div>
                         </li>
                     </ul>
                 </div>
-                <p class="my-gray-text" v-show="isSendCaptcha">如果您未收到短信，请在60秒后再次获取</p>
+                <p id="captchaMsg" class="my-gray-text">${captchaMsg}</p>
                 <div class="list-block my-0-mar">
                     <ul class="my-ul-border my-0-mar">
                         <li>
@@ -35,7 +35,7 @@
                                 <div class="item-media"><i class="icon icon-lock"></i></div>
                                 <div class="item-inner">
                                     <div class="item-input">
-                                        <input type="text" placeholder="请输入新密码">
+                                        <input type="text" placeholder="请输入新密码" v-model="password">
                                     </div>
                                 </div>
                             </div>
@@ -45,14 +45,14 @@
                                 <div class="item-media"><i class="icon icon-lock"></i></div>
                                 <div class="item-inner">
                                     <div class="item-input">
-                                        <input type="password" placeholder="请再次输入新密码">
+                                        <input type="password" placeholder="请再次输入新密码" v-model="rePassword">
                                     </div>
                                 </div>
                             </div>
                         </li>
                     </ul>
                 </div>
-                <p class="my-50-mar" v-cloak><a href="#" class="button button-fill button-big" :class="{'button-disable': isDisable}">下一步</a></p>
+                <p class="my-50-mar" v-cloak><a href="#" id="submitReg" class="button button-fill button-big" :class="{'button-disable': isDisable}">下一步</a></p>
             </div>
         </div>
     </div>
