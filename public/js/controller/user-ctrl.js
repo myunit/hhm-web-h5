@@ -47,7 +47,7 @@ require(['Vue'],
       });
 
       $(page).on('click', '#linkAddress', function () {
-        $.router.load('/address');
+        location.href = '/address/manage';
       });
 
     });

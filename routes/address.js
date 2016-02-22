@@ -11,6 +11,10 @@ router.get('/', function(req, res, next) {
   res.render('address-select', { title: '选择地址-好好卖' });
 });
 
+router.get('/manage', function(req, res, next) {
+  res.render('address-select', { title: '选择地址-好好卖' });
+});
+
 router.get('/add', function(req, res, next) {
   res.render('address-edit', { title: '新增地址-好好卖' });
 });

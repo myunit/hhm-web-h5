@@ -22,7 +22,12 @@ require(['Vue'],
     Vue.config.unsafeDelimiters = ['{!!', '!!}'];
 
     $(document).on("pageInit", "#page-address-select", function (e, id, page) {
-      $("title").text('选择地址');
+      if (window.location.pathname === '/address') {
+        $("title").text('选择地址');
+      } else if (window.location.pathname === '/address/manage') {
+        $("title").text('地址管理');
+      }
+
       var vm = new Vue({
         el: '#page-address-select',
         data: {}
