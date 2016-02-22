@@ -401,6 +401,10 @@ label.label-checkbox input[type="radio"]:checked + .item-media i.icon-form-check
 .my-address .row{ padding:0 .75rem;}
 .my-address .my-right-text{ line-height:1.6rem;}
 
+/*-------------------------------------------------------------账户管理，店铺类型页-------------------------------------------------------------*/
+.my-shop-list a {color: #333;}
+.my-shop-list .icon {color: #fff;}
+.my-shop-list .my-shop-active, .my-shop-list .my-shop-active .icon {color: #f96a4e;}
 
 /*------------------------------------------------图标字体自定义样式----------------------------------------------------------*/
 @font-face {font-family: "iconfont";
