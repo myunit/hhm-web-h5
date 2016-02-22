@@ -90,8 +90,7 @@ require(['Vue'],
       $("title").text('完善店铺类型');
       var vm = new Vue({
         el: '#page-choose-shop-style',
-        data: {
-        }
+        data: {}
       });
     });
 
@@ -128,7 +127,7 @@ require(['Vue'],
         vm.captchaMsg = '如果您未收到短信，请在60秒后再次获取';
         var sendCaptchaInterval = setInterval(function () {
           time--;
-          if(time > 9) {
+          if (time > 9) {
             vm.captchaTip = time + '秒';
           } else {
             vm.captchaTip = '0' + time + '秒';
@@ -168,9 +167,27 @@ require(['Vue'],
           return;
         }
 
-        $.router.load('/choose-shop-style');
+        $.router.load('/register-complete');
       });
 
+    });
+
+    $(document).on("pageInit", "#page-register-complete", function (e, id, page) {
+      $("title").text('信息完善');
+      var vm = new Vue({
+        el: '#page-register-complete',
+        data: {}
+      });
+
+      $("#city-picker").cityPicker({
+        toolbarTemplate: '<header class="bar bar-nav"><button class="button button-link pull-right close-picker">确定</button>\
+        <h1 class="title">选择收货地址</h1></header>'
+      });
+
+      $(page).on('click', '#submitReg', function () {
+        $.toast("恭喜您，注册成功！", 1000);
+        $.router.load('/index');
+      });
     });
 
     $.init();

@@ -18,4 +18,8 @@ router.get('/register', function(req, res, next) {
   res.render('register', { title: '注册-好好卖' });
 });
 
+router.get('/register-complete', function(req, res, next) {
+  res.render('register-complete', { title: '信息完善-好好卖' });
+});
+
 module.exports = router;
