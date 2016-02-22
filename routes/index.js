@@ -22,4 +22,8 @@ router.get('/register-complete', function(req, res, next) {
   res.render('register-complete', { title: '信息完善-好好卖' });
 });
 
+router.get('/rest-password', function(req, res, next) {
+  res.render('rest-password', { title: '重置密码-好好卖' });
+});
+
 module.exports = router;

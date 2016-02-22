@@ -184,10 +184,79 @@ require(['Vue'],
         <h1 class="title">选择收货地址</h1></header>'
       });
 
-      $(page).on('click', '#submitReg', function () {
+      $(page).on('click', '.button', function () {
         $.toast("恭喜您，注册成功！", 1000);
         $.router.load('/index');
       });
+    });
+
+    $(document).on("pageInit", "#page-rest-password", function (e, id, page) {
+      $("title").text('重置密码');
+      var vm = new Vue({
+        el: '#page-rest-password',
+        data: {
+          captchaTip: '获取验证码',
+          isSendCaptcha: false,
+          isDisable: true,
+          captchaMsg: '',
+          captcha: '',
+          password: '',
+          rePassword: '',
+          phone: '13758087094'
+        }
+      });
+
+      $(page).on('click', '#sendCaptcha', function () {
+        if (vm.isSendCaptcha) {
+          return;
+        }
+
+        var time = 60;
+        vm.captchaTip = time + '秒';
+        vm.isSendCaptcha = true;
+        vm.isDisable = false;
+        vm.captchaMsg = '如果您未收到短信，请在60秒后再次获取';
+        var sendCaptchaInterval = setInterval(function () {
+          time--;
+          if (time > 9) {
+            vm.captchaTip = time + '秒';
+          } else {
+            vm.captchaTip = '0' + time + '秒';
+          }
+          if (time === 0) {
+            vm.captchaTip = '获取验证码';
+            vm.isSendCaptcha = false;
+            vm.isDisable = true;
+            vm.captchaMsg = '';
+            clearInterval(sendCaptchaInterval);
+          }
+        }, 1000);
+      });
+
+      $(page).on('click', '#restPW', function () {
+        if (!vm.isSendCaptcha) {
+          return;
+        }
+
+        if (!vm.captcha) {
+          $.toast("验证码不能为空");
+          return;
+        }
+
+        if (!vm.password) {
+          $.toast("密码不能为空");
+          return;
+        }
+
+        if (vm.password != vm.rePassword) {
+          $.toast("密码输入不一致");
+          return;
+        }
+
+        $.toast("新密码设置成功！", 1000);
+        $.router.load('/');
+      });
+
     });
 
     $.init();
