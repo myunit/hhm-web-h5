@@ -46,6 +46,10 @@ require(['Vue'],
         $.router.load('/users/change-shop-style');
       });
 
+      $(page).on('click', '#linkAddress', function () {
+        $.router.load('/address');
+      });
+
     });
 
     $(document).on("pageInit", "#page-change-shop-name", function (e, id, page) {
