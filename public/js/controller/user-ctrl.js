@@ -49,7 +49,6 @@ require(['Vue'],
       $(page).on('click', '#linkAddress', function () {
         location.href = '/address/manage';
       });
-
     });
 
     $(document).on("pageInit", "#page-change-shop-name", function (e, id, page) {
