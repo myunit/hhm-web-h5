@@ -81,7 +81,7 @@ require(['Vue'],
 
       $(page).on('click', '#login', function () {
         if (!vm.isDisable) {
-          $.router.load('/choose-shop-style');
+          location.href = '/choose-shop-style';
         }
       });
     });
@@ -167,7 +167,7 @@ require(['Vue'],
           return;
         }
 
-        $.router.load('/register-complete');
+        location.href = '/register-complete';
       });
 
     });
@@ -186,7 +186,7 @@ require(['Vue'],
 
       $(page).on('click', '.button', function () {
         $.toast("恭喜您，注册成功！", 1000);
-        $.router.load('/index');
+        location.href = '/index';
       });
     });
 
@@ -254,7 +254,7 @@ require(['Vue'],
         }
 
         $.toast("新密码设置成功！", 1000);
-        $.router.load('/');
+        location.href = '/';
       });
 
     });

@@ -31,12 +31,12 @@ require(['Vue'],
 
       $(page).on('click', '#submitBook', function () {
         if(vm.payment === 1) {
-          $.router.load('/book/pay-way', true);
+          location.href = '/book/pay-way';
           return;
         }
 
         if(vm.payment === 2) {
-          $.router.load('/book/complete');
+          location.href = '/book/complete';
           return;
         }
       });

@@ -39,11 +39,11 @@ require(['Vue'],
       });
 
       $(page).on('click', '#linkName', function () {
-        $.router.load('/users/change-shop-name');
+        location.href = '/users/change-shop-name';
       });
 
       $(page).on('click', '#linkType', function () {
-        $.router.load('/users/change-shop-style');
+        location.href = '/users/change-shop-style';
       });
 
       $(page).on('click', '#linkAddress', function () {
@@ -60,7 +60,7 @@ require(['Vue'],
       });
 
       $(page).on('click', '.button', function () {
-        $.router.load('/users/account');
+        location.href = '/users/account';
       });
 
     });
@@ -76,7 +76,7 @@ require(['Vue'],
       $(page).on('click', 'li a', function () {
         $('li a').removeClass('my-shop-active');
         $(this).addClass('my-shop-active');
-        $.router.load('/users/account');
+        location.href = '/users/account';
       });
 
     });
