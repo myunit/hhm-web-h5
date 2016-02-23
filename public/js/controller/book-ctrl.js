@@ -43,7 +43,6 @@ require(['Vue'],
     });
 
     $(document).on("pageInit", "#page-book-complete", function (e, id, page) {
-      $("title").text('提交完成');
       var vm = new Vue({
         el: '#page-book-complete',
         data: {
@@ -52,7 +51,6 @@ require(['Vue'],
     });
 
     $(document).on("pageInit", "#page-book-pay-way", function (e, id, page) {
-      $("title").text('在线支付');
       var vm = new Vue({
         el: '#page-book-pay-way',
         data: {

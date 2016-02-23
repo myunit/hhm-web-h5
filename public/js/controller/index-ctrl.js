@@ -22,7 +22,6 @@ require(['Vue'],
     Vue.config.unsafeDelimiters = ['{!!', '!!}'];
 
     $(document).on("pageInit", "#page-index", function (e, id, page) {
-      $("title").text('首页');
       var vm = new Vue({
         el: '#page-index',
         data: {
@@ -87,7 +86,6 @@ require(['Vue'],
     });
 
     $(document).on("pageInit", "#page-choose-shop-style", function (e, id, page) {
-      $("title").text('完善店铺类型');
       var vm = new Vue({
         el: '#page-choose-shop-style',
         data: {}
@@ -95,7 +93,6 @@ require(['Vue'],
     });
 
     $(document).on("pageInit", "#page-register", function (e, id, page) {
-      $("title").text('注册');
       var vm = new Vue({
         el: '#page-register',
         data: {
@@ -173,7 +170,6 @@ require(['Vue'],
     });
 
     $(document).on("pageInit", "#page-register-complete", function (e, id, page) {
-      $("title").text('信息完善');
       var vm = new Vue({
         el: '#page-register-complete',
         data: {}
@@ -191,7 +187,6 @@ require(['Vue'],
     });
 
     $(document).on("pageInit", "#page-rest-password", function (e, id, page) {
-      $("title").text('重置密码');
       var vm = new Vue({
         el: '#page-rest-password',
         data: {

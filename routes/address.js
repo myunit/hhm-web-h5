@@ -12,7 +12,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/manage', function(req, res, next) {
-  res.render('address-select', { title: '选择地址-好好卖' });
+  res.render('address-select', { title: '地址管理-好好卖' });
 });
 
 router.get('/add', function(req, res, next) {

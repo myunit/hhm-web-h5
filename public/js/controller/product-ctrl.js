@@ -35,7 +35,6 @@ require(['Vue'],
     });
 
     $(document).on("pageInit", "#page-product-detail", function(e, id, page) {
-      $("title").text('商品详情');
       var vm = new Vue({
         el: '#page-product-detail',
         data: {
@@ -99,7 +98,6 @@ require(['Vue'],
     });
 
     $(document).on("pageInit", "#page-product-group-detail", function(e, id, page) {
-      $("title").text('组合商品详情');
       var vm = new Vue({
         el: '#page-product-group-detail',
         data: {
@@ -206,7 +204,6 @@ require(['Vue'],
     });
 
     $(document).on("pageInit", "#page-product-flash-deal-list", function(e, id, page) {
-      $("title").text('秒杀列表');
       var vm = new Vue({
         el: '#page-product-flash-deal-list',
         data: {

@@ -31,7 +31,6 @@ require(['Vue'],
     });
 
     $(document).on("pageInit", "#page-my-account", function (e, id, page) {
-      $("title").text('账户管理');
       var vm = new Vue({
         el: '#page-my-account',
         data: {
@@ -52,7 +51,6 @@ require(['Vue'],
     });
 
     $(document).on("pageInit", "#page-change-shop-name", function (e, id, page) {
-      $("title").text('店铺名称');
       var vm = new Vue({
         el: '#page-change-shop-name',
         data: {
@@ -66,7 +64,6 @@ require(['Vue'],
     });
 
     $(document).on("pageInit", "#page-change-shop-style", function (e, id, page) {
-      $("title").text('店铺类型');
       var vm = new Vue({
         el: '#page-change-shop-style',
         data: {

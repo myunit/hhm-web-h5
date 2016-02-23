@@ -22,12 +22,6 @@ require(['Vue'],
     Vue.config.unsafeDelimiters = ['{!!', '!!}'];
 
     $(document).on("pageInit", "#page-address-select", function (e, id, page) {
-      if (window.location.pathname === '/address') {
-        $("title").text('选择地址');
-      } else if (window.location.pathname === '/address/manage') {
-        $("title").text('地址管理');
-      }
-
       var vm = new Vue({
         el: '#page-address-select',
         data: {}
@@ -36,11 +30,6 @@ require(['Vue'],
     });
 
     $(document).on("pageInit", "#page-address-edit", function (e, id, page) {
-      if (window.location.pathname === '/address/add') {
-        $("title").text('新增地址');
-      } else if (window.location.pathname === '/address/modify') {
-        $("title").text('修改地址');
-      }
       var vm = new Vue({
         el: '#page-address-edit',
         data: {}
