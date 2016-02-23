@@ -146,11 +146,70 @@ require(['Vue','Utils'],
     });
 
     $(document).on("pageInit", "#page-my-buy-report-result", function (e, id, page) {
-      console.log('1111');
       var vm = new Vue({
         el: '#page-my-buy-report-result',
         data: {
         }
+      });
+
+    });
+
+    $(document).on("pageInit", "#page-my-fav", function (e, id, page) {
+      var vm = new Vue({
+        el: '#page-my-fav',
+        data: {
+          search: '',
+          cartNum: 30
+        }
+      });
+
+      $(page).on('click','.icon-clear', function () {
+        vm.search = '';
+      });
+
+      $(page).on('click','.icon-like', function () {
+        if ($(this).hasClass("icon-likeactive")) {
+          $(this).removeClass("icon-likeactive");
+          $(this).children('span').text('收藏');
+        } else {
+          $(this).addClass("icon-likeactive");
+          $(this).children('span').text('已收藏');
+        }
+      });
+
+      $(page).on('click','.icon-clear', function () {
+        vm.search = '';
+      });
+
+      $(page).on('click','.button', function () {
+        $.popup('.popup-cart');
+      });
+
+      var cartVm = new Vue({
+        el: '#popup-cart',
+        data: {
+          addCartNum: 1
+        }
+      });
+
+      $(document).on('click','.close-popup', function () {
+        vm.cartNum += cartVm.addCartNum;
+        cartVm.addCartNum = 1;
+      });
+
+      $(document).on('click','.em-op-d', function () {
+        if (cartVm.addCartNum > 1) {
+          cartVm.addCartNum--;
+        }
+      });
+
+      $(document).on('click','.em-op-a', function () {
+        cartVm.addCartNum++;
+      });
+
+      $(document).on('click','.my-ul-spec li', function () {
+        $('.my-ul-spec li').removeClass('my-spec-on');
+        $(this).addClass('my-spec-on');
       });
 
     });

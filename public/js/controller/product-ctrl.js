@@ -66,7 +66,7 @@ require(['Vue'],
         }
       });
 
-      $(document).on('click','.my-a-cart', function () {
+      $(document).on('click','.close-popup', function () {
         vm.cartNum += cartVm.addCartNum;
         cartVm.addCartNum = 1;
       });
@@ -127,7 +127,7 @@ require(['Vue'],
         }
       });
 
-      $(document).on('click','.my-a-cart', function () {
+      $(document).on('click','.close-popup', function () {
         vm.cartNum += cartVm.addCartNum;
         cartVm.addCartNum = 1;
       });

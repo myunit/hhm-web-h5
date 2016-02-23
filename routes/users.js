@@ -34,4 +34,8 @@ router.get('/buy-report-result', function(req, res, next) {
   res.render('my-buy-report-result', { title: '采购报表-好好卖' });
 });
 
+router.get('/my-fav', function(req, res, next) {
+  res.render('my-fav', { title: '我的收藏-好好卖' });
+});
+
 module.exports = router;
