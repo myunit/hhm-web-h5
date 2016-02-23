@@ -316,7 +316,7 @@ label.label-checkbox input[type="radio"]:checked + .item-media i.icon-form-check
 .my-table-buy-report td{font-size:.76rem; padding:.7rem;border-bottom:1px solid #d3d3d3;text-align:left;}
 .my-table-buy-report tr:nth-child(odd) td{ background:#fff; }
 .my-table-buy-report tr td:last-child,.my-table-fix tr th:last-child{ text-align:right; }
-.my-table-fix{ position:fixed;top:2.2rem; left:0;}
+.my-table-fix{ position:fixed;top:0; left:0;}
 .my-buy-report-total{ background:#fff; font-size:.76rem; text-align:right; padding:.7rem;}
 
 /*我的*/

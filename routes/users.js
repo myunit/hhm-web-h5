@@ -26,4 +26,12 @@ router.get('/my-book', function(req, res, next) {
   res.render('my-book', { title: '我的订单-好好卖' });
 });
 
+router.get('/buy-report', function(req, res, next) {
+  res.render('my-buy-report', { title: '采购报表-好好卖' });
+});
+
+router.get('/buy-report-result', function(req, res, next) {
+  res.render('my-buy-report-result', { title: '采购报表-好好卖' });
+});
+
 module.exports = router;

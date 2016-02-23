@@ -1,0 +1,45 @@
+<div class="page-group">
+    <div id="page-my-buy-report" class="page page-current">
+        <div class="content native-scroll">
+            <div class="content-padded">
+                <p class="my-gray-text">您可以输入开始时间和截止时间来统计该时间段内您 在好好卖采购的商品明细、数量及金额
+                </p>
+                <div class="list-block my-0-mar my-no-icon">
+                    <ul class="my-ul-border my-0-mar">
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">开始时间</div>
+                                    <div class="item-input">
+                                        <input type="text" :placeholder="start" id="my-start-time">
+                                        <span class="icon icon-calendar my-bg-calendar"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <p class="my-gray-text"></p>
+                <div class="list-block my-0-mar my-no-icon">
+                    <ul class="my-ul-border my-0-mar">
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">截至时间</div>
+                                    <div class="item-input">
+                                        <input type="text" :placeholder="end" id="my-end-time">
+                                        <span class="icon icon-calendar my-bg-calendar"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <p class="my-50-mar"><a href="#" class="button button-fill button-big">查询</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+<script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='../js/lib/requirejs.min.js' data-main='../js/controller/user-ctrl'></script>

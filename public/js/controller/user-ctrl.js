@@ -6,17 +6,21 @@
 require.config({
   baseUrl: '../js',
   paths: {
-    'Vue': './lib/vue.min'
+    'Vue': './lib/vue.min',
+    'Utils': './lib/utils'
   },
   shim: {
     'Vue': {
       exports: 'Vue'
+    },
+    'Utils': {
+      exports: 'Utils'
     }
   }
 });
 
-require(['Vue'],
-  function (Vue) {
+require(['Vue','Utils'],
+  function (Vue, Utils) {
     'use strict';
     Vue.config.delimiters = ['${', '}'];
     Vue.config.unsafeDelimiters = ['{!!', '!!}'];
@@ -114,6 +118,39 @@ require(['Vue'],
         }
         $.toast("新密码设置成功！", 1000);
         window.history.back();
+      });
+
+    });
+
+    $(document).on("pageInit", "#page-my-buy-report", function (e, id, page) {
+      var dateTime = Utils.dateFormat(new Date(), 'yyyy-MM-dd');
+      var vm = new Vue({
+        el: '#page-my-buy-report',
+        data: {
+          start: dateTime,
+          end: dateTime
+        }
+      });
+
+      $(page).on('click', '.button', function () {
+        $.router.load('/users/buy-report-result');
+      });
+
+      $("#my-start-time").calendar({
+        value: [vm.start]
+      });
+      $("#my-end-time").calendar({
+        value: [vm.end]
+      });
+
+    });
+
+    $(document).on("pageInit", "#page-my-buy-report-result", function (e, id, page) {
+      console.log('1111');
+      var vm = new Vue({
+        el: '#page-my-buy-report-result',
+        data: {
+        }
       });
 
     });
