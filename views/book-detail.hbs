@@ -1,19 +1,28 @@
 <div class="page-group">
-    <div id="page-book-confirm" class="page page-current">
-        <nav class="bar bar-tab my-booking-bar">
-            <div class="row">
-                <div class="col-60 my-28-text">
-                    实付金额 :<span class="my-red-text"> ￥290.00</span>
-                </div>
-                <div class="col-40"><a id="submitBook" href="#" class="my-28-text external">提交订单</a></div>
-            </div>
-        </nav>
+    <div class="page page-current">
+        <header class="bar bar-nav">
+            <a class="icon icon-left pull-left my-red-text"></a>
+            <h1 class="title">订单详情</h1>
+        </header>
+
 
         <div class="content native-scroll">
-            <div class="list-block media-list my-booking-address">
+            <div class="list-block my-booking-detail ">
                 <ul>
-                    <li>
-                        <a href="/address" class="item-link item-content external">
+                    <li class="my-28-text">订单编号 : 10004</li>
+                    <li class="my-26-text my-gray-text">下单时间：2015-06-09 15:36:05
+                        <br> 订单状态：
+                        <span class="my-red-text">待付款</span>
+                        <br> 订单金额：￥285.00
+                    </li>
+                </ul>
+            </div>
+
+            <div class="list-block  media-list my-booking-detail my-booking-address">
+                <ul>
+                    <li class="my-28-text">付款方式: <span class="my-gray-text">在线付款</span></li>
+                    <li class="my-0-pad">
+                        <a href="#" class="item-link item-content">
                             <div class="item-inner">
                                 <div class="item-title-row">
                                     <div class="item-title">王老板</div>
@@ -28,42 +37,12 @@
                 </ul>
             </div>
 
-            <div class="content-block-title my-list-title my-t20-mar">支付方式</div>
-            <div class="list-block my-div-pay-way">
-                <ul>
-                    <label class="label-checkbox">
-                        <li class="item-content">
-                            <div class="item-inner">
-                                <div class="item-title"><span class="icon icon-card"></span>在线支付</div>
-                                <div class="item-after">
-                                    <input type="radio" checked name="single-radio" v-model="payment" :value="1">
-                                    <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
-                                </div>
-                            </div>
-                        </li>
-                    </label>
-                    <label class="label-checkbox">
-                        <li class="item-content">
-                            <div class="item-inner">
-                                <div class="item-title"><span class="icon icon-cashondeliver"></span>货到付款</div>
-                                <div class="item-after">
-                                    <input type="radio" name="single-radio" v-model="payment" :value="2">
-                                    <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
-                                </div>
-                            </div>
-                        </li>
-                    </label>
-                </ul>
-            </div>
-
-            <div class="content-block-title my-list-title my-t20-mar">订单详情:
-                <a href="/cart/cart-no-footer" class="button external">返回购物车</a>
-            </div>
+            <div class="content-block-title my-list-title my-t20-mar">商品列表:</div>
             <div class="list-block media-list my-booking-list">
                 <ul>
                     <li>
                         <div class="item-content">
-                            <div class="item-media"><img src="../images/demo/cart.gif" style='width: 3.4rem;'></div>
+                            <div class="item-media"><img src="images/demo/cart.gif" style="width: 3.4rem;"></div>
                             <div class="item-inner">
                                 <div class="item-title-row">
                                     <div class="item-title  my-24-text">商品名称商品名称商品名称商品名称商品 名称商品名称
@@ -79,7 +58,7 @@
                     </li>
                     <li>
                         <div class="item-content">
-                            <div class="item-media"><img src="../images/demo/cart.gif" style='width: 3.4rem;'></div>
+                            <div class="item-media"><img src="images/demo/cart.gif" style="width: 3.4rem;"></div>
                             <div class="item-inner">
                                 <div class="item-title-row">
                                     <div class="item-title  my-24-text">商品名称商品名称商品名称商品名称商品 名称商品名称
@@ -100,17 +79,10 @@
                     </li>
                 </ul>
             </div>
-
-            <div class="row my-div-booking-total">
-                <div class="col-50">商品金额
-                    <br>优惠</div>
-                <div class="col-50 my-red-text my-right-text">¥ 302.50
-                    <br>¥ -17.00</div>
-            </div>
+            <div class="content-padded my-a-booking-detail"><a href="#" class="button button-fill">去付款</a> <a href="#" class="button my-white-bg">取消订单</a></div>
         </div>
     </div>
 </div>
-
 <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='../js/lib/requirejs.min.js' data-main='../js/controller/book-ctrl'></script>
