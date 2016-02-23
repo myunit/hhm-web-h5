@@ -72,16 +72,28 @@ require(['Vue'],
           password: ''
         },
         computed: {
-          'isDisable': function () {
-            return !(this.phone.length && this.password.length);
+          isDisable: function () {
+            return this.phone.length === 0 || this.password.length === 0;
           }
         }
       });
 
       $(page).on('click', '#login', function () {
-        if (!vm.isDisable) {
-          location.href = '/choose-shop-style';
+        if (!vm.phone) {
+          $.toast("请输入手机号", 1000);
+          return;
         }
+
+        if (!vm.password) {
+          $.toast("请输入密码", 1000);
+          return;
+        }
+
+        if (vm.isDisable) {
+          return;
+        }
+
+        location.href = '/choose-shop-style';
       });
     });
 
