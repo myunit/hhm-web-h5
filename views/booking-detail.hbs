@@ -1,18 +1,12 @@
 <div class="page-group">
-    <div class="page page-current">
-        <header class="bar bar-nav">
-            <a class="icon icon-left pull-left my-red-text"></a>
-            <h1 class="title">订单详情</h1>
-        </header>
-
-
+    <div id="page-book-detail" class="page page-current">
         <div class="content native-scroll">
             <div class="list-block my-booking-detail ">
                 <ul>
                     <li class="my-28-text">订单编号 : 10004</li>
                     <li class="my-26-text my-gray-text">下单时间：2015-06-09 15:36:05
                         <br> 订单状态：
-                        <span class="my-red-text">待付款</span>
+                        <span class="my-red-text" v-cloak>${bookStatus}</span>
                         <br> 订单金额：￥285.00
                     </li>
                 </ul>
@@ -42,7 +36,7 @@
                 <ul>
                     <li>
                         <div class="item-content">
-                            <div class="item-media"><img src="images/demo/cart.gif" style="width: 3.4rem;"></div>
+                            <div class="item-media"><img src="../images/demo/cart.gif" style="width: 3.4rem;"></div>
                             <div class="item-inner">
                                 <div class="item-title-row">
                                     <div class="item-title  my-24-text">商品名称商品名称商品名称商品名称商品 名称商品名称
@@ -58,7 +52,7 @@
                     </li>
                     <li>
                         <div class="item-content">
-                            <div class="item-media"><img src="images/demo/cart.gif" style="width: 3.4rem;"></div>
+                            <div class="item-media"><img src="../images/demo/cart.gif" style="width: 3.4rem;"></div>
                             <div class="item-inner">
                                 <div class="item-title-row">
                                     <div class="item-title  my-24-text">商品名称商品名称商品名称商品名称商品 名称商品名称
@@ -79,7 +73,10 @@
                     </li>
                 </ul>
             </div>
-            <div class="content-padded my-a-booking-detail"><a href="#" class="button button-fill">去付款</a> <a href="#" class="button my-white-bg">取消订单</a></div>
+            <div class="content-padded my-a-booking-detail" v-cloak>
+                <a href="#" class="button button-fill" v-if="isNeedPay">去付款</a>
+                <a href="#" class="button my-white-bg" v-if="isOperate">${operateName}</a>
+            </div>
         </div>
     </div>
 </div>

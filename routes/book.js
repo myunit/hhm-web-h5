@@ -20,7 +20,7 @@ router.get('/pay-way', function(req, res, next) {
 });
 
 router.get('/detail', function(req, res, next) {
-  res.render('book-detail', { title: '提交完成-好好卖' });
+  res.render('booking-detail', { title: '订单详情-好好卖' });
 });
 
 
