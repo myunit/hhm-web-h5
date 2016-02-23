@@ -22,4 +22,8 @@ router.get('/change-password', function(req, res, next) {
   res.render('change-password', { title: '店铺名称-好好卖' });
 });
 
+router.get('/book', function(req, res, next) {
+  res.render('my-book', { title: '我的订单-好好卖' });
+});
+
 module.exports = router;
