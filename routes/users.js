@@ -39,7 +39,11 @@ router.get('/my-fav', function(req, res, next) {
 });
 
 router.get('/my-message', function(req, res, next) {
-  res.render('my-message', { title: '我的收藏-好好卖' });
+  res.render('my-message', { title: '我的消息-好好卖' });
+});
+
+router.get('/my-after-sale', function(req, res, next) {
+  res.render('my-after-sale', { title: '售后服务-好好卖' });
 });
 
 module.exports = router;
