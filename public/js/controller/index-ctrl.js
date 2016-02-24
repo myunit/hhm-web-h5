@@ -95,6 +95,10 @@ require(['Vue'],
 
         location.href = '/index';
       });
+
+      $(window).resize(function () {
+        $('.content').scrollTop($(window).height());
+      });
     });
 
     $(document).on("pageInit", "#page-choose-shop-style", function (e, id, page) {
