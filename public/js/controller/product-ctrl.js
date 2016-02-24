@@ -48,7 +48,8 @@ require(['Vue'],
         }
       });
 
-      $(page).on('click','.icon-like', function () {
+      $(page).on('click','.like', function () {
+        $(this).toggleClass('icon-like');
         $(this).toggleClass('icon-likeactive');
         vm.isLike = !vm.isLike;
       });
@@ -123,7 +124,8 @@ require(['Vue'],
         }
       });
 
-      $(page).on('click','.icon-like', function () {
+      $(page).on('click','.like', function () {
+        $(this).toggleClass('icon-like');
         $(this).toggleClass('icon-likeactive');
         vm.isLike = !vm.isLike;
       });

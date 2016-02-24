@@ -167,12 +167,12 @@ require(['Vue','Utils'],
         vm.search = '';
       });
 
-      $(page).on('click','.icon-like', function () {
-        if ($(this).hasClass("icon-likeactive")) {
-          $(this).removeClass("icon-likeactive");
+      $(page).on('click','.like', function () {
+        $(this).toggleClass('icon-like');
+        $(this).toggleClass('icon-likeactive');
+        if ($(this).hasClass("icon-like")) {
           $(this).children('span').text('收藏');
         } else {
-          $(this).addClass("icon-likeactive");
           $(this).children('span').text('已收藏');
         }
       });
