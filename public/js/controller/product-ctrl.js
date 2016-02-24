@@ -65,6 +65,7 @@ require(['Vue'],
         ],
         type: 'popup'
       });
+
       $(page).on('click','.pb-popup',function () {
         myPhotoBrowserPopup.open();
       });
@@ -77,7 +78,7 @@ require(['Vue'],
         }
       });
 
-      $(document).on('click','.close-popup', function () {
+      $(document).on('click','.popup-cart .close-popup', function () {
         vm.cartNum += cartVm.addCartNum;
         cartVm.addCartNum = 1;
       });

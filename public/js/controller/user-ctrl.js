@@ -221,6 +221,17 @@ require(['Vue','Utils'],
         }
       });
 
+      $(page).on('click', '.open-message-modal', function() {
+        $.modal({
+          title: '消息标题消息标题消息标题消息标题消息标题消息标题消息标题<span class="my-message-time">今天 09:45</span>',
+          text: '<p>又到了周四大特卖！还在等什么呢！手快有，手慢无，赶紧抢货咯！又到了周四大特卖！还在等什么呢！手快有，手慢无，赶紧抢货咯！又到了周四大特卖！还在等什么呢！手快有，手慢无，赶紧抢货咯！<p>',
+          extraClass: 'my-dialog',
+          buttons: [
+            {text: '<a href="#" class="icon icon-close my-black-text"></a>'}
+          ]
+        })
+      });
+
     });
 
     $.init();
