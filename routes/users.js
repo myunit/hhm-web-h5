@@ -38,4 +38,8 @@ router.get('/my-fav', function(req, res, next) {
   res.render('my-fav', { title: '我的收藏-好好卖' });
 });
 
+router.get('/my-message', function(req, res, next) {
+  res.render('my-message', { title: '我的收藏-好好卖' });
+});
+
 module.exports = router;

@@ -214,6 +214,15 @@ require(['Vue','Utils'],
 
     });
 
+    $(document).on("pageInit", "#page-my-message", function (e, id, page) {
+      var vm = new Vue({
+        el: '#page-my-message',
+        data: {
+        }
+      });
+
+    });
+
     $.init();
   }
 );

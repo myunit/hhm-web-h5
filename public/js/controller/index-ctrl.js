@@ -93,7 +93,7 @@ require(['Vue'],
           return;
         }
 
-        location.href = '/choose-shop-style';
+        location.href = '/index';
       });
     });
 

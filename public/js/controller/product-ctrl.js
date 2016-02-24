@@ -57,6 +57,17 @@ require(['Vue'],
         $('.content').scrollTop(0);
       });
 
+      var myPhotoBrowserPopup = $.photoBrowser({
+        photos : [
+          '../images/demo/home-tuijian-1.jpg',
+          '../images/demo/home-tuijian-2.jpg',
+          '../images/demo/home-tuijian-3.jpg'
+        ],
+        type: 'popup'
+      });
+      $(page).on('click','.pb-popup',function () {
+        myPhotoBrowserPopup.open();
+      });
 
 
       var cartVm = new Vue({
