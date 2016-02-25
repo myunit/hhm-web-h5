@@ -48,7 +48,7 @@ require(['Vue','Utils'],
       });
 
       $(page).on('click', '#linkAddress', function () {
-        location.href = '/address/manage';
+        location.href = '/users/my-address';
       });
 
       $(page).on('click', '#linkPassword', function () {
@@ -230,6 +230,24 @@ require(['Vue','Utils'],
             {text: '<a href="#" class="icon icon-close my-black-text"></a>'}
           ]
         })
+      });
+
+    });
+
+    $(document).on("pageInit", "#page-my-address", function (e, id, page) {
+      var vm = new Vue({
+        el: '#page-my-address',
+        data: {
+        }
+      });
+
+      $(page).on('click', '.label-checkbox', function() {
+        $('.label-checkbox').contents().filter(function() {
+          return this.nodeType === 3;
+        }).text('设为默认');
+        $(this).contents().filter(function() {
+          return this.nodeType === 3;
+        }).text('默认地址');
       });
 
     });

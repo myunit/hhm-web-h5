@@ -46,4 +46,8 @@ router.get('/my-after-sale', function(req, res, next) {
   res.render('my-after-sale', { title: '售后服务-好好卖' });
 });
 
+router.get('/my-address', function(req, res, next) {
+  res.render('my-address', { title: '地址管理-好好卖' });
+});
+
 module.exports = router;
