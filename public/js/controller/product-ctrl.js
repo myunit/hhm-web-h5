@@ -79,6 +79,15 @@ require(['Vue'],
         }
       });
 
+      cartVm.$watch('addCartNum', function (newVal, oldVal) {
+        if (isNaN(newVal) || newVal <= 0) {
+          $.toast('只能输入整数', 500);
+          Vue.nextTick(function () {
+            cartVm.addCartNum = oldVal; // true
+          });
+        }
+      });
+
       $(document).on('click','.popup-cart .close-popup', function () {
         vm.cartNum += cartVm.addCartNum;
         cartVm.addCartNum = 1;
@@ -141,6 +150,15 @@ require(['Vue'],
         }
       });
 
+      cartVm.$watch('addCartNum', function (newVal, oldVal) {
+        if (isNaN(newVal) || newVal <= 0) {
+          $.toast('只能输入整数', 500);
+          Vue.nextTick(function () {
+            cartVm.addCartNum = oldVal; // true
+          });
+        }
+      });
+
       $(document).on('click','.close-popup', function () {
         vm.cartNum += cartVm.addCartNum;
         cartVm.addCartNum = 1;
@@ -198,6 +216,15 @@ require(['Vue'],
         el: '#popup-cart',
         data: {
           addCartNum: 1
+        }
+      });
+
+      cartVm.$watch('addCartNum', function (newVal, oldVal) {
+        if (isNaN(newVal) || newVal <= 0) {
+          $.toast('只能输入整数', 500);
+          Vue.nextTick(function () {
+            cartVm.addCartNum = oldVal; // true
+          });
         }
       });
 

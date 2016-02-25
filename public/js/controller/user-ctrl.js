@@ -192,6 +192,15 @@ require(['Vue','Utils'],
         }
       });
 
+      cartVm.$watch('addCartNum', function (newVal, oldVal) {
+        if (isNaN(newVal) || newVal <= 0) {
+          $.toast('只能输入整数', 500);
+          Vue.nextTick(function () {
+            cartVm.addCartNum = oldVal; // true
+          });
+        }
+      });
+
       $(document).on('click','.close-popup', function () {
         vm.cartNum += cartVm.addCartNum;
         cartVm.addCartNum = 1;
