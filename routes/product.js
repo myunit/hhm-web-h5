@@ -19,7 +19,8 @@ router.get('/group', function(req, res, next) {
 });
 
 router.get('/recommend', function(req, res, next) {
-  res.render('product-list', { title: '组合商品-好好卖' });
+  var title = '推荐栏目0' + req.query.id + '-好好卖';
+  res.render('product-list', { title:  title});
 });
 
 router.get('/list', function(req, res, next) {
