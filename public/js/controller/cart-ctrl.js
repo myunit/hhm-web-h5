@@ -25,7 +25,57 @@ require(['Vue'],
       var vm = new Vue({
         el: '#page-cart',
         data: {
-          allChecked: true
+          allChecked: true,
+          addCartNum1: 1,
+          addCartNum2: 1,
+          addCartNum3: 1,
+          addCartNum4: 1,
+          addCartNum5: 1
+        }
+      });
+
+      vm.$watch('addCartNum1', function (newVal, oldVal) {
+        if (isNaN(newVal) || newVal <= 0) {
+          $.toast('只能输入整数', 500);
+          Vue.nextTick(function () {
+            vm.addCartNum1 = oldVal; // true
+          });
+        }
+      });
+
+      vm.$watch('addCartNum2', function (newVal, oldVal) {
+        if (isNaN(newVal) || newVal <= 0) {
+          $.toast('只能输入整数', 500);
+          Vue.nextTick(function () {
+            vm.addCartNum2 = oldVal; // true
+          });
+        }
+      });
+
+      vm.$watch('addCartNum3', function (newVal, oldVal) {
+        if (isNaN(newVal) || newVal <= 0) {
+          $.toast('只能输入整数', 500);
+          Vue.nextTick(function () {
+            vm.addCartNum3 = oldVal; // true
+          });
+        }
+      });
+
+      vm.$watch('addCartNum4', function (newVal, oldVal) {
+        if (isNaN(newVal) || newVal <= 0) {
+          $.toast('只能输入整数', 500);
+          Vue.nextTick(function () {
+            vm.addCartNum4 = oldVal; // true
+          });
+        }
+      });
+
+      vm.$watch('addCartNum5', function (newVal, oldVal) {
+        if (isNaN(newVal) || newVal <= 0) {
+          $.toast('只能输入整数', 500);
+          Vue.nextTick(function () {
+            vm.addCartNum5 = oldVal; // true
+          });
         }
       });
 
