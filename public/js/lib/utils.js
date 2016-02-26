@@ -44,10 +44,16 @@ define(function () {
     return fmt;
   };
 
+  var isPositiveNum = function (s){//是否为正整数
+    var re = /^[0-9]*[1-9][0-9]*$/ ;
+    return re.test(s)
+  };
+
 
   return {
     getSearch: getSearch,
     isWeiXin: isWeiXin,
-    dateFormat: dateFormat
+    dateFormat: dateFormat,
+    isPositiveNum: isPositiveNum
   }
 });

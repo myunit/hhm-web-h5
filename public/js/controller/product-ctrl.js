@@ -6,17 +6,21 @@
 require.config({
   baseUrl: '../js',
   paths: {
-    'Vue': './lib/vue.min'
+    'Vue': './lib/vue.min',
+    'Utils': './lib/utils'
   },
   shim: {
     'Vue': {
       exports: 'Vue'
+    },
+    'Utils': {
+      exports: 'Utils'
     }
   }
 });
 
-require(['Vue'],
-  function (Vue) {
+require(['Vue', 'Utils'],
+  function (Vue, Utils) {
     'use strict';
     Vue.config.delimiters = ['${', '}'];
     Vue.config.unsafeDelimiters = ['{!!', '!!}'];
@@ -84,21 +88,26 @@ require(['Vue'],
           return;
         }
 
-        if (isNaN(newVal) || newVal <= 0) {
-          $.toast('只能输入整数', 500);
+        if (!Utils.isPositiveNum(newVal)) {
+          $.toast('请输入正确的购买数量', 500);
           Vue.nextTick(function () {
-            cartVm.addCartNum = oldVal; // true
+            cartVm.addCartNum = oldVal;
           });
         }
       });
 
-      $(document).on('click','.popup-cart .close-popup', function () {
-        if (cartVm.addCartNum === '' || cartVm.addCartNum === 0) {
+      $(document).on('click','.my-a-cart.close-popup', function (e) {
+        if (cartVm.addCartNum === '') {
           cartVm.addCartNum = 1;
-          $.toast('只能输入商品数量', 500);
+          $.toast('请输入正确的购买数量', 1000);
+          e.preventDefault();
           return;
         }
         vm.cartNum += cartVm.addCartNum;
+        cartVm.addCartNum = 1;
+      });
+
+      $(document).on('click','.icon-close.close-popup', function () {
         cartVm.addCartNum = 1;
       });
 
@@ -164,22 +173,25 @@ require(['Vue'],
           return;
         }
 
-        if (isNaN(newVal) || newVal <= 0) {
-          $.toast('只能输入整数', 500);
+        if (!Utils.isPositiveNum(newVal)) {
+          $.toast('请输入正确的购买数量', 500);
           Vue.nextTick(function () {
-            cartVm.addCartNum = oldVal; // true
+            cartVm.addCartNum = oldVal;
           });
         }
       });
 
-      $(document).on('click','.close-popup', function () {
-        if (cartVm.addCartNum === '' || cartVm.addCartNum === 0) {
+      $(document).on('click','.my-a-cart.close-popup', function () {
+        if (cartVm.addCartNum === '') {
           cartVm.addCartNum = 1;
-          $.toast('只能输入商品数量', 500);
+          $.toast('请输入正确的购买数量', 1000);
           return;
         }
-
         vm.cartNum += cartVm.addCartNum;
+        cartVm.addCartNum = 1;
+      });
+
+      $(document).on('click','.icon-close.close-popup', function () {
         cartVm.addCartNum = 1;
       });
 
@@ -243,10 +255,10 @@ require(['Vue'],
           return;
         }
 
-        if (isNaN(newVal) || newVal <= 0) {
-          $.toast('只能输入整数', 500);
+        if (!Utils.isPositiveNum(newVal)) {
+          $.toast('请输入正确的购买数量', 500);
           Vue.nextTick(function () {
-            cartVm.addCartNum = oldVal; // true
+            cartVm.addCartNum = oldVal;
           });
         }
       });
