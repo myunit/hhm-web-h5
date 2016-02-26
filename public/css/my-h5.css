@@ -342,7 +342,7 @@ label.label-checkbox input[type="radio"]:checked + .item-media i.icon-form-check
 .my-div-list .item-media{ position:relative;}
 .my-div-list .item-media .badge{ position:absolute; min-width:1rem; height:1rem; line-height:1rem; border-radius:1rem; top:0rem; left:.6rem; background:#f86b4f; color:#fff; font-size:.588rem; padding:0 .12rem;; text-align:center; -webkit-transform:scale(0.8)}
 .my-tab-fixed {top:2rem !important;}
-.my-tab-fixed .buttons-tab{position: fixed;top: 0;width: 100%;left: 0;}
+.my-buttons-tab-fixed{position: fixed;top: 0;width: 100%;left: 0;}
 
 /*我的收藏*/
 .icon-likeactive { color: #ffcc66;}
