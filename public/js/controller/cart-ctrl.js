@@ -35,6 +35,10 @@ require(['Vue'],
       });
 
       vm.$watch('addCartNum1', function (newVal, oldVal) {
+        if (newVal === '') {
+          return;
+        }
+
         if (isNaN(newVal) || newVal <= 0) {
           $.toast('只能输入整数', 500);
           Vue.nextTick(function () {
@@ -44,6 +48,10 @@ require(['Vue'],
       });
 
       vm.$watch('addCartNum2', function (newVal, oldVal) {
+        if (newVal === '') {
+          return;
+        }
+
         if (isNaN(newVal) || newVal <= 0) {
           $.toast('只能输入整数', 500);
           Vue.nextTick(function () {
@@ -53,6 +61,10 @@ require(['Vue'],
       });
 
       vm.$watch('addCartNum3', function (newVal, oldVal) {
+        if (newVal === '') {
+          return;
+        }
+
         if (isNaN(newVal) || newVal <= 0) {
           $.toast('只能输入整数', 500);
           Vue.nextTick(function () {
@@ -62,6 +74,10 @@ require(['Vue'],
       });
 
       vm.$watch('addCartNum4', function (newVal, oldVal) {
+        if (newVal === '') {
+          return;
+        }
+
         if (isNaN(newVal) || newVal <= 0) {
           $.toast('只能输入整数', 500);
           Vue.nextTick(function () {
@@ -71,6 +87,10 @@ require(['Vue'],
       });
 
       vm.$watch('addCartNum5', function (newVal, oldVal) {
+        if (newVal === '') {
+          return;
+        }
+
         if (isNaN(newVal) || newVal <= 0) {
           $.toast('只能输入整数', 500);
           Vue.nextTick(function () {
