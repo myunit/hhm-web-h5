@@ -103,7 +103,7 @@ require(['Vue', 'Utils'],
           e.preventDefault();
           return;
         }
-        vm.cartNum += cartVm.addCartNum;
+        vm.cartNum += parseInt(cartVm.addCartNum);
         cartVm.addCartNum = 1;
       });
 
@@ -187,7 +187,7 @@ require(['Vue', 'Utils'],
           $.toast('请输入正确的购买数量', 1000);
           return;
         }
-        vm.cartNum += cartVm.addCartNum;
+        vm.cartNum += parseInt(cartVm.addCartNum);
         cartVm.addCartNum = 1;
       });
 
@@ -235,7 +235,8 @@ require(['Vue', 'Utils'],
       var vm = new Vue({
         el: '#page-product-list',
         data: {
-          search: ''
+          search: '',
+          cartNum: 30
         }
       });
 
@@ -261,6 +262,20 @@ require(['Vue', 'Utils'],
             cartVm.addCartNum = oldVal;
           });
         }
+      });
+
+      $(document).on('click','.my-a-cart.close-popup', function () {
+        if (cartVm.addCartNum === '') {
+          cartVm.addCartNum = 1;
+          $.toast('请输入正确的购买数量', 1000);
+          return;
+        }
+        vm.cartNum += parseInt(cartVm.addCartNum);
+        cartVm.addCartNum = 1;
+      });
+
+      $(document).on('click','.icon-close.close-popup', function () {
+        cartVm.addCartNum = 1;
       });
 
       $(document).on('click','.em-op-d', function () {

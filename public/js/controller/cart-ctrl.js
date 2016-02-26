@@ -6,17 +6,21 @@
 require.config({
   baseUrl: '../js',
   paths: {
-    'Vue': './lib/vue.min'
+    'Vue': './lib/vue.min',
+    'Utils': './lib/utils'
   },
   shim: {
     'Vue': {
       exports: 'Vue'
+    },
+    'Utils': {
+      exports: 'Utils'
     }
   }
 });
 
-require(['Vue'],
-  function (Vue) {
+require(['Vue', 'Utils'],
+  function (Vue, Utils) {
     'use strict';
     Vue.config.delimiters = ['${', '}'];
     Vue.config.unsafeDelimiters = ['{!!', '!!}'];
@@ -39,10 +43,10 @@ require(['Vue'],
           return;
         }
 
-        if (isNaN(newVal) || newVal <= 0) {
-          $.toast('只能输入整数', 500);
+        if (!Utils.isPositiveNum(newVal)) {
+          $.toast('请输入正确的购买数量', 500);
           Vue.nextTick(function () {
-            vm.addCartNum1 = oldVal; // true
+            cartVm.addCartNum1 = oldVal;
           });
         }
       });
@@ -52,10 +56,10 @@ require(['Vue'],
           return;
         }
 
-        if (isNaN(newVal) || newVal <= 0) {
-          $.toast('只能输入整数', 500);
+        if (!Utils.isPositiveNum(newVal)) {
+          $.toast('请输入正确的购买数量', 500);
           Vue.nextTick(function () {
-            vm.addCartNum2 = oldVal; // true
+            cartVm.addCartNum2 = oldVal;
           });
         }
       });
@@ -65,10 +69,10 @@ require(['Vue'],
           return;
         }
 
-        if (isNaN(newVal) || newVal <= 0) {
-          $.toast('只能输入整数', 500);
+        if (!Utils.isPositiveNum(newVal)) {
+          $.toast('请输入正确的购买数量', 500);
           Vue.nextTick(function () {
-            vm.addCartNum3 = oldVal; // true
+            cartVm.addCartNum3 = oldVal;
           });
         }
       });
@@ -78,10 +82,10 @@ require(['Vue'],
           return;
         }
 
-        if (isNaN(newVal) || newVal <= 0) {
-          $.toast('只能输入整数', 500);
+        if (!Utils.isPositiveNum(newVal)) {
+          $.toast('请输入正确的购买数量', 500);
           Vue.nextTick(function () {
-            vm.addCartNum4 = oldVal; // true
+            cartVm.addCartNum4 = oldVal;
           });
         }
       });
@@ -91,10 +95,10 @@ require(['Vue'],
           return;
         }
 
-        if (isNaN(newVal) || newVal <= 0) {
-          $.toast('只能输入整数', 500);
+        if (!Utils.isPositiveNum(newVal)) {
+          $.toast('请输入正确的购买数量', 500);
           Vue.nextTick(function () {
-            vm.addCartNum5 = oldVal; // true
+            cartVm.addCartNum5 = oldVal;
           });
         }
       });
