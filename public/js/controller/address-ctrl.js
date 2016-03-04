@@ -1,6 +1,6 @@
 /**
  * @author qianqing
- * @create by 16-2-20
+ * @create by 16-2-21
  * @description address controller
  */
 require.config({
