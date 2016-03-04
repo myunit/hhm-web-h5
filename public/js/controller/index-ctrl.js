@@ -124,6 +124,7 @@ require(['Vue'],
       });
 
       $(page).on('click', '#sendCaptcha', function () {
+
         if (vm.isSendCaptcha) {
           return;
         }
@@ -132,6 +133,20 @@ require(['Vue'],
           $.toast("手机号不能为空");
           return;
         }
+
+       /* $.post('http://120.27.148.53:30000/login/v1/Customers/get-captcha',{'phone': vm.phone,'type': '1'},function(res){
+          //alert(res.repData.msg+'   '+res.repData.status);
+          vm.isSendCaptcha=true;
+        });*/
+
+        $.ajax({
+          type: 'POST',
+          url: 'http://120.27.148.53:30000/login/v1/Customers/get-captcha',
+          data: {
+            'phone': vm.phone,
+            'type': '1'
+          }
+        });
 
         var time = 60;
         vm.captchaTip = time + '秒';
@@ -179,8 +194,7 @@ require(['Vue'],
           $.toast("密码输入不一致");
           return;
         }
-
-        location.href = '/register-complete';
+        location.href = "/register-complete";
       });
 
     });
