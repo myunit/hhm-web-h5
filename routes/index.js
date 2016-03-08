@@ -18,8 +18,6 @@ router.route('/')
         var data = response.body.repData;
         if (data.status) {
           req.session.uid = data.customer.SysNo;
-          req.session.name = data.customer.UserName;
-          req.session.storeName = data.customer.EName;
           req.session.token = data.token;
           res.json({status: data.status, redirect: '/index'});
         } else {
@@ -34,7 +32,13 @@ router.get('/choose-shop-style', function (req, res, next) {
 });
 
 router.get('/index', function (req, res, next) {
-  res.render('index', {title: '首页-好好卖'});
+  console.log('req.session.uid:' + req.session.uid);
+  if (req.session.uid) {
+    res.render('index', {title: '首页-好好卖'});
+  } else {
+    res.redirect('/');
+  }
+
 });
 
 router.get('/register', function (req, res, next) {
