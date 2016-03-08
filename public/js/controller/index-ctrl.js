@@ -110,9 +110,15 @@ require(['Vue'],
             }
           },
           error: function (xhr, errorType, error){
-
+            console.error('login error: ' + errorType + '##' + error);
+            $.toast('服务异常', 1000);
+          },
+          complete: function (xhr, status) {
+            $.hidePreloader();
           }
         });
+
+        $.showPreloader('登录中');
       });
 
       $(window).resize(function () {
