@@ -30,5 +30,8 @@ LoginApi.prototype = {
   },
   getCaptcha : function(){
     return api_config.loginService.baseUrl + api_config.loginService.method.getCaptcha;
+  },
+  registerAndLogin : function(){
+    return api_config.loginService.baseUrl + api_config.loginService.method.registerAndLogin;
   }
 };

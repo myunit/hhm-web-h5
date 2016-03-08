@@ -149,7 +149,8 @@ require(['Vue'],
         }
       });
 
-      $(page).on('click', '#sendCaptcha', function () {
+      $(page).on('click', '#sendCaptcha', function (event) {
+        event.preventDefault();
 
         if (vm.isSendCaptcha) {
           return;
@@ -195,7 +196,7 @@ require(['Vue'],
             }
           },
           error: function (xhr, errorType, error){
-            console.error('login error: ' + errorType + '##' + error);
+            console.error('get captcha error: ' + errorType + '##' + error);
             $.toast('服务异常', 1000);
           },
           complete: function (xhr, status) {
@@ -206,7 +207,9 @@ require(['Vue'],
         $.showPreloader('发送中');
       });
 
-      $(page).on('click', '#submitReg', function () {
+      $(page).on('click', '#submitReg', function (event) {
+        event.preventDefault();
+
         if (!vm.isSendCaptcha) {
           return;
         }
@@ -230,7 +233,32 @@ require(['Vue'],
           $.toast("密码输入不一致");
           return;
         }
-        location.href = "/register-complete";
+        $.ajax({
+          type: 'POST',
+          url: '/register',
+          data: {
+            'phone': vm.phone,
+            'password': vm.password,
+            'captcha': vm.captcha
+          },
+          timeout: 15000,
+          success: function (data, status, xhr){
+            if (data.status) {
+              location.href = data.redirect
+            } else {
+              $.toast(data.msg, 1000);
+            }
+          },
+          error: function (xhr, errorType, error){
+            console.error('register error: ' + errorType + '##' + error);
+            $.toast('服务异常', 1000);
+          },
+          complete: function (xhr, status) {
+            $.hidePreloader();
+          }
+        });
+
+        $.showPreloader('注册中');
       });
 
     });

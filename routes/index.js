@@ -41,14 +41,30 @@ router.get('/index', function (req, res, next) {
 
 });
 
-router.get('/register', function (req, res, next) {
-  res.render('register', {title: '注册-好好卖'});
-});
+router.route('/register')
+  .get(function (req, res, next) {
+    res.render('register', {title: '注册-好好卖'});
+  })
+  .post(function (req, res, next) {
+    unirest.post(loginApi.registerAndLogin())
+      .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
+      .send({"phone":req.body.phone, "password":req.body.password, "code":req.body.captcha})
+      .end(function (response) {
+        var data = response.body.repData;
+        if (data.status) {
+          req.session.uid = data.customer.SysNo;
+          req.session.token = data.token;
+          res.json({status: data.status, redirect: '/register-complete'});
+        } else {
+          res.json({status: data.status, msg: data.msg});
+        }
+      });
+  });
 
 router.post('/get-captcha', function (req, res, next) {
   unirest.post(loginApi.getCaptcha())
     .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
-    .send({"phone":req.body.phone, "type":req.body.type})
+    .send({"phone": req.body.phone, "type": req.body.type})
     .end(function (response) {
       var data = response.body.repData;
       if (data.status) {
