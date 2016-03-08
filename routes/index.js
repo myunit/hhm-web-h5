@@ -4,6 +4,7 @@ var ApiFactory = require('../common/api_config');
 var router = express.Router();
 
 var loginApi = ApiFactory.CreateApi('login');
+var customerApi = ApiFactory.CreateApi('customer');
 
 /* GET home page. */
 router.route('/')
@@ -48,7 +49,7 @@ router.route('/register')
   .post(function (req, res, next) {
     unirest.post(loginApi.registerAndLogin())
       .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
-      .send({"phone":req.body.phone, "password":req.body.password, "code":req.body.captcha})
+      .send({"phone": req.body.phone, "password": req.body.password, "code": req.body.captcha})
       .end(function (response) {
         var data = response.body.repData;
         if (data.status) {
@@ -75,9 +76,36 @@ router.post('/get-captcha', function (req, res, next) {
     });
 });
 
-router.get('/register-complete', function (req, res, next) {
-  res.render('register-complete', {title: '信息完善-好好卖'});
-});
+router.route('/register-complete')
+  .get(function (req, res, next) {
+    res.render('register-complete', {title: '信息完善-好好卖'});
+  })
+  .post(function (req, res, next) {
+    unirest.post(customerApi.perfectCustomerInfo())
+      .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
+      .send({
+        "userId": req.session.uid, "storeName": req.body.storeName,
+        "receiver": {
+          "name": req.body.receiver,
+          "phone": req.body.phone,
+          "provinceId": req.body.provinceId,
+          "province": req.body.province,
+          "cityId": req.body.cityId,
+          "city": req.body.cityId,
+          "districtId": req.body.districtId,
+          "district": req.body.district,
+          "address": req.body.address
+        }
+      })
+      .end(function (response) {
+        var data = response.body.repData;
+        if (data.status) {
+          res.json({status: data.status});
+        } else {
+          res.json({status: data.status, msg: data.msg});
+        }
+      });
+  });
 
 router.get('/rest-password', function (req, res, next) {
   res.render('rest-password', {title: '重置密码-好好卖'});

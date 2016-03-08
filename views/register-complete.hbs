@@ -8,7 +8,7 @@
                             <div class="item-content">
                                 <div class="item-inner">
                                     <div class="item-input">
-                                        <input type="text" placeholder="请输入店铺名称">
+                                        <input type="text" placeholder="请输入店铺名称" v-model="storeName">
                                     </div>
                                 </div>
                             </div>
@@ -23,7 +23,7 @@
                             <div class="item-content">
                                 <div class="item-inner">
                                     <div class="item-input">
-                                        <input type="text" placeholder="请输入收货人姓名">
+                                        <input type="text" placeholder="请输入收货人姓名" v-model="receiver">
                                     </div>
                                 </div>
                             </div>
@@ -32,7 +32,7 @@
                             <div class="item-content">
                                 <div class="item-inner">
                                     <div class="item-input">
-                                        <input type="password" placeholder="请输入收货人电话">
+                                        <input type="password" placeholder="请输入收货人电话" v-model="phone">
                                     </div>
                                 </div>
                             </div>
@@ -47,7 +47,7 @@
                             <div class="item-content">
                                 <div class="item-inner my-bg-select">
                                     <div class="item-input">
-                                        <input type="text" id="city-picker" value="浙江 杭州 拱墅区"/>
+                                        <input type="text" id="city-picker" v-model="pcdDes"/>
                                     </div>
                                 </div>
                             </div>
@@ -62,7 +62,7 @@
                             <div class="item-content">
                                 <div class="item-inner">
                                     <div class="item-input">
-                                        <textarea rows="3" placeholder="请输入路名、门牌号等"></textarea>
+                                        <textarea rows="3" placeholder="请输入路名、门牌号等" v-model="address"></textarea>
                                     </div>
                                 </div>
                             </div>

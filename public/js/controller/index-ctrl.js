@@ -266,7 +266,13 @@ require(['Vue'],
     $(document).on("pageInit", "#page-register-complete", function (e, id, page) {
       var vm = new Vue({
         el: '#page-register-complete',
-        data: {}
+        data: {
+          phone: '',
+          storeName: '',
+          receiver: '',
+          pcdDes: '浙江 杭州 拱墅区',
+          address: ''
+        }
       });
 
       $("#city-picker").cityPicker({

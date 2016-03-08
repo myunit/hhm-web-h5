@@ -3,12 +3,18 @@
     "baseUrl": "http://120.27.148.53:30000/login/v1/",
     "method": {
       "login": "Customers/login",
-      "forget-password": "Customers/forget-password",
+      "forgetPassword": "Customers/forget-password",
       "getCaptcha": "Customers/get-captcha",
       "logout": "Customers/logout",
       "modifyPassword": "Customers/modify-password",
       "register": "Customers/register",
       "registerAndLogin": "Customers/register-and-login"
+    }
+  },
+  "customerService": {
+    "baseUrl": "http://120.27.148.53:30001/customer/v1/",
+    "method": {
+      "perfectCustomerInfo": "Customers/perfect-customer-info"
     }
   }
 }

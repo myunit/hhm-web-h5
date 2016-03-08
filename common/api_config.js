@@ -12,6 +12,9 @@ var ApiFactory = {
       case "login":
         api = new LoginApi();
         break;
+      case "customer":
+        api = new CustomerApi();
+        break;
       default:
         throw new Error("ApiFactory Unsupported: " + model);
         break;
@@ -33,5 +36,13 @@ LoginApi.prototype = {
   },
   registerAndLogin : function(){
     return api_config.loginService.baseUrl + api_config.loginService.method.registerAndLogin;
+  }
+};
+
+var CustomerApi = function(){};
+
+CustomerApi.prototype = {
+  perfectCustomerInfo : function(){
+    return api_config.customerService.baseUrl + api_config.customerService.method.perfectCustomerInfo;
   }
 };
