@@ -45,6 +45,20 @@ router.get('/register', function (req, res, next) {
   res.render('register', {title: '注册-好好卖'});
 });
 
+router.post('/get-captcha', function (req, res, next) {
+  unirest.post(loginApi.getCaptcha())
+    .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
+    .send({"phone":req.body.phone, "type":req.body.type})
+    .end(function (response) {
+      var data = response.body.repData;
+      if (data.status) {
+        res.json({status: data.status});
+      } else {
+        res.json({status: data.status, msg: data.msg});
+      }
+    });
+});
+
 router.get('/register-complete', function (req, res, next) {
   res.render('register-complete', {title: '信息完善-好好卖'});
 });

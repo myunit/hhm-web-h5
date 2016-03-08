@@ -102,6 +102,7 @@ require(['Vue'],
             'username': vm.phone,
             'password': vm.password
           },
+          timeout: 15000,
           success: function (data, status, xhr){
             if (data.status) {
               location.href = data.redirect
@@ -161,33 +162,48 @@ require(['Vue'],
 
         $.ajax({
           type: 'POST',
-          url: 'http://120.27.148.53:30000/login/v1/Customers/get-captcha',
+          url: '/get-captcha',
           data: {
             'phone': vm.phone,
-            'type': '1'
+            'type': 1
+          },
+          timeout: 15000,
+          success: function (data, status, xhr){
+            if (!data.status) {
+              $.toast(data.msg, 1000);
+            } else {
+              var time = 60;
+              vm.captchaTip = time + '秒';
+              vm.isSendCaptcha = true;
+              vm.isDisable = false;
+              vm.captchaMsg = '如果您未收到短信，请在60秒后再次获取';
+              var sendCaptchaInterval = setInterval(function () {
+                time--;
+                if (time > 9) {
+                  vm.captchaTip = time + '秒';
+                } else {
+                  vm.captchaTip = '0' + time + '秒';
+                }
+                if (time === 0) {
+                  vm.captchaTip = '获取验证码';
+                  vm.isSendCaptcha = false;
+                  vm.isDisable = true;
+                  vm.captchaMsg = '';
+                  clearInterval(sendCaptchaInterval);
+                }
+              }, 1000);
+            }
+          },
+          error: function (xhr, errorType, error){
+            console.error('login error: ' + errorType + '##' + error);
+            $.toast('服务异常', 1000);
+          },
+          complete: function (xhr, status) {
+            $.hidePreloader();
           }
         });
 
-        var time = 60;
-        vm.captchaTip = time + '秒';
-        vm.isSendCaptcha = true;
-        vm.isDisable = false;
-        vm.captchaMsg = '如果您未收到短信，请在60秒后再次获取';
-        var sendCaptchaInterval = setInterval(function () {
-          time--;
-          if (time > 9) {
-            vm.captchaTip = time + '秒';
-          } else {
-            vm.captchaTip = '0' + time + '秒';
-          }
-          if (time === 0) {
-            vm.captchaTip = '获取验证码';
-            vm.isSendCaptcha = false;
-            vm.isDisable = true;
-            vm.captchaMsg = '';
-            clearInterval(sendCaptchaInterval);
-          }
-        }, 1000);
+        $.showPreloader('发送中');
       });
 
       $(page).on('click', '#submitReg', function () {

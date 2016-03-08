@@ -27,5 +27,8 @@ var LoginApi = function(){};
 LoginApi.prototype = {
   login : function(){
     return api_config.loginService.baseUrl + api_config.loginService.method.login;
+  },
+  getCaptcha : function(){
+    return api_config.loginService.baseUrl + api_config.loginService.method.getCaptcha;
   }
 };
