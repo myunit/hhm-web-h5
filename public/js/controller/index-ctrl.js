@@ -78,7 +78,9 @@ require(['Vue'],
         }
       });
 
-      $(page).on('click', '#login', function () {
+      $(page).on('click', '#login', function (event) {
+        event.preventDefault();
+
         if (!vm.phone) {
           $.toast("请输入手机号", 1000);
           return;
@@ -93,7 +95,24 @@ require(['Vue'],
           return;
         }
 
-        location.href = '/index';
+        $.ajax({
+          type: 'POST',
+          url: '/',
+          data: {
+            'username': vm.phone,
+            'password': vm.password
+          },
+          success: function (data, status, xhr){
+            if (data.status) {
+              location.href = data.redirect
+            } else {
+              $.toast(data.msg, 1000);
+            }
+          },
+          error: function (xhr, errorType, error){
+
+          }
+        });
       });
 
       $(window).resize(function () {
@@ -133,11 +152,6 @@ require(['Vue'],
           $.toast("手机号不能为空");
           return;
         }
-
-       /* $.post('http://120.27.148.53:30000/login/v1/Customers/get-captcha',{'phone': vm.phone,'type': '1'},function(res){
-          //alert(res.repData.msg+'   '+res.repData.status);
-          vm.isSendCaptcha=true;
-        });*/
 
         $.ajax({
           type: 'POST',

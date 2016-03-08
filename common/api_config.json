@@ -1,0 +1,14 @@
+{
+  "loginService": {
+    "baseUrl": "http://120.27.148.53:30000/login/v1/",
+    "method": {
+      "login": "Customers/login",
+      "forget-password": "Customers/forget-password",
+      "get-captcha": "Customers/get-captcha",
+      "logout": "Customers/logout",
+      "modify-password": "Customers/modify-password",
+      "register": "Customers/register",
+      "register-and-login": "Customers/register-and-login"
+    }
+  }
+}
