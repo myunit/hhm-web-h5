@@ -10,6 +10,7 @@ var customerApi = ApiFactory.CreateApi('customer');
 /* GET home page. */
 router.route('/')
   .get(function (req, res, next) {
+    req.session = null;
     res.render('login', {title: '登录-好好卖'});
   })
   .post(function (req, res, next) {
@@ -40,7 +41,6 @@ router.get('/index', function (req, res, next) {
   } else {
     res.redirect('/');
   }
-
 });
 
 router.route('/register')
@@ -79,7 +79,11 @@ router.post('/get-captcha', function (req, res, next) {
 
 router.route('/register-complete')
   .get(function (req, res, next) {
-    res.render('register-complete', {title: '信息完善-好好卖'});
+    if (req.session.uid) {
+      res.render('register-complete', {title: '信息完善-好好卖'});
+    } else {
+      res.redirect('/');
+    }
   })
   .post(function (req, res, next) {
     var pcdDes = req.body.pcdDes.split(' ');
@@ -117,8 +121,23 @@ router.route('/register-complete')
     });
   });
 
-router.get('/rest-password', function (req, res, next) {
-  res.render('rest-password', {title: '重置密码-好好卖'});
-});
+router.route('/rest-password')
+  .get(function (req, res, next) {
+    res.render('rest-password', {title: '重置密码-好好卖'});
+  })
+  .post(function (req, res, next) {
+    unirest.post(loginApi.forgetPassword())
+      .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
+      .send({"phone": req.body.phone, "newPassword": req.body.password, "code": req.body.captcha})
+      .end(function (response) {
+        var data = response.body.repData;
+        if (data.status) {
+          req.session = null;
+          res.json({status: data.status, redirect: '/'});
+        } else {
+          res.json({status: data.status, msg: data.msg});
+        }
+      });
+  });
 
 module.exports = router;

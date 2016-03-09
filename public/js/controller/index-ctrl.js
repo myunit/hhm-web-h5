@@ -348,7 +348,7 @@ require(['Vue', 'Utils'],
           captcha: '',
           password: '',
           rePassword: '',
-          phone: '13758087094'
+          phone: ''
         }
       });
 
@@ -357,30 +357,74 @@ require(['Vue', 'Utils'],
           return;
         }
 
-        var time = 60;
-        vm.captchaTip = time + '秒';
-        vm.isSendCaptcha = true;
-        vm.isDisable = false;
-        vm.captchaMsg = '如果您未收到短信，请在60秒后再次获取';
-        var sendCaptchaInterval = setInterval(function () {
-          time--;
-          if (time > 9) {
-            vm.captchaTip = time + '秒';
-          } else {
-            vm.captchaTip = '0' + time + '秒';
+        if (!vm.phone) {
+          $.toast("手机号不能为空", 1000);
+          return;
+        }
+
+        if (!Utils.checkMobile(vm.phone)) {
+          $.toast("请输入正确的手机号", 1000);
+          return;
+        }
+
+        $.ajax({
+          type: 'POST',
+          url: '/get-captcha',
+          data: {
+            'phone': vm.phone,
+            'type': 3
+          },
+          timeout: 15000,
+          success: function (data, status, xhr){
+            if (!data.status) {
+              $.toast(data.msg, 1000);
+            } else {
+              var time = 60;
+              vm.captchaTip = time + '秒';
+              vm.isSendCaptcha = true;
+              vm.isDisable = false;
+              vm.captchaMsg = '如果您未收到短信，请在60秒后再次获取';
+              var sendCaptchaInterval = setInterval(function () {
+                time--;
+                if (time > 9) {
+                  vm.captchaTip = time + '秒';
+                } else {
+                  vm.captchaTip = '0' + time + '秒';
+                }
+                if (time === 0) {
+                  vm.captchaTip = '获取验证码';
+                  vm.isSendCaptcha = false;
+                  vm.isDisable = true;
+                  vm.captchaMsg = '';
+                  clearInterval(sendCaptchaInterval);
+                }
+              }, 1000);
+            }
+          },
+          error: function (xhr, errorType, error){
+            console.error('get captcha error: ' + errorType + '##' + error);
+            $.toast('服务异常', 1000);
+          },
+          complete: function (xhr, status) {
+            $.hidePreloader();
           }
-          if (time === 0) {
-            vm.captchaTip = '获取验证码';
-            vm.isSendCaptcha = false;
-            vm.isDisable = true;
-            vm.captchaMsg = '';
-            clearInterval(sendCaptchaInterval);
-          }
-        }, 1000);
+        });
+
+        $.showPreloader('发送中');
       });
 
       $(page).on('click', '#restPW', function () {
         if (!vm.isSendCaptcha) {
+          return;
+        }
+
+        if (!vm.phone) {
+          $.toast("手机号不能为空", 1000);
+          return;
+        }
+
+        if (!Utils.checkMobile(vm.phone)) {
+          $.toast("请输入正确的手机号", 1000);
           return;
         }
 
@@ -399,8 +443,33 @@ require(['Vue', 'Utils'],
           return;
         }
 
-        $.toast("新密码设置成功！", 1000);
-        location.href = '/';
+        $.ajax({
+          type: 'POST',
+          url: '/rest-password',
+          data: {
+            'phone': vm.phone,
+            'password': vm.password,
+            'captcha': vm.captcha
+          },
+          timeout: 15000,
+          success: function (data, status, xhr){
+            if (data.status) {
+              $.toast('密码重置成功, 请重新登录', 1000);
+              location.href = data.redirect
+            } else {
+              $.toast(data.msg, 1000);
+            }
+          },
+          error: function (xhr, errorType, error){
+            console.error('register error: ' + errorType + '##' + error);
+            $.toast('服务异常', 1000);
+          },
+          complete: function (xhr, status) {
+            $.hidePreloader();
+          }
+        });
+
+        $.showPreloader('请稍等');
       });
 
     });

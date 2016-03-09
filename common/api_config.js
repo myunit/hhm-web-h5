@@ -36,6 +36,9 @@ LoginApi.prototype = {
   },
   registerAndLogin : function(){
     return api_config.loginService.baseUrl + api_config.loginService.method.registerAndLogin;
+  },
+  forgetPassword : function(){
+    return api_config.loginService.baseUrl + api_config.loginService.method.forgetPassword;
   }
 };
 
