@@ -6,17 +6,21 @@
 require.config({
   baseUrl: './js',
   paths: {
-    'Vue': './lib/vue.min'
+    'Vue': './lib/vue.min',
+    'Utils': './lib/utils'
   },
   shim: {
     'Vue': {
       exports: 'Vue'
+    },
+    'Utils': {
+      exports: 'Utils'
     }
   }
 });
 
-require(['Vue'],
-  function (Vue) {
+require(['Vue', 'Utils'],
+  function (Vue, Utils) {
     'use strict';
     Vue.config.delimiters = ['${', '}'];
     Vue.config.unsafeDelimiters = ['{!!', '!!}'];
@@ -91,6 +95,11 @@ require(['Vue'],
           return;
         }
 
+        if (!Utils.checkMobile(vm.phone)) {
+          $.toast("请输入正确的手机号", 1000);
+          return;
+        }
+
         if (vm.isDisable) {
           return;
         }
@@ -157,7 +166,12 @@ require(['Vue'],
         }
 
         if (!vm.phone) {
-          $.toast("手机号不能为空");
+          $.toast("手机号不能为空", 1000);
+          return;
+        }
+
+        if (!Utils.checkMobile(vm.phone)) {
+          $.toast("请输入正确的手机号", 1000);
           return;
         }
 
@@ -215,22 +229,27 @@ require(['Vue'],
         }
 
         if (!vm.phone) {
-          $.toast("手机号不能为空");
+          $.toast("手机号不能为空", 1000);
           return;
         }
 
         if (!vm.captcha) {
-          $.toast("验证码不能为空");
+          $.toast("验证码不能为空", 1000);
           return;
         }
 
         if (!vm.password) {
-          $.toast("密码不能为空");
+          $.toast("密码不能为空", 1000);
           return;
         }
 
         if (vm.password != vm.rePassword) {
-          $.toast("密码输入不一致");
+          $.toast("密码输入不一致", 1000);
+          return;
+        }
+
+        if (!Utils.checkMobile(vm.phone)) {
+          $.toast("请输入正确的手机号", 1000);
           return;
         }
 
@@ -282,6 +301,11 @@ require(['Vue'],
       });
 
       $(page).on('click', '.button', function () {
+        if (vm.phone && !Utils.checkMobile(vm.phone)) {
+          $.toast("请输入正确的手机号", 1000);
+          return;
+        }
+
         $.ajax({
           type: 'POST',
           url: '/register-complete',

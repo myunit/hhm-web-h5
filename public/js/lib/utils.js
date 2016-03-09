@@ -49,11 +49,21 @@ define(function () {
     return re.test(s)
   };
 
+  var checkMobile = function (s) {
+    var re = /^1\d{10}$/;
+    if (re.test(s)) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
 
   return {
     getSearch: getSearch,
     isWeiXin: isWeiXin,
     dateFormat: dateFormat,
-    isPositiveNum: isPositiveNum
+    isPositiveNum: isPositiveNum,
+    checkMobile: checkMobile
   }
 });
