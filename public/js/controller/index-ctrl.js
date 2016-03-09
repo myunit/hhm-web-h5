@@ -202,7 +202,6 @@ require(['Vue', 'Utils'],
                 if (time === 0) {
                   vm.captchaTip = '获取验证码';
                   vm.isSendCaptcha = false;
-                  vm.isDisable = true;
                   vm.captchaMsg = '';
                   clearInterval(sendCaptchaInterval);
                 }
@@ -301,6 +300,8 @@ require(['Vue', 'Utils'],
       });
 
       $(page).on('click', '.button', function () {
+        event.preventDefault();
+
         if (vm.phone && !Utils.checkMobile(vm.phone)) {
           $.toast("请输入正确的手机号", 1000);
           return;
@@ -353,6 +354,8 @@ require(['Vue', 'Utils'],
       });
 
       $(page).on('click', '#sendCaptcha', function () {
+        event.preventDefault();
+
         if (vm.isSendCaptcha) {
           return;
         }
@@ -394,7 +397,6 @@ require(['Vue', 'Utils'],
                 if (time === 0) {
                   vm.captchaTip = '获取验证码';
                   vm.isSendCaptcha = false;
-                  vm.isDisable = true;
                   vm.captchaMsg = '';
                   clearInterval(sendCaptchaInterval);
                 }
@@ -414,6 +416,8 @@ require(['Vue', 'Utils'],
       });
 
       $(page).on('click', '#restPW', function () {
+        event.preventDefault();
+
         if (!vm.isSendCaptcha) {
           return;
         }
