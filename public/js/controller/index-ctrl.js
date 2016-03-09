@@ -233,6 +233,7 @@ require(['Vue'],
           $.toast("密码输入不一致");
           return;
         }
+
         $.ajax({
           type: 'POST',
           url: '/register',
@@ -270,7 +271,7 @@ require(['Vue'],
           phone: '',
           storeName: '',
           receiver: '',
-          pcdDes: '浙江 杭州 拱墅区',
+          pcdDes: '浙江 嘉兴 南湖区',
           address: ''
         }
       });
@@ -281,8 +282,34 @@ require(['Vue'],
       });
 
       $(page).on('click', '.button', function () {
-        $.toast("恭喜您，注册成功！", 1000);
-        location.href = '/index';
+        $.ajax({
+          type: 'POST',
+          url: '/register-complete',
+          data: {
+            'phone': vm.phone,
+            'storeName': vm.storeName,
+            'receiver': vm.receiver,
+            'pcdDes': vm.pcdDes,
+            'address': vm.address
+          },
+          timeout: 15000,
+          success: function (data, status, xhr){
+            if (data.status) {
+              location.href = data.redirect
+            } else {
+              $.toast(data.msg, 1000);
+            }
+          },
+          error: function (xhr, errorType, error){
+            console.error('register complete error: ' + errorType + '##' + error);
+            $.toast('服务异常', 1000);
+          },
+          complete: function (xhr, status) {
+            $.hidePreloader();
+          }
+        });
+
+        $.showPreloader('请稍等');
       });
     });
 

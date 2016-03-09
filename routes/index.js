@@ -1,6 +1,7 @@
 var express = require('express');
 var unirest = require('unirest');
 var ApiFactory = require('../common/api_config');
+var CityChoose = require('../common/city_choose');
 var router = express.Router();
 
 var loginApi = ApiFactory.CreateApi('login');
@@ -81,30 +82,39 @@ router.route('/register-complete')
     res.render('register-complete', {title: '信息完善-好好卖'});
   })
   .post(function (req, res, next) {
-    unirest.post(customerApi.perfectCustomerInfo())
-      .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
-      .send({
-        "userId": req.session.uid, "storeName": req.body.storeName,
-        "receiver": {
-          "name": req.body.receiver,
-          "phone": req.body.phone,
-          "provinceId": req.body.provinceId,
-          "province": req.body.province,
-          "cityId": req.body.cityId,
-          "city": req.body.cityId,
-          "districtId": req.body.districtId,
-          "district": req.body.district,
-          "address": req.body.address
-        }
-      })
-      .end(function (response) {
-        var data = response.body.repData;
-        if (data.status) {
-          res.json({status: data.status});
-        } else {
-          res.json({status: data.status, msg: data.msg});
-        }
-      });
+    var pcdDes = req.body.pcdDes.split(' ');
+    CityChoose.getPCD(pcdDes[0], pcdDes[1], pcdDes[2], function (err, pcd) {
+      if (err) {
+        console.error('get pcd error: ' + err);
+        res.json({status: 0, msg: err});
+        return;
+      }
+
+      unirest.post(customerApi.perfectCustomerInfo())
+        .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
+        .send({
+          "userId": req.session.uid, "storeName": req.body.storeName,
+          "receiver": {
+            "name": req.body.receiver,
+            "phone": req.body.phone,
+            "provinceId": pcd.province.id,
+            "province": pcd.province.name,
+            "cityId": pcd.city.id,
+            "city": pcd.city.name,
+            "districtId": pcd.district.id,
+            "district": pcd.district.name,
+            "address": req.body.address
+          }
+        })
+        .end(function (response) {
+          var data = response.body.repData;
+          if (data.status) {
+            res.json({status: data.status, redirect: '/index'});
+          } else {
+            res.json({status: data.status, msg: data.msg});
+          }
+        });
+    });
   });
 
 router.get('/rest-password', function (req, res, next) {
