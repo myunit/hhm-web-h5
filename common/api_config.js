@@ -39,6 +39,9 @@ LoginApi.prototype = {
   },
   forgetPassword : function(){
     return api_config.loginService.baseUrl + api_config.loginService.method.forgetPassword;
+  },
+  modifyPassword : function(){
+    return api_config.loginService.baseUrl + api_config.loginService.method.modifyPassword;
   }
 };
 

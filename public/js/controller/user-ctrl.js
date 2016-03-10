@@ -129,7 +129,7 @@ require(['Vue','Utils'],
 
     });
 
-    $(document).on("pageInit", "#page-change-shop-style", function (e, id, page) {
+    /*$(document).on("pageInit", "#page-change-shop-style", function (e, id, page) {
       var vm = new Vue({
         el: '#page-change-shop-style',
         data: {}
@@ -141,7 +141,7 @@ require(['Vue','Utils'],
         location.href = '/users/account';
       });
 
-    });
+    });*/
 
     $(document).on("pageInit", "#page-change-password", function (e, id, page) {
       var vm = new Vue({
@@ -159,26 +159,26 @@ require(['Vue','Utils'],
       });
 
       $(page).on('click', '.button', function () {
-        if (!vm.oldPW) {
-          $.toast("请输入旧密码", 1000);
-          return;
-        }
-
-        if (!vm.newPW) {
-          $.toast("请输入新密码", 1000);
-          return;
-        }
-
-        if (!vm.rePW) {
-          $.toast("请再次输入新密码", 1000);
-          return;
-        }
-
         if (vm.isDisable) {
           return;
         }
-        $.toast("新密码设置成功！", 1000);
-        window.history.back();
+
+        if (vm.newPW != vm.rePW) {
+          $.toast("密码输入不一致");
+          return;
+        }
+
+        ajaxPost('/users/change-password', {password: vm.newPW}, function (err, data) {
+          $.hidePreloader();
+          if (err) {
+            $.toast(err, 1000);
+          } else {
+            $.toast("新密码设置成功！", 1000);
+            location.href = '/users/account';
+          }
+        });
+
+        $.showPreloader('保存中');
       });
 
     });

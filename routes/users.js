@@ -4,6 +4,7 @@ var ApiFactory = require('../common/api_config');
 var router = express.Router();
 
 var customerApi = ApiFactory.CreateApi('customer');
+var loginApi = ApiFactory.CreateApi('login');
 
 /* GET users listing. */
 router.use(function (req, res, next) {
@@ -54,13 +55,23 @@ router.get('/change-shop-name', function (req, res, next) {
   res.render('change-shop-name', {title: '店铺名称-好好卖'});
 });
 
-router.get('/change-shop-style', function (req, res, next) {
-  res.render('change-shop-style', {title: '店铺名称-好好卖'});
-});
-
-router.get('/change-password', function (req, res, next) {
-  res.render('change-password', {title: '修改密码-好好卖'});
-});
+router.route('/change-password')
+  .get(function (req, res, next) {
+    res.render('change-password', {title: '修改密码-好好卖'});
+  })
+  .post(function (req, res, next) {
+    unirest.post(loginApi.modifyPassword())
+      .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
+      .send({"userId": req.session.uid, "newPassword": req.body.password})
+      .end(function (response) {
+        var data = response.body.repData;
+        if (data.status) {
+          res.json({status: data.status});
+        } else {
+          res.json({status: data.status, msg: data.msg});
+        }
+      });
+  });
 
 router.get('/my-book', function (req, res, next) {
   res.render('my-book', {title: '我的订单-好好卖'});
