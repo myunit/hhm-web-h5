@@ -19,6 +19,27 @@ require.config({
   }
 });
 
+function getStoreName(cb) {
+  $.ajax({
+    type: 'POST',
+    url: '/users/getStoreName',
+    data: {
+    },
+    timeout: 15000,
+    success: function (data, status, xhr){
+      if (data.status) {
+        cb(null, data.storeName);
+      } else {
+        cb(data.msg, null);
+      }
+    },
+    error: function (xhr, errorType, error){
+      console.error('my page get store error: ' + errorType + '##' + error);
+      cb('服务异常', null);
+    }
+  });
+}
+
 require(['Vue','Utils'],
   function (Vue, Utils) {
     'use strict';
@@ -33,22 +54,11 @@ require(['Vue','Utils'],
         }
       });
 
-      $.ajax({
-        type: 'POST',
-        url: '/users',
-        data: {
-        },
-        timeout: 15000,
-        success: function (data, status, xhr){
-          if (data.status) {
-            vm.storeName = data.storeName;
-          } else {
-            $.toast(data.msg, 1000);
-          }
-        },
-        error: function (xhr, errorType, error){
-          console.error('my page get store error: ' + errorType + '##' + error);
-          $.toast('服务异常', 1000);
+      getStoreName(function (err, storeName) {
+        if (err) {
+          $.toast(data.msg, 1000);
+        } else {
+          vm.storeName = storeName;
         }
       });
 

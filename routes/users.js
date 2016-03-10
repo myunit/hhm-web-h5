@@ -14,11 +14,11 @@ router.use(function (req, res, next) {
   }
 });
 
-router.route('/')
-  .get(function (req, res, next) {
+router.get('/', function (req, res, next) {
     res.render('my', {title: '我的-好好卖'});
-  })
-  .post(function (req, res, next) {
+});
+
+router.post('/getStoreName', function (req, res, next) {
     unirest.post(customerApi.getStoreInfo())
       .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
       .send({"userId": req.session.uid})
