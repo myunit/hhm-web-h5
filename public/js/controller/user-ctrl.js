@@ -116,12 +116,15 @@ require(['Vue','Utils'],
 
       $(page).on('click', '.button', function () {
         ajaxPost('/users/setStoreName', {storeName: vm.storeName}, function (err, data) {
+          $.hidePreloader();
           if (err) {
             $.toast(err, 1000);
           } else {
             location.href = '/users/account';
           }
         });
+
+        $.showPreloader('保存中');
       });
 
     });
