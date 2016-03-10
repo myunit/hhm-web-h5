@@ -47,5 +47,8 @@ var CustomerApi = function(){};
 CustomerApi.prototype = {
   perfectCustomerInfo : function(){
     return api_config.customerService.baseUrl + api_config.customerService.method.perfectCustomerInfo;
+  },
+  getStoreInfo : function(){
+    return api_config.customerService.baseUrl + api_config.customerService.method.getStoreInfo;
   }
 };

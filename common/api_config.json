@@ -14,7 +14,8 @@
   "customerService": {
     "baseUrl": "http://120.27.148.53:30001/customer/v1/",
     "method": {
-      "perfectCustomerInfo": "Customers/perfect-customer-info"
+      "perfectCustomerInfo": "Customers/perfect-customer-info",
+      "getStoreInfo": "Customers/get-store-info"
     }
   }
 }

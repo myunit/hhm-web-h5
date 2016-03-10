@@ -28,7 +28,28 @@ require(['Vue','Utils'],
     $(document).on("pageInit", "#page-my", function (e, id, page) {
       var vm = new Vue({
         el: '#page-my',
-        data: {}
+        data: {
+          storeName: ''
+        }
+      });
+
+      $.ajax({
+        type: 'POST',
+        url: '/users',
+        data: {
+        },
+        timeout: 15000,
+        success: function (data, status, xhr){
+          if (data.status) {
+            vm.storeName = data.storeName;
+          } else {
+            $.toast(data.msg, 1000);
+          }
+        },
+        error: function (xhr, errorType, error){
+          console.error('my page get store error: ' + errorType + '##' + error);
+          $.toast('服务异常', 1000);
+        }
       });
 
     });
