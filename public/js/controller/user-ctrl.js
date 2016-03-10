@@ -19,24 +19,29 @@ require.config({
   }
 });
 
-function getStoreName(cb) {
+function ajaxPost(url, data, cb) {
   $.ajax({
     type: 'POST',
-    url: '/users/getStoreName',
-    data: {
-    },
+    url: url,
+    data: data,
     timeout: 15000,
     success: function (data, status, xhr){
       if (data.status) {
-        cb(null, data.storeName);
+        cb(null, data);
       } else {
         cb(data.msg, null);
       }
     },
     error: function (xhr, errorType, error){
-      console.error('my page get store error: ' + errorType + '##' + error);
+      console.error(url + ' error: ' + errorType + '##' + error);
       cb('服务异常', null);
     }
+  });
+}
+
+function getStoreName(cb) {
+  ajaxPost('/users/getStoreName', {}, function (err, data) {
+    cb(err, data.storeName);
   });
 }
 
@@ -84,10 +89,6 @@ require(['Vue','Utils'],
         location.href = '/users/change-shop-name';
       });
 
-      $(page).on('click', '#linkType', function () {
-        location.href = '/users/change-shop-style';
-      });
-
       $(page).on('click', '#linkAddress', function () {
         location.href = '/users/my-address';
       });
@@ -100,11 +101,27 @@ require(['Vue','Utils'],
     $(document).on("pageInit", "#page-change-shop-name", function (e, id, page) {
       var vm = new Vue({
         el: '#page-change-shop-name',
-        data: {}
+        data: {
+          storeName: ''
+        }
+      });
+
+      getStoreName(function (err, storeName) {
+        if (err) {
+          $.toast(data.msg, 1000);
+        } else {
+          vm.storeName = storeName;
+        }
       });
 
       $(page).on('click', '.button', function () {
-        location.href = '/users/account';
+        ajaxPost('/users/setStoreName', {storeName: vm.storeName}, function (err, data) {
+          if (err) {
+            $.toast(err, 1000);
+          } else {
+            location.href = '/users/account';
+          }
+        });
       });
 
     });

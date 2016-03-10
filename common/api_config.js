@@ -50,5 +50,8 @@ CustomerApi.prototype = {
   },
   getStoreInfo : function(){
     return api_config.customerService.baseUrl + api_config.customerService.method.getStoreInfo;
+  },
+  setStoreInfo : function(){
+    return api_config.customerService.baseUrl + api_config.customerService.method.setStoreInfo;
   }
 };

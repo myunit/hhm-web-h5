@@ -15,22 +15,36 @@ router.use(function (req, res, next) {
 });
 
 router.get('/', function (req, res, next) {
-    res.render('my', {title: '我的-好好卖'});
+  res.render('my', {title: '我的-好好卖'});
 });
 
 router.post('/getStoreName', function (req, res, next) {
-    unirest.post(customerApi.getStoreInfo())
-      .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
-      .send({"userId": req.session.uid})
-      .end(function (response) {
-        var data = response.body.repData;
-        if (data.status) {
-          res.json({status: data.status, storeName: data.store.StoreName});
-        } else {
-          res.json({status: data.status, msg: data.msg});
-        }
-      });
-  });
+  unirest.post(customerApi.getStoreInfo())
+    .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
+    .send({"userId": req.session.uid})
+    .end(function (response) {
+      var data = response.body.repData;
+      if (data.status) {
+        res.json({status: data.status, storeName: data.store.StoreName});
+      } else {
+        res.json({status: data.status, msg: data.msg});
+      }
+    });
+});
+
+router.post('/setStoreName', function (req, res, next) {
+  unirest.post(customerApi.setStoreInfo())
+    .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
+    .send({"userId": req.session.uid, "storeName": req.body.storeName})
+    .end(function (response) {
+      var data = response.body.repData;
+      if (data.status) {
+        res.json({status: data.status});
+      } else {
+        res.json({status: data.status, msg: data.msg});
+      }
+    });
+});
 
 router.get('/account', function (req, res, next) {
   res.render('my-account', {title: '账户管理-好好卖'});
