@@ -19,9 +19,12 @@ router.route('/')
       .send({"phone": req.body.username, "password": req.body.password})
       .end(function (response) {
         var data = response.body.repData;
+        if (data === undefined) {
+          res.json({status: 0, msg: '服务异常'});
+        }
         if (data.status) {
           req.session.uid = data.customer.SysNo;
-          req.session.token = data.token;
+          req.session.token = data.token.id;
           res.json({status: data.status, redirect: '/index'});
         } else {
           res.json({status: data.status, msg: data.msg});
@@ -53,6 +56,9 @@ router.route('/register')
       .send({"phone": req.body.phone, "password": req.body.password, "code": req.body.captcha})
       .end(function (response) {
         var data = response.body.repData;
+        if (data === undefined) {
+          res.json({status: 0, msg: '服务异常'});
+        }
         if (data.status) {
           req.session.uid = data.customer.SysNo;
           req.session.token = data.token;
@@ -69,6 +75,9 @@ router.post('/get-captcha', function (req, res, next) {
     .send({"phone": req.body.phone, "type": req.body.type})
     .end(function (response) {
       var data = response.body.repData;
+      if (data === undefined) {
+        res.json({status: 0, msg: '服务异常'});
+      }
       if (data.status) {
         res.json({status: data.status});
       } else {
@@ -95,7 +104,7 @@ router.route('/register-complete')
       }
 
       unirest.post(customerApi.perfectCustomerInfo())
-        .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
+        .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'X-Access-Token':req.session.token})
         .send({
           "userId": req.session.uid, "storeName": req.body.storeName,
           "receiver": {
@@ -112,6 +121,9 @@ router.route('/register-complete')
         })
         .end(function (response) {
           var data = response.body.repData;
+          if (data === undefined) {
+            res.json({status: 0, msg: '服务异常'});
+          }
           if (data.status) {
             res.json({status: data.status, redirect: '/index'});
           } else {
@@ -127,10 +139,13 @@ router.route('/rest-password')
   })
   .post(function (req, res, next) {
     unirest.post(loginApi.forgetPassword())
-      .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
+      .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'X-Access-Token':req.session.token})
       .send({"phone": req.body.phone, "newPassword": req.body.password, "code": req.body.captcha})
       .end(function (response) {
         var data = response.body.repData;
+        if (data === undefined) {
+          res.json({status: 0, msg: '服务异常'});
+        }
         if (data.status) {
           req.session = null;
           res.json({status: data.status, redirect: '/'});

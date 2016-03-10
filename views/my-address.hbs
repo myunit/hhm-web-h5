@@ -4,74 +4,30 @@
             <a href="/address/add" class="my-28-text external">新增地址</a>
         </nav>
         <div class="content native-scroll">
-            <div class="list-block media-list my-select-address my-address">
-                <ul>
-                    <li>
-                        <a href="#" class="item-content">
-                            <div class="item-inner">
-                                <div class="item-title-row">
-                                    <div class="item-title">王老板</div>
-                                    <div class="item-after">15157333000</div>
+            <template v-for="receiver in receivers">
+                <div class="list-block media-list my-select-address my-address">
+                    <ul>
+                        <li>
+                            <a href="#" class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title-row">
+                                        <div class="item-title">${receiver.ReceiverName}</div>
+                                        <div class="item-after">${receiver.ReceiverPhone}</div>
+                                    </div>
+                                    <div class="item-text my-gray-text">${receiver.Province} ${receiver.City} ${receiver.District} ${receiver.Address}
+                                    </div>
                                 </div>
-                                <div class="item-text my-gray-text">浙江省 嘉兴市 南湖区XX路XX号XX小区 门口开心果园
+                            </a>
+                            <div class="row">
+                                <div class="col-50 my-gray-text my-22-text">
+                                    <label class="label-checkbox"><input type="radio" v-model="receiver.IsDefault" name="single-radio"><div class="item-media"><i class="icon icon-form-checkbox"></i></div>默认地址</label>
                                 </div>
+                                <div class="col-50 my-right-text"><a href="/address/modify" class="my-gray-text my-22-text external"><span class="icon icon-edit"></span> 修改</a> <a href="#" class="my-gray-text my-22-text"><span class="icon icon-delete"></span> 删除</a></div>
                             </div>
-                        </a>
-                        <div class="row">
-                            <div class="col-50 my-gray-text my-22-text">
-                                <label class="label-checkbox"><input type="radio" checked name="single-radio"><div class="item-media"><i class="icon icon-form-checkbox"></i></div>默认地址</label>
-                            </div>
-                            <div class="col-50 my-right-text"><a href="/address/modify" class="my-gray-text my-22-text external"><span class="icon icon-edit"></span> 修改</a> <a href="#" class="my-gray-text my-22-text"><span class="icon icon-delete"></span> 删除</a></div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="list-block media-list my-select-address my-address">
-                <ul>
-                    <li>
-                        <a href="#" class="item-content">
-                            <div class="item-inner">
-                                <div class="item-title-row">
-                                    <div class="item-title">老板娘</div>
-                                    <div class="item-after">15157333000</div>
-                                </div>
-                                <div class="item-text my-gray-text">浙江省 嘉兴市 南湖区XX路XX号XX小区 门口开心果园
-                                </div>
-                            </div>
-                        </a>
-                        <div class="row">
-                            <div class="col-50 my-gray-text my-22-text">
-                                <label class="label-checkbox"><input type="radio" name="single-radio"><div class="item-media"><i class="icon icon-form-checkbox"></i></div>设为默认</label>
-                            </div>
-                            <div class="col-50 my-right-text"><a href="/address/modify" class="my-gray-text my-22-text"><span class="icon icon-edit"></span> 修改</a> <a href="#" class="my-gray-text my-22-text"><span class="icon icon-delete"></span> 删除</a></div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="list-block media-list my-select-address  my-address">
-                <ul>
-                    <li>
-                        <a href="#" class="item-content">
-                            <div class="item-inner">
-                                <div class="item-title-row">
-                                    <div class="item-title">李老板</div>
-                                    <div class="item-after">15157333000</div>
-                                </div>
-                                <div class="item-text my-gray-text">浙江省 嘉兴市 南湖区XX路XX号XX小区 门口开心果园
-                                </div>
-                            </div>
-                        </a>
-                        <div class="row">
-                            <div class="col-50 my-gray-text my-22-text">
-                                <label class="label-checkbox"><input type="radio" name="single-radio"><div class="item-media"><i class="icon icon-form-checkbox"></i></div>设为默认</label>
-                            </div>
-                            <div class="col-50 my-right-text"><a href="/address/modify" class="my-gray-text my-22-text"><span class="icon icon-edit"></span> 修改</a> <a href="#" class="my-gray-text my-22-text"><span class="icon icon-delete"></span> 删除</a></div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+                        </li>
+                    </ul>
+                </div>
+            </template>
         </div>
     </div>
 </div>

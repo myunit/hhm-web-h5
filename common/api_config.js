@@ -56,5 +56,8 @@ CustomerApi.prototype = {
   },
   setStoreInfo : function(){
     return api_config.customerService.baseUrl + api_config.customerService.method.setStoreInfo;
+  },
+  getReceiver : function(){
+    return api_config.customerService.baseUrl + api_config.customerService.method.getReceiver;
   }
 };

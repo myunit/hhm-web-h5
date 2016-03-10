@@ -16,7 +16,8 @@
     "method": {
       "perfectCustomerInfo": "Customers/perfect-customer-info",
       "getStoreInfo": "Customers/get-store-info",
-      "setStoreInfo": "Customers/set-store-info"
+      "setStoreInfo": "Customers/set-store-info",
+      "getReceiver": "Addresses/get-receiver"
     }
   }
 }

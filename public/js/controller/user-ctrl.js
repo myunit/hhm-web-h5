@@ -322,6 +322,15 @@ require(['Vue','Utils'],
       var vm = new Vue({
         el: '#page-my-address',
         data: {
+          receivers: []
+        }
+      });
+
+      ajaxPost('/users/my-address', {password: vm.newPW}, function (err, data) {
+        if (err) {
+          $.toast(err, 1000);
+        } else {
+          vm.receivers = data.receiver.slice();
         }
       });
 
