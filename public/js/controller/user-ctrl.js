@@ -322,7 +322,8 @@ require(['Vue','Utils'],
       var vm = new Vue({
         el: '#page-my-address',
         data: {
-          receivers: []
+          receivers: [],
+          defaultIdx: null
         }
       });
 
@@ -334,13 +335,15 @@ require(['Vue','Utils'],
         }
       });
 
-      $(page).on('click', '.label-checkbox', function() {
-        $('.label-checkbox').contents().filter(function() {
-          return this.nodeType === 3;
-        }).text('设为默认');
-        $(this).contents().filter(function() {
-          return this.nodeType === 3;
-        }).text('默认地址');
+      $(page).on('change', '.label-checkbox', function() {
+        var len = vm.receivers.length;
+        for (var i = 0; i < len; i++) {
+          if (i === vm.defaultIdx) {
+            vm.receivers[i].IsDefault = true;
+          } else {
+            vm.receivers[i].IsDefault = false;
+          }
+        }
       });
 
     });
