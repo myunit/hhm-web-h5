@@ -25,14 +25,14 @@ function ajaxPost(url, data, cb) {
     url: url,
     data: data,
     timeout: 15000,
-    success: function (data, status, xhr){
+    success: function (data, status, xhr) {
       if (data.status) {
         cb(null, data);
       } else {
         cb(data.msg, null);
       }
     },
-    error: function (xhr, errorType, error){
+    error: function (xhr, errorType, error) {
       console.error(url + ' error: ' + errorType + '##' + error);
       cb('服务异常', null);
     }
@@ -45,7 +45,7 @@ function getStoreName(cb) {
   });
 }
 
-require(['Vue','Utils'],
+require(['Vue', 'Utils'],
   function (Vue, Utils) {
     'use strict';
     Vue.config.delimiters = ['${', '}'];
@@ -130,18 +130,18 @@ require(['Vue','Utils'],
     });
 
     /*$(document).on("pageInit", "#page-change-shop-style", function (e, id, page) {
-      var vm = new Vue({
-        el: '#page-change-shop-style',
-        data: {}
-      });
+     var vm = new Vue({
+     el: '#page-change-shop-style',
+     data: {}
+     });
 
-      $(page).on('click', 'li a', function () {
-        $('li a').removeClass('my-shop-active');
-        $(this).addClass('my-shop-active');
-        location.href = '/users/account';
-      });
+     $(page).on('click', 'li a', function () {
+     $('li a').removeClass('my-shop-active');
+     $(this).addClass('my-shop-active');
+     location.href = '/users/account';
+     });
 
-    });*/
+     });*/
 
     $(document).on("pageInit", "#page-change-password", function (e, id, page) {
       var vm = new Vue({
@@ -209,8 +209,7 @@ require(['Vue','Utils'],
     $(document).on("pageInit", "#page-my-buy-report-result", function (e, id, page) {
       var vm = new Vue({
         el: '#page-my-buy-report-result',
-        data: {
-        }
+        data: {}
       });
 
     });
@@ -224,11 +223,11 @@ require(['Vue','Utils'],
         }
       });
 
-      $(page).on('click','.icon-clear', function () {
+      $(page).on('click', '.icon-clear', function () {
         vm.search = '';
       });
 
-      $(page).on('click','.like', function () {
+      $(page).on('click', '.like', function () {
         $(this).toggleClass('icon-like');
         $(this).toggleClass('icon-likeactive');
         if ($(this).hasClass("icon-like")) {
@@ -238,11 +237,11 @@ require(['Vue','Utils'],
         }
       });
 
-      $(page).on('click','.icon-clear', function () {
+      $(page).on('click', '.icon-clear', function () {
         vm.search = '';
       });
 
-      $(page).on('click','.button', function () {
+      $(page).on('click', '.button', function () {
         $.popup('.popup-cart');
       });
 
@@ -266,7 +265,7 @@ require(['Vue','Utils'],
         }
       });
 
-      $(document).on('click','.my-a-cart.close-popup', function () {
+      $(document).on('click', '.my-a-cart.close-popup', function () {
         if (cartVm.addCartNum === '') {
           cartVm.addCartNum = 1;
           $.toast('请输入正确的购买数量', 1000);
@@ -277,21 +276,21 @@ require(['Vue','Utils'],
         cartVm.addCartNum = 1;
       });
 
-      $(document).on('click','.icon-close.close-popup', function () {
+      $(document).on('click', '.icon-close.close-popup', function () {
         cartVm.addCartNum = 1;
       });
 
-      $(document).on('click','.em-op-d', function () {
+      $(document).on('click', '.em-op-d', function () {
         if (cartVm.addCartNum > 1) {
           cartVm.addCartNum--;
         }
       });
 
-      $(document).on('click','.em-op-a', function () {
+      $(document).on('click', '.em-op-a', function () {
         cartVm.addCartNum++;
       });
 
-      $(document).on('click','.my-ul-spec li', function () {
+      $(document).on('click', '.my-ul-spec li', function () {
         $('.my-ul-spec li').removeClass('my-spec-on');
         $(this).addClass('my-spec-on');
       });
@@ -301,11 +300,10 @@ require(['Vue','Utils'],
     $(document).on("pageInit", "#page-my-message", function (e, id, page) {
       var vm = new Vue({
         el: '#page-my-message',
-        data: {
-        }
+        data: {}
       });
 
-      $(page).on('click', '.open-message-modal', function() {
+      $(page).on('click', '.open-message-modal', function () {
         $.modal({
           title: '消息标题消息标题消息标题消息标题消息标题消息标题消息标题<span class="my-message-time">今天 09:45</span>',
           text: '<p>又到了周四大特卖！还在等什么呢！手快有，手慢无，赶紧抢货咯！又到了周四大特卖！还在等什么呢！手快有，手慢无，赶紧抢货咯！又到了周四大特卖！还在等什么呢！手快有，手慢无，赶紧抢货咯！<p>',
@@ -335,15 +333,23 @@ require(['Vue','Utils'],
         }
       });
 
-      $(page).on('change', '.label-checkbox', function() {
-        var len = vm.receivers.length;
-        for (var i = 0; i < len; i++) {
-          if (i === vm.defaultIdx) {
-            vm.receivers[i].IsDefault = true;
+      $(page).on('change', '.label-checkbox', function () {
+        ajaxPost('/users/set-default-receiver', {receiverId: vm.receivers[vm.defaultIdx].SysNo}, function (err, data) {
+          if (err) {
+            $.toast(err, 1000);
           } else {
-            vm.receivers[i].IsDefault = false;
+            var len = vm.receivers.length;
+            for (var i = 0; i < len; i++) {
+              if (i === vm.defaultIdx) {
+                vm.receivers[i].IsDefault = true;
+              } else {
+                vm.receivers[i].IsDefault = false;
+              }
+            }
+            $.hidePreloader();
           }
-        }
+        });
+        $.showPreloader('保存中');
       });
 
     });

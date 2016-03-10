@@ -127,4 +127,21 @@ router.route('/my-address')
       });
   });
 
+router.post('/set-default-receiver', function (req, res, next) {
+  unirest.post(customerApi.setDefaultReceiver())
+    .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'X-Access-Token':req.session.token})
+    .send({"userId": req.session.uid, "receiverId": req.body.receiverId})
+    .end(function (response) {
+      var data = response.body.repData;
+      if (data === undefined) {
+        res.json({status: 0, msg: '服务异常'});
+      }
+      if (data.status) {
+        res.json({status: data.status});
+      } else {
+        res.json({status: data.status, msg: data.msg});
+      }
+    });
+});
+
 module.exports = router;
