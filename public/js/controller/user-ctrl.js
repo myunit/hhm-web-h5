@@ -67,7 +67,17 @@ require(['Vue','Utils'],
     $(document).on("pageInit", "#page-my-account", function (e, id, page) {
       var vm = new Vue({
         el: '#page-my-account',
-        data: {}
+        data: {
+          storeName: ''
+        }
+      });
+
+      getStoreName(function (err, storeName) {
+        if (err) {
+          $.toast(data.msg, 1000);
+        } else {
+          vm.storeName = storeName;
+        }
       });
 
       $(page).on('click', '#linkName', function () {
