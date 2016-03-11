@@ -106,8 +106,6 @@ require(['Vue', 'Utils'],
       });
 
       function login(event) {
-        event.preventDefault();
-
         if (!vm.phone) {
           $.toast("请输入手机号", 1000);
           return;
@@ -164,8 +162,6 @@ require(['Vue', 'Utils'],
       });
 
       function sendCaptcha(event) {
-        event.preventDefault();
-
         if (vm.isSendCaptcha) {
           return;
         }
@@ -211,8 +207,6 @@ require(['Vue', 'Utils'],
       }
 
       function submitReg(event) {
-        event.preventDefault();
-
         if (!vm.isSendCaptcha) {
           return;
         }
@@ -275,8 +269,6 @@ require(['Vue', 'Utils'],
       });
 
       function submitInfo (event) {
-        event.preventDefault();
-
         if (vm.phone && !Utils.checkMobile(vm.phone)) {
           $.toast("请输入正确的手机号", 1000);
           return;
@@ -329,8 +321,6 @@ require(['Vue', 'Utils'],
       });
 
       function sendCaptcha (event) {
-        event.preventDefault();
-
         if (vm.isSendCaptcha) {
           return;
         }
@@ -376,8 +366,6 @@ require(['Vue', 'Utils'],
       }
 
       function restPW (event) {
-        event.preventDefault();
-
         if (!vm.isSendCaptcha) {
           return;
         }

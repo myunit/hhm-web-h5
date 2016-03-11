@@ -18,7 +18,7 @@
                             <div class="item-content my-div-reset">
                                 <div class="item-media"><i class="icon icon-idcode"></i></div>
                                 <div class="item-inner">
-                                    <a v-cloak href="#" @click="sendCaptcha" class="my-a-reset my-26-text" :class= "{'my-black-text':!isSendCaptcha , 'my-gray-text':isSendCaptcha}">${captchaTip}</a>
+                                    <a v-cloak href="#" @click.prevent="sendCaptcha" class="my-a-reset my-26-text" :class= "{'my-black-text':!isSendCaptcha , 'my-gray-text':isSendCaptcha}">${captchaTip}</a>
                                     <div class="item-input">
                                         <input type="text" placeholder="请输入验证码" v-model="captcha">
                                     </div>
@@ -52,7 +52,7 @@
                         </li>
                     </ul>
                 </div>
-                <p class="my-50-mar" v-cloak><a href="#" @click="submitReg" class="button button-fill button-big" :class="{'button-disable': isDisable}">下一步</a></p>
+                <p class="my-50-mar" v-cloak><a href="#" @click.prevent="submitReg" class="button button-fill button-big" :class="{'button-disable': isDisable}">下一步</a></p>
             </div>
         </div>
     </div>
