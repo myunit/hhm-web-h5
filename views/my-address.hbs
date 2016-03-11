@@ -22,7 +22,7 @@
                                 <div class="col-50 my-gray-text my-22-text">
                                     <label class="label-checkbox"><input type="radio" @change="setDefault" :checked="receiver.IsDefault" :value="$index" v-model="defaultIdx" name="single-radio"><div class="item-media"><i class="icon icon-form-checkbox"></i></div>${receiver.IsDefault ? '默认地址':'设为默认'}</label>
                                 </div>
-                                <div class="col-50 my-right-text"><a href="/address/modify" class="my-gray-text my-22-text external"><span class="icon icon-edit"></span> 修改</a> <a href="#" @click.prevent="deleteAdr($index, $event)" class="my-gray-text my-22-text"><span class="icon icon-delete"></span> 删除</a></div>
+                                <div class="col-50 my-right-text"><a href="#" class="open-about my-gray-text my-22-text external"><span class="icon icon-edit"></span> 修改</a> <a href="#" @click.prevent="deleteAdr($index, $event)" class="my-gray-text my-22-text"><span class="icon icon-delete"></span> 删除</a></div>
                             </div>
                         </li>
                     </ul>
@@ -31,6 +31,63 @@
         </div>
     </div>
 </div>
+<div class="popup popup-about">
+    <div class="content-padded">
+        <p class="my-gray-text"></p>
+        <div class="list-block my-0-mar my-no-icon">
+            <ul class="my-ul-border my-0-mar">
+                <li>
+                    <div class="item-content">
+                        <div class="item-inner">
+                            <div class="item-input">
+                                <input type="text" placeholder="请输入收货人姓名">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="item-content">
+                        <div class="item-inner">
+                            <div class="item-input">
+                                <input type="text" placeholder="请输入收货人电话">
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <p class="my-gray-text">所在地区</p>
+        <div class="list-block my-0-mar my-no-icon">
+            <ul class="my-ul-border my-0-mar">
+                <li>
+                    <div class="item-content">
+                        <div class="item-inner my-bg-select">
+                            <div class="item-input">
+                                <input type="text" id="city-picker" value="浙江 杭州 拱墅区" />
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <p class="my-gray-text"></p>
+        <div class="list-block my-0-mar my-no-icon">
+            <ul class="my-ul-border my-0-mar">
+                <li>
+                    <div class="item-content">
+                        <div class="item-inner">
+                            <div class="item-input">
+                                <textarea rows="3" placeholder="请输入路名、门牌号等"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <p class="my-50-mar"><a href="#" class="close-popup button button-fill button-big external">完成</a></p>
+    </div>
+</div>
 <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+<script type="text/javascript" src="../js/lib/sm-city-picker.min.js" charset="utf-8"></script>
 <script type='text/javascript' src='../js/lib/requirejs.min.js' data-main='../js/controller/user-ctrl'></script>

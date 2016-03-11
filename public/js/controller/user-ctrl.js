@@ -358,6 +358,17 @@ require(['Vue', 'Utils'],
         );
       }
 
+      $(page).on('click','.open-about', function (event) {
+        event.preventDefault();
+        $("title").text('新增地址');
+        $.popup('.popup-about');
+      });
+
+      $(document).on('click','.close-popup', function (event) {
+        event.preventDefault();
+        $("title").text('地址管理');
+      });
+
       $(page).on('change', '[name="single-radio"]', function () {
         ajaxPost('/address/set-default-receiver', {receiverId: vm.receivers[vm.defaultIdx].SysNo}, function (err, data) {
           if (err) {
@@ -375,6 +386,11 @@ require(['Vue', 'Utils'],
           }
         });
         $.showPreloader('保存中');
+      });
+
+      $("#city-picker").cityPicker({
+        toolbarTemplate: '<header class="bar bar-nav"><button class="button button-link pull-right close-picker">确定</button>\
+        <h1 class="title">选择收货地址</h1></header>'
       });
 
     });
