@@ -27,7 +27,7 @@
                         </li>
                     </ul>
                 </div>
-                <p v-cloak><a href="#" id="login" class="button button-fill button-big external" :class="{'button-disable': isDisable}">登录</a></p>
+                <p v-cloak><a href="#" @click="login" class="button button-fill button-big external" :class="{'button-disable': isDisable}">登录</a></p>
                 <div class="row">
                     <div class="col-50"><a class="my-red-text external" href="/register">立即注册</a></div>
                     <div class="col-50 my-right-text"><a class="my-black-text external" href="rest-password">忘记密码？</a></div>

@@ -99,10 +99,13 @@ require(['Vue', 'Utils'],
           isDisable: function () {
             return this.phone.length === 0 || this.password.length === 0;
           }
+        },
+        methods: {
+          login: login
         }
       });
 
-      $(page).on('click', '#login', function (event) {
+      function login(event) {
         event.preventDefault();
 
         if (!vm.phone) {
@@ -134,17 +137,10 @@ require(['Vue', 'Utils'],
         });
 
         $.showPreloader('登录中');
-      });
+      }
 
       $(window).resize(function () {
         $('.content').scrollTop($(window).height());
-      });
-    });
-
-    $(document).on("pageInit", "#page-choose-shop-style", function (e, id, page) {
-      var vm = new Vue({
-        el: '#page-choose-shop-style',
-        data: {}
       });
     });
 
@@ -160,10 +156,14 @@ require(['Vue', 'Utils'],
           password: '',
           rePassword: '',
           phone: ''
+        },
+        methods: {
+          sendCaptcha: sendCaptcha,
+          submitReg: submitReg
         }
       });
 
-      $(page).on('click', '#sendCaptcha', function (event) {
+      function sendCaptcha(event) {
         event.preventDefault();
 
         if (vm.isSendCaptcha) {
@@ -208,9 +208,9 @@ require(['Vue', 'Utils'],
         });
 
         $.showPreloader('发送中');
-      });
+      }
 
-      $(page).on('click', '#submitReg', function (event) {
+      function submitReg(event) {
         event.preventDefault();
 
         if (!vm.isSendCaptcha) {
@@ -256,8 +256,7 @@ require(['Vue', 'Utils'],
         });
 
         $.showPreloader('注册中');
-      });
-
+      }
     });
 
     $(document).on("pageInit", "#page-register-complete", function (e, id, page) {
@@ -269,15 +268,13 @@ require(['Vue', 'Utils'],
           receiver: '',
           pcdDes: '浙江 嘉兴 南湖区',
           address: ''
+        },
+        method: {
+          submitInfo: submitInfo
         }
       });
 
-      $("#city-picker").cityPicker({
-        toolbarTemplate: '<header class="bar bar-nav"><button class="button button-link pull-right close-picker">确定</button>\
-        <h1 class="title">选择收货地址</h1></header>'
-      });
-
-      $(page).on('click', '.button', function () {
+      function submitInfo (event) {
         event.preventDefault();
 
         if (vm.phone && !Utils.checkMobile(vm.phone)) {
@@ -304,6 +301,11 @@ require(['Vue', 'Utils'],
         );
 
         $.showPreloader('请稍等');
+      }
+
+      $("#city-picker").cityPicker({
+        toolbarTemplate: '<header class="bar bar-nav"><button class="button button-link pull-right close-picker">确定</button>\
+        <h1 class="title">选择收货地址</h1></header>'
       });
     });
 
