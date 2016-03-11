@@ -274,7 +274,7 @@ require(['Vue', 'Utils'],
           return;
         }
 
-        ajaxPost('/register',
+        ajaxPost('/register-complete',
           {
             'phone': vm.phone,
             'storeName': vm.storeName,
