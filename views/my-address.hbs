@@ -1,7 +1,7 @@
 <div class="page-group">
     <div id="page-my-address" class="page page-current">
         <nav class="bar bar-tab my-booking-fix-bar">
-            <a href="/address/add" class="my-28-text external">新增地址</a>
+            <a href="#" @click.prevent="addOrEditAdr(-1, $event)" class="my-28-text external">新增地址</a>
         </nav>
         <div class="content native-scroll">
             <template v-for="receiver in receivers">
@@ -22,7 +22,7 @@
                                 <div class="col-50 my-gray-text my-22-text">
                                     <label class="label-checkbox"><input type="radio" @change="setDefault" :checked="receiver.IsDefault" :value="$index" v-model="defaultIdx" name="single-radio"><div class="item-media"><i class="icon icon-form-checkbox"></i></div>${receiver.IsDefault ? '默认地址':'设为默认'}</label>
                                 </div>
-                                <div class="col-50 my-right-text"><a href="#" class="open-about my-gray-text my-22-text external"><span class="icon icon-edit"></span> 修改</a> <a href="#" @click.prevent="deleteAdr($index, $event)" class="my-gray-text my-22-text"><span class="icon icon-delete"></span> 删除</a></div>
+                                <div class="col-50 my-right-text"><a href="#" @click.prevent="addOrEditAdr($index, $event)" class="my-gray-text my-22-text external"><span class="icon icon-edit"></span> 修改</a> <a href="#" @click.prevent="deleteAdr($index, $event)" class="my-gray-text my-22-text"><span class="icon icon-delete"></span> 删除</a></div>
                             </div>
                         </li>
                     </ul>
@@ -31,7 +31,7 @@
         </div>
     </div>
 </div>
-<div class="popup popup-about">
+<div id="popup-adr" class="popup popup-adr">
     <div class="content-padded">
         <p class="my-gray-text"></p>
         <div class="list-block my-0-mar my-no-icon">
@@ -40,7 +40,7 @@
                     <div class="item-content">
                         <div class="item-inner">
                             <div class="item-input">
-                                <input type="text" placeholder="请输入收货人姓名">
+                                <input type="text" placeholder="请输入收货人姓名" v-model="OPAdr.ReceiverName">
                             </div>
                         </div>
                     </div>
@@ -49,7 +49,7 @@
                     <div class="item-content">
                         <div class="item-inner">
                             <div class="item-input">
-                                <input type="text" placeholder="请输入收货人电话">
+                                <input type="text" placeholder="请输入收货人电话" v-model="OPAdr.ReceiverPhone">
                             </div>
                         </div>
                     </div>
@@ -63,7 +63,7 @@
                     <div class="item-content">
                         <div class="item-inner my-bg-select">
                             <div class="item-input">
-                                <input type="text" id="city-picker" value="浙江 杭州 拱墅区" />
+                                <input type="text" id="city-picker" v-model="pcd" />
                             </div>
                         </div>
                     </div>
@@ -77,7 +77,7 @@
                     <div class="item-content">
                         <div class="item-inner">
                             <div class="item-input">
-                                <textarea rows="3" placeholder="请输入路名、门牌号等"></textarea>
+                                <textarea rows="3" placeholder="请输入路名、门牌号等" v-model="OPAdr.Address"></textarea>
                             </div>
                         </div>
                     </div>

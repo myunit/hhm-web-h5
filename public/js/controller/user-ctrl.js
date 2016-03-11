@@ -326,10 +326,24 @@ require(['Vue', 'Utils'],
         el: '#page-my-address',
         data: {
           receivers: [],
-          defaultIdx: null
+          defaultIdx: null,
+          OPAdr: null
         },
         methods: {
-          deleteAdr: deleteAdr
+          deleteAdr: deleteAdr,
+          addOrEditAdr: addOrEditAdr
+        }
+      });
+
+      var vmPop = new Vue({
+        el: '#popup-adr',
+        data: {
+          OPAdr: null
+        },
+        computed: {
+          pcd: function () {
+            return this.OPAdr.Province + ' ' + this.OPAdr.City + ' ' + this.OPAdr.District;
+          }
         }
       });
 
@@ -358,15 +372,21 @@ require(['Vue', 'Utils'],
         );
       }
 
-      $(page).on('click','.open-about', function (event) {
-        event.preventDefault();
-        $("title").text('新增地址');
-        $.popup('.popup-about');
-      });
+      function addOrEditAdr (index) {
+        if (index >= 0) {
+          $("title").text('修改地址');
+          vmPop.OPAdr = vm.receivers[index];
+        } else {
+          $("title").text('新增地址');
+        }
+
+        $.popup('.popup-adr');
+      }
 
       $(document).on('click','.close-popup', function (event) {
         event.preventDefault();
         $("title").text('地址管理');
+        vmPop.OPAdr = null;
       });
 
       $(page).on('change', '[name="single-radio"]', function () {
