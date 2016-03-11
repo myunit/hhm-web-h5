@@ -321,10 +321,14 @@ require(['Vue', 'Utils'],
           password: '',
           rePassword: '',
           phone: ''
+        },
+        methods: {
+          sendCaptcha: sendCaptcha,
+          restPW: restPW
         }
       });
 
-      $(page).on('click', '#sendCaptcha', function () {
+      function sendCaptcha (event) {
         event.preventDefault();
 
         if (vm.isSendCaptcha) {
@@ -369,9 +373,9 @@ require(['Vue', 'Utils'],
         });
 
         $.showPreloader('发送中');
-      });
+      }
 
-      $(page).on('click', '#restPW', function () {
+      function restPW (event) {
         event.preventDefault();
 
         if (!vm.isSendCaptcha) {
@@ -421,7 +425,7 @@ require(['Vue', 'Utils'],
         );
 
         $.showPreloader('请稍等');
-      });
+      }
 
     });
 
