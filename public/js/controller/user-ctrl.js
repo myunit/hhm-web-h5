@@ -104,7 +104,7 @@ require(['Vue', 'Utils'],
         data: {
           storeName: ''
         },
-        method: {
+        methods: {
           setStoreName: setStoreName
         }
       });
@@ -327,10 +327,13 @@ require(['Vue', 'Utils'],
         data: {
           receivers: [],
           defaultIdx: null
+        },
+        methods: {
+          deleteAdr: deleteAdr
         }
       });
 
-      ajaxPost('/users/my-address', {password: vm.newPW}, function (err, data) {
+      ajaxPost('/address/get-all-receiver', {}, function (err, data) {
         if (err) {
           $.toast(err, 1000);
         } else {
@@ -338,8 +341,25 @@ require(['Vue', 'Utils'],
         }
       });
 
-      $(page).on('change', '.label-checkbox', function () {
-        ajaxPost('/users/set-default-receiver', {receiverId: vm.receivers[vm.defaultIdx].SysNo}, function (err, data) {
+      function deleteAdr (index, event) {
+        $.confirm('确定删除该地址吗?',
+          function () {
+            ajaxPost('/address/del-receiver', {receiverId: vm.receivers[index].SysNo}, function (err, data) {
+              if (err) {
+                $.toast(err, 1000);
+              } else {
+                vm.receivers.splice(index, 1);
+              }
+            });
+          },
+          function () {
+
+          }
+        );
+      }
+
+      $(page).on('change', '[name="single-radio"]', function () {
+        ajaxPost('/address/set-default-receiver', {receiverId: vm.receivers[vm.defaultIdx].SysNo}, function (err, data) {
           if (err) {
             $.toast(err, 1000);
           } else {
@@ -355,10 +375,6 @@ require(['Vue', 'Utils'],
           }
         });
         $.showPreloader('保存中');
-      });
-
-      $(page).on('click', '#delete', function () {
-        $(this)
       });
 
     });

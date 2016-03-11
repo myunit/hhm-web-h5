@@ -263,7 +263,7 @@ require(['Vue', 'Utils'],
           pcdDes: '浙江 嘉兴 南湖区',
           address: ''
         },
-        method: {
+        methods: {
           submitInfo: submitInfo
         }
       });

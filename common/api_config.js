@@ -62,5 +62,8 @@ CustomerApi.prototype = {
   },
   setDefaultReceiver : function(){
     return api_config.customerService.baseUrl + api_config.customerService.method.setDefaultReceiver;
+  },
+  delReceiver : function(){
+    return api_config.customerService.baseUrl + api_config.customerService.method.delReceiver;
   }
 };

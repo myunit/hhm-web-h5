@@ -20,9 +20,9 @@
                             </a>
                             <div class="row">
                                 <div class="col-50 my-gray-text my-22-text">
-                                    <label class="label-checkbox"><input type="radio" :checked="receiver.IsDefault" :value="$index" v-model="defaultIdx" name="single-radio"><div class="item-media"><i class="icon icon-form-checkbox"></i></div>${receiver.IsDefault ? '默认地址':'设为默认'}</label>
+                                    <label class="label-checkbox"><input type="radio" @change="setDefault" :checked="receiver.IsDefault" :value="$index" v-model="defaultIdx" name="single-radio"><div class="item-media"><i class="icon icon-form-checkbox"></i></div>${receiver.IsDefault ? '默认地址':'设为默认'}</label>
                                 </div>
-                                <div class="col-50 my-right-text"><a href="/address/modify" class="my-gray-text my-22-text external"><span class="icon icon-edit"></span> 修改</a> <a href="#" id="delete" class="my-gray-text my-22-text"><span class="icon icon-delete"></span> 删除</a></div>
+                                <div class="col-50 my-right-text"><a href="/address/modify" class="my-gray-text my-22-text external"><span class="icon icon-edit"></span> 修改</a> <a href="#" @click.prevent="deleteAdr($index, $event)" class="my-gray-text my-22-text"><span class="icon icon-delete"></span> 删除</a></div>
                             </div>
                         </li>
                     </ul>
