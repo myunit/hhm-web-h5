@@ -103,6 +103,9 @@ require(['Vue', 'Utils'],
         el: '#page-change-shop-name',
         data: {
           storeName: ''
+        },
+        method: {
+          setStoreName: setStoreName
         }
       });
 
@@ -114,7 +117,7 @@ require(['Vue', 'Utils'],
         }
       });
 
-      $(page).on('click', '.button', function () {
+      function setStoreName (event) {
         ajaxPost('/users/setStoreName', {storeName: vm.storeName}, function (err, data) {
           $.hidePreloader();
           if (err) {
@@ -125,7 +128,7 @@ require(['Vue', 'Utils'],
         });
 
         $.showPreloader('保存中');
-      });
+      }
 
     });
 
@@ -155,10 +158,13 @@ require(['Vue', 'Utils'],
           isDisable: function () {
             return this.oldPW.length === 0 || this.newPW.length === 0 || this.rePW.length === 0;
           }
+        },
+        method : {
+          changePW: changePW
         }
       });
 
-      $(page).on('click', '.button', function () {
+      function changePW (event) {
         if (vm.isDisable) {
           return;
         }
@@ -179,8 +185,7 @@ require(['Vue', 'Utils'],
         });
 
         $.showPreloader('保存中');
-      });
-
+      }
     });
 
     $(document).on("pageInit", "#page-my-buy-report", function (e, id, page) {
@@ -350,6 +355,10 @@ require(['Vue', 'Utils'],
           }
         });
         $.showPreloader('保存中');
+      });
+
+      $(page).on('click', '#delete', function () {
+        $(this)
       });
 
     });
