@@ -65,5 +65,8 @@ CustomerApi.prototype = {
   },
   delReceiver : function(){
     return api_config.customerService.baseUrl + api_config.customerService.method.delReceiver;
+  },
+  modifyReceiver : function(){
+    return api_config.customerService.baseUrl + api_config.customerService.method.modifyReceiver;
   }
 };

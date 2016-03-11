@@ -19,7 +19,8 @@
       "setStoreInfo": "Customers/set-store-info",
       "getReceiver": "Addresses/get-receiver",
       "setDefaultReceiver": "Addresses/set-default-receiver",
-      "delReceiver": "Addresses/del-receiver"
+      "delReceiver": "Addresses/del-receiver",
+      "modifyReceiver": "Addresses/modify-receiver"
     }
   }
 }

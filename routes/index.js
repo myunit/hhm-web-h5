@@ -95,8 +95,7 @@ router.route('/register-complete')
     }
   })
   .post(function (req, res, next) {
-    var pcdDes = req.body.pcdDes.split(' ');
-    CityChoose.getPCD(pcdDes[0], pcdDes[1], pcdDes[2], function (err, pcd) {
+    function callback (err, pcd) {
       if (err) {
         console.error('get pcd error: ' + err);
         res.json({status: 0, msg: err});
@@ -130,7 +129,15 @@ router.route('/register-complete')
             res.json({status: data.status, msg: data.msg});
           }
         });
-    });
+    }
+    var pcdDes = req.body.pcdDes.split(' ');
+    if (pcdDes.length === 3) {
+      CityChoose.getPCD(pcdDes[0], pcdDes[1], pcdDes[2], callback);
+    } else if (pcdDes.length === 2) {
+      CityChoose.getPCD(pcdDes[0], undefined, pcdDes[1], callback);
+    } else {
+      res.json({status: 0, msg: '参数错误'});
+    }
   });
 
 router.route('/rest-password')

@@ -117,7 +117,7 @@ require(['Vue', 'Utils'],
         }
       });
 
-      function setStoreName (event) {
+      function setStoreName(event) {
         ajaxPost('/users/setStoreName', {storeName: vm.storeName}, function (err, data) {
           $.hidePreloader();
           if (err) {
@@ -159,12 +159,12 @@ require(['Vue', 'Utils'],
             return this.oldPW.length === 0 || this.newPW.length === 0 || this.rePW.length === 0;
           }
         },
-        method : {
+        method: {
           changePW: changePW
         }
       });
 
-      function changePW (event) {
+      function changePW(event) {
         if (vm.isDisable) {
           return;
         }
@@ -338,12 +338,11 @@ require(['Vue', 'Utils'],
       var vmPop = new Vue({
         el: '#popup-adr',
         data: {
-          OPAdr: null
-        },
-        computed: {
-          pcd: function () {
-            return this.OPAdr.Province + ' ' + this.OPAdr.City + ' ' + this.OPAdr.District;
-          }
+          receiverId: 0,
+          phone: '',
+          receiver: '',
+          pcdDes: '',
+          address: ''
         }
       });
 
@@ -355,7 +354,7 @@ require(['Vue', 'Utils'],
         }
       });
 
-      function deleteAdr (index, event) {
+      function deleteAdr(index, event) {
         $.confirm('确定删除该地址吗?',
           function () {
             ajaxPost('/address/del-receiver', {receiverId: vm.receivers[index].SysNo}, function (err, data) {
@@ -372,10 +371,15 @@ require(['Vue', 'Utils'],
         );
       }
 
-      function addOrEditAdr (index) {
+      function addOrEditAdr(index) {
         if (index >= 0) {
           $("title").text('修改地址');
-          vmPop.OPAdr = vm.receivers[index];
+          var receiver = vm.receivers[index];
+          vmPop.receiverId = receiver.SysNo;
+          vmPop.phone = receiver.ReceiverPhone;
+          vmPop.receiver = receiver.ReceiverName;
+          vmPop.pcdDes = receiver.Province.substring(0, receiver.Province.length - 1) + ' ' + receiver.City.substring(0, receiver.City.length - 1) + ' ' + receiver.District;
+          vmPop.address = receiver.Address;
         } else {
           $("title").text('新增地址');
         }
@@ -383,10 +387,32 @@ require(['Vue', 'Utils'],
         $.popup('.popup-adr');
       }
 
-      $(document).on('click','.close-popup', function (event) {
+      $(document).on('click', '.close-popup', function (event) {
         event.preventDefault();
+        ajaxPost('/address/modify-receiver',
+          {
+            'receiverId': vmPop.receiverId,
+            'phone': vmPop.phone,
+            'receiver': vmPop.receiver,
+            'pcdDes': vmPop.pcdDes,
+            'address': vmPop.address
+          },
+          function (err, data) {
+            $.hidePreloader();
+            if (err) {
+              $.toast(err, 1000);
+            }
+          }
+        );
+
+        $.showPreloader('请稍等');
+
         $("title").text('地址管理');
-        vmPop.OPAdr = null;
+        vmPop.receiverId = -1;
+        vmPop.phone = '';
+        vmPop.receiver = '';
+        vmPop.pcdDes = '';
+        vmPop.address = '';
       });
 
       $(page).on('change', '[name="single-radio"]', function () {
