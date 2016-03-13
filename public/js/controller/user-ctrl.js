@@ -343,7 +343,8 @@ require(['Vue', 'Utils'],
           phone: '',
           receiver: '',
           pcdDes: '',
-          address: ''
+          address: '',
+          isDefault: false
         }
       });
 
@@ -351,14 +352,25 @@ require(['Vue', 'Utils'],
         if (err) {
           $.toast(err, 1000);
         } else {
-          vm.receivers = data.receiver.slice();
+          var receivers = data.receiver;
+          var len = receivers.length;
+          for (var i = 0; i < len; i ++) {
+            var obj = {};
+            obj.receiverId = receivers[i].SysNo;
+            obj.phone = receivers[i].ReceiverPhone;
+            obj.receiver = receivers[i].ReceiverName;
+            obj.pcdDes = receivers[i].Province + ' ' + receivers[i].City + ' ' + receivers[i].District;
+            obj.address = receivers[i].Address;
+            obj.isDefault = receivers[i].IsDefault;
+            vm.receivers.push(obj);
+          }
         }
       });
 
       function deleteAdr(index, event) {
         $.confirm('确定删除该地址吗?',
           function () {
-            ajaxPost('/address/del-receiver', {receiverId: vm.receivers[index].SysNo}, function (err, data) {
+            ajaxPost('/address/del-receiver', {receiverId: vm.receivers[index].receiverId}, function (err, data) {
               if (err) {
                 $.toast(err, 1000);
               } else {
@@ -377,22 +389,25 @@ require(['Vue', 'Utils'],
           $("title").text('修改地址-好好卖');
           var receiver = vm.receivers[index];
           vmPop.index = index;
-          vmPop.receiverId = receiver.SysNo;
-          vmPop.phone = receiver.ReceiverPhone;
-          vmPop.receiver = receiver.ReceiverName;
-          vmPop.pcdDes = receiver.Province + ' ' + receiver.City + ' ' + receiver.District;
-          vmPop.address = receiver.Address;
+          vmPop.receiverId = receiver.receiverId;
+          vmPop.phone = receiver.phone;
+          vmPop.receiver = receiver.receiver;
+          vmPop.pcdDes = receiver.pcdDes;
+          vmPop.address = receiver.address;
+          vmPop.isDefault = receiver.isDefault;
         } else {
           vmPop.pcdDes = '浙江省 嘉兴市 南湖区';
           $("title").text('新增地址-好好卖');
         }
 
-        $("#city-picker").cityPicker({
-          toolbarTemplate: '<header class="bar bar-nav"><button class="button button-link pull-right close-picker">确定</button>\
+        vmPop.$nextTick(function () {
+          $("#city-picker").cityPicker({
+            toolbarTemplate: '<header class="bar bar-nav"><button class="button button-link pull-right close-picker">确定</button>\
         <h1 class="title">选择收货地址</h1></header>'
-        });
+          });
 
-        $.popup('.popup-adr');
+          $.popup('.popup-adr');
+        });
       }
 
       $(document).on('click', '.close-popup', function (event) {
@@ -403,7 +418,8 @@ require(['Vue', 'Utils'],
             'phone': vmPop.phone,
             'receiver': vmPop.receiver,
             'pcdDes': vmPop.pcdDes,
-            'address': vmPop.address
+            'address': vmPop.address,
+            'isDefault': vmPop.isDefault
           },
           function (err, data) {
             $.hidePreloader();
@@ -411,13 +427,11 @@ require(['Vue', 'Utils'],
               $.toast(err, 1000);
             } else {
               var receiver = vm.receivers[vmPop.index];
-              receiver.ReceiverPhone = vmPop.phone;
-              receiver.ReceiverName = vmPop.receiver;
-              var pcdDes = vmPop.pcdDes.split(' ');
-              receiver.Province = pcdDes[0];
-              receiver.City = pcdDes[1];
-              receiver.District = pcdDes[2];
-              receiver.Address = vmPop.address;
+              receiver.phone = vmPop.phone;
+              receiver.receiver = vmPop.receiver;
+              receiver.pcdDes = vmPop.pcdDes;
+              receiver.address = vmPop.address;
+              receiver.isDefault = vmPop.isDefault;
 
               vmPop.index = -1;
               vmPop.receiverId = -1;
@@ -425,6 +439,7 @@ require(['Vue', 'Utils'],
               vmPop.receiver = '';
               vmPop.pcdDes = '';
               vmPop.address = '';
+              vmPop.isDefault = '';
             }
           }
         );
@@ -435,16 +450,16 @@ require(['Vue', 'Utils'],
       });
 
       $(page).on('change', '[name="single-radio"]', function () {
-        ajaxPost('/address/set-default-receiver', {receiverId: vm.receivers[vm.defaultIdx].SysNo}, function (err, data) {
+        ajaxPost('/address/set-default-receiver', {receiverId: vm.receivers[vm.defaultIdx].receiverId}, function (err, data) {
           if (err) {
             $.toast(err, 1000);
           } else {
             var len = vm.receivers.length;
             for (var i = 0; i < len; i++) {
               if (i === vm.defaultIdx) {
-                vm.receivers[i].IsDefault = true;
+                vm.receivers[i].isDefault = true;
               } else {
-                vm.receivers[i].IsDefault = false;
+                vm.receivers[i].isDefault = false;
               }
             }
             $.hidePreloader();

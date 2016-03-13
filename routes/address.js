@@ -99,7 +99,8 @@ router.post('/modify-receiver', function (req, res, next) {
         "city": pcd.city.name,
         "districtId": pcd.district.id,
         "district": pcd.district.name,
-        "address": req.body.address
+        "address": req.body.address,
+        "isDefault": req.body.isDefault
       })
       .end(function (response) {
         var data = response.body.repData;

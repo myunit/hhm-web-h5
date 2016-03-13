@@ -11,16 +11,16 @@
                             <a href="#" class="item-content">
                                 <div class="item-inner">
                                     <div class="item-title-row">
-                                        <div class="item-title">${receiver.ReceiverName}</div>
-                                        <div class="item-after">${receiver.ReceiverPhone}</div>
+                                        <div class="item-title">${receiver.receiver}</div>
+                                        <div class="item-after">${receiver.phone}</div>
                                     </div>
-                                    <div class="item-text my-gray-text">${receiver.Province} ${receiver.City} ${receiver.District} ${receiver.Address}
+                                    <div class="item-text my-gray-text">${receiver.pcdDes} ${receiver.address}
                                     </div>
                                 </div>
                             </a>
                             <div class="row">
                                 <div class="col-50 my-gray-text my-22-text">
-                                    <label class="label-checkbox"><input type="radio" @change="setDefault" :checked="receiver.IsDefault" :value="$index" v-model="defaultIdx" name="single-radio"><div class="item-media"><i class="icon icon-form-checkbox"></i></div>${receiver.IsDefault ? '默认地址':'设为默认'}</label>
+                                    <label class="label-checkbox"><input type="radio" @change="setDefault" :checked="receiver.isDefault" :value="$index" v-model="defaultIdx" name="single-radio"><div class="item-media"><i class="icon icon-form-checkbox"></i></div>${receiver.isDefault ? '默认地址':'设为默认'}</label>
                                 </div>
                                 <div class="col-50 my-right-text"><a href="#" @click.prevent="addOrEditAdr($index, $event)" class="my-gray-text my-22-text external"><span class="icon icon-edit"></span> 修改</a> <a href="#" @click.prevent="deleteAdr($index, $event)" class="my-gray-text my-22-text"><span class="icon icon-delete"></span> 删除</a></div>
                             </div>
