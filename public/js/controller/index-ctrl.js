@@ -260,7 +260,7 @@ require(['Vue', 'Utils'],
           phone: '',
           storeName: '',
           receiver: '',
-          pcdDes: '浙江 嘉兴 南湖区',
+          pcdDes: '浙江省 嘉兴市 南湖区',
           address: ''
         },
         methods: {

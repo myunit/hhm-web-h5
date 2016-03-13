@@ -131,13 +131,8 @@ router.route('/register-complete')
         });
     }
     var pcdDes = req.body.pcdDes.split(' ');
-    if (pcdDes.length === 3) {
-      CityChoose.getPCD(pcdDes[0], pcdDes[1], pcdDes[2], callback);
-    } else if (pcdDes.length === 2) {
-      CityChoose.getPCD(pcdDes[0], undefined, pcdDes[1], callback);
-    } else {
-      res.json({status: 0, msg: '参数错误'});
-    }
+    CityChoose.getPCD(pcdDes[0], pcdDes[1], pcdDes[2], callback);
+
   });
 
 router.route('/rest-password')

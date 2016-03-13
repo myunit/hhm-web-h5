@@ -373,16 +373,22 @@ require(['Vue', 'Utils'],
 
       function addOrEditAdr(index) {
         if (index >= 0) {
-          $("title").text('修改地址');
+          $("title").text('修改地址-好好卖');
           var receiver = vm.receivers[index];
           vmPop.receiverId = receiver.SysNo;
           vmPop.phone = receiver.ReceiverPhone;
           vmPop.receiver = receiver.ReceiverName;
-          vmPop.pcdDes = receiver.Province.substring(0, receiver.Province.length - 1) + ' ' + receiver.City.substring(0, receiver.City.length - 1) + ' ' + receiver.District;
+          vmPop.pcdDes = receiver.Province + ' ' + receiver.City + ' ' + receiver.District;
           vmPop.address = receiver.Address;
         } else {
-          $("title").text('新增地址');
+          vmPop.pcdDes = '浙江省 嘉兴市 南湖区';
+          $("title").text('新增地址-好好卖');
         }
+
+        $("#city-picker").cityPicker({
+          toolbarTemplate: '<header class="bar bar-nav"><button class="button button-link pull-right close-picker">确定</button>\
+        <h1 class="title">选择收货地址</h1></header>'
+        });
 
         $.popup('.popup-adr');
       }
@@ -407,7 +413,7 @@ require(['Vue', 'Utils'],
 
         $.showPreloader('请稍等');
 
-        $("title").text('地址管理');
+        $("title").text('地址管理-好好卖');
         vmPop.receiverId = -1;
         vmPop.phone = '';
         vmPop.receiver = '';
@@ -433,12 +439,6 @@ require(['Vue', 'Utils'],
         });
         $.showPreloader('保存中');
       });
-
-      $("#city-picker").cityPicker({
-        toolbarTemplate: '<header class="bar bar-nav"><button class="button button-link pull-right close-picker">确定</button>\
-        <h1 class="title">选择收货地址</h1></header>'
-      });
-
     });
 
     $.init();

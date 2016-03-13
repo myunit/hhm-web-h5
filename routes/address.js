@@ -115,11 +115,7 @@ router.post('/modify-receiver', function (req, res, next) {
   }
 
   var pcdDes = req.body.pcdDes.split(' ');
-  if (pcdDes[2]) {
-    CityChoose.getPCD(pcdDes[0], pcdDes[1], pcdDes[2], callback);
-  } else {
-    CityChoose.getPCD(pcdDes[0], pcdDes[0], pcdDes[1], callback);
-  }
+  CityChoose.getPCD(pcdDes[0], pcdDes[1], pcdDes[2], callback);
 
 });
 
