@@ -13356,12 +13356,8 @@
       if (!this) return;
       var p = $.extend(defaults, params);
       //计算value
-      if (p.value) {
-        $(this).val(p.value.join(' '));
-      } else {
-        var val = $(this).val();
-        val && (p.value = val.split(' '));
-      }
+      var val = $(this).val();
+      val && (p.value = val.split(' '));
 
       if (p.value) {
         //p.value = val.split(" ");

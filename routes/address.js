@@ -104,6 +104,7 @@ router.post('/modify-receiver', function (req, res, next) {
       })
       .end(function (response) {
         var data = response.body.repData;
+        console.log('data: ' + JSON.stringify(data));
         if (data === undefined) {
           res.json({status: 0, msg: '服务异常'});
         }

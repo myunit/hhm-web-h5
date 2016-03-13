@@ -335,18 +335,7 @@ require(['Vue', 'Utils'],
         }
       });
 
-      var vmPop = new Vue({
-        el: '#popup-adr',
-        data: {
-          index: -1,
-          receiverId: 0,
-          phone: '',
-          receiver: '',
-          pcdDes: '',
-          address: '',
-          isDefault: false
-        }
-      });
+      var vmPop = undefined;
 
       ajaxPost('/address/get-all-receiver', {}, function (err, data) {
         if (err) {
@@ -388,26 +377,29 @@ require(['Vue', 'Utils'],
         if (index >= 0) {
           $("title").text('修改地址-好好卖');
           var receiver = vm.receivers[index];
-          vmPop.index = index;
-          vmPop.receiverId = receiver.receiverId;
-          vmPop.phone = receiver.phone;
-          vmPop.receiver = receiver.receiver;
-          vmPop.pcdDes = receiver.pcdDes;
-          vmPop.address = receiver.address;
-          vmPop.isDefault = receiver.isDefault;
+          vmPop = new Vue({
+            el: '#popup-adr',
+            data: {
+              index: index,
+              receiverId: receiver.receiverId,
+              phone: receiver.phone,
+              receiver: receiver.receiver,
+              pcdDes: receiver.pcdDes,
+              address: receiver.address,
+              isDefault: receiver.isDefault
+            }
+          });
         } else {
           vmPop.pcdDes = '浙江省 嘉兴市 南湖区';
           $("title").text('新增地址-好好卖');
         }
 
-        vmPop.$nextTick(function () {
-          $("#city-picker").cityPicker({
-            toolbarTemplate: '<header class="bar bar-nav"><button class="button button-link pull-right close-picker">确定</button>\
+        $("#city-picker").cityPicker({
+          toolbarTemplate: '<header class="bar bar-nav"><button class="button button-link pull-right close-picker">确定</button>\
         <h1 class="title">选择收货地址</h1></header>'
-          });
-
-          $.popup('.popup-adr');
         });
+
+        $.popup('.popup-adr');
       }
 
       $(document).on('click', '.close-popup', function (event) {
@@ -433,13 +425,7 @@ require(['Vue', 'Utils'],
               receiver.address = vmPop.address;
               receiver.isDefault = vmPop.isDefault;
 
-              vmPop.index = -1;
-              vmPop.receiverId = -1;
-              vmPop.phone = '';
-              vmPop.receiver = '';
-              vmPop.pcdDes = '';
-              vmPop.address = '';
-              vmPop.isDefault = '';
+              vmPop.$destroy();
             }
           }
         );
