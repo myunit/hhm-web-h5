@@ -338,6 +338,7 @@ require(['Vue', 'Utils'],
       var vmPop = new Vue({
         el: '#popup-adr',
         data: {
+          index: -1,
           receiverId: 0,
           phone: '',
           receiver: '',
@@ -375,6 +376,7 @@ require(['Vue', 'Utils'],
         if (index >= 0) {
           $("title").text('修改地址-好好卖');
           var receiver = vm.receivers[index];
+          vmPop.index = index;
           vmPop.receiverId = receiver.SysNo;
           vmPop.phone = receiver.ReceiverPhone;
           vmPop.receiver = receiver.ReceiverName;
@@ -407,6 +409,22 @@ require(['Vue', 'Utils'],
             $.hidePreloader();
             if (err) {
               $.toast(err, 1000);
+            } else {
+              var receiver = vm.receivers[vmPop.index];
+              receiver.ReceiverPhone = vmPop.phone;
+              receiver.ReceiverName = vmPop.receiver;
+              var pcdDes = vmPop.pcdDes.split(' ');
+              receiver.Province = pcdDes[0];
+              receiver.City = pcdDes[1];
+              receiver.District = pcdDes[2];
+              receiver.Address = vmPop.address;
+
+              vmPop.index = -1;
+              vmPop.receiverId = -1;
+              vmPop.phone = '';
+              vmPop.receiver = '';
+              vmPop.pcdDes = '';
+              vmPop.address = '';
             }
           }
         );
@@ -414,11 +432,6 @@ require(['Vue', 'Utils'],
         $.showPreloader('请稍等');
 
         $("title").text('地址管理-好好卖');
-        vmPop.receiverId = -1;
-        vmPop.phone = '';
-        vmPop.receiver = '';
-        vmPop.pcdDes = '';
-        vmPop.address = '';
       });
 
       $(page).on('change', '[name="single-radio"]', function () {
