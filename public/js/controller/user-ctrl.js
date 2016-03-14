@@ -433,14 +433,26 @@ require(['Vue', 'Utils'],
             if (err) {
               $.toast(err, 1000);
             } else {
-              var receiver = {};
-              receiver.receiverId = data.receiverId;
-              receiver.phone = vmPop.phone;
-              receiver.receiver = vmPop.receiver;
-              receiver.pcdDes = vmPop.pcdDes;
-              receiver.address = vmPop.address;
-              receiver.isDefault = vmPop.isDefault;
-              vm.receivers.push(receiver);
+              var receiver = undefined;
+              if (vmPop.index === -1) {
+                receiver = {};
+                receiver.receiverId = data.receiverId;
+                receiver.phone = vmPop.phone;
+                receiver.receiver = vmPop.receiver;
+                receiver.pcdDes = vmPop.pcdDes;
+                receiver.address = vmPop.address;
+                receiver.isDefault = vmPop.isDefault;
+                vm.receivers.push(receiver);
+
+              } else {
+                receiver = vm.receivers[vmPop.index];
+                receiver.phone = vmPop.phone;
+                receiver.receiver = vmPop.receiver;
+                receiver.pcdDes = vmPop.pcdDes;
+                receiver.address = vmPop.address;
+                receiver.isDefault = vmPop.isDefault;
+              }
+
 
               vmPop.$destroy();
             }
