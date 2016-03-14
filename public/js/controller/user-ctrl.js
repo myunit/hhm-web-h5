@@ -390,7 +390,18 @@ require(['Vue', 'Utils'],
             }
           });
         } else {
-          vmPop.pcdDes = '浙江省 嘉兴市 南湖区';
+          vmPop = new Vue({
+            el: '#popup-adr',
+            data: {
+              index: -1,
+              receiverId: 0,
+              phone: '',
+              receiver: '',
+              pcdDes: '浙江省 嘉兴市 南湖区',
+              address: '',
+              isDefault: false
+            }
+          });
           $("title").text('新增地址-好好卖');
         }
 
@@ -404,7 +415,11 @@ require(['Vue', 'Utils'],
 
       $(document).on('click', '.close-popup', function (event) {
         event.preventDefault();
-        ajaxPost('/address/modify-receiver',
+        var url = '/address/modify-receiver';
+        if (vmPop.receiverId === 0) {
+          url = '/address/add-receiver';
+        }
+        ajaxPost(url,
           {
             'receiverId': vmPop.receiverId,
             'phone': vmPop.phone,
@@ -418,12 +433,14 @@ require(['Vue', 'Utils'],
             if (err) {
               $.toast(err, 1000);
             } else {
-              var receiver = vm.receivers[vmPop.index];
+              var receiver = {};
+              receiver.receiverId = data.receiverId;
               receiver.phone = vmPop.phone;
               receiver.receiver = vmPop.receiver;
               receiver.pcdDes = vmPop.pcdDes;
               receiver.address = vmPop.address;
               receiver.isDefault = vmPop.isDefault;
+              vm.receivers.push(receiver);
 
               vmPop.$destroy();
             }

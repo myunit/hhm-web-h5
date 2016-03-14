@@ -68,5 +68,8 @@ CustomerApi.prototype = {
   },
   modifyReceiver : function(){
     return api_config.customerService.baseUrl + api_config.customerService.method.modifyReceiver;
+  },
+  addReceiver : function(){
+    return api_config.customerService.baseUrl + api_config.customerService.method.addReceiver;
   }
 };

@@ -121,4 +121,47 @@ router.post('/modify-receiver', function (req, res, next) {
 
 });
 
+router.post('/add-receiver', function (req, res, next) {
+  function callback (err, pcd) {
+    if (err) {
+      console.error('get pcd error: ' + err);
+      res.json({status: 0, msg: err});
+      return;
+    }
+
+    unirest.post(customerApi.addReceiver())
+      .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'X-Access-Token':req.session.token})
+      .send({
+        "userId": req.session.uid,
+        "receiverId": req.body.receiverId,
+        "name": req.body.receiver,
+        "phone": req.body.phone,
+        "provinceId": pcd.province.id,
+        "province": pcd.province.name,
+        "cityId": pcd.city.id,
+        "city": pcd.city.name,
+        "districtId": pcd.district.id,
+        "district": pcd.district.name,
+        "address": req.body.address,
+        "isDefault": req.body.isDefault
+      })
+      .end(function (response) {
+        var data = response.body.repData;
+        console.log('data: ' + JSON.stringify(data));
+        if (data === undefined) {
+          res.json({status: 0, msg: '服务异常'});
+        }
+        if (data.status) {
+          res.json({status: data.status, receiverId: data.receiverId});
+        } else {
+          res.json({status: data.status, msg: data.msg});
+        }
+      });
+  }
+
+  var pcdDes = req.body.pcdDes.split(' ');
+  CityChoose.getPCD(pcdDes[0], pcdDes[1], pcdDes[2], callback);
+
+});
+
 module.exports = router;

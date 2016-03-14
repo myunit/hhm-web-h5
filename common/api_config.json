@@ -20,7 +20,8 @@
       "getReceiver": "Addresses/get-receiver",
       "setDefaultReceiver": "Addresses/set-default-receiver",
       "delReceiver": "Addresses/del-receiver",
-      "modifyReceiver": "Addresses/modify-receiver"
+      "modifyReceiver": "Addresses/modify-receiver",
+      "addReceiver": "Addresses/add-receiver"
     }
   }
 }
