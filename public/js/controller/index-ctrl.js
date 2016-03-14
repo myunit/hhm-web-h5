@@ -49,7 +49,10 @@ require(['Vue', 'Utils'],
       var vm = new Vue({
         el: '#page-index',
         data: {
-          search: ''
+          search: '',
+          hour: '02',
+          min: '00',
+          sec: '00'
         }
       });
 

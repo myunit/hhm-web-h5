@@ -279,6 +279,7 @@ label.label-checkbox input[type="radio"]:checked + .item-media i.icon-form-check
 
 .my-div-home-feature{background:#fff; margin-top:.588rem; font-size:.82rem;}
 .my-div-home-feature .col-40{ border-right:1px solid #d3d3d3; padding-left:.588rem;}
+.my-div-home-feature .col-40 p {margin: 1.6rem 0;}
 .my-div-home-feature h3{ margin:0; font-weight:normal;font-size:.82rem; color:#eb0313; padding-top:.588rem;}
 .my-div-home-feature .my-p-time-flash-deal{ padding:.2rem 0 0 0; margin:0;}
 .my-div-home-feature .my-p-time-flash-deal span{ color:#fff; display:inline-block; background:#333; border-radius:3px; line-height:1.35rem; text-align:center; padding:0 .2rem;}
