@@ -23,5 +23,11 @@
       "modifyReceiver": "Addresses/modify-receiver",
       "addReceiver": "Addresses/add-receiver"
     }
+  },
+  "productService": {
+    "baseUrl": "http://120.27.148.53:30002/product/v1/",
+    "method": {
+      "getCategory": "Products/get-category"
+    }
   }
 }

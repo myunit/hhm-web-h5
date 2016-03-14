@@ -32,181 +32,69 @@
 
 
         <div class="content native-scroll">
-            <div class="my-tab">
-                <a href="#tab1" class="tab-link active">推荐组合</a>
-                <a href="#tab2" class="tab-link">分类一</a>
-                <a href="#tab3" class="tab-link">分类二</a>
-                <a href="#tab4" class="tab-link">分类三</a>
-                <a href="#tab5" class="tab-link">分类四</a>
-                <a href="#tab6" class="tab-link">分类五</a>
-
+            <div class="my-tab" v-cloak>
+                <template v-for="category in categories">
+                    <a :href="'#tab' + category.CategorySysNo" class="tab-link" :class="{'active': $index === 0}">${category.CategoryName}</a>
+                </template>
             </div>
-
-            <div class="tabs my-tabs">
-                <div id="tab1" class="tab active">
-                    <div class="content-block clearfix">
-                        <p class="my-gray-text my-22-text">子分类</p>
-                        <ul class="my-ul my-img-list">
-                            <li>
-                                <a href="/product/list" class="my-22-text external">
-                                    <span class="my-img-auto"><img src="../images/demo/product-class.gif" width="132" height="132" alt=""/></span>
-                                    <span>子分类</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/product/list" class="my-22-text external">
-                                    <span class="my-img-auto"><img src="../images/demo/product-class.gif" width="132" height="132" alt=""/></span>
-                                    <span>子分类</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/product/list" class="my-22-text external">
-                                    <span class="my-img-auto"><img src="../images/demo/product-class.gif" width="132" height="132" alt=""/></span>
-                                    <span>子分类</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/product/list" class="my-22-text external">
-                                    <span class="my-img-auto"><img src="../images/demo/product-class.gif" width="132" height="132" alt=""/></span>
-                                    <span>子分类</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/product/list" class="my-22-text external">
-                                    <span class="my-img-auto"><img src="../images/demo/product-class.gif" width="132" height="132" alt=""/></span>
-                                    <span>子分类</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/product/list" class="my-22-text external">
-                                    <span class="my-img-auto"><img src="../images/demo/product-class.gif" width="132" height="132" alt=""/></span>
-                                    <span>子分类</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/product/list" class="my-22-text external">
-                                    <span class="my-img-auto"><img src="../images/demo/product-class.gif" width="132" height="132" alt=""/></span>
-                                    <span>子分类</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/product/list" class="my-22-text external">
-                                    <span class="my-img-auto"><img src="../images/demo/product-class.gif" width="132" height="132" alt=""/></span>
-                                    <span>子分类</span>
-                                </a>
-                            </li>
-                        </ul>
+            <div class="tabs my-tabs" v-cloak>
+                <template v-for="category in categories">
+                    <div :id="'tab' + category.CategorySysNo" class="tab" :class="{'active': $index === 0}">
+                        <div class="content-block clearfix">
+                            <p class="my-gray-text my-22-text">子分类</p>
+                            <ul class="my-ul my-img-list">
+                                <li>
+                                    <a href="/product/list" class="my-22-text external">
+                                        <span class="my-img-auto"><img src="../images/demo/product-class.gif" width="132" height="132" alt=""/></span>
+                                        <span>子分类</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/product/list" class="my-22-text external">
+                                        <span class="my-img-auto"><img src="../images/demo/product-class.gif" width="132" height="132" alt=""/></span>
+                                        <span>子分类</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/product/list" class="my-22-text external">
+                                        <span class="my-img-auto"><img src="../images/demo/product-class.gif" width="132" height="132" alt=""/></span>
+                                        <span>子分类</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/product/list" class="my-22-text external">
+                                        <span class="my-img-auto"><img src="../images/demo/product-class.gif" width="132" height="132" alt=""/></span>
+                                        <span>子分类</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/product/list" class="my-22-text external">
+                                        <span class="my-img-auto"><img src="../images/demo/product-class.gif" width="132" height="132" alt=""/></span>
+                                        <span>子分类</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/product/list" class="my-22-text external">
+                                        <span class="my-img-auto"><img src="../images/demo/product-class.gif" width="132" height="132" alt=""/></span>
+                                        <span>子分类</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/product/list" class="my-22-text external">
+                                        <span class="my-img-auto"><img src="../images/demo/product-class.gif" width="132" height="132" alt=""/></span>
+                                        <span>子分类</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/product/list" class="my-22-text external">
+                                        <span class="my-img-auto"><img src="../images/demo/product-class.gif" width="132" height="132" alt=""/></span>
+                                        <span>子分类</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-                <div id="tab2" class="tab">
-                    <div class="content-block clearfix">
-                        <p class="my-gray-text my-22-text">子分类</p>
-                        <ul class="my-ul my-img-list">
-                            <li>
-                                <a href="#" class="my-22-text">
-                                    <span class="my-img-auto"><img src="../images/demo/product-class.gif" width="132" height="132" alt=""/></span>
-                                    <span>子分类</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="my-22-text">
-                                    <span class="my-img-auto"><img src="../images/demo/product-class.gif" width="132" height="132" alt=""/></span>
-                                    <span>子分类</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="my-22-text">
-                                    <span class="my-img-auto"><img src="../images/demo/product-class.gif" width="132" height="132" alt=""/></span>
-                                    <span>子分类</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="my-22-text">
-                                    <span class="my-img-auto"><img src="../images/demo/product-class.gif" width="132" height="132" alt=""/></span>
-                                    <span>子分类</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="my-22-text">
-                                    <span class="my-img-auto"><img src="../images/demo/product-class.gif" width="132" height="132" alt=""/></span>
-                                    <span>子分类</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="my-22-text">
-                                    <span class="my-img-auto"><img src="../images/demo/product-class.gif" width="132" height="132" alt=""/></span>
-                                    <span>子分类</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="my-22-text">
-                                    <span class="my-img-auto"><img src="../images/demo/product-class.gif" width="132" height="132" alt=""/></span>
-                                    <span>子分类</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="my-22-text">
-                                    <span class="my-img-auto"><img src="../images/demo/product-class.gif" width="132" height="132" alt=""/></span>
-                                    <span>子分类</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div id="tab3" class="tab">
-                    <div class="content-block clearfix">
-                        <p class="my-gray-text my-22-text">子分类</p>
-                        <ul class="my-ul my-img-list">
-                            <li>
-                                <a href="#" class="my-22-text">
-                                    <span class="my-img-auto"><img src="../images/demo/product-class.gif" width="132" height="132" alt=""/></span>
-                                    <span>子分类</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="my-22-text">
-                                    <span class="my-img-auto"><img src="../images/demo/product-class.gif" width="132" height="132" alt=""/></span>
-                                    <span>子分类</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="my-22-text">
-                                    <span class="my-img-auto"><img src="../images/demo/product-class.gif" width="132" height="132" alt=""/></span>
-                                    <span>子分类</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="my-22-text">
-                                    <span class="my-img-auto"><img src="../images/demo/product-class.gif" width="132" height="132" alt=""/></span>
-                                    <span>子分类</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="my-22-text">
-                                    <span class="my-img-auto"><img src="../images/demo/product-class.gif" width="132" height="132" alt=""/></span>
-                                    <span>子分类</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="my-22-text">
-                                    <span class="my-img-auto"><img src="../images/demo/product-class.gif" width="132" height="132" alt=""/></span>
-                                    <span>子分类</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="my-22-text">
-                                    <span class="my-img-auto"><img src="../images/demo/product-class.gif" width="132" height="132" alt=""/></span>
-                                    <span>子分类</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="my-22-text">
-                                    <span class="my-img-auto"><img src="../images/demo/product-class.gif" width="132" height="132" alt=""/></span>
-                                    <span>子分类</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+                </template>
                 </div>
             </div>
         </div>

@@ -15,6 +15,9 @@ var ApiFactory = {
       case "customer":
         api = new CustomerApi();
         break;
+      case "product":
+        api = new ProductApi();
+        break;
       default:
         throw new Error("ApiFactory Unsupported: " + model);
         break;
@@ -71,5 +74,13 @@ CustomerApi.prototype = {
   },
   addReceiver : function(){
     return api_config.customerService.baseUrl + api_config.customerService.method.addReceiver;
+  }
+};
+
+var ProductApi = function(){};
+
+ProductApi.prototype = {
+  getCategory : function(){
+    return api_config.productService.baseUrl + api_config.productService.method.getCategory;
   }
 };

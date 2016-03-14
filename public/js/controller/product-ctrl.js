@@ -19,6 +19,26 @@ require.config({
   }
 });
 
+function ajaxPost(url, data, cb) {
+  $.ajax({
+    type: 'POST',
+    url: url,
+    data: data,
+    timeout: 15000,
+    success: function (data, status, xhr) {
+      if (data.status) {
+        cb(null, data);
+      } else {
+        cb(data.msg, null);
+      }
+    },
+    error: function (xhr, errorType, error) {
+      console.error(url + ' error: ' + errorType + '##' + error);
+      cb('服务异常', null);
+    }
+  });
+}
+
 require(['Vue', 'Utils'],
   function (Vue, Utils) {
     'use strict';
@@ -29,7 +49,16 @@ require(['Vue', 'Utils'],
       var vm = new Vue({
         el: '#page-product-class',
         data: {
+          categories: [],
           search: ''
+        }
+      });
+
+      ajaxPost('/product/class', {}, function (err, data) {
+        if (err) {
+          $.toast(data.msg, 1000);
+        } else {
+          vm.categories = data.category.slice();
         }
       });
 
