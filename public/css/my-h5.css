@@ -142,7 +142,8 @@ label.label-checkbox input[type="radio"]:checked + .item-media i.icon-form-check
 .my-tab .tab-link{ display:block;color:#3d4145; font-size:.76rem; line-height:3.53rem; border-bottom:1px solid #d3d3d3; text-align:center;}
 .my-tab .active{ background:#efeff4; color:#f86b4f;border-right:1px solid #efeff4; font-weight:bold;}
 .my-tab .tab-link:after{ background:#7C7A7A;}
-.my-tabs{ margin-left:4rem;}
+.my-tabs{ float:left; margin-left:4rem;}
+.my-category-tabs{margin-left:4rem;}
 .my-tabs .content-block{ padding:0 3%; margin:0;}
 .my-img-list{ }
 .my-img-list li{ float:left; width:31%; margin:0 3.5% 3.5% 0;}

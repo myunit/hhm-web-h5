@@ -37,7 +37,7 @@
                     <a :href="'#tab'+category.CategorySysNo" class="tab-link" :class="{'active': $index === 0}">${category.CategoryName}</a>
                 </template>
             </div>
-            <div class="tabs my-tabs">
+            <div class="tabs my-category-tabs">
                 <template v-for="category in categories">
                     <div :id="'tab' + category.CategorySysNo" class="tab" :class="{'active': $index === 0}">
                         <div class="content-block clearfix">
@@ -45,7 +45,7 @@
                             <ul class="my-ul my-img-list" v-cloak>
                                 <template v-for="child in category.ChildList">
                                     <li>
-                                        <a :href="'/product/category/'+child.CategorySysNo" class="my-22-text external">
+                                        <a :href="'/product/category?CId='+category.CategorySysNo+'&ChildCId='+child.CategorySysNo" class="my-22-text external">
                                             <span class="my-img-auto"><img src="../images/demo/product-class.gif" width="132" height="132" alt=""/></span>
                                             <span>${child.CategoryName}</span>
                                         </a>

@@ -35,9 +35,32 @@ router.get('/recommend', function (req, res, next) {
   res.render('product-list', {title: title});
 });
 
-router.get('/category/:id', function (req, res, next) {
-  res.render('product-list', {title: '商品列表-好好卖'});
-});
+router.route('/category')
+  .get(function (req, res, next) {
+    res.render('product-list', {title: '商品列表-好好卖'});
+  })
+  .post(function (req, res, next) {
+    unirest.post(productApi.getCategoryProduct())
+      .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
+      .send({
+        "userId": req.session.uid,
+        "CId": req.body.CId,
+        "ChildCId": req.body.ChildCId,
+        "pageId": req.body.pageId,
+        "pageSize": req.body.pageSize
+      })
+      .end(function (response) {
+        var data = response.body.repData;
+        if (data === undefined) {
+          res.json({status: 0, msg: '服务异常'});
+        }
+        if (data.status) {
+          res.json({status: data.status, count: data.count, products: data.product});
+        } else {
+          res.json({status: data.status, msg: data.msg});
+        }
+      });
+  });
 
 router.get('/secKill', function (req, res, next) {
   res.render('product-flash-deal-list', {title: '秒杀-好好卖'});
@@ -62,7 +85,7 @@ router.route('/class')
   .post(function (req, res, next) {
     unirest.post(productApi.getCategory())
       .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
-      .send({"categoryId":0})
+      .send({"categoryId": 0})
       .end(function (response) {
         var data = response.body.repData;
         if (data === undefined) {

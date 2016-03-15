@@ -10,97 +10,23 @@
         </header>
 
         <div class="content infinite-scroll native-scroll" data-distance="50">
-            <ul class="my-ul my-product-list">
-                <li>
+            <ul class="my-ul my-product-list" v-cloak>
+                <template v-for="product in products">
+                    <li>
                     <span class="my-img-auto">
-                        <a href="/product/detail?id=1" class="external">
-                            <img src="../images/demo/product-list.jpg" width="316" height="316" alt=""/>
+                        <a :href="'/product/detail?id='+product.SysNo" class="external">
+                            <img :src="product.ImgUrl" width="316" height="316" alt=""/>
                         </a>
                     </span>
-                    <h3 class="my-28-text">商品名称商品名称商品名称...</h3>
-                    <div class="row">
-                        <div class="col-50 my-28-text my-red-text">￥15.5~130</div>
-                        <div class="col-50">
-                            <a href="javascript:;" class="icon icon-addcart open-popup"></a>
+                        <h3 class="my-28-text">${product.Name}</h3>
+                        <div class="row">
+                            <div class="col-50 my-28-text my-red-text">￥${product.Price}</div>
+                            <div class="col-50">
+                                <a href="#" @click.prevent="addToCart($index)" class="icon icon-addcart"></a>
+                            </div>
                         </div>
-                    </div>
-                </li>
-                <li>
-                    <span class="my-img-auto">
-                        <a href="/product/detail?id=1" class="external">
-                            <img src="../images/demo/product-list.jpg" width="316" height="316" alt=""/>
-                        </a>
-                    </span>
-                    <h3 class="my-28-text">商品名称商品名称商品名称...</h3>
-                    <div class="row">
-                        <div class="col-50 my-28-text my-red-text">￥15.5~130</div>
-                        <div class="col-50">
-                            <a href="javascript:;" class="icon icon-addcart open-popup"></a>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <span class="my-img-auto">
-                        <a href="/product/detail?id=1" class="external">
-                            <img src="../images/demo/product-list.jpg" width="316" height="316" alt=""/>
-                        </a>
-                    </span>
-                    <h3 class="my-28-text">商品名称商品名称商品名称...</h3>
-                    <div class="row">
-                        <div class="col-50 my-28-text my-red-text">￥15.5~130</div>
-                        <div class="col-50">
-                            <a href="#" class="icon icon-addcart open-popup"></a>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <span class="my-img-auto">
-                        <a href="/product/detail?id=1" class="external">
-                            <img src="../images/demo/product-list.jpg" width="316" height="316" alt=""/>
-                        </a>
-                    </span>
-                    <h3 class="my-28-text">商品名称商品名称商品名称...</h3>
-                    <div class="row">
-                        <div class="col-50 my-28-text my-red-text">￥15.5~130</div>
-                        <div class="col-50">
-                            <a href="javascript:;" class="icon icon-addcart open-popup"></a>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <span class="my-img-auto">
-                        <a href="/product/group-detail?id=1" class="external">
-                            <img src="../images/demo/product-list.jpg" width="316" height="316" alt=""/>
-                        </a>
-                    </span>
-                    <h3 class="my-28-text">商品名称商品名称商品名称...</h3>
-                    <div class="row">
-                        <div class="col-50 my-28-text my-red-text">￥15.5~130</div>
-                        <div class="col-50">
-                            <a href="javascript:;" class="icon icon-addcart open-popup"></a>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <span class="my-img-auto"><img src="../images/demo/product-list.jpg" width="316" height="316" alt=""/></span>
-                    <h3 class="my-28-text">商品名称商品名称商品名称...</h3>
-                    <div class="row">
-                        <div class="col-50 my-28-text my-red-text">￥15.5~130</div>
-                        <div class="col-50">
-                            <a href="javascript:;" class="icon icon-addcart open-popup"></a>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <span class="my-img-auto"><img src="../images/demo/product-list.jpg" width="316" height="316" alt=""/></span>
-                    <h3 class="my-28-text">商品名称商品名称商品名称...</h3>
-                    <div class="row">
-                        <div class="col-50 my-28-text my-red-text">￥15.5~130</div>
-                        <div class="col-50">
-                            <a href="javascript:;" class="icon icon-addcart open-popup"></a>
-                        </div>
-                    </div>
-                </li>
+                    </li>
+                </template>
             </ul>
         </div>
 
@@ -151,4 +77,4 @@
 <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
-<script type='text/javascript' src='../js/lib/requirejs.min.js' data-main='../js/controller/my.min'></script>
+<script type='text/javascript' src='../js/lib/requirejs.min.js' data-main='../js/controller/product-ctrl'></script>

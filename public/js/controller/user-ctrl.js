@@ -61,7 +61,7 @@ require(['Vue', 'Utils'],
 
       getStoreName(function (err, storeName) {
         if (err) {
-          $.toast(data.msg, 1000);
+          $.toast(err, 1000);
         } else {
           vm.storeName = storeName;
         }
@@ -79,7 +79,7 @@ require(['Vue', 'Utils'],
 
       getStoreName(function (err, storeName) {
         if (err) {
-          $.toast(data.msg, 1000);
+          $.toast(err, 1000);
         } else {
           vm.storeName = storeName;
         }
@@ -111,7 +111,7 @@ require(['Vue', 'Utils'],
 
       getStoreName(function (err, storeName) {
         if (err) {
-          $.toast(data.msg, 1000);
+          $.toast(err, 1000);
         } else {
           vm.storeName = storeName;
         }

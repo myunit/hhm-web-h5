@@ -56,7 +56,7 @@ require(['Vue', 'Utils'],
 
       ajaxPost('/product/class', {}, function (err, data) {
         if (err) {
-          $.toast(data.msg, 1000);
+          $.toast(err, 1000);
         } else {
           vm.categories = data.category.slice();
         }
@@ -67,7 +67,7 @@ require(['Vue', 'Utils'],
       });
     });
 
-    $(document).on("pageInit", "#page-product-detail", function(e, id, page) {
+    $(document).on("pageInit", "#page-product-detail", function (e, id, page) {
       var vm = new Vue({
         el: '#page-product-detail',
         data: {
@@ -76,23 +76,23 @@ require(['Vue', 'Utils'],
         },
         computed: {
           liked: function () {
-            return this.isLike ? '已收藏':'收藏';
+            return this.isLike ? '已收藏' : '收藏';
           }
         }
       });
 
-      $(page).on('click','.like', function () {
+      $(page).on('click', '.like', function () {
         $(this).toggleClass('icon-like');
         $(this).toggleClass('icon-likeactive');
         vm.isLike = !vm.isLike;
       });
 
-      $(page).on('click','.my-back-top', function () {
+      $(page).on('click', '.my-back-top', function () {
         $('.content').scrollTop(0);
       });
 
       var myPhotoBrowserPopup = $.photoBrowser({
-        photos : [
+        photos: [
           '../images/demo/home-tuijian-1.jpg',
           '../images/demo/home-tuijian-2.jpg',
           '../images/demo/home-tuijian-3.jpg'
@@ -100,7 +100,7 @@ require(['Vue', 'Utils'],
         type: 'popup'
       });
 
-      $(page).on('click','.pb-popup',function () {
+      $(page).on('click', '.pb-popup', function () {
         myPhotoBrowserPopup.open();
       });
 
@@ -125,7 +125,7 @@ require(['Vue', 'Utils'],
         }
       });
 
-      $(document).on('click','.my-a-cart.close-popup', function (e) {
+      $(document).on('click', '.my-a-cart.close-popup', function (e) {
         if (cartVm.addCartNum === '') {
           cartVm.addCartNum = 1;
           $.toast('请输入正确的购买数量', 1000);
@@ -136,21 +136,21 @@ require(['Vue', 'Utils'],
         cartVm.addCartNum = 1;
       });
 
-      $(document).on('click','.icon-close.close-popup', function () {
+      $(document).on('click', '.icon-close.close-popup', function () {
         cartVm.addCartNum = 1;
       });
 
-      $(document).on('click','.em-op-d', function () {
+      $(document).on('click', '.em-op-d', function () {
         if (cartVm.addCartNum > 1) {
           cartVm.addCartNum--;
         }
       });
 
-      $(document).on('click','.em-op-a', function () {
+      $(document).on('click', '.em-op-a', function () {
         cartVm.addCartNum++;
       });
 
-      $(document).on('click','.my-ul-spec li', function () {
+      $(document).on('click', '.my-ul-spec li', function () {
         $('.my-ul-spec li').removeClass('my-spec-on');
         $(this).addClass('my-spec-on');
       });
@@ -166,7 +166,7 @@ require(['Vue', 'Utils'],
 
     });
 
-    $(document).on("pageInit", "#page-product-group-detail", function(e, id, page) {
+    $(document).on("pageInit", "#page-product-group-detail", function (e, id, page) {
       var vm = new Vue({
         el: '#page-product-group-detail',
         data: {
@@ -175,18 +175,18 @@ require(['Vue', 'Utils'],
         },
         computed: {
           liked: function () {
-            return this.isLike ? '已收藏':'收藏';
+            return this.isLike ? '已收藏' : '收藏';
           }
         }
       });
 
-      $(page).on('click','.like', function () {
+      $(page).on('click', '.like', function () {
         $(this).toggleClass('icon-like');
         $(this).toggleClass('icon-likeactive');
         vm.isLike = !vm.isLike;
       });
 
-      $(page).on('click','.my-back-top', function () {
+      $(page).on('click', '.my-back-top', function () {
         $('.content').scrollTop(0);
       });
 
@@ -210,7 +210,7 @@ require(['Vue', 'Utils'],
         }
       });
 
-      $(document).on('click','.my-a-cart.close-popup', function () {
+      $(document).on('click', '.my-a-cart.close-popup', function () {
         if (cartVm.addCartNum === '') {
           cartVm.addCartNum = 1;
           $.toast('请输入正确的购买数量', 1000);
@@ -220,21 +220,21 @@ require(['Vue', 'Utils'],
         cartVm.addCartNum = 1;
       });
 
-      $(document).on('click','.icon-close.close-popup', function () {
+      $(document).on('click', '.icon-close.close-popup', function () {
         cartVm.addCartNum = 1;
       });
 
-      $(document).on('click','.em-op-d', function () {
+      $(document).on('click', '.em-op-d', function () {
         if (cartVm.addCartNum > 1) {
           cartVm.addCartNum--;
         }
       });
 
-      $(document).on('click','.em-op-a', function () {
+      $(document).on('click', '.em-op-a', function () {
         cartVm.addCartNum++;
       });
 
-      $(document).on('click','.my-ul-spec li', function () {
+      $(document).on('click', '.my-ul-spec li', function () {
         $('.my-ul-spec li').removeClass('my-spec-on');
         $(this).addClass('my-spec-on');
       });
@@ -249,28 +249,56 @@ require(['Vue', 'Utils'],
       });
     });
 
-    $(document).on("pageInit", "#page-product-list", function(e, id, page) {
-      var type = 0;
-      var categoryId = 0;
-      if (window.location.pathname === '/product/sales') {
-        type = 1;
-      } else if (window.location.pathname === '/product/new') {
-        type = 2;
-      } else if (window.location.pathname === '/product/group') {
-        type = 3;
-      } else if (window.location.pathname === '/product/recommend') {
-        type = 4;
-      }
-
+    $(document).on("pageInit", "#page-product-list", function (e, id, page) {
       var vm = new Vue({
         el: '#page-product-list',
         data: {
           search: '',
+          products: [],
+          count: 0,
           cartNum: 30
+        },
+        methods: {
+          addToCart: addToCart
         }
       });
 
-      $(page).on('click','.icon-clear', function () {
+      if (location.pathname === '/product/sales') {
+
+      } else if (location.pathname === '/product/new') {
+
+      } else if (location.pathname === '/product/group') {
+
+      } else if (location.pathname === '/product/recommend') {
+
+      } else if (location.pathname === '/product/category') {
+        var search = Utils.getSearch(location);
+        if (!search['CId'] || !search['ChildCId']) {
+          location.pathname = '/';
+          return;
+        }
+
+        ajaxPost('/product/category', {
+          CId: parseInt(search['CId']),
+          ChildCId: parseInt(search['ChildCId']),
+          pageId: 0,
+          pageSize: 45
+        }, function (err, data) {
+          if (err) {
+            $.toast(err, 1000);
+          } else {
+            vm.count = data.count;
+            vm.products = data.products.slice();
+            console.log(JSON.stringify(data.products));
+          }
+        });
+      }
+
+      function addToCart(index) {
+        $.popup('.popup-cart');
+      }
+
+      $(page).on('click', '.icon-clear', function () {
         vm.search = '';
       });
 
@@ -294,7 +322,8 @@ require(['Vue', 'Utils'],
         }
       });
 
-      $(document).on('click','.my-a-cart.close-popup', function () {
+      $(document).on('click', '.my-a-cart.close-popup', function (event) {
+        event.preventDefault();
         if (cartVm.addCartNum === '') {
           cartVm.addCartNum = 1;
           $.toast('请输入正确的购买数量', 1000);
@@ -304,27 +333,28 @@ require(['Vue', 'Utils'],
         cartVm.addCartNum = 1;
       });
 
-      $(document).on('click','.icon-close.close-popup', function () {
+      $(document).on('click', '.icon-close.close-popup', function () {
+        event.preventDefault();
         cartVm.addCartNum = 1;
       });
 
-      $(document).on('click','.em-op-d', function () {
+      $(document).on('click', '.em-op-d', function () {
         if (cartVm.addCartNum > 1) {
           cartVm.addCartNum--;
         }
       });
 
-      $(document).on('click','.em-op-a', function () {
+      $(document).on('click', '.em-op-a', function () {
         cartVm.addCartNum++;
       });
 
-      $(document).on('click','.my-ul-spec li', function () {
+      $(document).on('click', '.my-ul-spec li', function () {
         $('.my-ul-spec li').removeClass('my-spec-on');
         $(this).addClass('my-spec-on');
       });
     });
 
-    $(document).on("pageInit", "#page-product-flash-deal-list", function(e, id, page) {
+    $(document).on("pageInit", "#page-product-flash-deal-list", function (e, id, page) {
       var vm = new Vue({
         el: '#page-product-flash-deal-list',
         data: {
@@ -332,7 +362,7 @@ require(['Vue', 'Utils'],
         }
       });
 
-      $(page).on('click','.icon-clear', function () {
+      $(page).on('click', '.icon-clear', function () {
         vm.search = '';
       });
     });
