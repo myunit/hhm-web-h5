@@ -4,7 +4,6 @@
  * @description
  */
 var gulp = require('gulp'),
-  autoprefixer = require('gulp-autoprefixer'),
   cleanCSS = require('gulp-clean-css'),
   jshint = require('gulp-jshint'),
   uglify = require('gulp-uglify'),
@@ -13,8 +12,7 @@ var gulp = require('gulp'),
   clean = require('gulp-clean'),
   concat = require('gulp-concat'),
   notify = require('gulp-notify'),
-  cache = require('gulp-cache'),
-  livereload = require('gulp-livereload');
+  cache = require('gulp-cache')
 
 // 样式处理任务
 gulp.task('css', function() {
