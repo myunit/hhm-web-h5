@@ -12,11 +12,11 @@ var gulp = require('gulp'),
   clean = require('gulp-clean'),
   concat = require('gulp-concat'),
   notify = require('gulp-notify'),
-  cache = require('gulp-cache')
+  cache = require('gulp-cache');
 
 // 样式处理任务
 gulp.task('css', function() {
-  return gulp.src('public/css/*.css')    //引入所有CSS
+  return gulp.src(['public/css/*.css', '!public/css/my.min.css'])    //引入所有CSS
     .pipe(concat('my.css'))           //合并CSS文件
     .pipe(cleanCSS({compatibility: 'ie8'}))
     .pipe(gulp.dest('public/dist/css'))      //完整版输出
@@ -27,7 +27,7 @@ gulp.task('css', function() {
 
 // JS处理任务
 gulp.task('js', function() {
-  return gulp.src('public/js/controller/*.js')      //引入所有需处理的JS
+  return gulp.src(['public/js/controller/*.js', '!public/js/controller/my.min.js'])      //引入所有需处理的JS
     .pipe(jshint.reporter('default'))         //S代码检查
     .pipe(concat('my.js'))                  //合并输出的JS文件名称
     .pipe(gulp.dest('public/dist/js/'))        //完整版输出路径
