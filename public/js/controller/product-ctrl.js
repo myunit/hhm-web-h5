@@ -251,6 +251,7 @@ require(['Vue', 'Utils'],
 
     $(document).on("pageInit", "#page-product-list", function(e, id, page) {
       var type = 0;
+      var categoryId = 0;
       if (window.location.pathname === '/product/sales') {
         type = 1;
       } else if (window.location.pathname === '/product/new') {

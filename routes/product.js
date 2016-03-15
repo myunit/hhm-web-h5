@@ -35,7 +35,7 @@ router.get('/recommend', function (req, res, next) {
   res.render('product-list', {title: title});
 });
 
-router.get('/list', function (req, res, next) {
+router.get('/category/:id', function (req, res, next) {
   res.render('product-list', {title: '商品列表-好好卖'});
 });
 
