@@ -3,7 +3,7 @@
  * @create by 16-2-20
  * @description product controller
  */
-+ function() {
+(function() {
   require.config({
     baseUrl: '../js',
     paths: {
@@ -428,4 +428,4 @@
       $.init();
     }
   );
-}();
+}());
