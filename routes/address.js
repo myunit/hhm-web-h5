@@ -61,6 +61,7 @@ router.post('/get-all-receiver',function (req, res, next) {
       var data = response.body.repData;
       if (data === undefined) {
         res.json({status: 0, msg: '服务异常'});
+        return;
       }
       if (data.status) {
         res.json({status: data.status, receiver: data.receiver});
