@@ -18,9 +18,9 @@
                                 <img :src="product.ImgUrl" width="316" height="316" alt=""/>
                             </a>
                         </span>
-                        <h3 class="my-28-text">${product.Name.length > 10 ? product.Name.substring(0,10)+'...':product.Name}</h3>
+                        <h3 class="my-28-text">${product.Name.length > 8 ? product.Name.substring(0,8)+'...':product.Name}</h3>
                         <div class="row">
-                            <div class="col-50 my-28-text my-red-text">￥${product.MinPrice}~${product.MaxPrice}</div>
+                            <div class="col-50 my-28-text my-red-text">￥${product.MinPrice && product.MaxPrice ? product.MinPrice+'~'+product.MaxPrice:product.Price}</div>
                             <div class="col-50">
                                 <a href="#" @click.prevent="addToCart($index)" class="icon icon-addcart"></a>
                             </div>
@@ -28,6 +28,9 @@
                     </li>
                 </template>
             </ul>
+            <div class="infinite-scroll-preloader">
+                <div class="preloader"></div>
+            </div>
         </div>
 
         <a href="/cart/cart-no-footer" class="my-product-cart external">
