@@ -25,8 +25,8 @@ gulp.task('css', function() {
     .pipe(notify({ message: '样式文件处理完成' }));
 });
 
-// JS处理任务
-gulp.task('js', function() {
+// JS处理任务(带合并)
+/*gulp.task('js', function() {
   return gulp.src(['public/js/controller/*.js', '!public/js/controller/my.min.js'])      //引入所有需处理的JS
     .pipe(jshint.reporter('default'))         //S代码检查
     .pipe(concat('my.js'))                  //合并输出的JS文件名称
@@ -35,7 +35,7 @@ gulp.task('js', function() {
     .pipe(uglify())                           //压缩JS
     .pipe(gulp.dest('public/js/controller'))        //压缩版输出路径
     .pipe(notify({ message: 'JS文件处理完成' }));
-});
+});*/
 
 // JS处理任务
 gulp.task('city-js', function() {
@@ -46,6 +46,16 @@ gulp.task('city-js', function() {
     .pipe(rename({ suffix: '.min' }))         //重命名
     .pipe(uglify())                           //压缩JS
     .pipe(gulp.dest('public/js/lib'))        //压缩版输出路径
+    .pipe(notify({ message: 'JS文件处理完成' }));
+});
+
+// JS处理任务
+gulp.task('js', function() {
+  return gulp.src(['public/js/controller/*.js', '!public/js/controller/*.min.js'])      //引入所有需处理的JS
+    .pipe(jshint.reporter('default'))         //S代码检查
+    .pipe(rename({ suffix: '.min' }))         //重命名
+    .pipe(uglify())                           //压缩JS
+    .pipe(gulp.dest('public/js/controller'))        //压缩版输出路径
     .pipe(notify({ message: 'JS文件处理完成' }));
 });
 
