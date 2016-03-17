@@ -327,16 +327,12 @@
           el: '#page-my-address',
           data: {
             receivers: [],
-            defaultIdx: null,
-            OPAdr: null
+            defaultIdx: null
           },
           methods: {
-            deleteAdr: deleteAdr,
-            addOrEditAdr: addOrEditAdr
+            deleteAdr: deleteAdr
           }
         });
-
-        var vmPop = undefined;
 
         ajaxPost('/address/get-all-receiver', {}, function (err, data) {
           if (err) {
@@ -373,97 +369,6 @@
             }
           );
         }
-
-        function addOrEditAdr(index) {
-          if (index >= 0) {
-            $("title").text('修改地址-好好卖');
-            var receiver = vm.receivers[index];
-            vmPop = new Vue({
-              el: '#popup-adr',
-              data: {
-                index: index,
-                receiverId: receiver.receiverId,
-                phone: receiver.phone,
-                receiver: receiver.receiver,
-                pcdDes: receiver.pcdDes,
-                address: receiver.address,
-                isDefault: receiver.isDefault
-              }
-            });
-          } else {
-            vmPop = new Vue({
-              el: '#popup-adr',
-              data: {
-                index: -1,
-                receiverId: 0,
-                phone: '',
-                receiver: '',
-                pcdDes: '浙江省 嘉兴市 南湖区',
-                address: '',
-                isDefault: false
-              }
-            });
-            $("title").text('新增地址-好好卖');
-          }
-
-          $("#city-picker").cityPicker({
-            toolbarTemplate: '<header class="bar bar-nav"><button class="button button-link pull-right close-picker">确定</button>\
-        <h1 class="title">选择收货地址</h1></header>'
-          });
-
-          $.popup('.popup-adr');
-        }
-
-        $(document).on('click', '.close-popup', function (event) {
-          event.preventDefault();
-          var url = '/address/modify-receiver';
-          if (vmPop.receiverId === 0) {
-            url = '/address/add-receiver';
-          }
-          ajaxPost(url,
-            {
-              'receiverId': vmPop.receiverId,
-              'phone': vmPop.phone,
-              'receiver': vmPop.receiver,
-              'pcdDes': vmPop.pcdDes,
-              'address': vmPop.address,
-              'isDefault': vmPop.isDefault
-            },
-            function (err, data) {
-              $.hidePreloader();
-              if (err) {
-                $.toast(err, 1000);
-              } else {
-                var receiver = undefined;
-                if (vmPop.index === -1) {
-                  receiver = {};
-                  receiver.receiverId = data.receiverId;
-                  receiver.phone = vmPop.phone;
-                  receiver.receiver = vmPop.receiver;
-                  receiver.pcdDes = vmPop.pcdDes;
-                  receiver.address = vmPop.address;
-                  receiver.isDefault = vmPop.isDefault;
-                  vm.receivers.push(receiver);
-
-                } else {
-                  receiver = vm.receivers[vmPop.index];
-                  receiver.phone = vmPop.phone;
-                  receiver.receiver = vmPop.receiver;
-                  receiver.pcdDes = vmPop.pcdDes;
-                  receiver.address = vmPop.address;
-                  receiver.isDefault = vmPop.isDefault;
-                }
-
-
-                vmPop.$destroy();
-              }
-            }
-          );
-
-          $.showPreloader('请稍等');
-
-          $("title").text('地址管理-好好卖');
-        });
 
         $(page).on('change', '[name="single-radio"]', function () {
           ajaxPost('/address/set-default-receiver', {receiverId: vm.receivers[vm.defaultIdx].receiverId}, function (err, data) {
