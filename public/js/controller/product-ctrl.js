@@ -353,6 +353,9 @@
         });
 
         function addToCart(index) {
+          cartVm.product = vm.products[index];
+          cartVm.curPrice = cartVm.product.SkuList[0].Price;
+          cartVm.curImg = cartVm.product.SkuList[0].Images[2].ImgUrl;
           $.popup('.popup-cart');
         }
 
@@ -363,7 +366,10 @@
         var cartVm = new Vue({
           el: '#popup-cart',
           data: {
-            addCartNum: 1
+            addCartNum: 1,
+            product: null,
+            curPrice: 0,
+            curImg: ''
           }
         });
 
@@ -389,11 +395,13 @@
           }
           vm.cartNum += parseInt(cartVm.addCartNum);
           cartVm.addCartNum = 1;
+          cartVm.product = null;
         });
 
         $(document).on('click', '.icon-close.close-popup', function () {
           event.preventDefault();
           cartVm.addCartNum = 1;
+          cartVm.product = null;
         });
 
         $(document).on('click', '.em-op-d', function () {
@@ -409,6 +417,10 @@
         $(document).on('click', '.my-ul-spec li', function () {
           $('.my-ul-spec li').removeClass('my-spec-on');
           $(this).addClass('my-spec-on');
+          var index = $(this).val();
+          var sku= cartVm.product.SkuList[index];
+          cartVm.curPrice = sku.Price;
+          cartVm.curImg = sku.Images[2].ImgUrl;
         });
       });
 
