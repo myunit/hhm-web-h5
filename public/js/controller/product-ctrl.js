@@ -293,7 +293,15 @@
         var loading = false;
 
         if (location.pathname === '/product/sales') {
-
+          productItems = new ProductItems('/product/sales', 10);
+          productItems.addItems(function (err, data) {
+            if (err) {
+              $.toast(err, 1000);
+            } else {
+              vm.count = data.count;
+              vm.products = vm.products.concat(data.products);
+            }
+          });
         } else if (location.pathname === '/product/new') {
           productItems = new ProductItems('/product/new', 10);
           productItems.addItems(function (err, data) {

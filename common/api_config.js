@@ -88,5 +88,8 @@ ProductApi.prototype = {
   },
   getNewProduct : function(){
     return api_config.productService.baseUrl + api_config.productService.method.getNewProduct;
+  },
+  getSalesProduct : function(){
+    return api_config.productService.baseUrl + api_config.productService.method.getSalesProduct;
   }
 };

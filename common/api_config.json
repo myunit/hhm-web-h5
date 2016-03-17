@@ -29,7 +29,8 @@
     "method": {
       "getCategory": "Products/get-category",
       "getCategoryProduct": "Products/get-category-product",
-      "getNewProduct": "Products/get-new-product"
+      "getNewProduct": "Products/get-new-product",
+      "getSalesProduct": "Products/get-sales-product"
     }
   }
 }
