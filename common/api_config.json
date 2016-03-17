@@ -28,7 +28,8 @@
     "baseUrl": "http://120.27.148.53:30002/product/v1/",
     "method": {
       "getCategory": "Products/get-category",
-      "getCategoryProduct": "Products/get-category-product"
+      "getCategoryProduct": "Products/get-category-product",
+      "getNewProduct": "Products/get-new-product"
     }
   }
 }

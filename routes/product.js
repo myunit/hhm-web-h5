@@ -22,9 +22,30 @@ router.get('/sales', function (req, res, next) {
   res.render('product-list', {title: '特卖-好好卖'});
 });
 
-router.get('/new', function (req, res, next) {
-  res.render('product-list', {title: '新品-好好卖'});
-});
+router.route('/new')
+  .get(function (req, res, next) {
+    res.render('product-list', {title: '新品-好好卖'});
+  })
+  .post(function (req, res, next) {
+    unirest.post(productApi.getNewProduct())
+      .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
+      .send({
+        "userId": req.session.uid,
+        "pageId": req.body.pageId,
+        "pageSize": req.body.pageSize
+      })
+      .end(function (response) {
+        var data = response.body.repData;
+        if (data === undefined) {
+          res.json({status: 0, msg: '服务异常'});
+        }
+        if (data.status) {
+          res.json({status: data.status, count: data.count, products: data.product});
+        } else {
+          res.json({status: data.status, msg: data.msg});
+        }
+      });
+  });
 
 router.get('/group', function (req, res, next) {
   res.render('product-list', {title: '组合商品-好好卖'});

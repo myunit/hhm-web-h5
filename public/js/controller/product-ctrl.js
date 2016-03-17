@@ -43,8 +43,8 @@
   function ProductItems(url, number, cid, childId) {
     var o = {};
     o.url = url;
-    o.cid = cid;
-    o.childId = childId;
+    o.cid = cid || 0;
+    o.childId = childId || 0;
     o.pageSize = number;
     o.pageId = 0;
     o.addItems = function (cb) {
@@ -295,7 +295,15 @@
         if (location.pathname === '/product/sales') {
 
         } else if (location.pathname === '/product/new') {
-
+          productItems = new ProductItems('/product/new', 10);
+          productItems.addItems(function (err, data) {
+            if (err) {
+              $.toast(err, 1000);
+            } else {
+              vm.count = data.count;
+              vm.products = vm.products.concat(data.products);
+            }
+          });
         } else if (location.pathname === '/product/group') {
 
         } else if (location.pathname === '/product/recommend') {
@@ -355,7 +363,7 @@
         function addToCart(index) {
           cartVm.product = vm.products[index];
           cartVm.curPrice = cartVm.product.SkuList[0].Price;
-          cartVm.curImg = cartVm.product.SkuList[0].Images[2].ImgUrl;
+          cartVm.curImg = cartVm.product.SkuList[0].Images[0].ImgUrl;
           $.popup('.popup-cart');
         }
 
@@ -420,7 +428,7 @@
           var index = $(this).val();
           var sku= cartVm.product.SkuList[index];
           cartVm.curPrice = sku.Price;
-          cartVm.curImg = sku.Images[2].ImgUrl;
+          cartVm.curImg = sku.Images[0].ImgUrl;
         });
       });
 
