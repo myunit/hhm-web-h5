@@ -444,7 +444,19 @@
         var vm = new Vue({
           el: '#page-product-flash-deal-list',
           data: {
-            search: ''
+            search: '',
+            count: 0,
+            products: []
+          }
+        });
+
+        var productItems = new ProductItems('/product/secKill', 10);
+        productItems.addItems(function (err, data) {
+          if (err) {
+            $.toast(err, 1000);
+          } else {
+            vm.count = data.count;
+            vm.products = vm.products.concat(data.products);
           }
         });
 

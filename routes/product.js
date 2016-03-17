@@ -103,9 +103,27 @@ router.route('/category')
       });
   });
 
-router.get('/secKill', function (req, res, next) {
-  res.render('product-flash-deal-list', {title: '秒杀-好好卖'});
-});
+router.route('/secKill')
+  .get(function (req, res, next) {
+    res.render('product-flash-deal-list', {title: '秒杀-好好卖'});
+  }).post(function (req, res, next) {
+    unirest.post(productApi.getSecKillProduct())
+      .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
+      .send({
+        "userId": req.session.uid
+      })
+      .end(function (response) {
+        var data = response.body.repData;
+        if (data === undefined) {
+          res.json({status: 0, msg: '服务异常'});
+        }
+        if (data.status) {
+          res.json({status: data.status, count: data.count, products: data.product});
+        } else {
+          res.json({status: data.status, msg: data.msg});
+        }
+      });
+  });
 
 router.get('/secKill-detail', function (req, res, next) {
   res.render('product-detail', {title: '商品详情-好好卖'});

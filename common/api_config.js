@@ -91,5 +91,8 @@ ProductApi.prototype = {
   },
   getSalesProduct : function(){
     return api_config.productService.baseUrl + api_config.productService.method.getSalesProduct;
+  },
+  getSecKillProduct : function(){
+    return api_config.productService.baseUrl + api_config.productService.method.getSecKillProduct;
   }
 };

@@ -30,7 +30,8 @@
       "getCategory": "Products/get-category",
       "getCategoryProduct": "Products/get-category-product",
       "getNewProduct": "Products/get-new-product",
-      "getSalesProduct": "Products/get-sales-product"
+      "getSalesProduct": "Products/get-sales-product",
+      "getSecKillProduct": "Products/get-secKill-product"
     }
   }
 }
