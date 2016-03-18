@@ -3,7 +3,7 @@
  * @create by 16-2-22
  * @description user controller
  */
-+ function() {
+(function() {
   require.config({
     baseUrl: '../js',
     paths: {
@@ -393,4 +393,4 @@
       $.init();
     }
   );
-}();
+}());

@@ -3,7 +3,7 @@
  * @create by 16-2-21
  * @description address controller
  */
-+ function() {
+(function () {
   require.config({
     baseUrl: '../js',
     paths: {
@@ -40,7 +40,7 @@
     });
   }
 
-  require(['Vue','Utils'],
+  require(['Vue', 'Utils'],
     function (Vue, Utils) {
       'use strict';
       Vue.config.delimiters = ['${', '}'];
@@ -49,9 +49,7 @@
       $(document).on("pageInit", "#page-address-select", function (e, id, page) {
         var vm = new Vue({
           el: '#page-address-select',
-          data: {
-
-          }
+          data: {}
         });
 
       });
@@ -140,4 +138,4 @@
       $.init();
     }
   );
-}();
+}());

@@ -3,7 +3,7 @@
  * @create by 16-2-19
  * @description cart controller
  */
-+ function() {
+(function() {
   require.config({
     baseUrl: '../js',
     paths: {
@@ -125,4 +125,4 @@
       $.init();
     }
   );
-}();
+}());

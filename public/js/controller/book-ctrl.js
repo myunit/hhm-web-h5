@@ -3,7 +3,7 @@
  * @create by 16-2-20
  * @description book controller
  */
-+ function() {
+(function() {
   require.config({
     baseUrl: '../js',
     paths: {
@@ -114,4 +114,4 @@
       $.init();
     }
   );
-}();
+}());

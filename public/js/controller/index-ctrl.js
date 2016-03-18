@@ -3,7 +3,7 @@
  * @create by 16-2-15
  * @description index page controller
  */
-+ function() {
+(function () {
   require.config({
     baseUrl: './js',
     paths: {
@@ -251,7 +251,7 @@
           }
         });
 
-        function submitInfo (event) {
+        function submitInfo(event) {
           if (vm.phone && !Utils.checkMobile(vm.phone)) {
             $.toast("请输入正确的手机号", 1000);
             return;
@@ -303,7 +303,7 @@
           }
         });
 
-        function sendCaptcha (event) {
+        function sendCaptcha(event) {
           if (vm.isSendCaptcha) {
             return;
           }
@@ -348,7 +348,7 @@
           $.showPreloader('发送中');
         }
 
-        function restPW (event) {
+        function restPW(event) {
           if (!vm.isSendCaptcha) {
             return;
           }
@@ -403,4 +403,4 @@
       $.init();
     }
   );
-}();
+}());
