@@ -302,7 +302,7 @@
         var productItems = undefined;
         var loading = false;
 
-        if (location.pathname === '/product/sales') {
+        if (location.pathname === '/product/sales') {//特卖
           productItems = new ProductItems('/product/sales', 10);
           productItems.addItems(function (err, data) {
             if (err) {
@@ -312,7 +312,7 @@
               vm.products = vm.products.concat(data.products);
             }
           });
-        } else if (location.pathname === '/product/new') {
+        } else if (location.pathname === '/product/new') {//新品
           productItems = new ProductItems('/product/new', 10);
           productItems.addItems(function (err, data) {
             if (err) {
@@ -322,9 +322,9 @@
               vm.products = vm.products.concat(data.products);
             }
           });
-        } else if (location.pathname === '/product/group') {
+        } else if (location.pathname === '/product/group') {//组合商品
 
-        } else if (location.pathname === '/product/recommend') {
+        } else if (location.pathname === '/product/recommend') {//推荐类目
 
         } else if (location.pathname === '/product/category') {
           var search = Utils.getSearch(location);
