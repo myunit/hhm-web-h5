@@ -66,6 +66,16 @@
     return o;
   }
 
+  function computeTime (time) {
+    var hour = Math.floor((time) / 3600000);
+    var min = Math.floor(((time % 86400000) % 3600000) / 60000);
+    var sec = Math.floor(((time % 86400000) % 3600000 % 60000) / 1000);
+    hour = hour > 9 ? hour : '0' + hour;
+    min = min > 9 ? min : '0' + min;
+    sec = sec > 9 ? sec : '0' + sec;
+    return hour + ':' + min + ':' + sec;
+  }
+
   require(['Vue', 'Utils'],
     function (Vue, Utils) {
       'use strict';
@@ -450,15 +460,69 @@
           }
         });
 
+        function computeRemainStartTime (obj) {
+          if (obj.RemainStartTotalSeconds > 0) {
+            obj.RemainStartTotalSeconds -= 1000;
+            obj.remainStart = computeTime(obj.RemainStartTotalSeconds);
+          } else {
+            obj.killStatus = 1;
+            var endTime = (new Date(obj.EndTime)).getTime();
+            var nowTime = (new Date).getTime();
+            obj.RemainEndTotalSeconds = endTime - nowTime;
+          }
+        }
+
+        function computeRemainEndTime (obj)  {
+          if (obj.RemainEndTotalSeconds > 0) {
+            obj.RemainEndTotalSeconds -= 1000;
+            obj.remainEnd = computeTime(obj.RemainEndTotalSeconds);
+          } else {
+            obj.killStatus = 0;
+          }
+        }
+
         var productItems = new ProductItems('/product/secKill', 10);
         productItems.addItems(function (err, data) {
           if (err) {
             $.toast(err, 1000);
           } else {
             vm.count = data.count;
+            var products = data.products;
+            var len = products.length;
+            var product = null;
+            for (var i = 0; i < len; i++) {
+              product = products[i];
+              product.RemainStartTotalSeconds= parseInt(product.RemainStartTotalSeconds)  * 1000;
+              product.RemainEndTotalSeconds= parseInt(product.RemainEndTotalSeconds)  * 1000;
+              if (product.RemainEndTotalSeconds > 0) {
+                product.killStatus = 1;//开始秒杀
+                product.remainEnd = computeTime(product.RemainEndTotalSeconds);
+              } else if (product.RemainStartTotalSeconds > 0) {
+                product.killStatus = 2;//即将开始
+                product.remainStart = computeTime(product.RemainStartTotalSeconds);
+              } else {
+                product.killStatus = 0;//已经结束
+              }
+            }
             vm.products = vm.products.concat(data.products);
           }
         });
+
+        setInterval(function () {
+          var products = vm.products;
+          var len = products.length;
+          var product = null;
+          for (var i = 0; i < len; i++) {
+            product = products[i];
+            if (product.killStatus === 1) {
+              computeRemainEndTime(product);
+            } else if (product.killStatus === 2) {
+              computeRemainStartTime(product);
+            } else {
+              continue;
+            }
+          }
+        }, 1000);
 
         $(page).on('click', '.icon-clear', function () {
           vm.search = '';
