@@ -31,7 +31,8 @@
       "getCategoryProduct": "Products/get-category-product",
       "getNewProduct": "Products/get-new-product",
       "getSalesProduct": "Products/get-sales-product",
-      "getSecKillProduct": "Products/get-secKill-product"
+      "getSecKillProduct": "Products/get-secKill-product",
+      "getProductDetail": "Products/get-product-detail"
     }
   }
 }

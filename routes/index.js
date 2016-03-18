@@ -38,7 +38,6 @@ router.get('/choose-shop-style', function (req, res, next) {
 });
 
 router.get('/index', function (req, res, next) {
-  console.log('req.session.uid:' + req.session.uid);
   if (req.session.uid) {
     res.render('index', {title: '首页-好好卖'});
   } else {

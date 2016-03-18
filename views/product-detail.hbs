@@ -15,17 +15,16 @@
         <div class="content native-scroll">
             <div class="swiper-container swiper-container-horizontal" data-space-between="10">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide"><img src="../images/demo/banner640.gif" alt=""></div>
-                    <div class="swiper-slide"><img src="../images/demo/banner6401.gif" alt=""></div>
-                    <div class="swiper-slide"><img src="../images/demo/banner6402.gif" alt=""></div>
+                    <template v-for="img in skuImg">
+                        <div class="swiper-slide"><img :src="img" alt=""></div>
+                    </template>
                 </div>
                 <div class="swiper-pagination"></div>
             </div>
 
-            <div class="row my-product-title">
-                <div class="col-80 my-28-text">商品名称商品名称商品名称商品名称 商品名称商品名称商品名称...
-                </div>
-                <div class="col-20" v-cloak>
+            <div class="row my-product-title" v-cloak>
+                <div class="col-80 my-28-text">${product.Name.length > 30 ? product.Name.substring(0,30)+'...':product.Name}</div>
+                <div class="col-20">
                     <a href="#">
                         <span class="like icon icon-like"></span>
                         <span>${liked}</span>
@@ -33,15 +32,15 @@
                 </div>
             </div>
 
-            <div class="my-product-price my-red-text"><span class="my-24-text">秒杀价：</span>￥15 <del class="my-22-text my-gray-text">￥230</del></div>
-
+            <!--<div class="my-product-price my-red-text"><span class="my-24-text">秒杀价：</span>￥15 <del class="my-22-text my-gray-text">￥230</del></div>-->
+            <div class="my-product-price my-red-text">￥${product.MinPrice && product.MaxPrice ? product.MinPrice+'~'+product.MaxPrice:product.Price}</div>
             <div class="my-product-detail">
                 <div class="my-28-text">商品详情</div>
                 <ul class="my-ul">
                     <li class="item-content">
                         <div class="item-inner clearfix">
                             <div class="item-title">规格</div>
-                            <div class="item-after">常指生产的成品或所使用的原材料等规定的质量标准，常用在制造学和物理学中。基本信息(1) </div>
+                            <div class="item-after">${style.join(',')}</div>
                         </div>
                     </li>
                     <li class="item-content">
@@ -77,8 +76,9 @@
                 </ul>
 
                 <div class="my-product-detail-img">
-                    <p class="my-img-auto pb-popup"><img src="../images/demo/product-detail.gif" width="600" height="380" alt="" /></p>
-                    <p class="my-img-auto pb-popup"><img src="../images/demo/product-detail.gif" width="600" height="380" alt="" /></p>
+                    <template v-for="img in product.ImageDetails">
+                        <p class="my-img-auto pb-popup"><img :src="img" width="600" height="380" alt="" /></p>
+                    </template>
                 </div>
             </div>
         </div>
@@ -128,4 +128,4 @@
 <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
-<script type='text/javascript' src='../js/lib/requirejs.min.js' data-main='../js/controller/product-ctrl.min'></script>
+<script type='text/javascript' src='../js/lib/requirejs.min.js' data-main='../js/controller/product-ctrl'></script>

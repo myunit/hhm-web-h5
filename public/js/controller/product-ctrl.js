@@ -3,7 +3,7 @@
  * @create by 16-2-20
  * @description product controller
  */
-(function() {
+(function () {
   require.config({
     baseUrl: '../js',
     paths: {
@@ -66,7 +66,7 @@
     return o;
   }
 
-  function computeTime (time) {
+  function computeTime(time) {
     var hour = Math.floor((time) / 3600000);
     var min = Math.floor(((time % 86400000) % 3600000) / 60000);
     var sec = Math.floor(((time % 86400000) % 3600000 % 60000) / 1000);
@@ -105,15 +105,41 @@
       });
 
       $(document).on("pageInit", "#page-product-detail", function (e, id, page) {
+        var search = Utils.getSearch(location);
+        if (!search['id']) {
+          location.pathname = '/';
+          return;
+        }
+
         var vm = new Vue({
           el: '#page-product-detail',
           data: {
             isLike: false,
-            cartNum: 3
+            cartNum: 3,
+            product: null,
+            style: [],
+            skuImg:[]
           },
           computed: {
             liked: function () {
               return this.isLike ? '已收藏' : '收藏';
+            }
+          }
+        });
+
+        ajaxPost('/product/detail', {
+          productId: parseInt(search['id'])
+        }, function (err, data) {
+          if (err) {
+            $.toast(err, 1000);
+          } else {
+            vm.product = Utils.clone(data.product);
+            var skuList = vm.product.Skus;
+            for (var i = 0; i < skuList.length; i++){
+              vm.style.push(skuList[i].SizeName);
+              if (skuList[i].Images.length > 0) {
+                vm.skuImg.push(skuList[i].Images[0].ImgUrl);
+              }
             }
           }
         });
@@ -126,19 +152,6 @@
 
         $(page).on('click', '.my-back-top', function () {
           $('.content').scrollTop(0);
-        });
-
-        var myPhotoBrowserPopup = $.photoBrowser({
-          photos: [
-            '../images/demo/home-tuijian-1.jpg',
-            '../images/demo/home-tuijian-2.jpg',
-            '../images/demo/home-tuijian-3.jpg'
-          ],
-          type: 'popup'
-        });
-
-        $(page).on('click', '.pb-popup', function () {
-          myPhotoBrowserPopup.open();
         });
 
 
@@ -344,7 +357,7 @@
           });
         }
 
-        $(page).on('infinite', '.infinite-scroll-bottom',function() {
+        $(page).on('infinite', '.infinite-scroll-bottom', function () {
 
           // 如果正在加载，则退出
           if (loading) return;
@@ -352,7 +365,7 @@
           loading = true;
 
           // 模拟1s的加载过程
-          setTimeout(function() {
+          setTimeout(function () {
             // 重置加载flag
             loading = false;
 
@@ -444,7 +457,7 @@
           $('.my-ul-spec li').removeClass('my-spec-on');
           $(this).addClass('my-spec-on');
           var index = $(this).val();
-          var sku= cartVm.product.SkuList[index];
+          var sku = cartVm.product.SkuList[index];
           cartVm.curPrice = sku.Price;
           cartVm.curImg = sku.Images[0].ImgUrl;
         });
@@ -460,7 +473,7 @@
           }
         });
 
-        function computeRemainStartTime (obj) {
+        function computeRemainStartTime(obj) {
           if (obj.RemainStartTotalSeconds > 0) {
             obj.RemainStartTotalSeconds -= 1000;
             obj.remainStart = computeTime(obj.RemainStartTotalSeconds);
@@ -472,7 +485,7 @@
           }
         }
 
-        function computeRemainEndTime (obj)  {
+        function computeRemainEndTime(obj) {
           if (obj.RemainEndTotalSeconds > 0) {
             obj.RemainEndTotalSeconds -= 1000;
             obj.remainEnd = computeTime(obj.RemainEndTotalSeconds);
@@ -492,8 +505,8 @@
             var product = null;
             for (var i = 0; i < len; i++) {
               product = products[i];
-              product.RemainStartTotalSeconds= parseInt(product.RemainStartTotalSeconds)  * 1000;
-              product.RemainEndTotalSeconds= parseInt(product.RemainEndTotalSeconds)  * 1000;
+              product.RemainStartTotalSeconds = parseInt(product.RemainStartTotalSeconds) * 1000;
+              product.RemainEndTotalSeconds = parseInt(product.RemainEndTotalSeconds) * 1000;
               if (product.RemainEndTotalSeconds > 0) {
                 product.killStatus = 1;//开始秒杀
                 product.remainEnd = computeTime(product.RemainEndTotalSeconds);
