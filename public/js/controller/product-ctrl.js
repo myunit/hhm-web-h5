@@ -124,8 +124,25 @@
             liked: function () {
               return this.isLike ? '已收藏' : '收藏';
             }
+          },
+          methods: {
+            addToCart: addToCart
           }
         });
+
+        var cartVm = new Vue({
+          el: '#popup-cart',
+          data: {
+            addCartNum: 1,
+            curPrice: 0,
+            curImg: '',
+            product: null
+          }
+        });
+
+        function addToCart() {
+          $.popup('.popup-cart');
+        }
 
         ajaxPost('/product/detail', {
           productId: parseInt(search['id'])
@@ -134,7 +151,10 @@
             $.toast(err, 1000);
           } else {
             vm.product = Utils.clone(data.product);
+            cartVm.product = vm.product
             var skuList = vm.product.Skus;
+            cartVm.curPrice = skuList[0].Price;
+            cartVm.curImg = skuList[0].Images[0].ImgUrl;
             for (var i = 0; i < skuList.length; i++){
               vm.style.push(skuList[i].SizeName);
               if (skuList[i].Images.length > 0) {
@@ -164,14 +184,6 @@
 
         $(page).on('click', '.my-back-top', function () {
           $('.content').scrollTop(0);
-        });
-
-
-        var cartVm = new Vue({
-          el: '#popup-cart',
-          data: {
-            addCartNum: 1
-          }
         });
 
         cartVm.$watch('addCartNum', function (newVal, oldVal) {
@@ -215,6 +227,10 @@
         $(document).on('click', '.my-ul-spec li', function () {
           $('.my-ul-spec li').removeClass('my-spec-on');
           $(this).addClass('my-spec-on');
+          var index = $(this).val();
+          var sku = vm.product.Skus[index];
+          cartVm.curPrice = sku.Price;
+          cartVm.curImg = sku.Images[0].ImgUrl;
         });
 
         $(function () {
