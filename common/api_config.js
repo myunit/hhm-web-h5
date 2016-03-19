@@ -75,6 +75,18 @@ CustomerApi.prototype = {
   addReceiver : function(){
     return api_config.customerService.baseUrl + api_config.customerService.method.addReceiver;
   }
+  ,
+  getMyFavorite : function(){
+    return api_config.customerService.baseUrl + api_config.customerService.method.getMyFavorite;
+  }
+  ,
+  addFavorite : function(){
+    return api_config.customerService.baseUrl + api_config.customerService.method.addFavorite;
+  }
+  ,
+  delFavorite : function(){
+    return api_config.customerService.baseUrl + api_config.customerService.method.delFavorite;
+  }
 };
 
 var ProductApi = function(){};

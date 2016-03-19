@@ -145,9 +145,21 @@
         });
 
         $(page).on('click', '.like', function () {
-          $(this).toggleClass('icon-like');
-          $(this).toggleClass('icon-likeactive');
-          vm.isLike = !vm.isLike;
+          ajaxPost(vm.isLike ? '/users/del-fav':'/users/add-fav', {
+            productId: parseInt(search['id'])
+          }, function (err, data) {
+            if (err) {
+              $.toast(err, 1000);
+            } else {
+              $.hidePreloader();
+              vm.isLike = !vm.isLike;
+            }
+          });
+          if (vm.isLike) {
+            $.showPreloader('取消收藏...');
+          } else {
+            $.showPreloader('收藏...');
+          }
         });
 
         $(page).on('click', '.my-back-top', function () {

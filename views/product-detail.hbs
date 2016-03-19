@@ -26,21 +26,21 @@
                 <div class="col-80 my-28-text">${product.Name.length > 30 ? product.Name.substring(0,30)+'...':product.Name}</div>
                 <div class="col-20">
                     <a href="#">
-                        <span class="like icon icon-like"></span>
+                        <span class="like icon" :class="{'icon-like': !isLike, 'icon-likeactive': isLike}"></span>
                         <span>${liked}</span>
                     </a>
                 </div>
             </div>
 
             <!--<div class="my-product-price my-red-text"><span class="my-24-text">秒杀价：</span>￥15 <del class="my-22-text my-gray-text">￥230</del></div>-->
-            <div class="my-product-price my-red-text">￥${product.MinPrice && product.MaxPrice ? product.MinPrice+'~'+product.MaxPrice:product.Price}</div>
+            <div class="my-product-price my-red-text" v-cloak>￥${product.MinPrice && product.MaxPrice ? product.MinPrice+'~'+product.MaxPrice:product.Price}</div>
             <div class="my-product-detail">
                 <div class="my-28-text">商品详情</div>
                 <ul class="my-ul">
                     <li class="item-content">
                         <div class="item-inner clearfix">
                             <div class="item-title">规格</div>
-                            <div class="item-after">${style.join(',')}</div>
+                            <div class="item-after" v-cloak>${style.join(',')}</div>
                         </div>
                     </li>
                     <li class="item-content">
