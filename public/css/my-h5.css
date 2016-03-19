@@ -172,8 +172,8 @@ label.label-checkbox input[type="radio"]:checked + .item-media i.icon-form-check
 .swiper-pagination-bullet{ background:#fff; border:1px solid #e1e3e5; opacity:1; width:.47rem; height:.47rem;}
 .swiper-pagination-bullet-active{ background:#f86b4f;border:1px solid #f86b4f;}
 .my-product-title{ background:#fff; padding:.588rem;}
-.my-product-title .col-80{ border-right:1px solid #d3d3d3;}
-.my-product-title .col-20{ text-align:center;}
+.my-product-title .col-80{}
+.my-product-title .col-20{ text-align:center;border-left: 1px solid #d3d3d3;}
 .my-product-title .col-20 a{ color:#333;}
 .my-product-title .col-20 .icon{ display:block; font-size:1.08rem;}
 .my-product-title .col-20 .icon-likeactive{ color:#ffcc66;}

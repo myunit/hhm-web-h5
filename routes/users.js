@@ -94,9 +94,29 @@ router.get('/buy-report-result', function (req, res, next) {
   res.render('my-buy-report-result', {title: '采购报表-好好卖'});
 });
 
-router.get('/my-fav', function (req, res, next) {
-  res.render('my-fav', {title: '我的收藏-好好卖'});
-});
+router.route('/my-fav')
+  .get(function (req, res, next) {
+    res.render('my-fav', {title: '我的收藏-好好卖'});
+  }).post(function (req, res, next) {
+    unirest.post(customerApi.getMyFavorite())
+      .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
+      .send({
+        "userId": req.session.uid,
+        "pageId": req.body.pageId,
+        "pageSize": req.body.pageSize
+      })
+      .end(function (response) {
+        var data = response.body.repData;
+        if (data === undefined) {
+          res.json({status: 0, msg: '服务异常'});
+        }
+        if (data.status) {
+          res.json({status: data.status, count: data.count, favorite: data.favorite});
+        } else {
+          res.json({status: data.status, msg: data.msg});
+        }
+      });
+  });
 
 router.post('/add-fav', function (req, res, next) {
   unirest.post(customerApi.addFavorite())

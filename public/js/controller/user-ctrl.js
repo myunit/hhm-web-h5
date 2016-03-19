@@ -46,6 +46,28 @@
     });
   }
 
+  function FavItems(url, number) {
+    var o = {};
+    o.url = url;
+    o.pageSize = number;
+    o.pageId = 0;
+    o.addItems = function (cb) {
+      var self = this;
+      ajaxPost(this.url, {
+        pageId: this.pageId,
+        pageSize: this.pageSize
+      }, function (err, data) {
+        if (err) {
+          cb(err, null);
+        } else {
+          self.pageId++;
+          cb(null, data);
+        }
+      });
+    };
+    return o;
+  }
+
   require(['Vue', 'Utils'],
     function (Vue, Utils) {
       'use strict';
@@ -225,9 +247,57 @@
           el: '#page-my-fav',
           data: {
             search: '',
-            cartNum: 30
+            cartNum: 30,
+            favList: [],
+            count: 0
           }
         });
+
+        var loading = false;
+        var favItems = new FavItems('/users/my-fav', 10);
+        favItems.addItems(function (err, data) {
+          if (err) {
+            $.toast(err, 1000);
+          } else {
+            vm.count = data.count;
+            vm.favList = vm.favList.concat(data.favorite);
+          }
+        });
+
+        $(page).on('infinite', '.infinite-scroll-bottom', function () {
+
+          // 如果正在加载，则退出
+          if (loading) return;
+          // 设置flag
+          loading = true;
+
+          // 模拟1s的加载过程
+          setTimeout(function () {
+            // 重置加载flag
+            loading = false;
+
+            if (vm.favList.length >= vm.count) {
+              // 加载完毕，则注销无限加载事件，以防不必要的加载
+              $.detachInfiniteScroll($('.infinite-scroll'));
+              // 删除加载提示符
+              $('.infinite-scroll-preloader').remove();
+              return;
+            }
+
+            // 添加新条目
+            favItems.addItems(function (err, data) {
+              if (err) {
+                $.toast(err, 1000);
+              } else {
+                vm.count = data.count;
+                vm.favList = vm.favList.concat(data.favorite);
+              }
+            });
+            //容器发生改变,如果是js滚动，需要刷新滚动
+            $.refreshScroller();
+          }, 1000);
+        });
+
 
         $(page).on('click', '.icon-clear', function () {
           vm.search = '';
