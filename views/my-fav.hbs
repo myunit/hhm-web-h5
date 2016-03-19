@@ -29,7 +29,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-50">
-                                            <span class="icon like icon-likeactive"> <span class="my-28-text my-gray-text">已收藏</span></span>
+                                            <span @click.prevent="addToFav($index)" class="icon like" :class="{'icon-like': !favorite.isLike, 'icon-likeactive': favorite.isLike}"> <span class="my-28-text my-gray-text">${favorite.isLike ?'已收藏':'收藏'}</span></span>
                                         </div>
                                         <div class="col-50 my-right-text">
                                             <a href="#" class="button button-fill">加入采购车</a>

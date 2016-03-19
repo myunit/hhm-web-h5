@@ -250,8 +250,30 @@
             cartNum: 30,
             favList: [],
             count: 0
+          },
+          methods: {
+            addToFav: addToFav
           }
         });
+
+        function addToFav(index) {
+          var favorite = vm.favList[index];
+          ajaxPost(favorite.isLike ? '/users/del-fav':'/users/add-fav', {
+            productId: favorite.SysNo
+          }, function (err, data) {
+            if (err) {
+              $.toast(err, 1000);
+            } else {
+              $.hidePreloader();
+              favorite.isLike = !favorite.isLike;
+            }
+          });
+          if (vm.isLike) {
+            $.showPreloader('取消收藏...');
+          } else {
+            $.showPreloader('收藏...');
+          }
+        }
 
         var loading = false;
         var favItems = new FavItems('/users/my-fav', 10);
@@ -301,16 +323,6 @@
 
         $(page).on('click', '.icon-clear', function () {
           vm.search = '';
-        });
-
-        $(page).on('click', '.like', function () {
-          $(this).toggleClass('icon-like');
-          $(this).toggleClass('icon-likeactive');
-          if ($(this).hasClass("icon-like")) {
-            $(this).children('span').text('收藏');
-          } else {
-            $(this).children('span').text('已收藏');
-          }
         });
 
         $(page).on('click', '.icon-clear', function () {
