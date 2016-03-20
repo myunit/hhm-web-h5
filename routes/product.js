@@ -71,10 +71,31 @@ router.get('/group', function (req, res, next) {
   res.render('product-list', {title: '组合商品-好好卖'});
 });
 
-router.get('/recommend', function (req, res, next) {
-  var title = '推荐栏目0' + req.query.id + '-好好卖';
-  res.render('product-list', {title: title});
-});
+router.route('/recommend')
+  .get(function (req, res, next) {
+    var title = req.query.name + '-好好卖';
+    res.render('product-recommend-list', {title: title});
+  }).post(function (req, res, next) {
+    unirest.post(productApi.getRecommendProduct())
+      .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
+      .send({
+        "userId": req.session.uid,
+        "recommendId": req.body.CId,
+        "pageId": req.body.pageId,
+        "pageSize": req.body.pageSize
+      })
+      .end(function (response) {
+        var data = response.body.repData;
+        if (data === undefined) {
+          res.json({status: 0, msg: '服务异常'});
+        }
+        if (data.status) {
+          res.json({status: data.status, count: data.count, products: data.product});
+        } else {
+          res.json({status: data.status, msg: data.msg});
+        }
+      });
+  });
 
 router.route('/category')
   .get(function (req, res, next) {

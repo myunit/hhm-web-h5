@@ -112,5 +112,11 @@ ProductApi.prototype = {
   },
   getHome : function(){
     return api_config.productService.baseUrl + api_config.productService.method.getHome;
+  },
+  getRecommend : function(){
+    return api_config.productService.baseUrl + api_config.productService.method.getRecommend;
+  },
+  getRecommendProduct : function(){
+    return api_config.productService.baseUrl + api_config.productService.method.getRecommendProduct;
   }
 };

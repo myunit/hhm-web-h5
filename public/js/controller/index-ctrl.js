@@ -72,11 +72,6 @@
             vm.groupImg = home.group.img;
             vm.secKillImg = home.secKill.img;
             vm.recommends = home.recommend.slice();
-            vm.recommends.forEach(function (item, index) {
-              if (item.RecommendItems.length > 6) {
-                item.RecommendItems.splice(6, item.RecommendItems.length-6);
-              }
-            });
 
             vm.$nextTick(function () {
               $(function () {
