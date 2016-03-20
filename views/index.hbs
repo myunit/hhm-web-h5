@@ -38,8 +38,9 @@
         <div class="content native-scroll">
             <div class="swiper-container swiper-container-horizontal" data-space-between="10">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide"><img src="images/demo/home-banner.jpg" alt=""></div>
-                    <div class="swiper-slide"><img src="images/demo/home-banner1.jpg" alt=""></div>
+                    <template v-for="banner in banners">
+                        <div class="swiper-slide"><img :src="banner.img" alt=""></div>
+                    </template>
                 </div>
                 <div class="swiper-pagination"></div>
             </div>
@@ -49,7 +50,7 @@
                     <h3><span class="icon icon-clock"></span> 限时秒杀</h3>
                     <p>
                         <a class="external" href="/product/secKill">
-                            <img src="images/demo/home-miaosha.jpg" style="width: 6.06rem;" alt="" />
+                            <img :src="secKillImg" style="width: 6.06rem;" alt="" />
                         </a>
                     </p>
                 </div>
@@ -58,7 +59,7 @@
                         <h3><span class="icon icon-group"></span> 组合商品</h3>
                         <p>
                             <a class="external" href="/product/group">
-                                <img src="images/demo/home-group.jpg" style="width: 8.7rem;" alt="" />
+                                <img :src="groupImg" style="width: 8.7rem;" alt="" />
                             </a>
                         </p>
                     </div>
@@ -67,14 +68,14 @@
                         <div class="col-50 my-div-new">
                             <h3 class="my-blue-txt"><span class="icon icon-new my-blue-txt"></span> 新品
                                 <a class="external" href="/product/new">
-                                    <img src="images/demo/home-xinpin.jpg"  style="width: 4.65rem;" alt=""/>
+                                    <img :src="newsImg"  style="width: 4.65rem;" alt=""/>
                                 </a>
                             </h3>
                         </div>
                         <div class="col-50 my-div-hot">
                             <h3 class="my-red-text"><span class="icon icon-hot my-red-text"></span> 特卖
                                 <a class="external" href="/product/sales">
-                                    <img src="images/demo/home-temai.jpg"  style="width: 4.65rem;" alt=""/>
+                                    <img :src="salesImg"  style="width: 4.65rem;" alt=""/>
                                 </a>
                             </h3>
                         </div>

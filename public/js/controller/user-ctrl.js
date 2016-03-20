@@ -279,10 +279,10 @@
           ajaxPost(favorite.isLike ? '/users/del-fav':'/users/add-fav', {
             productId: favorite.SysNo
           }, function (err, data) {
+            $.hidePreloader();
             if (err) {
               $.toast(err, 1000);
             } else {
-              $.hidePreloader();
               favorite.isLike = !favorite.isLike;
             }
           });
@@ -467,6 +467,7 @@
 
         $(page).on('change', '[name="single-radio"]', function () {
           ajaxPost('/address/set-default-receiver', {receiverId: vm.receivers[vm.defaultIdx].receiverId}, function (err, data) {
+            $.hidePreloader();
             if (err) {
               $.toast(err, 1000);
             } else {
@@ -478,7 +479,6 @@
                   vm.receivers[i].isDefault = false;
                 }
               }
-              $.hidePreloader();
             }
           });
           $.showPreloader('保存中');

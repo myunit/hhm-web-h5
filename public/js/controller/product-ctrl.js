@@ -151,7 +151,7 @@
             $.toast(err, 1000);
           } else {
             vm.product = Utils.clone(data.product);
-            cartVm.product = vm.product
+            cartVm.product = vm.product;
             var skuList = vm.product.Skus;
             cartVm.curPrice = skuList[0].Price;
             cartVm.curImg = skuList[0].Images[0].ImgUrl;
@@ -168,10 +168,10 @@
           ajaxPost(vm.isLike ? '/users/del-fav':'/users/add-fav', {
             productId: parseInt(search['id'])
           }, function (err, data) {
+            $.hidePreloader();
             if (err) {
               $.toast(err, 1000);
             } else {
-              $.hidePreloader();
               vm.isLike = !vm.isLike;
             }
           });

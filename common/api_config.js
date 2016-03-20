@@ -109,5 +109,8 @@ ProductApi.prototype = {
   },
   getProductDetail : function(){
     return api_config.productService.baseUrl + api_config.productService.method.getProductDetail;
+  },
+  getHome : function(){
+    return api_config.productService.baseUrl + api_config.productService.method.getHome;
   }
 };

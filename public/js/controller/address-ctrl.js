@@ -65,6 +65,7 @@
           }
           var receiverId = parseInt(search['id']);
           ajaxPost('/address/get-all-receiver', {receiverId: receiverId}, function (err, data) {
+            $.hidePreloader();
             if (err) {
               $.toast(err, 1000);
             } else {
@@ -85,9 +86,9 @@
               确定</button><h1 class="title">选择收货地址</h1></header>'
               });
             }
-            $.hidePreloader();
           });
           $.showPreloader('请稍等');
+
         } else {
           vm = new Vue({
             el: '#page-address-edit',

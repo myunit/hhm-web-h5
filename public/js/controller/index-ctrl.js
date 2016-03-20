@@ -51,24 +51,46 @@
           el: '#page-index',
           data: {
             search: '',
-            hour: '02',
-            min: '00',
-            sec: '00'
+            banners: [],
+            newsImg: '',
+            salesImg: '',
+            groupImg: '',
+            secKillImg: '',
+            recommend: []
           }
         });
+
+        ajaxPost('/get-home', {}, function (err, data) {
+          $.hidePreloader();
+          if (err) {
+            $.toast(err, 1000);
+          } else {
+            var home = data.home;
+            vm.banners = home.banner.slice();
+            vm.newsImg = home.news.img;
+            vm.salesImg = home.sales.img;
+            vm.groupImg = home.group.img;
+            vm.secKillImg = home.secKill.img;
+            vm.recommend = home.recommend.slice();
+            vm.$nextTick(function () {
+              $(function () {
+                $(".swiper-container").swiper({
+                  spaceBetween: 30,
+                  continuous: true,
+                  autoplay: 2500,
+                  autoplayDisableOnInteraction: false
+                });
+              });
+            });
+          }
+        });
+        $.showPreloader('请稍等...');
+
 
         $(page).on('click', '.icon-clear', function () {
           vm.search = '';
         });
 
-        $(function () {
-          $(".swiper-container").swiper({
-            spaceBetween: 30,
-            continuous: true,
-            autoplay: 2500,
-            autoplayDisableOnInteraction: false
-          });
-        });
       });
 
       $(document).on("pageInit", "#page-login", function (e, id, page) {

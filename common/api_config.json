@@ -35,7 +35,8 @@
       "getNewProduct": "Products/get-new-product",
       "getSalesProduct": "Products/get-sales-product",
       "getSecKillProduct": "Products/get-secKill-product",
-      "getProductDetail": "Products/get-product-detail"
+      "getProductDetail": "Products/get-product-detail",
+      "getHome": "Products/get-home-config"
     }
   }
 }

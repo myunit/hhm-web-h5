@@ -6,6 +6,7 @@ var router = express.Router();
 
 var loginApi = ApiFactory.CreateApi('login');
 var customerApi = ApiFactory.CreateApi('customer');
+var productApi = ApiFactory.CreateApi('product');
 
 /* GET home page. */
 router.route('/')
@@ -94,7 +95,7 @@ router.route('/register-complete')
     }
   })
   .post(function (req, res, next) {
-    function callback (err, pcd) {
+    function callback(err, pcd) {
       if (err) {
         console.error('get pcd error: ' + err);
         res.json({status: 0, msg: err});
@@ -102,7 +103,11 @@ router.route('/register-complete')
       }
 
       unirest.post(customerApi.perfectCustomerInfo())
-        .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'X-Access-Token':req.session.token})
+        .headers({
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'X-Access-Token': req.session.token
+        })
         .send({
           "userId": req.session.uid, "storeName": req.body.storeName,
           "receiver": {
@@ -129,6 +134,7 @@ router.route('/register-complete')
           }
         });
     }
+
     var pcdDes = req.body.pcdDes.split(' ');
     CityChoose.getPCD(pcdDes[0], pcdDes[1], pcdDes[2], callback);
 
@@ -140,7 +146,7 @@ router.route('/rest-password')
   })
   .post(function (req, res, next) {
     unirest.post(loginApi.forgetPassword())
-      .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'X-Access-Token':req.session.token})
+      .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'X-Access-Token': req.session.token})
       .send({"phone": req.body.phone, "newPassword": req.body.password, "code": req.body.captcha})
       .end(function (response) {
         var data = response.body.repData;
@@ -155,5 +161,22 @@ router.route('/rest-password')
         }
       });
   });
+
+router.post('/get-home', function (req, res, next) {
+  unirest.post(productApi.getHome())
+    .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'X-Access-Token': req.session.token})
+    .send({"userId": req.session.uid, "project": 'hhm'})
+    .end(function (response) {
+      var data = response.body.repData;
+      if (data === undefined) {
+        res.json({status: 0, msg: '服务异常'});
+      }
+      if (data.status) {
+        res.json({status: data.status, home: data.home});
+      } else {
+        res.json({status: data.status, msg: data.msg});
+      }
+    });
+});
 
 module.exports = router;
