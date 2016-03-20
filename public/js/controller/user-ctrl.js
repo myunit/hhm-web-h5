@@ -3,7 +3,7 @@
  * @create by 16-2-22
  * @description user controller
  */
-(function() {
+(function () {
   require.config({
     baseUrl: '../js',
     paths: {
@@ -276,7 +276,7 @@
 
         function addToFav(index) {
           var favorite = vm.favList[index];
-          ajaxPost(favorite.isLike ? '/users/del-fav':'/users/add-fav', {
+          ajaxPost(favorite.isLike ? '/users/del-fav' : '/users/add-fav', {
             productId: favorite.SysNo
           }, function (err, data) {
             $.hidePreloader();
@@ -399,6 +399,9 @@
           el: '#page-my-message',
           data: {
             notices: []
+          },
+          methods: {
+            openMsg: openMsg
           }
         });
 
@@ -412,6 +415,18 @@
             vm.notices = vm.notices.concat(data.notices);
           }
         });
+
+        function openMsg(index) {
+          var notice = vm.notices[index];
+          $.modal({
+            title: notice.NoticeTitle+'<span class="my-message-time">'+notice.InDate+'</span>',
+            text: '<p>'+notice.NoticeContext+'<p>',
+            extraClass: 'my-dialog',
+            buttons: [
+              {text: '<a href="#" class="icon icon-close my-black-text"></a>'}
+            ]
+          })
+        }
 
         $(page).on('infinite', '.infinite-scroll-bottom', function () {
 
@@ -447,17 +462,6 @@
           }, 1000);
         });
 
-        $(page).on('click', '.open-message-modal', function () {
-          $.modal({
-            title: '消息标题消息标题消息标题消息标题消息标题消息标题消息标题<span class="my-message-time">今天 09:45</span>',
-            text: '<p>又到了周四大特卖！还在等什么呢！手快有，手慢无，赶紧抢货咯！又到了周四大特卖！还在等什么呢！手快有，手慢无，赶紧抢货咯！又到了周四大特卖！还在等什么呢！手快有，手慢无，赶紧抢货咯！<p>',
-            extraClass: 'my-dialog',
-            buttons: [
-              {text: '<a href="#" class="icon icon-close my-black-text"></a>'}
-            ]
-          })
-        });
-
       });
 
       $(document).on("pageInit", "#page-my-address", function (e, id, page) {
@@ -478,7 +482,7 @@
           } else {
             var receivers = data.receiver;
             var len = receivers.length;
-            for (var i = 0; i < len; i ++) {
+            for (var i = 0; i < len; i++) {
               var obj = {};
               obj.receiverId = receivers[i].SysNo;
               obj.phone = receivers[i].ReceiverPhone;

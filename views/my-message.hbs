@@ -5,7 +5,7 @@
                 <ul v-cloak>
                     <template v-for="notice in notices" track-by="NoticeSysno">
                         <li>
-                            <a href="#" class=" item-content open-message-modal">
+                            <a href="#" @click.prevent="openMsg($index)" class=" item-content open-message-modal">
                                 <div class="item-media"><span class="icon icon-notice"></span><span class="badge" v-if="!notice.IfRead"></span></div>
                                 <div class="item-inner">
                                     <div class="item-title-row">
