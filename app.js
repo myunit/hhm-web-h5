@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var compression = require('compression');
 var session = require('express-session');
+var cookieSession = require('cookie-session');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
