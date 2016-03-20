@@ -56,7 +56,8 @@
             salesImg: '',
             groupImg: '',
             secKillImg: '',
-            recommends: []
+            recommends: [],
+            message: 0
           }
         });
 
@@ -87,6 +88,14 @@
         });
         $.showPreloader('请稍等...');
 
+
+        ajaxPost('/users/get-notice-count', {}, function (err, data) {
+          if (err) {
+            $.toast(err, 1000);
+          } else {
+            vm.message = data.count;
+          }
+        });
 
         $(page).on('click', '.icon-clear', function () {
           vm.search = '';

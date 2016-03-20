@@ -156,6 +156,23 @@ router.get('/my-message', function (req, res, next) {
   res.render('my-message', {title: '我的消息-好好卖'});
 });
 
+router.post('/get-notice-count', function (req, res, next) {
+  unirest.post(customerApi.getUnreadNoticeCount())
+    .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'X-Access-Token': req.session.token})
+    .send({"userId": req.session.uid})
+    .end(function (response) {
+      var data = response.body.repData;
+      if (data === undefined) {
+        res.json({status: 0, msg: '服务异常'});
+      }
+      if (data.status) {
+        res.json({status: data.status, count: data.count});
+      } else {
+        res.json({status: data.status, msg: data.msg});
+      }
+    });
+});
+
 router.get('/my-after-sale', function (req, res, next) {
   res.render('my-after-sale', {title: '售后服务-好好卖'});
 });

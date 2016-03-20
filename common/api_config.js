@@ -60,6 +60,15 @@ CustomerApi.prototype = {
   setStoreInfo : function(){
     return api_config.customerService.baseUrl + api_config.customerService.method.setStoreInfo;
   },
+  getNoticeMessage : function(){
+    return api_config.customerService.baseUrl + api_config.customerService.method.getNoticeMessage;
+  },
+  getUnreadNoticeCount : function(){
+    return api_config.customerService.baseUrl + api_config.customerService.method.getUnreadNoticeCount;
+  },
+  setNoticeStatus : function(){
+    return api_config.customerService.baseUrl + api_config.customerService.method.setNoticeStatus;
+  },
   getReceiver : function(){
     return api_config.customerService.baseUrl + api_config.customerService.method.getReceiver;
   },
