@@ -83,101 +83,27 @@
                 </div>
             </div>
 
-            <div class="my-div-feature-column">
-                <div class="row">
-                    <div class="col-50 my-div-feature-title">推荐栏目01</div>
-                    <div class="col-50 my-right-text">
-                        <a class="my-red-text external" href="/product/recommend?id=1">更多<span class="icon icon-more"></span></a>
+            <template v-for="recommend in recommends">
+                <div class="my-div-feature-column">
+                    <div class="row" v-cloak>
+                        <div class="col-50 my-div-feature-title">${recommend.RecommendName}</div>
+                        <div class="col-50 my-right-text">
+                            <a class="my-red-text external" :href="'/product/recommend?id='+recommend.SysNo">更多<span class="icon icon-more"></span></a>
+                        </div>
                     </div>
+                    <ul class="my-ul clearfix">
+                        <template v-for="item in recommend.RecommendItems">
+                            <li>
+                                <a :href="'/product/detail?id='+item.ProductGroupSysNo" class="my-img-auto external"><img :src="item.ImgUrl" alt="">
+                                    <h3 class="my-24-text my-black-text">${item.ProductName}</h3>
+                                    <p class="my-0-mar my-28-text my-red-text">￥${item.MinPrice === item.MaxPrice ? item.MaxPrice : item.MinPrice +'~'+ item.MaxPrice}</p>
+                                </a>
+                            </li>
+                        </template>
+                    </ul>
                 </div>
-                <ul class="my-ul clearfix">
-                    <li>
-                        <a href="#" class="my-img-auto external"><img src="images/demo/home-tuijian-1.jpg" alt="">
-                            <h3 class="my-24-text my-black-text">商品名称商品名称商品...</h3>
-                            <p class="my-0-mar my-28-text my-red-text">￥125</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="my-img-auto external"><img src="images/demo/home-tuijian-1.jpg" alt="">
-                            <h3 class="my-24-text my-black-text">商品名称商品名称商品...</h3>
-                            <p class="my-0-mar my-28-text my-red-text">￥125</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="my-img-auto external"><img src="images/demo/home-tuijian-1.jpg" alt="">
-                            <h3 class="my-24-text my-black-text">商品名称商品名称商品...</h3>
-                            <p class="my-0-mar my-28-text my-red-text">￥125</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="my-img-auto external"><img src="images/demo/home-tuijian-1.jpg" alt="">
-                            <h3 class="my-24-text my-black-text">商品名称商品名称商品...</h3>
-                            <p class="my-0-mar my-28-text my-red-text">￥125</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="my-img-auto external"><img src="images/demo/home-tuijian-1.jpg" alt="">
-                            <h3 class="my-24-text my-black-text">商品名称商品名称商品...</h3>
-                            <p class="my-0-mar my-28-text my-red-text">￥125</p>
-                        </a>
-                    </li>
+            </template>
 
-                    <li>
-                        <a href="#" class="my-img-auto external"><img src="images/demo/home-tuijian-1.jpg" alt="">
-                            <h3 class="my-24-text my-black-text">商品名称商品名称商品...</h3>
-                            <p class="my-0-mar my-28-text my-red-text">￥125</p>
-                        </a>
-                    </li>
-
-
-                </ul>
-            </div>
-            <div class="my-div-feature-column my-div-feature-column-b">
-                <div class="row">
-                    <div class="col-50 my-div-feature-title">推荐栏目02</div>
-                    <div class="col-50 my-right-text">
-                        <a href="/product/recommend?id=2" class="my-red-text external">更多<span class="icon icon-more"></span></a>
-                    </div>
-                </div>
-                <ul class="my-ul clearfix">
-                    <li>
-                        <a href="#" class="my-img-auto external"><img src="images/demo/home-tuijian-2.jpg" alt="">
-                            <h3 class="my-24-text my-black-text">商品名称商品名称商品...</h3>
-                            <p class="my-0-mar my-28-text my-red-text">￥125</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="my-img-auto external"><img src="images/demo/home-tuijian-3.jpg" alt="">
-                            <h3 class="my-24-text my-black-text">商品名称商品名称商品...</h3>
-                            <p class="my-0-mar my-28-text my-red-text">￥125</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="my-img-auto external"><img src="images/demo/home-tuijian-4.jpg" alt="">
-                            <h3 class="my-24-text my-black-text">商品名称商品名称商品...</h3>
-                            <p class="my-0-mar my-28-text my-red-text">￥125</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="my-img-auto external"><img src="images/demo/home-tuijian-3.jpg" alt="">
-                            <h3 class="my-24-text my-black-text">商品名称商品名称商品...</h3>
-                            <p class="my-0-mar my-28-text my-red-text">￥125</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="my-img-auto external"><img src="images/demo/home-tuijian-2.jpg" alt="">
-                            <h3 class="my-24-text my-black-text">商品名称商品名称商品...</h3>
-                            <p class="my-0-mar my-28-text my-red-text">￥125</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="my-img-auto external"><img src="images/demo/home-tuijian-3.jpg" alt="">
-                            <h3 class="my-24-text my-black-text">商品名称商品名称商品...</h3>
-                            <p class="my-0-mar my-28-text my-red-text">￥125</p>
-                        </a>
-                    </li>
-                </ul>
-            </div>
         </div>
     </div>
 </div>
