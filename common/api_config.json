@@ -45,5 +45,16 @@
       "getRecommendProduct": "Products/get-recommend-product",
       "getGroupProduct": "Products/get-group-product"
     }
+  },
+  "shoppingService": {
+    "baseUrl": "http://120.27.148.53:30004/shopping/v1/",
+    "method": {
+      "addToCart": "Shopping/add-to-cart",
+      "delInCart": "Shopping/delete-in-cart",
+      "getCartInfo": "Shopping/get-cart-info",
+      "getCountInCart": "Shopping/get-count-in-cart",
+      "modifyQtyInCart": "Shopping/modify-qty-in-cart",
+      "getCartInfo": "Shopping/submit-order"
+    }
   }
 }

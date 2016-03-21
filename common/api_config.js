@@ -18,6 +18,9 @@ var ApiFactory = {
       case "product":
         api = new ProductApi();
         break;
+      case "shopping":
+        api = new ShoppingApi();
+        break;
       default:
         throw new Error("ApiFactory Unsupported: " + model);
         break;
@@ -133,5 +136,28 @@ ProductApi.prototype = {
   },
   getGroupProduct : function(){
     return api_config.productService.baseUrl + api_config.productService.method.getGroupProduct;
+  }
+};
+
+var ShoppingApi = function(){};
+
+ShoppingApi.prototype = {
+  addToCart : function(){
+    return api_config.shoppingService.baseUrl + api_config.shoppingService.method.addToCart;
+  },
+  delInCart : function(){
+    return api_config.shoppingService.baseUrl + api_config.shoppingService.method.delInCart;
+  },
+  getCartInfo : function(){
+    return api_config.shoppingService.baseUrl + api_config.shoppingService.method.getCartInfo;
+  },
+  getCountInCart : function(){
+    return api_config.shoppingService.baseUrl + api_config.shoppingService.method.getCountInCart;
+  },
+  modifyQtyInCart : function(){
+    return api_config.shoppingService.baseUrl + api_config.shoppingService.method.modifyQtyInCart;
+  },
+  getCartInfo : function(){
+    return api_config.shoppingService.baseUrl + api_config.shoppingService.method.getCartInfo;
   }
 };

@@ -293,7 +293,7 @@
             vm.product = Utils.clone(data.product);
             cartVm.product = vm.product;
             cartVm.curPrice = vm.product.SeckillPrice;
-            var skuList = vm.product.Skus
+            var skuList = vm.product.Skus;
             cartVm.curImg = skuList[0].Images[0].ImgUrl;
             for (var i = 0; i < skuList.length; i++){
               vm.style.push(skuList[i].SizeName);
