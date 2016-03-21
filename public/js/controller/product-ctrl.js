@@ -503,16 +503,6 @@
               vm.products = vm.products.concat(data.products);
             }
           });
-        } else if (location.pathname === '/product/group') {//组合商品
-          productItems = new ProductItems('/product/group', 10);
-          productItems.addItems(function (err, data) {
-            if (err) {
-              $.toast(err, 1000);
-            } else {
-              vm.count = data.count;
-              vm.products = vm.products.concat(data.products);
-            }
-          });
         } else if (location.pathname === '/product/category') {
           var search = Utils.getSearch(location);
           if (!search['CId'] || !search['ChildCId']) {
@@ -530,6 +520,137 @@
             }
           });
         }
+
+        $(page).on('infinite', '.infinite-scroll-bottom', function () {
+
+          // 如果正在加载，则退出
+          if (loading) return;
+          // 设置flag
+          loading = true;
+
+          // 模拟1s的加载过程
+          setTimeout(function () {
+            // 重置加载flag
+            loading = false;
+
+            if (vm.products.length >= vm.count) {
+              // 加载完毕，则注销无限加载事件，以防不必要的加载
+              $.detachInfiniteScroll($('.infinite-scroll'));
+              // 删除加载提示符
+              $('.infinite-scroll-preloader').remove();
+              return;
+            }
+
+            // 添加新条目
+            productItems.addItems(function (err, data) {
+              if (err) {
+                $.toast(err, 1000);
+              } else {
+                vm.count = data.count;
+                vm.products = vm.products.concat(data.products);
+              }
+            });
+            //容器发生改变,如果是js滚动，需要刷新滚动
+            $.refreshScroller();
+          }, 1000);
+        });
+
+        function addToCart(index) {
+          cartVm.product = vm.products[index];
+          cartVm.curPrice = cartVm.product.SkuList[0].Price;
+          cartVm.curImg = cartVm.product.SkuList[0].Images[0].ImgUrl;
+          $.popup('.popup-cart');
+        }
+
+        $(page).on('click', '.icon-clear', function () {
+          vm.search = '';
+        });
+
+        var cartVm = new Vue({
+          el: '#popup-cart',
+          data: {
+            addCartNum: 1,
+            product: null,
+            curPrice: 0,
+            curImg: ''
+          }
+        });
+
+        cartVm.$watch('addCartNum', function (newVal, oldVal) {
+          if (newVal === '') {
+            return;
+          }
+
+          if (!Utils.isPositiveNum(newVal)) {
+            $.toast('请输入正确的购买数量', 500);
+            Vue.nextTick(function () {
+              cartVm.addCartNum = oldVal;
+            });
+          }
+        });
+
+        $(document).on('click', '.my-a-cart.close-popup', function (event) {
+          event.preventDefault();
+          if (cartVm.addCartNum === '') {
+            cartVm.addCartNum = 1;
+            $.toast('请输入正确的购买数量', 1000);
+            return;
+          }
+          vm.cartNum += parseInt(cartVm.addCartNum);
+          cartVm.addCartNum = 1;
+          cartVm.product = null;
+        });
+
+        $(document).on('click', '.icon-close.close-popup', function () {
+          event.preventDefault();
+          cartVm.addCartNum = 1;
+          cartVm.product = null;
+        });
+
+        $(document).on('click', '.em-op-d', function () {
+          if (cartVm.addCartNum > 1) {
+            cartVm.addCartNum--;
+          }
+        });
+
+        $(document).on('click', '.em-op-a', function () {
+          cartVm.addCartNum++;
+        });
+
+        $(document).on('click', '.my-ul-spec li', function () {
+          $('.my-ul-spec li').removeClass('my-spec-on');
+          $(this).addClass('my-spec-on');
+          var index = $(this).val();
+          var sku = cartVm.product.SkuList[index];
+          cartVm.curPrice = sku.Price;
+          cartVm.curImg = sku.Images[0].ImgUrl;
+        });
+      });
+
+      $(document).on("pageInit", "#page-product-group-list", function (e, id, page) {
+        var vm = new Vue({
+          el: '#page-product-group-list',
+          data: {
+            search: '',
+            products: [],
+            count: 0,
+            cartNum: 30
+          },
+          methods: {
+            addToCart: addToCart
+          }
+        });
+        var loading = false;
+
+        var productItems = new ProductItems('/product/group', 10);
+        productItems.addItems(function (err, data) {
+          if (err) {
+            $.toast(err, 1000);
+          } else {
+            vm.count = data.count;
+            vm.products = vm.products.concat(data.products);
+          }
+        });
 
         $(page).on('infinite', '.infinite-scroll-bottom', function () {
 

@@ -69,7 +69,7 @@ router.route('/new')
 
 router.route('/group')
   .get(function (req, res, next) {
-    res.render('product-list', {title: '组合商品-好好卖'});
+    res.render('product-group-list', {title: '组合商品-好好卖'});
   })
   .post(function (req, res, next) {
     unirest.post(productApi.getGroupProduct())
