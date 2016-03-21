@@ -495,7 +495,7 @@
             search: '',
             products: [],
             count: 0,
-            cartNum: 30
+            cartNum: 0
           },
           methods: {
             addToCart: addToCart
@@ -662,7 +662,7 @@
             search: '',
             products: [],
             count: 0,
-            cartNum: 30
+            cartNum: 0
           },
           methods: {
             addToCart: addToCart
@@ -800,7 +800,7 @@
             search: '',
             products: [],
             count: 0,
-            cartNum: 30
+            cartNum: 0
           },
           methods: {
             addToCart: addToCart
