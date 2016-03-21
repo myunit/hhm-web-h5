@@ -78,7 +78,8 @@
         var vm = new Vue({
           el: '#page-my',
           data: {
-            storeName: ''
+            storeName: '',
+            message: 0
           }
         });
 
@@ -87,6 +88,13 @@
             $.toast(err, 1000);
           } else {
             vm.storeName = storeName;
+          }
+        });
+
+        ajaxPost('/users/get-notice-count', {}, function (err, data) {
+          if (err) {
+          } else {
+            vm.message = data.count;
           }
         });
 

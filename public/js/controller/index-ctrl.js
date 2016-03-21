@@ -91,7 +91,6 @@
 
         ajaxPost('/users/get-notice-count', {}, function (err, data) {
           if (err) {
-            $.toast(err, 1000);
           } else {
             vm.message = data.count;
           }
