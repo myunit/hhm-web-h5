@@ -255,13 +255,20 @@
           el: '#page-my-fav',
           data: {
             search: '',
-            cartNum: 30,
+            cartNum: 0,
             favList: [],
             count: 0
           },
           methods: {
             addToFav: addToFav,
             addToCart: addToCart
+          }
+        });
+
+        ajaxPost('/cart/get-count-in-cart', {}, function (err, data) {
+          if (err) {
+          } else {
+            vm.cartNum = data.count;
           }
         });
 

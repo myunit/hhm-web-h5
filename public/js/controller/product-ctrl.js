@@ -115,7 +115,7 @@
           el: '#page-product-detail',
           data: {
             isLike: false,
-            cartNum: 3,
+            cartNum: 0,
             product: null,
             style: [],
             skuImg:[]
@@ -143,6 +143,13 @@
         function addToCart() {
           $.popup('.popup-cart');
         }
+
+        ajaxPost('/cart/get-count-in-cart', {}, function (err, data) {
+          if (err) {
+          } else {
+            vm.cartNum = data.count;
+          }
+        });
 
         ajaxPost('/product/detail', {
           productId: parseInt(search['id'])
@@ -255,7 +262,7 @@
           el: '#page-secKill-product-detail',
           data: {
             isLike: false,
-            cartNum: 3,
+            cartNum: 0,
             product: null,
             style: [],
             skuImg:[]
@@ -283,6 +290,13 @@
         function addToCart() {
           $.popup('.popup-cart');
         }
+
+        ajaxPost('/cart/get-count-in-cart', {}, function (err, data) {
+          if (err) {
+          } else {
+            vm.cartNum = data.count;
+          }
+        });
 
         ajaxPost('/product/secKill-detail', {
           productId: parseInt(search['id'])
@@ -389,12 +403,19 @@
           el: '#page-product-group-detail',
           data: {
             isLike: false,
-            cartNum: 3
+            cartNum: 0
           },
           computed: {
             liked: function () {
               return this.isLike ? '已收藏' : '收藏';
             }
+          }
+        });
+
+        ajaxPost('/cart/get-count-in-cart', {}, function (err, data) {
+          if (err) {
+          } else {
+            vm.cartNum = data.count;
           }
         });
 
@@ -482,6 +503,13 @@
         });
         var productItems = undefined;
         var loading = false;
+
+        ajaxPost('/cart/get-count-in-cart', {}, function (err, data) {
+          if (err) {
+          } else {
+            vm.cartNum = data.count;
+          }
+        });
 
         if (location.pathname === '/product/sales') {//特卖
           productItems = new ProductItems('/product/sales', 10);
@@ -642,6 +670,13 @@
         });
         var loading = false;
 
+        ajaxPost('/cart/get-count-in-cart', {}, function (err, data) {
+          if (err) {
+          } else {
+            vm.cartNum = data.count;
+          }
+        });
+
         var productItems = new ProductItems('/product/group', 10);
         productItems.addItems(function (err, data) {
           if (err) {
@@ -779,6 +814,13 @@
           location.pathname = '/';
           return;
         }
+
+        ajaxPost('/cart/get-count-in-cart', {}, function (err, data) {
+          if (err) {
+          } else {
+            vm.cartNum = data.count;
+          }
+        });
 
         var productItems = new ProductItems('/product/recommend', 10, parseInt(search['id']));
         productItems.addItems(function (err, data) {
