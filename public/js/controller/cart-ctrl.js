@@ -52,7 +52,7 @@
           el: '#page-cart',
           data: {
             allChecked: true,
-            carts: {}
+            carts: []
           }
         });
 
@@ -63,28 +63,35 @@
             var cart = data.cart;
             var len = cart.length;
             var item = null;
+            var carts = {};
             for (var i = 0; i < len; i++) {
               item = cart[i];
               var sku = {};
-              if (vm.carts[item.ProductSysNo] === undefined) {
-                vm.carts[item.ProductSysNo] = {};
-                vm.carts[item.ProductSysNo].name = item.Name;
-                vm.carts[item.ProductSysNo].productId = item.ProductSysNo;
-                vm.carts[item.ProductSysNo].image = item.Images.length > 0 ? item.Images[0]:'';
-                vm.carts[item.ProductSysNo].skus = [];
+              if (carts[item.ProductSysNo] === undefined) {
+                carts[item.ProductSysNo] = {};
+                carts[item.ProductSysNo].name = item.Name;
+                carts[item.ProductSysNo].productId = item.ProductSysNo;
+                carts[item.ProductSysNo].image = item.Images.length > 0 ? item.Images[0]:'';
+                carts[item.ProductSysNo].skus = [];
                 sku.cartId = item.SysId;
                 sku.skuId = item.SkuSysNo;
                 sku.size = item.SizeName;
                 sku.qty = item.Qty;
                 sku.price = item.Price;
-                vm.carts[item.ProductSysNo].skus.push(sku);
+                carts[item.ProductSysNo].skus.push(sku);
               } else {
                 sku.cartId = item.SysId;
                 sku.skuId = item.SkuSysNo;
                 sku.size = item.SizeName;
                 sku.qty = item.Qty;
                 sku.price = item.Price;
-                vm.carts[item.ProductSysNo].skus.push(sku);
+                carts[item.ProductSysNo].skus.push(sku);
+              }
+            }
+
+            for(var c in carts){
+              if (carts.hasOwnProperty(c)) {
+                vm.carts.push(carts[c]);
               }
             }
           }
