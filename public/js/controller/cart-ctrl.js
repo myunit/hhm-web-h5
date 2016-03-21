@@ -20,6 +20,27 @@
     }
   });
 
+  function ajaxPost(url, data, cb) {
+    $.ajax({
+      type: 'POST',
+      url: url,
+      data: data,
+      timeout: 15000,
+      success: function (data, status, xhr) {
+        if (data.status) {
+          cb(null, data);
+        } else {
+          cb(data.msg, null);
+        }
+      },
+      error: function (xhr, errorType, error) {
+        console.error(url + ' error: ' + errorType + '##' + error);
+        cb('服务异常', null);
+      }
+    });
+  }
+
+
   require(['Vue', 'Utils'],
     function (Vue, Utils) {
       'use strict';
@@ -31,11 +52,41 @@
           el: '#page-cart',
           data: {
             allChecked: true,
-            addCartNum1: 1,
-            addCartNum2: 1,
-            addCartNum3: 1,
-            addCartNum4: 1,
-            addCartNum5: 1
+            carts: {}
+          }
+        });
+
+        ajaxPost('/cart/cart-info', {}, function (err, data) {
+          if (err) {
+            $.toast(err, 1000);
+          } else {
+            var cart = data.cart;
+            var len = cart.length;
+            var item = null;
+            for (var i = 0; i < len; i++) {
+              item = cart[i];
+              var sku = {};
+              if (vm.carts[item.ProductSysNo] === undefined) {
+                vm.carts[item.ProductSysNo] = {};
+                vm.carts[item.ProductSysNo].name = item.Name;
+                vm.carts[item.ProductSysNo].productId = item.ProductSysNo;
+                vm.carts[item.ProductSysNo].image = item.Images.length > 0 ? item.Images[0]:'';
+                vm.carts[item.ProductSysNo].skus = [];
+                sku.cartId = item.SysId;
+                sku.skuId = item.SkuSysNo;
+                sku.size = item.SizeName;
+                sku.qty = item.Qty;
+                sku.price = item.Price;
+                vm.carts[item.ProductSysNo].skus.push(sku);
+              } else {
+                sku.cartId = item.SysId;
+                sku.skuId = item.SkuSysNo;
+                sku.size = item.SizeName;
+                sku.qty = item.Qty;
+                sku.price = item.Price;
+                vm.carts[item.ProductSysNo].skus.push(sku);
+              }
+            }
           }
         });
 
@@ -48,58 +99,6 @@
             $.toast('请输入正确的购买数量', 500);
             Vue.nextTick(function () {
               cartVm.addCartNum1 = oldVal;
-            });
-          }
-        });
-
-        vm.$watch('addCartNum2', function (newVal, oldVal) {
-          if (newVal === '') {
-            return;
-          }
-
-          if (!Utils.isPositiveNum(newVal)) {
-            $.toast('请输入正确的购买数量', 500);
-            Vue.nextTick(function () {
-              cartVm.addCartNum2 = oldVal;
-            });
-          }
-        });
-
-        vm.$watch('addCartNum3', function (newVal, oldVal) {
-          if (newVal === '') {
-            return;
-          }
-
-          if (!Utils.isPositiveNum(newVal)) {
-            $.toast('请输入正确的购买数量', 500);
-            Vue.nextTick(function () {
-              cartVm.addCartNum3 = oldVal;
-            });
-          }
-        });
-
-        vm.$watch('addCartNum4', function (newVal, oldVal) {
-          if (newVal === '') {
-            return;
-          }
-
-          if (!Utils.isPositiveNum(newVal)) {
-            $.toast('请输入正确的购买数量', 500);
-            Vue.nextTick(function () {
-              cartVm.addCartNum4 = oldVal;
-            });
-          }
-        });
-
-        vm.$watch('addCartNum5', function (newVal, oldVal) {
-          if (newVal === '') {
-            return;
-          }
-
-          if (!Utils.isPositiveNum(newVal)) {
-            $.toast('请输入正确的购买数量', 500);
-            Vue.nextTick(function () {
-              cartVm.addCartNum5 = oldVal;
             });
           }
         });

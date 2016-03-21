@@ -27,6 +27,7 @@ router.post('/getStoreName', function (req, res, next) {
       var data = response.body.repData;
       if (data === undefined) {
         res.json({status: 0, msg: '服务异常'});
+        return;
       }
       if (data.status) {
         res.json({status: data.status, storeName: data.store.StoreName});
@@ -44,6 +45,7 @@ router.post('/setStoreName', function (req, res, next) {
       var data = response.body.repData;
       if (data === undefined) {
         res.json({status: 0, msg: '服务异常'});
+        return;
       }
       if (data.status) {
         res.json({status: data.status});
@@ -73,6 +75,7 @@ router.route('/change-password')
         var data = response.body.repData;
         if (data === undefined) {
           res.json({status: 0, msg: '服务异常'});
+          return;
         }
         if (data.status) {
           res.json({status: data.status});
@@ -109,6 +112,7 @@ router.route('/my-fav')
         var data = response.body.repData;
         if (data === undefined) {
           res.json({status: 0, msg: '服务异常'});
+          return;
         }
         if (data.status) {
           res.json({status: data.status, count: data.count, favorite: data.favorite});
@@ -126,6 +130,7 @@ router.post('/add-fav', function (req, res, next) {
       var data = response.body.repData;
       if (data === undefined) {
         res.json({status: 0, msg: '服务异常'});
+        return;
       }
       if (data.status) {
         res.json({status: data.status});
@@ -143,6 +148,7 @@ router.post('/del-fav', function (req, res, next) {
       var data = response.body.repData;
       if (data === undefined) {
         res.json({status: 0, msg: '服务异常'});
+        return;
       }
       if (data.status) {
         res.json({status: data.status});
@@ -164,6 +170,7 @@ router.route('/my-message')
         var data = response.body.repData;
         if (data === undefined) {
           res.json({status: 0, msg: '服务异常'});
+          return;
         }
         if (data.status) {
           res.json({status: data.status, count: data.count, notices: data.notice});
@@ -181,6 +188,7 @@ router.post('/get-notice-count', function (req, res, next) {
       var data = response.body.repData;
       if (data === undefined) {
         res.json({status: 0, msg: '服务异常'});
+        return;
       }
       if (data.status) {
         res.json({status: data.status, count: data.count});
@@ -198,6 +206,7 @@ router.post('/set-notice-status', function (req, res, next) {
       var data = response.body.repData;
       if (data === undefined) {
         res.json({status: 0, msg: '服务异常'});
+        return;
       }
       if (data.status) {
         res.json({status: data.status});

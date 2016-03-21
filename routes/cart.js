@@ -19,12 +19,31 @@ router.use(function (req, res, next) {
 });
 
 /* GET users listing. */
-router.get('/cart', function(req, res, next) {
-  res.render('cart', { title: '购物车-好好卖' });
+router.get('/cart', function (req, res, next) {
+  res.render('cart', {title: '购物车-好好卖'});
 });
 
-router.get('/cart-no-footer', function(req, res, next) {
-  res.render('cart-no-footer', { title: '购物车-好好卖' });
+router.post('/cart-info', function (req, res, next) {
+  unirest.post(shoppingApi.getCartInfo())
+    .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'X-Access-Token': req.session.token})
+    .send({"userId": req.session.uid})
+    .end(function (response) {
+      var data = response.body.repData;
+      if (data === undefined) {
+        res.json({status: 0, msg: '服务异常'});
+        return;
+      }
+
+      if (data.status) {
+        res.json({status: data.status, cart: data.cart});
+      } else {
+        res.json({status: data.status, msg: data.msg});
+      }
+    });
+});
+
+router.get('/cart-no-footer', function (req, res, next) {
+  res.render('cart-no-footer', {title: '购物车-好好卖'});
 });
 
 router.post('/get-count-in-cart', function (req, res, next) {
@@ -35,6 +54,7 @@ router.post('/get-count-in-cart', function (req, res, next) {
       var data = response.body.repData;
       if (data === undefined) {
         res.json({status: 0, msg: '服务异常'});
+        return;
       }
       if (data.status) {
         res.json({status: data.status, count: data.count});

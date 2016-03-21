@@ -39,128 +39,42 @@
 
         <div class="content native-scroll">
             <div class="list-block media-list my-list-cart">
-                <ul>
-                    <li>
-                        <label class="label-checkbox item-content">
-                            <input type="checkbox" name="my-radio">
-                            <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
-                            <div class="item-inner">
-                                <div class="item-content">
-                                    <div class="item-media"><img src="../images/demo/cart.gif" style="width: 3.4rem;"></div>
+                <ul v-cloak>
+                    <template v-for="cart in carts" track-by="productId">
+                        ${cart}
+                        <li>
+                            <label class="label-checkbox item-content">
+                                <input type="checkbox" name="my-radio">
+                                <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                                <div class="item-inner">
+                                    <div class="item-content">
+                                        <div class="item-media"><img :src="cart.image" style="width: 3.4rem;"></div>
+                                        <div class="item-inner">
+                                            <div class="item-title-row" v-cloak>
+                                                <div class="item-title">${cart.name}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </label>
+                            <template v-for="sku in cart.skus" track-by="cartId">
+                                <div class="item-content my-div-cart-detail-box" v-cloak>
                                     <div class="item-inner">
-                                        <div class="item-title-row">
-                                            <div class="item-title">商品名称商品名称商品名称商品名称商品名称商品名称</div>
+                                        <div class="my-div-cart-detail">
+                                            <p>${sku.size}</p>
+                                            <div class="row">
+                                                <div class="col-50 my-red-text my-26-text">￥${sku.price}</div>
+                                                <div class="col-50 my-right-text">
+                                                    <p class="p-num fn-op-num"><em class="em-op em-op-d">-</em><input name="txt" type="text" class="txt txt-num" v-model="sku.qty"><em class="em-op em-op-a">+</em></p>
+                                                    <a class="icon icon-delete my-gray-text"></a>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </label>
-
-                        <div class="item-content my-div-cart-detail-box">
-                            <div class="item-inner">
-                                <div class="my-div-cart-detail">
-                                    <p>规格值规格值规格值规格值规格值规格值</p>
-                                    <div class="row">
-                                        <div class="col-50 my-red-text my-26-text">￥157.00</div>
-                                        <div class="col-50 my-right-text">
-                                            <p class="p-num fn-op-num"><em class="em-op em-op-d">-</em><input name="txt" type="text" class="txt txt-num" v-model="addCartNum1"><em class="em-op em-op-a">+</em></p>
-                                            <a class="icon icon-delete my-gray-text"></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li>
-                        <label class="label-checkbox item-content">
-                            <input type="checkbox" name="my-radio">
-                            <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
-                            <div class="item-inner">
-                                <div class="item-content">
-                                    <div class="item-media"><img src="../images/demo/cart.gif" style="width: 3.4rem;"></div>
-                                    <div class="item-inner">
-                                        <div class="item-title-row">
-                                            <div class="item-title">商品名称商品名称商品名称商品名称商品名称商品名称</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </label>
-                        <div class="item-content my-div-cart-detail-box">
-                            <div class="item-inner">
-                                <div class="my-div-cart-detail">
-                                    <p>规格值规格值规格值规格值规格值规格值</p>
-                                    <div class="row">
-                                        <div class="col-50 my-red-text my-26-text">￥157.00</div>
-                                        <div class="col-50 my-right-text">
-                                            <p class="p-num fn-op-num"><em class="em-op em-op-d">-</em><input name="txt" type="text" class="txt txt-num" v-model="addCartNum2"><em class="em-op em-op-a">+</em></p>
-                                            <a class="icon icon-delete my-gray-text"></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item-content my-div-cart-detail-box">
-                            <div class="item-inner">
-                                <div class="my-div-cart-detail">
-                                    <p>规格值规格值规格值规格值规格值规格值</p>
-                                    <div class="row">
-                                        <div class="col-50 my-red-text my-26-text">￥157.00</div>
-                                        <div class="col-50 my-right-text">
-                                            <p class="p-num fn-op-num"><em class="em-op em-op-d">-</em><input name="txt" type="text" class="txt txt-num" v-model="addCartNum3"><em class="em-op em-op-a">+</em></p>
-                                            <a class="icon icon-delete my-gray-text"></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li>
-                        <label class="label-checkbox item-content">
-                            <input type="checkbox" name="my-radio">
-                            <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
-                            <div class="item-inner">
-                                <div class="item-content">
-                                    <div class="item-media"><img src="../images/demo/cart.gif" style="width: 3.4rem;"></div>
-                                    <div class="item-inner">
-                                        <div class="item-title-row">
-                                            <div class="item-title">商品名称商品名称商品名称商品名称商品名称商品名称</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </label>
-                        <div class="item-content my-div-cart-detail-box">
-                            <div class="item-inner">
-                                <div class="my-div-cart-detail">
-                                    <p>规格值规格值规格值规格值规格值规格值</p>
-                                    <div class="row">
-                                        <div class="col-50 my-red-text my-26-text">￥157.00</div>
-                                        <div class="col-50 my-right-text">
-                                            <p class="p-num fn-op-num"><em class="em-op em-op-d">-</em><input name="txt" type="text" class="txt txt-num" v-model="addCartNum4"><em class="em-op em-op-a">+</em></p>
-                                            <a class="icon icon-delete my-gray-text"></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item-content my-div-cart-detail-box">
-                            <div class="item-inner">
-                                <div class="my-div-cart-detail">
-                                    <p>规格值规格值规格值规格值规格值规格值</p>
-                                    <div class="row">
-                                        <div class="col-50 my-red-text my-26-text">￥157.00</div>
-                                        <div class="col-50 my-right-text">
-                                            <p class="p-num fn-op-num"><em class="em-op em-op-d">-</em><input name="txt" type="text" class="txt txt-num" v-model="addCartNum5"><em class="em-op em-op-a">+</em></p>
-                                            <a class="icon icon-delete my-gray-text"></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
+                            </template>
+                        </li>
+                    </template>
                 </ul>
             </div>
         </div>
@@ -168,4 +82,4 @@
 </div>
 <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
-<script type='text/javascript' src='../js/lib/requirejs.min.js' data-main='../js/controller/cart-ctrl.min'></script>
+<script type='text/javascript' src='../js/lib/requirejs.min.js' data-main='../js/controller/cart-ctrl'></script>

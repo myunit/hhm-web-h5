@@ -33,6 +33,7 @@ router.route('/sales')
         var data = response.body.repData;
         if (data === undefined) {
           res.json({status: 0, msg: '服务异常'});
+          return;
         }
         if (data.status) {
           res.json({status: data.status, count: data.count, products: data.product});
@@ -58,6 +59,7 @@ router.route('/new')
         var data = response.body.repData;
         if (data === undefined) {
           res.json({status: 0, msg: '服务异常'});
+          return;
         }
         if (data.status) {
           res.json({status: data.status, count: data.count, products: data.product});
@@ -83,6 +85,7 @@ router.route('/group')
         var data = response.body.repData;
         if (data === undefined) {
           res.json({status: 0, msg: '服务异常'});
+          return;
         }
         if (data.status) {
           res.json({status: data.status, count: data.count, products: data.product});
@@ -109,6 +112,7 @@ router.route('/recommend')
         var data = response.body.repData;
         if (data === undefined) {
           res.json({status: 0, msg: '服务异常'});
+          return;
         }
         if (data.status) {
           res.json({status: data.status, count: data.count, products: data.product});
@@ -136,6 +140,7 @@ router.route('/category')
         var data = response.body.repData;
         if (data === undefined) {
           res.json({status: 0, msg: '服务异常'});
+          return;
         }
         if (data.status) {
           res.json({status: data.status, count: data.count, products: data.product});
@@ -158,6 +163,7 @@ router.route('/secKill')
         var data = response.body.repData;
         if (data === undefined) {
           res.json({status: 0, msg: '服务异常'});
+          return;
         }
         if (data.status) {
           res.json({status: data.status, count: data.count, products: data.product});
@@ -182,6 +188,7 @@ router.route('/secKill-detail')
         var data = response.body.repData;
         if (data === undefined) {
           res.json({status: 0, msg: '服务异常'});
+          return;
         }
         if (data.status) {
           res.json({status: data.status, product: data.product});
@@ -206,6 +213,7 @@ router.route('/detail')
         var data = response.body.repData;
         if (data === undefined) {
           res.json({status: 0, msg: '服务异常'});
+          return;
         }
         if (data.status) {
           res.json({status: data.status, product: data.product});
@@ -230,6 +238,7 @@ router.route('/group-detail')
         var data = response.body.repData;
         if (data === undefined) {
           res.json({status: 0, msg: '服务异常'});
+          return;
         }
         if (data.status) {
           res.json({status: data.status, product: data.product});
@@ -251,6 +260,7 @@ router.route('/class')
         var data = response.body.repData;
         if (data === undefined) {
           res.json({status: 0, msg: '服务异常'});
+          return;
         }
         if (data.status) {
           res.json({status: data.status, category: data.category.ChildList});

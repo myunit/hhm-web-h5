@@ -22,6 +22,7 @@ router.route('/')
         var data = response.body.repData;
         if (data === undefined) {
           res.json({status: 0, msg: '服务异常'});
+          return;
         }
         if (data.status) {
           req.session.uid = data.customer.SysNo;
@@ -58,6 +59,7 @@ router.route('/register')
         var data = response.body.repData;
         if (data === undefined) {
           res.json({status: 0, msg: '服务异常'});
+          return;
         }
         if (data.status) {
           req.session.uid = data.customer.SysNo;
@@ -77,6 +79,7 @@ router.post('/get-captcha', function (req, res, next) {
       var data = response.body.repData;
       if (data === undefined) {
         res.json({status: 0, msg: '服务异常'});
+        return;
       }
       if (data.status) {
         res.json({status: data.status});
@@ -126,6 +129,7 @@ router.route('/register-complete')
           var data = response.body.repData;
           if (data === undefined) {
             res.json({status: 0, msg: '服务异常'});
+            return;
           }
           if (data.status) {
             res.json({status: data.status, redirect: '/index'});
@@ -152,6 +156,7 @@ router.route('/rest-password')
         var data = response.body.repData;
         if (data === undefined) {
           res.json({status: 0, msg: '服务异常'});
+          return;
         }
         if (data.status) {
           req.session = null;
@@ -170,6 +175,7 @@ router.post('/get-home', function (req, res, next) {
       var data = response.body.repData;
       if (data === undefined) {
         res.json({status: 0, msg: '服务异常'});
+        return;
       }
       if (data.status) {
         res.json({status: data.status, home: data.home});

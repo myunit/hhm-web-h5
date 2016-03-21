@@ -44,6 +44,7 @@ router.post('/set-default-receiver', function (req, res, next) {
       var data = response.body.repData;
       if (data === undefined) {
         res.json({status: 0, msg: '服务异常'});
+        return;
       }
       if (data.status) {
         res.json({status: data.status});
@@ -83,6 +84,7 @@ router.post('/del-receiver', function (req, res, next) {
       var data = response.body.repData;
       if (data === undefined) {
         res.json({status: 0, msg: '服务异常'});
+        return;
       }
       if (data.status) {
         res.json({status: data.status});
@@ -121,6 +123,7 @@ router.post('/modify-receiver', function (req, res, next) {
         console.log('data: ' + JSON.stringify(data));
         if (data === undefined) {
           res.json({status: 0, msg: '服务异常'});
+          return;
         }
         if (data.status) {
           res.json({status: data.status});
@@ -164,6 +167,7 @@ router.post('/add-receiver', function (req, res, next) {
         console.log('data: ' + JSON.stringify(data));
         if (data === undefined) {
           res.json({status: 0, msg: '服务异常'});
+          return;
         }
         if (data.status) {
           res.json({status: data.status, receiverId: data.receiverId});

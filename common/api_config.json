@@ -55,7 +55,7 @@
       "getCartInfo": "Shopping/get-cart-info",
       "getCountInCart": "Shopping/get-count-in-cart",
       "modifyQtyInCart": "Shopping/modify-qty-in-cart",
-      "getCartInfo": "Shopping/submit-order"
+      "submitOrder": "Shopping/submit-order"
     }
   }
 }

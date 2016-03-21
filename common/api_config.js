@@ -160,7 +160,7 @@ ShoppingApi.prototype = {
   modifyQtyInCart : function(){
     return api_config.shoppingService.baseUrl + api_config.shoppingService.method.modifyQtyInCart;
   },
-  getCartInfo : function(){
-    return api_config.shoppingService.baseUrl + api_config.shoppingService.method.getCartInfo;
+  submitOrder : function(){
+    return api_config.shoppingService.baseUrl + api_config.shoppingService.method.submitOrder;
   }
 };
