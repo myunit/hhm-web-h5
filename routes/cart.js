@@ -10,6 +10,14 @@ var router = express.Router();
 
 var shoppingApi = ApiFactory.CreateApi('shopping');
 
+router.use(function (req, res, next) {
+  if (req.session.uid) {
+    next();
+  } else {
+    res.redirect('/');
+  }
+});
+
 /* GET users listing. */
 router.get('/cart', function(req, res, next) {
   res.render('cart', { title: '购物车-好好卖' });
