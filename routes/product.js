@@ -215,9 +215,29 @@ router.route('/detail')
       });
   });
 
-router.get('/group-detail', function (req, res, next) {
-  res.render('product-group-detail', {title: '商品详情-好好卖'});
-});
+router.route('/group-detail')
+  .get(function (req, res, next) {
+    res.render('product-group-detail', {title: '商品详情-好好卖'});
+  })
+  .post(function (req, res, next) {
+    unirest.post(productApi.getGroupProductDetail())
+      .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
+      .send({
+        "userId": req.session.uid,
+        "productId": req.body.productId
+      })
+      .end(function (response) {
+        var data = response.body.repData;
+        if (data === undefined) {
+          res.json({status: 0, msg: '服务异常'});
+        }
+        if (data.status) {
+          res.json({status: data.status, product: data.product});
+        } else {
+          res.json({status: data.status, msg: data.msg});
+        }
+      });
+  });
 
 router.route('/class')
   .get(function (req, res, next) {

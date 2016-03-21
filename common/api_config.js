@@ -125,6 +125,9 @@ ProductApi.prototype = {
   getSecKillProductDetail : function(){
     return api_config.productService.baseUrl + api_config.productService.method.getSecKillProductDetail;
   },
+  getGroupProductDetail : function(){
+    return api_config.productService.baseUrl + api_config.productService.method.getGroupProductDetail;
+  },
   getHome : function(){
     return api_config.productService.baseUrl + api_config.productService.method.getHome;
   },

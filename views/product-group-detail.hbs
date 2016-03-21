@@ -1,82 +1,56 @@
 <div class="page-group">
     <div id="page-product-group-detail" class="page page-current">
-        <header class="bar bar-nav">
-            <a class="icon icon-left pull-left my-red-text"></a>
-            <h1 class="title">商品详情</h1>
-        </header>
-
         <nav class="bar bar-tab my-product-bar">
             <div class="row">
                 <div class="col-33" v-cloak>
                     <a href="/cart/cart-no-footer" class="external">
                         <span class="icon icon-cart"></span>
-                        <span class="badge">${cartNum}</span>
+                        <span class="badge" v-cloak>${cartNum}</span>
                     </a>
                 </div>
-                <div class="col-66"><a href="#" class="my-28-text">加入采购车</a></div>
+                <div class="col-66"><a href="#" @click.prevent="addToCart()" class="my-28-text external">加入采购车</a></div>
             </div>
         </nav>
 
         <div class="content native-scroll">
             <div class="swiper-container swiper-container-horizontal" data-space-between="10">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide"><img src="../images/demo/banner640.gif" alt=""></div>
-                    <div class="swiper-slide"><img src="../images/demo/banner6401.gif" alt=""></div>
-                    <div class="swiper-slide"><img src="../images/demo/banner6402.gif" alt=""></div>
+                    <template v-for="img in skuImg">
+                        <div class="swiper-slide"><img :src="img" alt=""></div>
+                    </template>
                 </div>
                 <div class="swiper-pagination"></div>
             </div>
 
             <div class="row my-product-title">
-                <div class="col-80 my-28-text">商品名称商品名称商品名称商品名称 商品名称商品名称商品名称...
+                <div class="col-80 my-28-text" v-cloak>${product.Name.length > 30 ? product.Name.substring(0,30)+'...':product.Name}
                 </div>
-                <div class="col-20" v-cloak>
-                    <a href="#">
-                        <span class="like icon icon-like"></span>
+                <div class="col-20">
+                    <a href="#" v-cloak>
+                        <span class="like icon" :class="{'icon-like': !isLike, 'icon-likeactive': isLike}"></span>
                         <span>${liked}</span>
                     </a>
                 </div>
             </div>
 
-            <div class="my-product-price my-red-text">￥130</div>
+            <div class="my-product-price my-red-text" v-cloak>￥${product.Price}</div>
 
             <div class="my-product-detail">
                 <div class="my-28-text">商品详情</div>
-                <ul class="my-ul">
-                    <li class="item-content">
-                        <div class="item-inner clearfix">
-                            <div class="item-title">单品名称A</div>
-                            <div class="item-after">规格x1 </div>
-                        </div>
-                    </li>
-                    <li class="item-content">
-                        <div class="item-inner clearfix">
-                            <div class="item-title">单品名称A</div>
-                            <div class="item-after">规格x1 </div>
-                        </div>
-                    </li>
-                    <li class="item-content">
-                        <div class="item-inner clearfix">
-                            <div class="item-title">单品名称A</div>
-                            <div class="item-after">规格x1 </div>
-                        </div>
-                    </li>
-                    <li class="item-content">
-                        <div class="item-inner clearfix">
-                            <div class="item-title">单品名称A</div>
-                            <div class="item-after">规格x1 </div>
-                        </div>
-                    </li>
-                    <li class="item-content">
-                        <div class="item-inner clearfix">
-                            <div class="item-title">单品名称A</div>
-                            <div class="item-after">规格x1 </div>
-                        </div>
-                    </li>
+                <ul class="my-ul" v-cloak>
+                    <template v-for="sItem in product.single">
+                        <li class="item-content">
+                            <div class="item-inner clearfix">
+                                <div class="item-title">${sItem.ProductName}</div>
+                                <div class="item-after">${sItem.Size} x ${sItem.Quantity}</div>
+                            </div>
+                        </li>
+                    </template>
                 </ul>
                 <div class="my-product-detail-img">
-                    <p class="my-img-auto"><img src="../images/demo/product-detail.gif" width="600" height="380" alt="" /></p>
-                    <p class="my-img-auto"><img src="../images/demo/product-detail.gif" width="600" height="380" alt="" /></p>
+                    <template v-for="img in product.ImageDetails">
+                        <p class="my-img-auto pb-popup"><img :src="img" width="600" height="380" alt="" /></p>
+                    </template>
                 </div>
             </div>
         </div>
@@ -92,13 +66,13 @@
         <ul>
             <li>
                 <div class="item-content">
-                    <div class="item-media"><img src="../images/demo/popup.gif" style='width: 3.65rem;'></div>
+                    <div class="item-media"><img :src="curImg" style='width: 3.65rem;'></div>
                     <div class="item-inner">
                         <div class="item-title-row">
-                            <div class="item-title">商品名称商品名称商品名称 商品名称
+                            <div class="item-title">${product.Name}
                             </div>
                         </div>
-                        <div class="item-subtitle my-red-text my-30-text">￥130.00</div>
+                        <div class="item-subtitle my-red-text my-30-text">￥${curPrice}</div>
                     </div>
                 </div>
             </li>
@@ -107,16 +81,9 @@
     <div class="content-padded">
         <p class="my-26-text">规格一</p>
         <ul class="my-ul-spec my-ul clearfix">
-            <li class="my-spec-on"><a href="#">包</a></li>
-            <li><a href="#">组</a></li>
-            <li><a href="#">箱</a></li>
-            <li><a href="#">箱</a></li>
-        </ul>
-        <ul class="my-ul-spec my-ul clearfix">
-            <li><a href="#">500g</a></li>
-            <li><a href="#">1000g</a></li>
-            <li><a href="#">2000g</a></li>
-            <li><a href="#">3000g</a></li>
+            <template v-for="sku in product.Skus" track-by="SysNo">
+                <li :class="{'my-spec-on': $index === 0}" :value="$index"><a href="#">${sku.SizeName}</a></li>
+            </template>
         </ul>
         <p class="my-26-text">购买数量&nbsp;&nbsp;&nbsp;<span class="p-num fn-op-num"> <em class="em-op em-op-d">-</em><input name="txt" type="text" class="txt txt-num" v-model="addCartNum"><em class="em-op em-op-a">+</em></span></p>
     </div>

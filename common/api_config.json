@@ -40,6 +40,7 @@
       "getSecKillProduct": "Products/get-secKill-product",
       "getProductDetail": "Products/get-product-detail",
       "getSecKillProductDetail": "Products/get-secKill-product-detail",
+      "getGroupProductDetail": "Products/get-group-product-detail",
       "getHome": "Products/get-home-config",
       "getRecommend": "Products/get-recommend",
       "getRecommendProduct": "Products/get-recommend-product",

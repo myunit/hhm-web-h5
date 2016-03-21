@@ -399,18 +399,44 @@
       });
 
       $(document).on("pageInit", "#page-product-group-detail", function (e, id, page) {
+        var search = Utils.getSearch(location);
+        if (!search['id']) {
+          location.pathname = '/';
+          return;
+        }
+
         var vm = new Vue({
           el: '#page-product-group-detail',
           data: {
             isLike: false,
-            cartNum: 0
+            cartNum: 0,
+            product: null,
+            style: [],
+            skuImg:[]
           },
           computed: {
             liked: function () {
               return this.isLike ? '已收藏' : '收藏';
             }
+          },
+          methods: {
+            addToCart: addToCart
           }
         });
+
+        var cartVm = new Vue({
+          el: '#popup-cart',
+          data: {
+            addCartNum: 1,
+            curPrice: 0,
+            curImg: '',
+            product: null
+          }
+        });
+
+        function addToCart() {
+          $.popup('.popup-cart');
+        }
 
         ajaxPost('/cart/get-count-in-cart', {}, function (err, data) {
           if (err) {
@@ -419,21 +445,46 @@
           }
         });
 
+        ajaxPost('/product/group-detail', {
+          productId: parseInt(search['id'])
+        }, function (err, data) {
+          if (err) {
+            $.toast(err, 1000);
+          } else {
+            vm.product = Utils.clone(data.product);
+            cartVm.product = vm.product;
+            var skuList = vm.product.Skus;
+            cartVm.curPrice = skuList[0].Price;
+            cartVm.curImg = skuList[0].Images[0].ImgUrl;
+            for (var i = 0; i < skuList.length; i++){
+              vm.style.push(skuList[i].SizeName);
+              if (skuList[i].Images.length > 0) {
+                vm.skuImg.push(skuList[i].Images[0].ImgUrl);
+              }
+            }
+          }
+        });
+
         $(page).on('click', '.like', function () {
-          $(this).toggleClass('icon-like');
-          $(this).toggleClass('icon-likeactive');
-          vm.isLike = !vm.isLike;
+          ajaxPost(vm.isLike ? '/users/del-fav':'/users/add-fav', {
+            productId: parseInt(search['id'])
+          }, function (err, data) {
+            $.hidePreloader();
+            if (err) {
+              $.toast(err, 1000);
+            } else {
+              vm.isLike = !vm.isLike;
+            }
+          });
+          if (vm.isLike) {
+            $.showPreloader('取消收藏...');
+          } else {
+            $.showPreloader('收藏...');
+          }
         });
 
         $(page).on('click', '.my-back-top', function () {
           $('.content').scrollTop(0);
-        });
-
-        var cartVm = new Vue({
-          el: '#popup-cart',
-          data: {
-            addCartNum: 1
-          }
         });
 
         cartVm.$watch('addCartNum', function (newVal, oldVal) {
@@ -449,10 +500,11 @@
           }
         });
 
-        $(document).on('click', '.my-a-cart.close-popup', function () {
+        $(document).on('click', '.my-a-cart.close-popup', function (e) {
           if (cartVm.addCartNum === '') {
             cartVm.addCartNum = 1;
             $.toast('请输入正确的购买数量', 1000);
+            e.preventDefault();
             return;
           }
           vm.cartNum += parseInt(cartVm.addCartNum);
@@ -476,6 +528,10 @@
         $(document).on('click', '.my-ul-spec li', function () {
           $('.my-ul-spec li').removeClass('my-spec-on');
           $(this).addClass('my-spec-on');
+          var index = $(this).val();
+          var sku = vm.product.Skus[index];
+          cartVm.curPrice = sku.Price;
+          cartVm.curImg = sku.Images[0].ImgUrl;
         });
 
         $(function () {
