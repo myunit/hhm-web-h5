@@ -39,6 +39,7 @@
       "getSalesProduct": "Products/get-sales-product",
       "getSecKillProduct": "Products/get-secKill-product",
       "getProductDetail": "Products/get-product-detail",
+      "getSecKillProductDetail": "Products/get-secKill-product-detail",
       "getHome": "Products/get-home-config",
       "getRecommend": "Products/get-recommend",
       "getRecommendProduct": "Products/get-recommend-product"

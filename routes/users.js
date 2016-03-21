@@ -190,6 +190,23 @@ router.post('/get-notice-count', function (req, res, next) {
     });
 });
 
+router.post('/set-notice-status', function (req, res, next) {
+  unirest.post(customerApi.setNoticeStatus())
+    .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'X-Access-Token': req.session.token})
+    .send({"userId": req.session.uid, "isRead":true, "noticeId": req.body.noticeId})
+    .end(function (response) {
+      var data = response.body.repData;
+      if (data === undefined) {
+        res.json({status: 0, msg: '服务异常'});
+      }
+      if (data.status) {
+        res.json({status: data.status});
+      } else {
+        res.json({status: data.status});
+      }
+    });
+});
+
 router.get('/my-after-sale', function (req, res, next) {
   res.render('my-after-sale', {title: '售后服务-好好卖'});
 });

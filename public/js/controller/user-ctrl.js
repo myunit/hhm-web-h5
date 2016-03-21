@@ -418,6 +418,14 @@
 
         function openMsg(index) {
           var notice = vm.notices[index];
+          ajaxPost('/users/set-notice-status', {'noticeId': notice.NoticeSysno}, function (err, data) {
+            if (err) {
+
+            } else {
+              notice.IfRead = true;
+            }
+          });
+
           $.modal({
             title: notice.NoticeTitle+'<span class="my-message-time">'+notice.InDate+'</span>',
             text: '<p>'+notice.NoticeContext+'<p>',

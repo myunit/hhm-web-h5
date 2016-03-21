@@ -244,6 +244,146 @@
 
       });
 
+      $(document).on("pageInit", "#page-secKill-product-detail", function (e, id, page) {
+        var search = Utils.getSearch(location);
+        if (!search['id']) {
+          location.pathname = '/';
+          return;
+        }
+
+        var vm = new Vue({
+          el: '#page-secKill-product-detail',
+          data: {
+            isLike: false,
+            cartNum: 3,
+            product: null,
+            style: [],
+            skuImg:[]
+          },
+          computed: {
+            liked: function () {
+              return this.isLike ? '已收藏' : '收藏';
+            }
+          },
+          methods: {
+            addToCart: addToCart
+          }
+        });
+
+        var cartVm = new Vue({
+          el: '#popup-cart',
+          data: {
+            addCartNum: 1,
+            curPrice: 0,
+            curImg: '',
+            product: null
+          }
+        });
+
+        function addToCart() {
+          $.popup('.popup-cart');
+        }
+
+        ajaxPost('/product/secKill-detail', {
+          productId: parseInt(search['id'])
+        }, function (err, data) {
+          if (err) {
+            $.toast(err, 1000);
+          } else {
+            vm.product = Utils.clone(data.product);
+            cartVm.product = vm.product;
+            cartVm.curPrice = vm.product.SeckillPrice;
+            var skuList = vm.product.Skus
+            cartVm.curImg = skuList[0].Images[0].ImgUrl;
+            for (var i = 0; i < skuList.length; i++){
+              vm.style.push(skuList[i].SizeName);
+              if (skuList[i].Images.length > 0) {
+                vm.skuImg.push(skuList[i].Images[0].ImgUrl);
+              }
+            }
+          }
+        });
+
+        $(page).on('click', '.like', function () {
+          ajaxPost(vm.isLike ? '/users/del-fav':'/users/add-fav', {
+            productId: parseInt(search['id'])
+          }, function (err, data) {
+            $.hidePreloader();
+            if (err) {
+              $.toast(err, 1000);
+            } else {
+              vm.isLike = !vm.isLike;
+            }
+          });
+          if (vm.isLike) {
+            $.showPreloader('取消收藏...');
+          } else {
+            $.showPreloader('收藏...');
+          }
+        });
+
+        $(page).on('click', '.my-back-top', function () {
+          $('.content').scrollTop(0);
+        });
+
+        cartVm.$watch('addCartNum', function (newVal, oldVal) {
+          if (newVal === '') {
+            return;
+          }
+
+          if (!Utils.isPositiveNum(newVal)) {
+            $.toast('请输入正确的购买数量', 500);
+            Vue.nextTick(function () {
+              cartVm.addCartNum = oldVal;
+            });
+          }
+        });
+
+        $(document).on('click', '.my-a-cart.close-popup', function (e) {
+          if (cartVm.addCartNum === '') {
+            cartVm.addCartNum = 1;
+            $.toast('请输入正确的购买数量', 1000);
+            e.preventDefault();
+            return;
+          }
+          vm.cartNum += parseInt(cartVm.addCartNum);
+          cartVm.addCartNum = 1;
+        });
+
+        $(document).on('click', '.icon-close.close-popup', function () {
+          cartVm.addCartNum = 1;
+        });
+
+        $(document).on('click', '.em-op-d', function () {
+          if (cartVm.addCartNum > 1) {
+            cartVm.addCartNum--;
+          }
+        });
+
+        $(document).on('click', '.em-op-a', function () {
+          cartVm.addCartNum++;
+        });
+
+        $(document).on('click', '.my-ul-spec li', function () {
+          $('.my-ul-spec li').removeClass('my-spec-on');
+          $(this).addClass('my-spec-on');
+          var index = $(this).val();
+          var sku = vm.product.Skus[index];
+          cartVm.curPrice = sku.Price;
+          cartVm.curImg = sku.Images[0].ImgUrl;
+        });
+
+        $(function () {
+          $(".swiper-container").swiper({
+            spaceBetween: 30,
+            continuous: true,
+            autoplay: 2500,
+            autoplayDisableOnInteraction: false
+          });
+        });
+
+      });
+
       $(document).on("pageInit", "#page-product-group-detail", function (e, id, page) {
         var vm = new Vue({
           el: '#page-product-group-detail',
