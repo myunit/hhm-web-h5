@@ -42,7 +42,8 @@
       "getSecKillProductDetail": "Products/get-secKill-product-detail",
       "getHome": "Products/get-home-config",
       "getRecommend": "Products/get-recommend",
-      "getRecommendProduct": "Products/get-recommend-product"
+      "getRecommendProduct": "Products/get-recommend-product",
+      "getGroupProduct": "Products/get-group-product"
     }
   }
 }

@@ -504,9 +504,15 @@
             }
           });
         } else if (location.pathname === '/product/group') {//组合商品
-
-        } else if (location.pathname === '/product/recommend') {//推荐类目
-
+          productItems = new ProductItems('/product/group', 10);
+          productItems.addItems(function (err, data) {
+            if (err) {
+              $.toast(err, 1000);
+            } else {
+              vm.count = data.count;
+              vm.products = vm.products.concat(data.products);
+            }
+          });
         } else if (location.pathname === '/product/category') {
           var search = Utils.getSearch(location);
           if (!search['CId'] || !search['ChildCId']) {

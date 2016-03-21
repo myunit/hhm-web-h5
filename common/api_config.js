@@ -130,5 +130,8 @@ ProductApi.prototype = {
   },
   getRecommendProduct : function(){
     return api_config.productService.baseUrl + api_config.productService.method.getRecommendProduct;
+  },
+  getGroupProduct : function(){
+    return api_config.productService.baseUrl + api_config.productService.method.getGroupProduct;
   }
 };
