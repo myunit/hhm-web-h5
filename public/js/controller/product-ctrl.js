@@ -198,12 +198,13 @@
             $.toast(err, 1000);
           } else {
             vm.product = Utils.clone(data.product);
+            var i = 0;
             cartVm.product = vm.product;
             var skuList = vm.product.Skus;
             cartVm.curSkuId = skuList[0].SysNo;
             cartVm.curPrice = skuList[0].Price;
             cartVm.curImg = skuList[0].Images[0].ImgUrl;
-            for (var i = 0; i < skuList.length; i++) {
+            for (i = 0; i < skuList.length; i++) {
               vm.style.push(skuList[i].SizeName);
               if (skuList[i].Images.length > 0) {
                 vm.skuImg.push(skuList[i].Images[0].ImgUrl);

@@ -42,36 +42,14 @@
                             <div class="item-after" v-cloak>${style.join(',')}</div>
                         </div>
                     </li>
-                    <li class="item-content">
-                        <div class="item-inner clearfix">
-                            <div class="item-title">属性1 </div>
-                            <div class="item-after">规格是指物件的体积、大小、型号。是用来识别物品的编号。英文翻译[Specifications]。中国最早没有编</div>
-                        </div>
-                    </li>
-                    <li class="item-content">
-                        <div class="item-inner clearfix">
-                            <div class="item-title">属性1 </div>
-                            <div class="item-after">规格是指物件的体积、大小、型号。是用来识别物品的编号。英文翻译[Specifications]。中国最早没有编</div>
-                        </div>
-                    </li>
-                    <li class="item-content">
-                        <div class="item-inner clearfix">
-                            <div class="item-title">属性1 </div>
-                            <div class="item-after">规格是指物件的体积、大小、型号。是用来识别物品的编号。英文翻译[Specifications]。中国最早没有编</div>
-                        </div>
-                    </li>
-                    <li class="item-content">
-                        <div class="item-inner clearfix">
-                            <div class="item-title">属性2 </div>
-                            <div class="item-after">规格是指物件的体积、大小、型号。是用来识别物品的编号。英文翻译[Specifications]。中国最早没有编</div>
-                        </div>
-                    </li>
-                    <li class="item-content">
-                        <div class="item-inner clearfix">
-                            <div class="item-title">属性3 </div>
-                            <div class="item-after">规格是指物件的体积、大小、型号。是用来识别物品的编号。英文翻译[Specifications]。中国最早没有编</div>
-                        </div>
-                    </li>
+                    <template v-for="propertie in product.Properties">
+                        <li class="item-content">
+                            <div class="item-inner clearfix">
+                                <div class="item-title">${$key} </div>
+                                <div class="item-after">${propertie}</div>
+                            </div>
+                        </li>
+                    </template>
                 </ul>
 
                 <div class="my-product-detail-img">
