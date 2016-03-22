@@ -3,7 +3,7 @@
  * @create by 16-2-19
  * @description cart controller
  */
-(function() {
+(function () {
   require.config({
     baseUrl: '../js',
     paths: {
@@ -59,7 +59,9 @@
             message: 0
           },
           methods: {
-            delSku: delSku
+            delSku: delSku,
+            addQty: addQty,
+            subQty: subQty
           }
         });
 
@@ -74,10 +76,10 @@
           var t = 0;
           var id = 0;
           var skus = null;
-          for (var i = 0; i < buylist.length;i++) {
+          for (var i = 0; i < buylist.length; i++) {
             id = buylist[i];
             skus = vm.cartsObj[id].skus;
-            for (var j = 0;j < skus.length; j++) {
+            for (var j = 0; j < skus.length; j++) {
               t += skus[j].qty * skus[j].price;
             }
           }
@@ -92,7 +94,7 @@
         function delSku(productId, cartId) {
           $.confirm('确定删除该商品吗?',
             function () {
-              ajaxPost('/cart/del-cart', {cartId:cartId}, function (err, data) {
+              ajaxPost('/cart/del-cart', {cartId: cartId}, function (err, data) {
                 $.hidePreloader();
                 if (err) {
                   $.toast(err, 1000);
@@ -105,20 +107,16 @@
                       if (cart.skus.length === 1) {
                         vm.cartsAry.splice(i, 1);
                         delete vm.cartsObj[productId];
-                        for(var j = 0; j < vm.buyList.length;j++)
-                        {
-                          if(productId === vm.buyList[j])
-                          {
-                            vm.buyList.splice(j,1);
+                        for (var j = 0; j < vm.buyList.length; j++) {
+                          if (productId === vm.buyList[j]) {
+                            vm.buyList.splice(j, 1);
                             break;
                           }
                         }
                       } else {
-                        for(var s = 0; s < cart.skus.length;s++)
-                        {
-                          if(cartId === cart.skus[s].cartId)
-                          {
-                            cart.skus.splice(s,1);
+                        for (var s = 0; s < cart.skus.length; s++) {
+                          if (cartId === cart.skus[s].cartId) {
+                            cart.skus.splice(s, 1);
                             computedPrice(vm.buyList);
                             break;
                           }
@@ -137,6 +135,56 @@
           );
         }
 
+        function addQty(productId, cartId) {
+          console.log(cartId);
+          var product = vm.cartsObj[productId];
+          var skus = product.skus;
+          var sku = null;
+          for (var i = 0; i < skus.length; i++) {
+            sku = skus[i];
+            if (sku.cartId == cartId) {
+              if (sku.qty + 1 > product.stock) {
+                $.toast("库存不足！");
+                return;
+              }
+              sku.qty++;
+              computedPrice(vm.buyList);
+              ajaxPost('/cart/modify-cart-qty', {cartId: cartId, qty: sku.qty}, function (err, data) {
+                if (err) {
+                  $.toast(err, 1000);
+                  sku.qty--;
+                  computedPrice(vm.buyList);
+                }
+              });
+              break;
+            }
+          }
+        }
+
+        function subQty(productId, cartId) {
+          var product = vm.cartsObj[productId];
+          var skus = product.skus;
+          var sku = null;
+          for (var i = 0; i < skus.length; i++) {
+            sku = skus[i];
+            if (sku.cartId == cartId) {
+              if (sku.qty === 1) {
+                return;
+              }
+              sku.qty--;
+              computedPrice(vm.buyList);
+              ajaxPost('/cart/modify-cart-qty', {cartId: cartId, qty: sku.qty}, function (err, data) {
+                if (err) {
+                  $.toast(err, 1000);
+                  sku.qty++;
+                  computedPrice(vm.buyList);
+                }
+              });
+              break;
+            }
+          }
+        }
+
         ajaxPost('/cart/cart-info', {}, function (err, data) {
           $.hidePreloader();
           if (err) {
@@ -152,9 +200,10 @@
                 vm.cartsObj[item.ProductSysNo] = {};
                 vm.cartsObj[item.ProductSysNo].name = item.Name;
                 vm.cartsObj[item.ProductSysNo].productId = item.ProductSysNo;
-                vm.cartsObj[item.ProductSysNo].image = item.Images.length > 0 ? item.Images[0].ImgUrl:'';
+                vm.cartsObj[item.ProductSysNo].image = item.Images.length > 0 ? item.Images[0].ImgUrl : '';
                 vm.cartsObj[item.ProductSysNo].skus = [];
                 vm.cartsObj[item.ProductSysNo].checked = true;
+                vm.cartsObj[item.ProductSysNo].stock = item.Stock;
                 sku.cartId = item.SysId;
                 sku.skuId = item.SkuSysNo;
                 sku.size = item.SizeName;
@@ -171,7 +220,7 @@
               }
             }
 
-            for(var c in vm.cartsObj){
+            for (var c in vm.cartsObj) {
               if (vm.cartsObj.hasOwnProperty(c)) {
                 vm.cartsAry.push(vm.cartsObj[c]);
                 vm.buyList.push(vm.cartsObj[c].productId);
@@ -186,7 +235,7 @@
                   vm.buyList.splice(0, vm.buyList.length);
                 } else {
                   vm.buyList.splice(0, vm.buyList.length);
-                  for(var c in vm.cartsObj){
+                  for (var c in vm.cartsObj) {
                     if (vm.cartsObj.hasOwnProperty(c)) {
                       vm.buyList.push(vm.cartsObj[c].productId);
                     }
@@ -216,7 +265,6 @@
             });
           }
         });
-
 
 
       });
