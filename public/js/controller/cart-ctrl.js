@@ -55,12 +55,20 @@
             cartsAry: [],
             cartsObj: {},
             buyList: [],
-            total: 0
+            total: 0,
+            message: 0
           },
           methods: {
             buy: buy
           }
         });
+
+        ajaxPost('/users/get-notice-count', {}, function (err, data) {
+          if (err) {
+          } else {
+            vm.message = data.count;
+          }
+        })
 
         vm.$watch('buyList', function (newVal, oldVal) {
           var t = 0;

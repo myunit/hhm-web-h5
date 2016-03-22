@@ -87,7 +87,15 @@
           el: '#page-product-class',
           data: {
             categories: [],
-            search: ''
+            search: '',
+            message: 0
+          }
+        });
+
+        ajaxPost('/users/get-notice-count', {}, function (err, data) {
+          if (err) {
+          } else {
+            vm.message = data.count;
           }
         });
 
