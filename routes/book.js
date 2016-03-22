@@ -4,7 +4,19 @@
  * @description book route
  */
 var express = require('express');
+var unirest = require('unirest');
+var ApiFactory = require('../common/api_config');
 var router = express.Router();
+
+var shoppingApi = ApiFactory.CreateApi('shopping');
+
+router.use(function (req, res, next) {
+  if (req.session.uid) {
+    next();
+  } else {
+    res.redirect('/');
+  }
+});
 
 /* GET users listing. */
 router.get('/confirm', function(req, res, next) {
