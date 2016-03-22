@@ -186,10 +186,24 @@
           }
         }
 
-        function editQty(productId, cartId, event) {
-          console.log(productId);
-          console.log(cartId);
-          console.log(event.value);
+        function editQty(productId, cartId) {
+          var product = vm.cartsObj[productId];
+          var skus = product.skus;
+          var sku = null;
+          for (var i = 0; i < skus.length; i++) {
+            sku = skus[i];
+            if (sku.cartId == cartId) {
+              computedPrice(vm.buyList);
+              ajaxPost('/cart/modify-cart-qty', {cartId: cartId, qty: sku.qty}, function (err, data) {
+                if (err) {
+                  $.toast(err, 1000);
+                  sku.qty++;
+                  computedPrice(vm.buyList);
+                }
+              });
+              break;
+            }
+          }
         }
 
         $(page).on('keyup', '.txt-num', function () {
