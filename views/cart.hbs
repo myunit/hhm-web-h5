@@ -65,7 +65,7 @@
                                                 <div class="col-50 my-red-text my-26-text">￥${sku.price}</div>
                                                 <div class="col-50 my-right-text">
                                                     <p class="p-num fn-op-num"><em class="em-op em-op-d">-</em><input name="txt" type="text" class="txt txt-num" v-model="sku.qty"><em class="em-op em-op-a">+</em></p>
-                                                    <a class="icon icon-delete my-gray-text"></a>
+                                                    <a href="#" @click.prevent="delSku(cart.productId, sku.cartId)" class="icon icon-delete my-gray-text external"></a>
                                                 </div>
                                             </div>
                                         </div>

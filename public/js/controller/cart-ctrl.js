@@ -59,7 +59,7 @@
             message: 0
           },
           methods: {
-            buy: buy
+            delSku: delSku
           }
         });
 
@@ -68,27 +68,76 @@
           } else {
             vm.message = data.count;
           }
-        })
+        });
 
-        vm.$watch('buyList', function (newVal, oldVal) {
+        function computedPrice(buylist) {
           var t = 0;
           var id = 0;
           var skus = null;
-          for (var i = 0; i < newVal.length;i++) {
-            id = newVal[i];
+          for (var i = 0; i < buylist.length;i++) {
+            id = buylist[i];
             skus = vm.cartsObj[id].skus;
             for (var j = 0;j < skus.length; j++) {
               t += skus[j].qty * skus[j].price;
             }
           }
           vm.total = t;
+        }
+
+        vm.$watch('buyList', function (newVal, oldVal) {
+          computedPrice(newVal);
         });
 
 
-        function buy() {
-          console.log(JSON.stringify(vm.buyList));
+        function delSku(productId, cartId) {
+          $.confirm('确定删除该商品吗?',
+            function () {
+              ajaxPost('/cart/del-cart', {cartId:cartId}, function (err, data) {
+                $.hidePreloader();
+                if (err) {
+                  $.toast(err, 1000);
+                } else {
+                  var cartsAry = vm.cartsAry;
+                  var len = cartsAry.length;
+                  for (var i = 0; i < len; i++) {
+                    var cart = cartsAry[i];
+                    if (cart.productId === productId) {
+                      if (cart.skus.length === 1) {
+                        vm.cartsAry.splice(i, 1);
+                        for(var j = 0; j < vm.buyList.length;j++)
+                        {
+                          if(productId === vm.buyList[j])
+                          {
+                            vm.buyList.splice(j,1);
+                            break;
+                          }
+                        }
+                      } else {
+                        for(var s = 0; s < cart.skus.length;s++)
+                        {
+                          if(cartId === cart.skus[s].cartId)
+                          {
+                            cart.skus.splice(s,1);
+                            computedPrice(vm.buyList);
+                            break;
+                          }
+                        }
+                      }
+                      break;
+                    }
+                  }
+                }
+              });
+              $.showPreloader('请稍等...');
+            },
+            function () {
+
+            }
+          );
         }
+
         ajaxPost('/cart/cart-info', {}, function (err, data) {
+          $.hidePreloader();
           if (err) {
             $.toast(err, 1000);
           } else {
@@ -152,6 +201,7 @@
             });
           }
         });
+        $.showPreloader('请稍等...');
 
         vm.$watch('addCartNum1', function (newVal, oldVal) {
           if (newVal === '') {
