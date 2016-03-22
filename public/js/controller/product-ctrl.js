@@ -126,7 +126,7 @@
             cartNum: 0,
             product: null,
             style: [],
-            skuImg:[]
+            skuImg: []
           },
           computed: {
             liked: function () {
@@ -170,7 +170,7 @@
             var skuList = vm.product.Skus;
             cartVm.curPrice = skuList[0].Price;
             cartVm.curImg = skuList[0].Images[0].ImgUrl;
-            for (var i = 0; i < skuList.length; i++){
+            for (var i = 0; i < skuList.length; i++) {
               vm.style.push(skuList[i].SizeName);
               if (skuList[i].Images.length > 0) {
                 vm.skuImg.push(skuList[i].Images[0].ImgUrl);
@@ -180,7 +180,7 @@
         });
 
         $(page).on('click', '.like', function () {
-          ajaxPost(vm.isLike ? '/users/del-fav':'/users/add-fav', {
+          ajaxPost(vm.isLike ? '/users/del-fav' : '/users/add-fav', {
             productId: parseInt(search['id'])
           }, function (err, data) {
             $.hidePreloader();
@@ -273,7 +273,7 @@
             cartNum: 0,
             product: null,
             style: [],
-            skuImg:[]
+            skuImg: []
           },
           computed: {
             liked: function () {
@@ -317,7 +317,7 @@
             cartVm.curPrice = vm.product.SeckillPrice;
             var skuList = vm.product.Skus;
             cartVm.curImg = skuList[0].Images[0].ImgUrl;
-            for (var i = 0; i < skuList.length; i++){
+            for (var i = 0; i < skuList.length; i++) {
               vm.style.push(skuList[i].SizeName);
               if (skuList[i].Images.length > 0) {
                 vm.skuImg.push(skuList[i].Images[0].ImgUrl);
@@ -327,7 +327,7 @@
         });
 
         $(page).on('click', '.like', function () {
-          ajaxPost(vm.isLike ? '/users/del-fav':'/users/add-fav', {
+          ajaxPost(vm.isLike ? '/users/del-fav' : '/users/add-fav', {
             productId: parseInt(search['id'])
           }, function (err, data) {
             $.hidePreloader();
@@ -420,7 +420,7 @@
             cartNum: 0,
             product: null,
             style: [],
-            skuImg:[]
+            skuImg: []
           },
           computed: {
             liked: function () {
@@ -464,7 +464,7 @@
             var skuList = vm.product.Skus;
             cartVm.curPrice = skuList[0].Price;
             cartVm.curImg = skuList[0].Images[0].ImgUrl;
-            for (var i = 0; i < skuList.length; i++){
+            for (var i = 0; i < skuList.length; i++) {
               vm.style.push(skuList[i].SizeName);
               if (skuList[i].Images.length > 0) {
                 vm.skuImg.push(skuList[i].Images[0].ImgUrl);
@@ -474,7 +474,7 @@
         });
 
         $(page).on('click', '.like', function () {
-          ajaxPost(vm.isLike ? '/users/del-fav':'/users/add-fav', {
+          ajaxPost(vm.isLike ? '/users/del-fav' : '/users/add-fav', {
             productId: parseInt(search['id'])
           }, function (err, data) {
             $.hidePreloader();
@@ -562,18 +562,22 @@
             cartNum: 0
           },
           methods: {
-            addToCart: addToCart
+            OpenCart: OpenCart
           }
         });
         var productItems = undefined;
         var loading = false;
 
-        ajaxPost('/cart/get-count-in-cart', {}, function (err, data) {
-          if (err) {
-          } else {
-            vm.cartNum = data.count;
-          }
-        });
+        function getCountInCart() {
+          ajaxPost('/cart/get-count-in-cart', {}, function (err, data) {
+            if (err) {
+            } else {
+              vm.cartNum = data.count;
+            }
+          });
+        }
+
+        getCountInCart();
 
         if (location.pathname === '/product/sales') {//特卖
           productItems = new ProductItems('/product/sales', 10);
@@ -647,16 +651,13 @@
           }, 1000);
         });
 
-        function addToCart(index) {
+        function OpenCart(index) {
           cartVm.product = vm.products[index];
+          cartVm.curSkuId = cartVm.product.SkuList[0].SysNo;
           cartVm.curPrice = cartVm.product.SkuList[0].Price;
           cartVm.curImg = cartVm.product.SkuList[0].Images[0].ImgUrl;
           $.popup('.popup-cart');
         }
-
-        $(page).on('click', '.icon-clear', function () {
-          vm.search = '';
-        });
 
         var cartVm = new Vue({
           el: '#popup-cart',
@@ -664,8 +665,40 @@
             addCartNum: 1,
             product: null,
             curPrice: 0,
-            curImg: ''
+            curImg: '',
+            curSkuId: 0
+          },
+          methods: {
+            addToCart: addToCart
           }
+        });
+
+        function addToCart() {
+          if (cartVm.addCartNum === '') {
+            cartVm.addCartNum = 1;
+            $.toast('请输入正确的购买数量', 1000);
+            return;
+          }
+
+          ajaxPost('/cart/add-to-cart', {
+            productId: cartVm.product.SysNo,
+            skuId: cartVm.curSkuId,
+            qty: cartVm.addCartNum
+          }, function (err, data) {
+            if (err) {
+              $.toast(err, 1000);
+            } else {
+              getCountInCart();
+            }
+          });
+
+
+          cartVm.addCartNum = 1;
+          cartVm.product = null;
+        }
+
+        $(page).on('click', '.icon-clear', function () {
+          vm.search = '';
         });
 
         cartVm.$watch('addCartNum', function (newVal, oldVal) {
@@ -679,18 +712,6 @@
               cartVm.addCartNum = oldVal;
             });
           }
-        });
-
-        $(document).on('click', '.my-a-cart.close-popup', function (event) {
-          event.preventDefault();
-          if (cartVm.addCartNum === '') {
-            cartVm.addCartNum = 1;
-            $.toast('请输入正确的购买数量', 1000);
-            return;
-          }
-          vm.cartNum += parseInt(cartVm.addCartNum);
-          cartVm.addCartNum = 1;
-          cartVm.product = null;
         });
 
         $(document).on('click', '.icon-close.close-popup', function () {
@@ -716,6 +737,7 @@
           var sku = cartVm.product.SkuList[index];
           cartVm.curPrice = sku.Price;
           cartVm.curImg = sku.Images[0].ImgUrl;
+          cartVm.curSkuId = sku.SysNo;
         });
       });
 

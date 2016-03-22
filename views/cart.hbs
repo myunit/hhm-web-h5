@@ -64,7 +64,7 @@
                                             <div class="row">
                                                 <div class="col-50 my-red-text my-26-text">￥${sku.price}</div>
                                                 <div class="col-50 my-right-text">
-                                                    <p class="p-num fn-op-num"><em @click.prevent="subQty(cart.productId, sku.cartId)" class="em-op em-op-d">-</em><input @blur="editQty(cart.productId, sku.cartId)" name="txt" type="text" class="txt txt-num" v-model="sku.qty"><em @click.prevent="addQty(cart.productId, sku.cartId)" class="em-op em-op-a">+</em></p>
+                                                    <p class="p-num fn-op-num"><em @click.prevent="subQty(cart.productId, sku.cartId)" class="em-op em-op-d">-</em><input @blur="editQty(cart.productId, sku.cartId)" @focus="onFocusNum(sku.qty)" name="txt" type="text" class="txt txt-num" v-model="sku.qty"><em @click.prevent="addQty(cart.productId, sku.cartId)" class="em-op em-op-a">+</em></p>
                                                     <a href="#" @click.prevent="delSku(cart.productId, sku.cartId)" class="icon icon-delete my-gray-text external"></a>
                                                 </div>
                                             </div>

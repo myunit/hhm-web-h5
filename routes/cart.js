@@ -67,7 +67,7 @@ router.post('/get-count-in-cart', function (req, res, next) {
 router.post('/modify-cart-qty', function (req, res, next) {
   unirest.post(shoppingApi.modifyQtyInCart())
     .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'X-Access-Token': req.session.token})
-    .send({"userId": req.session.uid, "cartId": parseInt(req.body.cartId), "qty":parseInt(req.body.qty), "device":""})
+    .send({"userId": req.session.uid, "cartId": parseInt(req.body.cartId), "qty": parseInt(req.body.qty), "device": ""})
     .end(function (response) {
       var data = response.body.repData;
       if (data === undefined) {
@@ -86,6 +86,43 @@ router.post('/del-cart', function (req, res, next) {
   unirest.post(shoppingApi.delInCart())
     .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'X-Access-Token': req.session.token})
     .send({"userId": req.session.uid, "cartId": req.body.cartId})
+    .end(function (response) {
+      var data = response.body.repData;
+      if (data === undefined) {
+        res.json({status: 0, msg: '服务异常'});
+        return;
+      }
+      if (data.status) {
+        res.json({status: data.status, promotionAmount: data.promotionAmount});
+      } else {
+        res.json({status: data.status, msg: data.msg});
+      }
+    });
+});
+
+router.post('/add-to-cart', function (req, res, next) {
+  console.log({
+    "userId": req.session.uid,
+    "product": [{
+      "pId": parseInt(req.body.productId),
+      "pItemId": parseInt(req.body.skuId),
+      "qty": parseInt(req.body.qty),
+      "shoppingSource": ""
+    }],
+    "device": ""
+  });
+  unirest.post(shoppingApi.addToCart())
+    .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'X-Access-Token': req.session.token})
+    .send({
+      "userId": req.session.uid,
+      "product": [{
+        "pId": parseInt(req.body.productId),
+        "pItemId": parseInt(req.body.skuId),
+        "qty": parseInt(req.body.qty),
+        "shoppingSource": ""
+      }],
+      "device": ""
+    })
     .end(function (response) {
       var data = response.body.repData;
       if (data === undefined) {

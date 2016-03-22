@@ -48,6 +48,7 @@
       Vue.config.unsafeDelimiters = ['{!!', '!!}'];
 
       $(document).on("pageInit", "#page-cart", function (e, id, page) {
+        var curQty = 0;
         var vm = new Vue({
           el: '#page-cart',
           data: {
@@ -62,7 +63,8 @@
             delSku: delSku,
             addQty: addQty,
             subQty: subQty,
-            editQty: editQty
+            editQty: editQty,
+            onFocusNum: onFocusNum
           }
         });
 
@@ -186,6 +188,10 @@
           }
         }
 
+        function onFocusNum (qty) {
+          curQty = qty;
+        }
+
         function editQty(productId, cartId) {
           var product = vm.cartsObj[productId];
           var skus = product.skus;
@@ -193,11 +199,16 @@
           for (var i = 0; i < skus.length; i++) {
             sku = skus[i];
             if (sku.cartId == cartId) {
+              if (sku.qty === '') {
+                sku.qty = curQty;
+                computedPrice(vm.buyList);
+                return;
+              }
               computedPrice(vm.buyList);
               ajaxPost('/cart/modify-cart-qty', {cartId: cartId, qty: sku.qty}, function (err, data) {
                 if (err) {
                   $.toast(err, 1000);
-                  sku.qty++;
+                  sku.qty = curQty;
                   computedPrice(vm.buyList);
                 }
               });
