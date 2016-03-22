@@ -10,7 +10,7 @@
                     </label>
                 </li>
                 <li class="my-li-right">
-                    <span><span class="my-gray-text">合计 :</span> <span class="my-red-text my-30-text">￥302.50</span></span>
+                    <span><span class="my-gray-text">合计 :</span> <span class="my-red-text my-30-text" v-cloak>￥${total}</span></span>
                     <a href="/book/confirm" class="my-28-text external">去下单</a>
                 </li>
             </ul>
@@ -40,10 +40,10 @@
         <div class="content native-scroll">
             <div class="list-block media-list my-list-cart">
                 <ul v-cloak>
-                    <template v-for="cart in carts" track-by="productId">
+                    <template v-for="cart in cartsAry" track-by="productId">
                         <li>
                             <label class="label-checkbox item-content">
-                                <input type="checkbox" name="my-radio">
+                                <input type="checkbox" name="my-radio" :value="cart.productId" v-model="buyList">
                                 <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
                                 <div class="item-inner">
                                     <div class="item-content">

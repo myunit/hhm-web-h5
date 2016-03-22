@@ -52,10 +52,34 @@
           el: '#page-cart',
           data: {
             allChecked: true,
-            carts: []
+            cartsAry: [],
+            cartsObj: {},
+            buyList: [],
+            total: 0
+          },
+          methods: {
+            buy: buy
           }
         });
 
+        vm.$watch('buyList', function (newVal, oldVal) {
+          var t = 0;
+          var id = 0;
+          var skus = null;
+          for (var i = 0; i < newVal.length;i++) {
+            id = newVal[i];
+            skus = vm.cartsObj[id].skus;
+            for (var j = 0;j < skus.length; j++) {
+              t += skus[j].qty * skus[j].price;
+            }
+          }
+          vm.total = t;
+        });
+
+
+        function buy() {
+          console.log(JSON.stringify(vm.buyList));
+        }
         ajaxPost('/cart/cart-info', {}, function (err, data) {
           if (err) {
             $.toast(err, 1000);
@@ -63,37 +87,61 @@
             var cart = data.cart;
             var len = cart.length;
             var item = null;
-            var carts = {};
             for (var i = 0; i < len; i++) {
               item = cart[i];
               var sku = {};
-              if (carts[item.ProductSysNo] === undefined) {
-                carts[item.ProductSysNo] = {};
-                carts[item.ProductSysNo].name = item.Name;
-                carts[item.ProductSysNo].productId = item.ProductSysNo;
-                carts[item.ProductSysNo].image = item.Images.length > 0 ? item.Images[0]:'';
-                carts[item.ProductSysNo].skus = [];
+              if (vm.cartsObj[item.ProductSysNo] === undefined) {
+                vm.cartsObj[item.ProductSysNo] = {};
+                vm.cartsObj[item.ProductSysNo].name = item.Name;
+                vm.cartsObj[item.ProductSysNo].productId = item.ProductSysNo;
+                vm.cartsObj[item.ProductSysNo].image = item.Images.length > 0 ? item.Images[0].ImgUrl:'';
+                vm.cartsObj[item.ProductSysNo].skus = [];
+                vm.cartsObj[item.ProductSysNo].checked = true;
                 sku.cartId = item.SysId;
                 sku.skuId = item.SkuSysNo;
                 sku.size = item.SizeName;
                 sku.qty = item.Qty;
                 sku.price = item.Price;
-                carts[item.ProductSysNo].skus.push(sku);
+                vm.cartsObj[item.ProductSysNo].skus.push(sku);
               } else {
                 sku.cartId = item.SysId;
                 sku.skuId = item.SkuSysNo;
                 sku.size = item.SizeName;
                 sku.qty = item.Qty;
                 sku.price = item.Price;
-                carts[item.ProductSysNo].skus.push(sku);
+                vm.cartsObj[item.ProductSysNo].skus.push(sku);
               }
             }
 
-            for(var c in carts){
-              if (carts.hasOwnProperty(c)) {
-                vm.carts.push(carts[c]);
+            for(var c in vm.cartsObj){
+              if (vm.cartsObj.hasOwnProperty(c)) {
+                vm.cartsAry.push(vm.cartsObj[c]);
+                vm.buyList.push(vm.cartsObj[c].productId);
               }
             }
+
+            vm.$nextTick(function () {
+              //$('.my-list-cart input[type=checkbox]').prop('checked', true);
+
+              $(page).on('click', '.my-nav-bar .label-checkbox', function (event) {
+                if (!vm.allChecked) {
+                  vm.buyList.splice(0, vm.buyList.length);
+                } else {
+                  vm.buyList.splice(0, vm.buyList.length);
+                  for(var c in vm.cartsObj){
+                    if (vm.cartsObj.hasOwnProperty(c)) {
+                      vm.buyList.push(vm.cartsObj[c].productId);
+                    }
+                  }
+                }
+              });
+
+              $(page).on('click', '.my-list-cart .label-checkbox', function () {
+                if (!$(this).is(":checked")) {
+                  vm.allChecked = false;
+                }
+              });
+            });
           }
         });
 
@@ -110,21 +158,7 @@
           }
         });
 
-        $('.my-list-cart input[type=checkbox]').prop('checked', true);
 
-        $(page).on('click', '.my-nav-bar .label-checkbox', function () {
-          if (vm.allChecked) {
-            $('.my-list-cart input[type=checkbox]').prop('checked', false);
-          } else {
-            $('.my-list-cart input[type=checkbox]').prop('checked', true);
-          }
-        });
-
-        $(page).on('click', '.my-list-cart .label-checkbox', function () {
-          if (!$(this).is(":checked")) {
-            vm.allChecked = false;
-          }
-        });
 
       });
 
