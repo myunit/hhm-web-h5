@@ -3,7 +3,7 @@
  * @create by 16-2-20
  * @description book controller
  */
-(function() {
+(function () {
   require.config({
     baseUrl: '../js',
     paths: {
@@ -47,13 +47,20 @@
       Vue.config.unsafeDelimiters = ['{!!', '!!}'];
 
       $(document).on("pageInit", "#page-book-confirm", function (e, id, page) {
+        var search = Utils.getSearch(location);
+        var selectId = 0;
+        if (search['id']) {
+          selectId = parseInt(search['id']);
+        }
+
         var vm = new Vue({
           el: '#page-book-confirm',
           data: {
             payment: 1,
             receiver: null,
             cartsAry: [],
-            countPrice: 0
+            countPrice: 0,
+            cartIds: []
           }
         });
 
@@ -63,15 +70,30 @@
           } else {
             var receivers = data.receiver;
             var len = receivers.length;
-            for (var i = 0; i < len; i++) {
-              if (receivers[i].IsDefault) {
-                vm.receiver = {};
-                vm.receiver.receiverId = receivers[i].SysNo;
-                vm.receiver.phone = receivers[i].ReceiverPhone;
-                vm.receiver.receiver = receivers[i].ReceiverName;
-                vm.receiver.pcdDes = receivers[i].Province + ' ' + receivers[i].City + ' ' + receivers[i].District;
-                vm.receiver.address = receivers[i].Address;
-                break;
+            var i = 0;
+            if (selectId > 0) {
+              for (i = 0; i < len; i++) {
+                if (receivers[i].SysNo === selectId) {
+                  vm.receiver = {};
+                  vm.receiver.receiverId = receivers[i].SysNo;
+                  vm.receiver.phone = receivers[i].ReceiverPhone;
+                  vm.receiver.receiver = receivers[i].ReceiverName;
+                  vm.receiver.pcdDes = receivers[i].Province + ' ' + receivers[i].City + ' ' + receivers[i].District;
+                  vm.receiver.address = receivers[i].Address;
+                  break;
+                }
+              }
+            } else {
+              for (i = 0; i < len; i++) {
+                if (receivers[i].IsDefault) {
+                  vm.receiver = {};
+                  vm.receiver.receiverId = receivers[i].SysNo;
+                  vm.receiver.phone = receivers[i].ReceiverPhone;
+                  vm.receiver.receiver = receivers[i].ReceiverName;
+                  vm.receiver.pcdDes = receivers[i].Province + ' ' + receivers[i].City + ' ' + receivers[i].District;
+                  vm.receiver.address = receivers[i].Address;
+                  break;
+                }
               }
             }
 
@@ -112,6 +134,7 @@
                 sku.price = item.Price;
                 vm.countPrice += sku.price * sku.qty;
                 cartsObj[item.ProductSysNo].skus.push(sku);
+                vm.cartIds.push(sku.cartId);
               } else {
                 sku.cartId = item.SysId;
                 sku.skuId = item.SkuSysNo;
@@ -120,6 +143,7 @@
                 sku.price = item.Price;
                 vm.countPrice += sku.price * sku.qty;
                 cartsObj[item.ProductSysNo].skus.push(sku);
+                vm.cartIds.push(sku.cartId);
               }
             }
 
@@ -131,32 +155,46 @@
           }
         });
 
-        $(page).on('click', '#submitBook', function () {
-          if(vm.payment === 1) {
-            location.href = '/book/pay-way';
-            return;
-          }
+        $(page).on('click', '#submitBook', function (event) {
+          event.preventDefault();
+          ajaxPost('/book/confirm', {
+            'receiverId': vm.receiver.receiverId,
+            'logistics': '快递',
+            'payment': vm.payment,
+            'cartIds': JSON.stringify(vm.cartIds)
+          }, function (err, data) {
+            $.hidePreloader();
+            if (err) {
+              $.toast(err, 1000);
+            } else {
+              console.log(JSON.stringify(data));
+              if (vm.payment === 1) {
+                location.href = '/book/pay-way';
+                return;
+              }
 
-          if(vm.payment === 2) {
-            location.href = '/book/complete';
-            return;
-          }
+              if (vm.payment === 2) {
+                location.href = '/book/complete';
+                return;
+              }
+
+            }
+          });
+          $.showPreloader('提交订单...');
         });
       });
 
       $(document).on("pageInit", "#page-book-complete", function (e, id, page) {
         var vm = new Vue({
           el: '#page-book-complete',
-          data: {
-          }
+          data: {}
         });
       });
 
       $(document).on("pageInit", "#page-book-pay-way", function (e, id, page) {
         var vm = new Vue({
           el: '#page-book-pay-way',
-          data: {
-          }
+          data: {}
         });
       });
 

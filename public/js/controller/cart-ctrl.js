@@ -64,7 +64,8 @@
             addQty: addQty,
             subQty: subQty,
             editQty: editQty,
-            onFocusNum: onFocusNum
+            onFocusNum: onFocusNum,
+            submitOrder: submitOrder
           }
         });
 
@@ -93,6 +94,13 @@
           computedPrice(newVal);
         });
 
+        function submitOrder () {
+          if (vm.cartsAry.length > 0) {
+            location.href = '/book/confirm';
+          } else {
+            $.toast('请先选购商品', 1000);
+          }
+        }
 
         function delSku(productId, cartId) {
           $.confirm('确定删除该商品吗?',

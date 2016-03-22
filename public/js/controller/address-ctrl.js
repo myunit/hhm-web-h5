@@ -47,9 +47,37 @@
       Vue.config.unsafeDelimiters = ['{!!', '!!}'];
 
       $(document).on("pageInit", "#page-address-select", function (e, id, page) {
+        var search = Utils.getSearch(location);
+        var selectId = 0;
+        if (search['id']) {
+          selectId = parseInt(search['id']);
+        }
+
         var vm = new Vue({
           el: '#page-address-select',
-          data: {}
+          data: {
+            receivers: []
+          }
+        });
+
+        ajaxPost('/address/get-all-receiver', {}, function (err, data) {
+          if (err) {
+            $.toast(err, 1000);
+          } else {
+            var receivers = data.receiver;
+            var len = receivers.length;
+            for (var i = 0; i < len; i++) {
+              var obj = {};
+              obj.receiverId = receivers[i].SysNo;
+              obj.phone = receivers[i].ReceiverPhone;
+              obj.receiver = receivers[i].ReceiverName;
+              obj.pcdDes = receivers[i].Province + ' ' + receivers[i].City + ' ' + receivers[i].District;
+              obj.address = receivers[i].Address;
+              obj.isDefault = receivers[i].IsDefault;
+              obj.isSelected = (obj.receiverId === selectId);
+              vm.receivers.push(obj);
+            }
+          }
         });
 
       });
