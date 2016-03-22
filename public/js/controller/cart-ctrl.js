@@ -104,6 +104,7 @@
                     if (cart.productId === productId) {
                       if (cart.skus.length === 1) {
                         vm.cartsAry.splice(i, 1);
+                        delete vm.cartsObj[productId];
                         for(var j = 0; j < vm.buyList.length;j++)
                         {
                           if(productId === vm.buyList[j])
