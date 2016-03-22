@@ -61,7 +61,8 @@
           methods: {
             delSku: delSku,
             addQty: addQty,
-            subQty: subQty
+            subQty: subQty,
+            editQty: editQty
           }
         });
 
@@ -184,6 +185,17 @@
             }
           }
         }
+
+        function editQty(productId, cartId, event) {
+          console.log(productId);
+          console.log(cartId);
+          console.log(event.value);
+        }
+
+        $(page).on('keyup', '.txt-num', function () {
+          var val = $(this).val();
+          $(this).val(val.replace(/[^\d]/g,''));
+        });
 
         ajaxPost('/cart/cart-info', {}, function (err, data) {
           $.hidePreloader();
