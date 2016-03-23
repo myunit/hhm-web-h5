@@ -10,7 +10,7 @@ var nwo = require('node-weixin-oauth');
 var wx_conf = require('../weixinPay.json');
 
 router.get('/code', function (req, res, next) {
-  var url = nwo.createURL(wx_conf.appId, 'http://joneqian.vicp.net/weixin/oauth', req.query.productId, 0);
+  var url = nwo.createURL(wx_conf.appId, 'http://qianqing.site//weixin/oauth', req.query.productId, 0);
   console.log(url);
   res.redirect(url);
 });
@@ -21,6 +21,7 @@ router.get('/oauth', function (req, res, next) {
       console.log(JSON.stringify(body));
       var accessToken = body.acess_token;
       var refreshToken = body.refresh_token;
+      var openId = body.openid;
     }
   });
 });
