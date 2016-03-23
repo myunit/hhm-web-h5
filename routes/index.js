@@ -11,8 +11,13 @@ var productApi = ApiFactory.CreateApi('product');
 /* GET home page. */
 router.route('/')
   .get(function (req, res, next) {
-    req.session = null;
-    res.render('login', {title: '登录-好好卖'});
+    if (req.session) {
+      req.session.destroy(function(err) {
+        // cannot access session here
+        req.session = null;
+        res.render('login', {title: '登录-好好卖'});
+      });
+    }
   })
   .post(function (req, res, next) {
     unirest.post(loginApi.login())
