@@ -1,5 +1,5 @@
 <div class="page-group">
-    <div id="page-product-detail" class="page page-current">
+    <div id="page-secKill-product-detail" class="page page-current">
         <nav class="bar bar-tab my-product-bar">
             <div class="row">
                 <div class="col-33">
@@ -24,16 +24,15 @@
 
             <div class="row my-product-title" v-cloak>
                 <div class="col-80 my-28-text">${product.Name.length > 30 ? product.Name.substring(0,30)+'...':product.Name}</div>
-                <div class="col-20" v-cloak>
-                    <a href="#">
+                <div class="col-20">
+                    <a href="#" v-cloak>
                         <span class="like icon" :class="{'icon-like': !isLike, 'icon-likeactive': isLike}"></span>
                         <span>${liked}</span>
                     </a>
                 </div>
             </div>
 
-            <!--<div class="my-product-price my-red-text"><span class="my-24-text">秒杀价：</span>￥15 <del class="my-22-text my-gray-text">￥230</del></div>-->
-            <div class="my-product-price my-red-text" v-cloak>￥${product.MinPrice && product.MaxPrice ? product.MinPrice+'~'+product.MaxPrice:product.Price}</div>
+            <div class="my-product-price my-red-text" v-cloak><span class="my-24-text">秒杀价：</span>￥${product.SeckillPrice} <del class="my-22-text my-gray-text">${product.OriginalPrice}</del></div>
             <div class="my-product-detail">
                 <div class="my-28-text">商品详情</div>
                 <ul class="my-ul">
@@ -99,4 +98,4 @@
 <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
-<script type='text/javascript' src='../js/lib/requirejs.min.js' data-main='../js/controller/product-ctrl.min'></script>
+<script type='text/javascript' src='../js/lib/requirejs.min.js' data-main='../js/controller/product-ctrl'></script>

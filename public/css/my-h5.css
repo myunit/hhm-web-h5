@@ -143,6 +143,7 @@ label.label-checkbox input[type="radio"]:checked + .item-media i.icon-form-check
 .my-tab .active{ background:#efeff4; color:#f86b4f;border-right:1px solid #efeff4; font-weight:bold;}
 .my-tab .tab-link:after{ background:#7C7A7A;}
 .my-tabs{ float:left; margin-left:4rem;}
+.my-category-tabs{margin-left:4rem;}
 .my-tabs .content-block{ padding:0 3%; margin:0;}
 .my-img-list{ }
 .my-img-list li{ float:left; width:31%; margin:0 3.5% 3.5% 0;}
@@ -171,8 +172,8 @@ label.label-checkbox input[type="radio"]:checked + .item-media i.icon-form-check
 .swiper-pagination-bullet{ background:#fff; border:1px solid #e1e3e5; opacity:1; width:.47rem; height:.47rem;}
 .swiper-pagination-bullet-active{ background:#f86b4f;border:1px solid #f86b4f;}
 .my-product-title{ background:#fff; padding:.588rem;}
-.my-product-title .col-80{ border-right:1px solid #d3d3d3;}
-.my-product-title .col-20{ text-align:center;}
+.my-product-title .col-80{}
+.my-product-title .col-20{ text-align:center;border-left: 1px solid #d3d3d3;}
 .my-product-title .col-20 a{ color:#333;}
 .my-product-title .col-20 .icon{ display:block; font-size:1.08rem;}
 .my-product-title .col-20 .icon-likeactive{ color:#ffcc66;}
@@ -279,6 +280,7 @@ label.label-checkbox input[type="radio"]:checked + .item-media i.icon-form-check
 
 .my-div-home-feature{background:#fff; margin-top:.588rem; font-size:.82rem;}
 .my-div-home-feature .col-40{ border-right:1px solid #d3d3d3; padding-left:.588rem;}
+.my-div-home-feature .col-40 p {margin: 1.55rem 0;}
 .my-div-home-feature h3{ margin:0; font-weight:normal;font-size:.82rem; color:#eb0313; padding-top:.588rem;}
 .my-div-home-feature .my-p-time-flash-deal{ padding:.2rem 0 0 0; margin:0;}
 .my-div-home-feature .my-p-time-flash-deal span{ color:#fff; display:inline-block; background:#333; border-radius:3px; line-height:1.35rem; text-align:center; padding:0 .2rem;}

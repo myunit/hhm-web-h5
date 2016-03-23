@@ -12,104 +12,37 @@
 
         <div class="content native-scroll">
             <div class="list-block media-list my-list-flash-deal">
-                <ul>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-media">
-                                <a href="/product/secKill-detail?id=1" class="external">
-                                    <img src="../images/demo/miaosha.gif" style='width: 5.53rem;'>
-                                </a>
-                            </div>
-                            <div class="item-inner">
-                                <div class="item-title-row">
-                                    <div class="item-title"><span class="my-red-tag">年货节</span>商品名称商品名称商品名称商品名称商品名称
-                                    </div>
+                <ul v-cloak>
+                    <template v-for="product in products" track-by="SysNo">
+                        <li>
+                            <div class="item-content">
+                                <div class="item-media">
+                                    <a :href="'/product/secKill-detail?id='+product.SysNo" class="external">
+                                        <img :src="product.ImgUrl" style='width: 5.53rem;'>
+                                    </a>
                                 </div>
-                                <div class="row">
-                                    <div class="col-50">
-                                        <span class="my-red-text my-30-text">￥130</span>
-                                        <del class="my-22-text my-gray-text">￥230</del>
-                                        <br>
-                                        <span class="my-gray-text my-22-text ">剩余：236件</span>
+                                <div class="item-inner">
+                                    <div class="item-title-row">
+                                        <div class="item-title"><span class="my-red-tag" v-if="product.Tag.length > 0">${product.Tag}</span>${product.Name.length > 15 ? product.Name.substring(0,15)+'...':product.Name}
+                                        </div>
                                     </div>
-                                    <div class="col-50 my-right-text">
-                                        <a href="/product/secKill-detail?id=1" class="button button-fill external">立即抢购</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-media">
-                                <a href="/product/secKill-detail?id=1" class="external">
-                                    <img src="../images/demo/miaosha.gif" style='width: 5.53rem;'>
-                                </a>
-                            </div>
-                            <div class="item-inner">
-                                <div class="item-title-row">
-                                    <div class="item-title"><span class="my-red-tag">年货节</span>商品名称商品名称商品名称商品名称商品名称
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-50">
-                                        <span class="my-red-text my-30-text">￥130</span>
-                                        <del class="my-22-text my-gray-text">￥230</del>
-                                        <br>
-                                        <span class="my-gray-text my-22-text ">剩余：236件</span>
-                                    </div>
-                                    <div class="col-50 my-right-text">
-                                        <a href="#" class="my-flash-deal-time"><span>即将开始</span><span
-                                                class="my-red-text">12:35:00</span></a>
+                                    <div class="row">
+                                        <div class="col-50">
+                                            <span class="my-red-text my-30-text">￥${product.SecKillPrice}</span>
+                                            <del class="my-22-text my-gray-text">￥${product.OriginPrice}</del>
+                                            <br>
+                                            <span class="my-gray-text my-22-text ">剩余：${product.TotalCount}件</span>
+                                        </div>
+                                        <div class="col-50 my-right-text">
+                                            <a :href="'/product/secKill-detail?id='+product.SysNo" class="button button-fill external" v-show="product.killStatus === 1">立即抢购</a>
+                                            <a href="#" class="my-flash-deal-time" v-show="product.killStatus === 2"><span>即将开始</span><span class="my-red-text">${product.remainStart}</span></a>
+                                            <a href="#" class="button button-fill disabled" v-if="product.killStatus === 0">已结束</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-media"><img src="../images/demo/miaosha.gif" style='width: 5.53rem;'></div>
-                            <div class="item-inner">
-                                <div class="item-title-row">
-                                    <div class="item-title"><span class="my-red-tag">年货节</span>商品名称商品名称商品名称商品名称商品名称
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-50">
-                                        <span class="my-red-text my-30-text">￥130</span>
-                                        <del class="my-22-text my-gray-text">￥230</del>
-                                        <br>
-                                        <span class="my-gray-text my-22-text ">剩余：236件</span>
-                                    </div>
-                                    <div class="col-50 my-right-text">
-                                        <a href="#" class="button button-fill disabled">已结束</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-media"><img src="../images/demo/miaosha.gif" style='width: 5.53rem;'></div>
-                            <div class="item-inner">
-                                <div class="item-title-row">
-                                    <div class="item-title"><span class="my-red-tag">年货节</span>商品名称商品名称商品名称商品名称商品名称
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-50">
-                                        <span class="my-red-text my-30-text">￥130</span>
-                                        <del class="my-22-text my-gray-text">￥230</del>
-                                        <br>
-                                        <span class="my-gray-text my-22-text ">剩余：236件</span>
-                                    </div>
-                                    <div class="col-50 my-right-text">
-                                        <a href="#" class="button button-fill disabled">已结束</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
+                        </li>
+                    </template>
                 </ul>
             </div>
         </div>
@@ -122,4 +55,4 @@
 <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
-<script type='text/javascript' src='../js/lib/requirejs.min.js' data-main='../js/controller/product-ctrl'></script>
+<script type='text/javascript' src='../js/lib/requirejs.min.js' data-main='../js/controller/product-ctrl.min'></script>

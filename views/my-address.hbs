@@ -4,77 +4,34 @@
             <a href="/address/add" class="my-28-text external">新增地址</a>
         </nav>
         <div class="content native-scroll">
-            <div class="list-block media-list my-select-address my-address">
-                <ul>
-                    <li>
-                        <a href="#" class="item-content">
-                            <div class="item-inner">
-                                <div class="item-title-row">
-                                    <div class="item-title">王老板</div>
-                                    <div class="item-after">15157333000</div>
+            <template v-for="receiver in receivers">
+                <div class="list-block media-list my-select-address my-address">
+                    <ul>
+                        <li>
+                            <a href="#" class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title-row">
+                                        <div class="item-title">${receiver.receiver}</div>
+                                        <div class="item-after">${receiver.phone}</div>
+                                    </div>
+                                    <div class="item-text my-gray-text">${receiver.pcdDes} ${receiver.address}
+                                    </div>
                                 </div>
-                                <div class="item-text my-gray-text">浙江省 嘉兴市 南湖区XX路XX号XX小区 门口开心果园
+                            </a>
+                            <div class="row">
+                                <div class="col-50 my-gray-text my-22-text">
+                                    <label class="label-checkbox"><input type="radio" @change="setDefault" :checked="receiver.isDefault" :value="$index" v-model="defaultIdx" name="single-radio"><div class="item-media"><i class="icon icon-form-checkbox"></i></div>${receiver.isDefault ? '默认地址':'设为默认'}</label>
                                 </div>
+                                <div class="col-50 my-right-text"><a :href="'/address/modify?id='+receiver.receiverId" class="my-gray-text my-22-text external"><span class="icon icon-edit"></span> 修改</a> <a href="#" @click.prevent="deleteAdr($index, $event)" class="my-gray-text my-22-text"><span class="icon icon-delete"></span> 删除</a></div>
                             </div>
-                        </a>
-                        <div class="row">
-                            <div class="col-50 my-gray-text my-22-text">
-                                <label class="label-checkbox"><input type="radio" checked name="single-radio"><div class="item-media"><i class="icon icon-form-checkbox"></i></div>默认地址</label>
-                            </div>
-                            <div class="col-50 my-right-text"><a href="/address/modify" class="my-gray-text my-22-text external"><span class="icon icon-edit"></span> 修改</a> <a href="#" class="my-gray-text my-22-text"><span class="icon icon-delete"></span> 删除</a></div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="list-block media-list my-select-address my-address">
-                <ul>
-                    <li>
-                        <a href="#" class="item-content">
-                            <div class="item-inner">
-                                <div class="item-title-row">
-                                    <div class="item-title">老板娘</div>
-                                    <div class="item-after">15157333000</div>
-                                </div>
-                                <div class="item-text my-gray-text">浙江省 嘉兴市 南湖区XX路XX号XX小区 门口开心果园
-                                </div>
-                            </div>
-                        </a>
-                        <div class="row">
-                            <div class="col-50 my-gray-text my-22-text">
-                                <label class="label-checkbox"><input type="radio" name="single-radio"><div class="item-media"><i class="icon icon-form-checkbox"></i></div>设为默认</label>
-                            </div>
-                            <div class="col-50 my-right-text"><a href="/address/modify" class="my-gray-text my-22-text"><span class="icon icon-edit"></span> 修改</a> <a href="#" class="my-gray-text my-22-text"><span class="icon icon-delete"></span> 删除</a></div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="list-block media-list my-select-address  my-address">
-                <ul>
-                    <li>
-                        <a href="#" class="item-content">
-                            <div class="item-inner">
-                                <div class="item-title-row">
-                                    <div class="item-title">李老板</div>
-                                    <div class="item-after">15157333000</div>
-                                </div>
-                                <div class="item-text my-gray-text">浙江省 嘉兴市 南湖区XX路XX号XX小区 门口开心果园
-                                </div>
-                            </div>
-                        </a>
-                        <div class="row">
-                            <div class="col-50 my-gray-text my-22-text">
-                                <label class="label-checkbox"><input type="radio" name="single-radio"><div class="item-media"><i class="icon icon-form-checkbox"></i></div>设为默认</label>
-                            </div>
-                            <div class="col-50 my-right-text"><a href="/address/modify" class="my-gray-text my-22-text"><span class="icon icon-edit"></span> 修改</a> <a href="#" class="my-gray-text my-22-text"><span class="icon icon-delete"></span> 删除</a></div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+                        </li>
+                    </ul>
+                </div>
+            </template>
         </div>
     </div>
 </div>
 <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
-<script type='text/javascript' src='../js/lib/requirejs.min.js' data-main='../js/controller/user-ctrl'></script>
+<script type="text/javascript" src="../js/lib/sm-city-picker.js" charset="utf-8"></script>
+<script type='text/javascript' src='../js/lib/requirejs.min.js' data-main='../js/controller/user-ctrl.min'></script>

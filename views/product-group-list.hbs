@@ -1,5 +1,5 @@
 <div class="page-group">
-    <div id="page-product-list" class="page page-current">
+    <div id="page-product-group-list" class="page page-current">
         <header class="bar bar-nav row my-search-top">
             <div class="search-input col-80">
                 <label class="icon icon-search" for="search"></label>
@@ -14,7 +14,7 @@
                 <template v-for="product in products" track-by="SysNo">
                     <li>
                         <span class="my-img-auto">
-                            <a :href="'/product/detail?id='+product.SysNo" class="external">
+                            <a :href="'/product/group-detail?id='+product.SysNo" class="external">
                                 <img :src="product.ImgUrl" width="316" height="316" alt=""/>
                             </a>
                         </span>

@@ -1,5 +1,5 @@
 <div class="page-group">
-    <div id="page-product-list" class="page page-current">
+    <div id="page-recommend-list" class="page page-current">
         <header class="bar bar-nav row my-search-top">
             <div class="search-input col-80">
                 <label class="icon icon-search" for="search"></label>
@@ -11,16 +11,16 @@
 
         <div class="content infinite-scroll infinite-scroll-bottom" data-distance="50">
             <ul class="my-ul my-product-list" v-cloak>
-                <template v-for="product in products" track-by="SysNo">
+                <template v-for="product in products" track-by="ProductGroupSysNo">
                     <li>
                         <span class="my-img-auto">
-                            <a :href="'/product/detail?id='+product.SysNo" class="external">
+                            <a :href="'/product/detail?id='+product.ProductGroupSysNo" class="external">
                                 <img :src="product.ImgUrl" width="316" height="316" alt=""/>
                             </a>
                         </span>
-                        <h3 class="my-28-text">${product.Name.length > 15 ? product.Name.substring(0,15)+'...':product.Name}</h3>
+                        <h3 class="my-28-text">${product.ProductName.length > 15 ? product.ProductName.substring(0,15)+'...':ProductName.Name}</h3>
                         <div class="row">
-                            <div class="col-50 my-28-text my-red-text">￥${product.MinPrice && product.MaxPrice ? product.MinPrice+'~'+product.MaxPrice:product.Price}</div>
+                            <div class="col-50 my-28-text my-red-text">￥${product.MinPrice === product.MaxPrice ? product.MinPrice:product.MinPrice+'~'+product.MaxPrice}</div>
                             <div class="col-50">
                                 <a href="#" @click.prevent="OpenCart($index)" class="icon icon-addcart"></a>
                             </div>
@@ -50,7 +50,7 @@
                     <div class="item-media"><img :src="curImg" style='width: 3.65rem;'></div>
                     <div class="item-inner" v-cloak>
                         <div class="item-title-row">
-                            <div class="item-title">${product.Name}
+                            <div class="item-title">${product.ProductName}
                             </div>
                         </div>
                         <div class="item-subtitle my-red-text my-30-text">￥${curPrice}</div>

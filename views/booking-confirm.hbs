@@ -3,7 +3,7 @@
         <nav class="bar bar-tab my-booking-bar">
             <div class="row">
                 <div class="col-60 my-28-text">
-                    实付金额 :<span class="my-red-text"> ￥290.00</span>
+                    实付金额 :<span class="my-red-text"v-cloak> ￥${countPrice}</span>
                 </div>
                 <div class="col-40"><a id="submitBook" href="#" class="my-28-text external">提交订单</a></div>
             </div>
@@ -12,14 +12,14 @@
         <div class="content native-scroll">
             <div class="list-block media-list my-booking-address">
                 <ul>
-                    <li>
-                        <a href="/address" class="item-link item-content external">
+                    <li v-cloak>
+                        <a :href="'/address?id='+receiver.receiverId" class="item-link item-content external">
                             <div class="item-inner">
                                 <div class="item-title-row">
-                                    <div class="item-title">王老板</div>
-                                    <div class="item-after">15157333000</div>
+                                    <div class="item-title">${receiver.receiver}</div>
+                                    <div class="item-after">${receiver.phone}</div>
                                 </div>
-                                <div class="item-text my-gray-text">浙江省 嘉兴市 南湖区XX路XX号XX小区 门口开心果园
+                                <div class="item-text my-gray-text">${receiver.pcdDes} ${receiver.address}
                                 </div>
                             </div>
                             <span class="icon icon-address"></span>
@@ -60,51 +60,34 @@
                 <a href="/cart/cart-no-footer" class="button external">返回购物车</a>
             </div>
             <div class="list-block media-list my-booking-list">
-                <ul>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-media"><img src="../images/demo/cart.gif" style='width: 3.4rem;'></div>
-                            <div class="item-inner">
-                                <div class="item-title-row">
-                                    <div class="item-title  my-24-text">商品名称商品名称商品名称商品名称商品 名称商品名称
+                <ul v-cloak>
+                    <template v-for="cart in cartsAry" track-by="productId">
+                        <li>
+                            <div class="item-content">
+                                <div class="item-media"><img :src="cart.image" style='width: 3.4rem;'></div>
+                                <div class="item-inner">
+                                    <div class="item-title-row">
+                                        <div class="item-title  my-24-text">${cart.name}
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="item-subtitle my-gray-text  my-24-text">规格1/规格2/规格3/规格4/规格5/规格6</div>
-                                <div class="row">
-                                    <div class="col-50 my-red-text my-24-text">￥157.00</div>
-                                    <div class="col-50 my-right-text my-24-text">x1</div>
+                                    <template v-for="sku in cart.skus" track-by="cartId">
+                                        <div class="item-subtitle my-gray-text  my-24-text">${sku.size}</div>
+                                        <div class="row">
+                                            <div class="col-50 my-red-text my-24-text">￥${sku.price}</div>
+                                            <div class="col-50 my-right-text my-24-text">x${sku.qty}</div>
+                                        </div>
+                                    </template>
                                 </div>
                             </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-media"><img src="../images/demo/cart.gif" style='width: 3.4rem;'></div>
-                            <div class="item-inner">
-                                <div class="item-title-row">
-                                    <div class="item-title  my-24-text">商品名称商品名称商品名称商品名称商品 名称商品名称
-                                    </div>
-                                </div>
-                                <div class="item-subtitle my-gray-text  my-24-text">规格1/规格2/规格3/规格4/规格5/规格6</div>
-                                <div class="row">
-                                    <div class="col-50 my-red-text my-24-text">￥157.00</div>
-                                    <div class="col-50 my-right-text my-24-text">x1</div>
-                                </div>
-                                <div class="item-subtitle my-gray-text  my-24-text">规格1/规格2/规格3/规格4/规格5/规格6</div>
-                                <div class="row">
-                                    <div class="col-50 my-red-text my-24-text">￥157.00</div>
-                                    <div class="col-50 my-right-text my-24-text">x1</div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
+                        </li>
+                    </template>
                 </ul>
             </div>
 
             <div class="row my-div-booking-total">
                 <div class="col-50">商品金额
                     <br>优惠</div>
-                <div class="col-50 my-red-text my-right-text">¥ 302.50
+                <div class="col-50 my-red-text my-right-text">¥ ${countPrice}
                     <br>¥ -17.00</div>
             </div>
         </div>
@@ -113,4 +96,4 @@
 
 <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
-<script type='text/javascript' src='../js/lib/requirejs.min.js' data-main='../js/controller/book-ctrl'></script>
+<script type='text/javascript' src='../js/lib/requirejs.min.js' data-main='../js/controller/book-ctrl.min'></script>

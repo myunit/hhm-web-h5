@@ -11,183 +11,38 @@
 
         <div class="content native-scroll">
             <div class="list-block media-list my-list-flash-deal my-fav-list">
-                <ul>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-media">
-                                <a href="/product/detail?id=1" class="external">
-                                    <img src="../images/demo/miaosha.gif" style='width: 5.53rem;'>
-                                </a>
-                            </div>
-                            <div class="item-inner">
-                                <div class="item-title-row">
-                                    <div class="item-title">商品名称商品名称商品名称商品名称商品名称
-                                        <br>
-                                        <span class="my-red-text my-28-text">￥15.5~￥130</span> </div>
-
+                <ul v-cloak>
+                    <template v-for="favorite in favList" track-by="SysNo">
+                        <li>
+                            <div class="item-content">
+                                <div class="item-media">
+                                    <a :href="'/product/detail?id='+favorite.SysNo" class="external">
+                                        <img :src="favorite.ImgUrl" style='width: 5.53rem;'>
+                                    </a>
                                 </div>
-                                <div class="row">
-                                    <div class="col-50">
-                                        <span class="icon like icon-likeactive"> <span class="my-28-text my-gray-text">已收藏</span></span>
+                                <div class="item-inner">
+                                    <div class="item-title-row">
+                                        <div class="item-title">${favorite.Name.length > 15 ? favorite.Name.substring(0,15)+'...':favorite.Name}
+                                            <br>
+                                            <span class="my-red-text my-28-text">￥${favorite.MinPrice && favorite.MaxPrice ? favorite.MinPrice+'~'+favorite.MaxPrice:favorite.Price}</span>
+                                        </div>
                                     </div>
-                                    <div class="col-50 my-right-text">
-                                        <a href="#" class="button button-fill">加入采购车</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-media">
-                                <a href="/product/detail?id=1" class="external">
-                                    <img src="../images/demo/miaosha.gif" style='width: 5.53rem;'>
-                                </a>
-                            </div>
-                            <div class="item-inner">
-                                <div class="item-title-row">
-                                    <div class="item-title">商品名称商品名称商品名称商品名称商品名称
-                                        <br>
-                                        <span class="my-red-text my-28-text">￥15.5~￥130</span> </div>
-
-                                </div>
-                                <div class="row">
-                                    <div class="col-50">
-                                        <span class="icon like icon-likeactive"> <span class="my-28-text my-gray-text">已收藏</span></span>
-                                    </div>
-                                    <div class="col-50 my-right-text">
-                                        <a href="#" class="button button-fill">加入采购车</a>
+                                    <div class="row">
+                                        <div class="col-50">
+                                            <span @click.prevent="addToFav($index)" class="icon like" :class="{'icon-like': !favorite.isLike, 'icon-likeactive': favorite.isLike}"> <span class="my-28-text my-gray-text">${favorite.isLike ?'已收藏':'收藏'}</span></span>
+                                        </div>
+                                        <div class="col-50 my-right-text">
+                                            <a href="#" @click.prevent="OpenCart($index)" class="button button-fill">加入采购车</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-media">
-                                <a href="/product/detail?id=1" class="external">
-                                    <img src="../images/demo/miaosha.gif" style='width: 5.53rem;'>
-                                </a>
-                            </div>
-                            <div class="item-inner">
-                                <div class="item-title-row">
-                                    <div class="item-title">商品名称商品名称商品名称商品名称商品名称
-                                        <br>
-                                        <span class="my-red-text my-28-text">￥15.5~￥130</span> </div>
-
-                                </div>
-                                <div class="row">
-                                    <div class="col-50">
-                                        <span class="icon like icon-likeactive"> <span class="my-28-text my-gray-text">已收藏</span></span>
-                                    </div>
-                                    <div class="col-50 my-right-text">
-                                        <a href="#" class="button button-fill">加入采购车</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-media">
-                                <a href="/product/detail?id=1" class="external">
-                                    <img src="../images/demo/miaosha.gif" style='width: 5.53rem;'>
-                                </a>
-                            </div>
-                            <div class="item-inner">
-                                <div class="item-title-row">
-                                    <div class="item-title">商品名称商品名称商品名称商品名称商品名称
-                                        <br>
-                                        <span class="my-red-text my-28-text">￥15.5~￥130</span> </div>
-
-                                </div>
-                                <div class="row">
-                                    <div class="col-50">
-                                        <span class="icon like icon-likeactive"> <span class="my-28-text my-gray-text">已收藏</span></span>
-                                    </div>
-                                    <div class="col-50 my-right-text">
-                                        <a href="#" class="button button-fill">加入采购车</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-media">
-                                <a href="/product/detail?id=1" class="external">
-                                    <img src="../images/demo/miaosha.gif" style='width: 5.53rem;'>
-                                </a>
-                            </div>
-                            <div class="item-inner">
-                                <div class="item-title-row">
-                                    <div class="item-title">商品名称商品名称商品名称商品名称商品名称
-                                        <br>
-                                        <span class="my-red-text my-28-text">￥15.5~￥130</span> </div>
-
-                                </div>
-                                <div class="row">
-                                    <div class="col-50">
-                                        <span class="icon like icon-likeactive"> <span class="my-28-text my-gray-text">已收藏</span></span>
-                                    </div>
-                                    <div class="col-50 my-right-text">
-                                        <a href="#" class="button button-fill">加入采购车</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-media">
-                                <a href="/product/detail?id=1" class="external">
-                                    <img src="../images/demo/miaosha.gif" style='width: 5.53rem;'>
-                                </a>
-                            </div>
-                            <div class="item-inner">
-                                <div class="item-title-row">
-                                    <div class="item-title">商品名称商品名称商品名称商品名称商品名称
-                                        <br>
-                                        <span class="my-red-text my-28-text">￥15.5~￥130</span> </div>
-
-                                </div>
-                                <div class="row">
-                                    <div class="col-50">
-                                        <span class="icon like icon-likeactive"> <span class="my-28-text my-gray-text">已收藏</span></span>
-                                    </div>
-                                    <div class="col-50 my-right-text">
-                                        <a href="#" class="button button-fill">加入采购车</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-media">
-                                <a href="/product/detail?id=1" class="external">
-                                    <img src="../images/demo/miaosha.gif" style='width: 5.53rem;'>
-                                </a>
-                            </div>
-                            <div class="item-inner">
-                                <div class="item-title-row">
-                                    <div class="item-title">商品名称商品名称商品名称商品名称商品名称
-                                        <br>
-                                        <span class="my-red-text my-28-text">￥15.5~￥130</span> </div>
-
-                                </div>
-                                <div class="row">
-                                    <div class="col-50">
-                                        <span class="icon like icon-likeactive"> <span class="my-28-text my-gray-text">已收藏</span></span>
-                                    </div>
-                                    <div class="col-50 my-right-text">
-                                        <a href="#" class="button button-fill">加入采购车</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
+                        </li>
+                    </template>
                 </ul>
+                <div class="infinite-scroll-preloader" v-show="favList.length > 10">
+                    <div class="preloader"></div>
+                </div>
             </div>
         </div>
         <a href="/cart/cart-no-footer" class="my-product-cart external">
@@ -202,13 +57,13 @@
             <ul>
                 <li>
                     <div class="item-content">
-                        <div class="item-media"><img src="../images/demo/popup.gif" style='width: 3.65rem;'></div>
+                        <div class="item-media"><img :src="curImg" style='width: 3.65rem;'></div>
                         <div class="item-inner">
                             <div class="item-title-row">
-                                <div class="item-title">商品名称商品名称商品名称 商品名称
+                                <div class="item-title">${product.Name}
                                 </div>
                             </div>
-                            <div class="item-subtitle my-red-text my-30-text">￥130.00</div>
+                            <div class="item-subtitle my-red-text my-30-text">￥${curPrice}</div>
                         </div>
                     </div>
                 </li>
@@ -217,22 +72,15 @@
         <div class="content-padded">
             <p class="my-26-text">规格一</p>
             <ul class="my-ul-spec my-ul clearfix">
-                <li class="my-spec-on"><a href="#">包</a></li>
-                <li><a href="#">组</a></li>
-                <li><a href="#">箱</a></li>
-                <li><a href="#">箱</a></li>
-            </ul>
-            <ul class="my-ul-spec my-ul clearfix">
-                <li><a href="#">500g</a></li>
-                <li><a href="#">1000g</a></li>
-                <li><a href="#">2000g</a></li>
-                <li><a href="#">3000g</a></li>
+                <template v-for="sku in product.SkuList" track-by="SysNo">
+                    <li :class="{'my-spec-on': $index === 0}" :value="$index"><a href="#">${sku.SizeName}</a></li>
+                </template>
             </ul>
             <p class="my-26-text">购买数量&nbsp;&nbsp;&nbsp;<span class="p-num fn-op-num"> <em class="em-op em-op-d">-</em><input name="txt" type="text" class="txt txt-num" v-model="addCartNum"><em class="em-op em-op-a">+</em></span></p>
         </div>
-        <a href="#" class="my-a-cart close-popup">加入采购车</a>
+        <a href="#" @click.prevent="addToCart()" class="my-a-cart close-popup">加入采购车</a>
     </div>
 </div>
 <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
-<script type='text/javascript' src='../js/lib/requirejs.min.js' data-main='../js/controller/user-ctrl'></script>
+<script type='text/javascript' src='../js/lib/requirejs.min.js' data-main='../js/controller/user-ctrl.min'></script>

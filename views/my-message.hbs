@@ -2,72 +2,29 @@
     <div id="page-my-message" class="page page-current">
         <div class="content native-scroll">
             <div class="list-block media-list my-message-list">
-                <ul>
-                    <li>
-                        <a href="#" class=" item-content open-message-modal">
-                            <div class="item-media"><span class="icon icon-notice"></span><span class="badge"></span></div>
-                            <div class="item-inner">
-                                <div class="item-title-row">
-                                    <div class="item-title my-30-text"><strong>消息标题</strong></div>
-                                    <div class="item-after my-22-text my-gray-text">今天 08:00</div>
+                <ul v-cloak>
+                    <template v-for="notice in notices" track-by="NoticeSysno">
+                        <li>
+                            <a href="#" @click.prevent="openMsg($index)" class=" item-content open-message-modal">
+                                <div class="item-media"><span class="icon icon-notice"></span><span class="badge" v-if="!notice.IfRead"></span></div>
+                                <div class="item-inner">
+                                    <div class="item-title-row">
+                                        <div class="item-title my-30-text"><strong>${notice.NoticeTitle}</strong></div>
+                                        <div class="item-after my-22-text my-gray-text">${notice.InDate}</div>
+                                    </div>
+                                    <div class="item-subtitle my-24-text my-gray-text">${notice.NoticeContext.length > 20 ? notice.NoticeContext.substring(0,20)+'...':notice.NoticeContext}</div>
                                 </div>
-                                <div class="item-subtitle my-24-text my-gray-text">又到了周四大特卖！还在等什么呢！手快有...</div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class=" item-content open-message-modal">
-                            <div class="item-media"><span class="icon icon-notice"></span><span class="badge"></span></div>
-                            <div class="item-inner">
-                                <div class="item-title-row">
-                                    <div class="item-title my-30-text"><strong>消息标题</strong></div>
-                                    <div class="item-after my-22-text my-gray-text">今天 08:00</div>
-                                </div>
-                                <div class="item-subtitle my-24-text my-gray-text">又到了周四大特卖！还在等什么呢！手快有...</div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class=" item-content open-message-modal">
-                            <div class="item-media"><span class="icon icon-notice"></span></div>
-                            <div class="item-inner">
-                                <div class="item-title-row">
-                                    <div class="item-title my-30-text"><strong>消息标题</strong></div>
-                                    <div class="item-after my-22-text my-gray-text">昨天 19:45</div>
-                                </div>
-                                <div class="item-subtitle my-24-text my-gray-text">又到了周四大特卖！还在等什么呢！手快有...</div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class=" item-content open-message-modal">
-                            <div class="item-media"><span class="icon icon-notice"></span></div>
-                            <div class="item-inner">
-                                <div class="item-title-row">
-                                    <div class="item-title my-30-text"><strong>消息标题</strong></div>
-                                    <div class="item-after my-22-text my-gray-text">01-12 09:45</div>
-                                </div>
-                                <div class="item-subtitle my-24-text my-gray-text">又到了周四大特卖！还在等什么呢！手快有...</div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class=" item-content open-message-modal">
-                            <div class="item-media"><span class="icon icon-notice"></span></div>
-                            <div class="item-inner">
-                                <div class="item-title-row">
-                                    <div class="item-title my-30-text"><strong>消息标题</strong></div>
-                                    <div class="item-after my-22-text my-gray-text">01-12 09:45</div>
-                                </div>
-                                <div class="item-subtitle my-24-text my-gray-text">又到了周四大特卖！还在等什么呢！手快有...</div>
-                            </div>
-                        </a>
-                    </li>
+                            </a>
+                        </li>
+                    </template>
                 </ul>
+                <div class="infinite-scroll-preloader" v-show="notice.length > 20">
+                    <div class="preloader"></div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
-<script type='text/javascript' src='../js/lib/requirejs.min.js' data-main='../js/controller/user-ctrl'></script>
+<script type='text/javascript' src='../js/lib/requirejs.min.js' data-main='../js/controller/user-ctrl.min'></script>

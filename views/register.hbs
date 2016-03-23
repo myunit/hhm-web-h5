@@ -18,7 +18,7 @@
                             <div class="item-content my-div-reset">
                                 <div class="item-media"><i class="icon icon-idcode"></i></div>
                                 <div class="item-inner">
-                                    <a v-cloak href="#" id="sendCaptcha" class="my-a-reset my-26-text" :class= "{'my-black-text':!isSendCaptcha , 'my-gray-text':isSendCaptcha}">${captchaTip}</a>
+                                    <a v-cloak href="#" @click.prevent="sendCaptcha" class="my-a-reset my-26-text" :class= "{'my-black-text':!isSendCaptcha , 'my-gray-text':isSendCaptcha}">${captchaTip}</a>
                                     <div class="item-input">
                                         <input type="text" placeholder="请输入验证码" v-model="captcha">
                                     </div>
@@ -52,7 +52,7 @@
                         </li>
                     </ul>
                 </div>
-                <p class="my-50-mar" v-cloak><a href="#" id="submitReg" class="button button-fill button-big" :class="{'button-disable': isDisable}">下一步</a></p>
+                <p class="my-50-mar" v-cloak><a href="#" @click.prevent="submitReg" class="button button-fill button-big" :class="{'button-disable': isDisable}">下一步</a></p>
             </div>
         </div>
     </div>
@@ -60,5 +60,4 @@
 <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
-<script type="text/javascript" src="//g.alicdn.com/msui/sm/0.6.2/js/sm-city-picker.min.js" charset="utf-8"></script>
-<script type='text/javascript' src='js/lib/requirejs.min.js' data-main='js/controller/index-ctrl'></script>
+<script type='text/javascript' src='js/lib/requirejs.min.js' data-main='js/controller/index-ctrl.min'></script>

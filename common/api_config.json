@@ -1,0 +1,61 @@
+{
+  "loginService": {
+    "baseUrl": "http://120.27.148.53:30000/login/v1/",
+    "method": {
+      "login": "Customers/login",
+      "forgetPassword": "Customers/forget-password",
+      "getCaptcha": "Customers/get-captcha",
+      "logout": "Customers/logout",
+      "modifyPassword": "Customers/modify-password",
+      "register": "Customers/register",
+      "registerAndLogin": "Customers/register-and-login"
+    }
+  },
+  "customerService": {
+    "baseUrl": "http://120.27.148.53:30001/customer/v1/",
+    "method": {
+      "perfectCustomerInfo": "Customers/perfect-customer-info",
+      "getStoreInfo": "Customers/get-store-info",
+      "setStoreInfo": "Customers/set-store-info",
+      "getNoticeMessage": "Customers/get-notice-message",
+      "getUnreadNoticeCount": "Customers/get-unread-notice-count",
+      "setNoticeStatus": "Customers/set-notice-status",
+      "getReceiver": "Addresses/get-receiver",
+      "setDefaultReceiver": "Addresses/set-default-receiver",
+      "delReceiver": "Addresses/del-receiver",
+      "modifyReceiver": "Addresses/modify-receiver",
+      "addReceiver": "Addresses/add-receiver",
+      "getMyFavorite": "Favorites/get-my-favorite",
+      "addFavorite": "Favorites/add-favorite",
+      "delFavorite": "Favorites/del-favorite"
+    }
+  },
+  "productService": {
+    "baseUrl": "http://120.27.148.53:30002/product/v1/",
+    "method": {
+      "getCategory": "Products/get-category",
+      "getCategoryProduct": "Products/get-category-product",
+      "getNewProduct": "Products/get-new-product",
+      "getSalesProduct": "Products/get-sales-product",
+      "getSecKillProduct": "Products/get-secKill-product",
+      "getProductDetail": "Products/get-product-detail",
+      "getSecKillProductDetail": "Products/get-secKill-product-detail",
+      "getGroupProductDetail": "Products/get-group-product-detail",
+      "getHome": "Products/get-home-config",
+      "getRecommend": "Products/get-recommend",
+      "getRecommendProduct": "Products/get-recommend-product",
+      "getGroupProduct": "Products/get-group-product"
+    }
+  },
+  "shoppingService": {
+    "baseUrl": "http://120.27.148.53:30004/shopping/v1/",
+    "method": {
+      "addToCart": "Shopping/add-to-cart",
+      "delInCart": "Shopping/delete-in-cart",
+      "getCartInfo": "Shopping/get-cart-info",
+      "getCountInCart": "Shopping/get-count-in-cart",
+      "modifyQtyInCart": "Shopping/modify-qty-in-cart",
+      "submitOrder": "Shopping/submit-order"
+    }
+  }
+}
