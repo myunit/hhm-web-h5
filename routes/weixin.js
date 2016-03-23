@@ -18,10 +18,8 @@ router.get('/code', function (req, res, next) {
 router.get('/oauth', function (req, res, next) {
   nwo.success(app, code, function(error, body) {
     if (!error) {
-      console.log(JSON.stringify(body));
       var accessToken = body.acess_token;
       var refreshToken = body.refresh_token;
-      var openId = body.openid;
     }
   });
 });
