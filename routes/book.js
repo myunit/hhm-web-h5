@@ -49,6 +49,36 @@ router.route('/confirm')
       });
   });
 
+router.route('/wx-pay')
+  .get(function (req, res, next) {
+    res.render('booking-confirm', {title: '订单确认-好好卖'});
+  })
+  .post(function (req, res, next) {
+    unirest.post(shoppingApi.submitOrder())
+      .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'X-Access-Token': req.session.token})
+      .send({
+        "userId": req.session.uid,
+        "receiverId": parseInt(req.body.receiverId),
+        "logistics": req.body.logistics,
+        "payment": parseInt(req.body.payment),
+        "cartIds": JSON.parse(req.body.cartIds),
+        "device": ""
+      })
+      .end(function (response) {
+        var data = response.body.repData;
+        if (data === undefined) {
+          res.json({status: 0, msg: '服务异常'});
+          return;
+        }
+
+        if (data.status) {
+          res.json({status: data.status, orderId: data.orderId});
+        } else {
+          res.json({status: data.status, msg: data.msg});
+        }
+      });
+  });
+
 router.get('/complete', function (req, res, next) {
   res.render('booking-complete', {title: '提交完成-好好卖'});
 });

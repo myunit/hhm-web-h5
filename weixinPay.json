@@ -1,0 +1,9 @@
+{
+  "appId":"wx0a10df7141c03eef",
+  "secret":"5c7a120931f5b0a7611d649397b7d545",
+  "mch_id":"1300450901",
+  "app_mch_key":"49b5b2eaed4c4a089d4ef71ceaed58f3",
+  "pay_url":"https://api.mch.weixin.qq.com/pay/unifiedorder",
+  "auth_url":"http://yajore.gicp.net/XiangHuoQuan/wx_auth.aspx",
+  "notify_url":"http://yajore.gicp.net/XiangHuoQuan/Pay/wxpay/wxcallback.aspx"
+}
