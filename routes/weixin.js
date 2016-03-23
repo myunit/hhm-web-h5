@@ -10,7 +10,7 @@ var nwo = require('node-weixin-oauth');
 var wx_conf = require('../weixinPay.json');
 
 router.get('/code', function (req, res, next) {
-  var url = nwo.createURL(wx_conf.appId, 'http://qianqing.site//weixin/oauth', req.query.productId, 0);
+  var url = nwo.createURL(wx_conf.appId, 'http://joneqian.top/weixin/oauth', req.query.productId, 0);
   console.log(url);
   res.redirect(url);
 });
