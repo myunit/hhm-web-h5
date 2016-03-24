@@ -21,6 +21,9 @@ var ApiFactory = {
       case "shopping":
         api = new ShoppingApi();
         break;
+      case "order":
+        api = new OrderApi();
+        break;
       default:
         throw new Error("ApiFactory Unsupported: " + model);
         break;
@@ -162,5 +165,13 @@ ShoppingApi.prototype = {
   },
   submitOrder : function(){
     return api_config.shoppingService.baseUrl + api_config.shoppingService.method.submitOrder;
+  }
+};
+
+var OrderApi = function(){};
+
+OrderApi.prototype = {
+  getOrderDetail : function(){
+    return api_config.orderService.baseUrl + api_config.orderService.method.getOrderDetail;
   }
 };

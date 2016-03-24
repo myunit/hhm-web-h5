@@ -57,5 +57,11 @@
       "modifyQtyInCart": "Shopping/modify-qty-in-cart",
       "submitOrder": "Shopping/submit-order"
     }
+  },
+  "orderService": {
+    "baseUrl": "http://120.27.148.53:30003/order/v1/",
+    "method": {
+      "getOrderDetail": "Orders/get-order-detail"
+    }
   }
 }

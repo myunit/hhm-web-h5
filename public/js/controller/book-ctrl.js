@@ -167,9 +167,9 @@
             if (err) {
               $.toast(err, 1000);
             } else {
-              console.log(JSON.stringify(data));
               if (vm.payment === 1) {
-                location.href = '/book/pay-way';
+                location.href = '/weixin/oauth?orderId='+data.orderId;
+                $.showPreloader('准备支付...');
                 return;
               }
 
@@ -192,10 +192,57 @@
       });
 
       $(document).on("pageInit", "#page-book-pay-way", function (e, id, page) {
+        var search = Utils.getSearch(location);
+        var openId = 0;
+        var orderId = 0;
+        if (!search['openId'] || !search['orderId']) {
+          location.href = '/';
+        }
+        openId = search['openId'];
+        orderId = parseInt(search['orderId']);
+
         var vm = new Vue({
           el: '#page-book-pay-way',
-          data: {}
+          data: {
+            amount: 0,
+            isReady: false
+          },
+          methods: {
+            pay: pay
+          }
         });
+
+        function getOrderDetail(){
+          ajaxPost('/book/detail', {orderId: orderId}, function (err, data) {
+            $.hidePreloader();
+            if (err) {
+              $.toast(err, 1000);
+              //location.href = '/users/my-book'
+            } else {
+              var order = data.order;
+              vm.amount = order.Amount*100;
+              vm.isReady = true;
+            }
+          });
+        }
+
+        getOrderDetail();
+        $.showPreloader('请稍等...');
+
+        function pay () {
+          ajaxPost('/weixin/pay', {openId: openId, orderId: orderId, amount: vm.amount}, function (err, data) {
+            $.hidePreloader();
+            if (err) {
+              $.toast(err, 1000);
+            } else {
+              var order = data.order;
+              vm.order.orderId = order.OrderId;
+              vm.order.amount = order.Amount;
+              vm.isReady = true;
+            }
+          });
+        }
+
       });
 
       $(document).on("pageInit", "#page-book-detail", function (e, id, page) {

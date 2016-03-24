@@ -4,6 +4,6 @@
   "mchId":"1300450901",
   "mchKey":"49b5b2eaed4c4a089d4ef71ceaed58f3",
   "payUrl":"https://api.mch.weixin.qq.com/pay/unifiedorder",
-  "authUrl":"http://joneqian.top/weixin/oauth",
+  "authUrl":"http://yajore.6655.la/weixin/oauth",
   "notifyUrl":"http://yajore.gicp.net/XiangHuoQuan/Pay/wxpay/wxcallback.aspx"
 }
