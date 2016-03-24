@@ -8,27 +8,22 @@ var unirest = require('unirest');
 var router = express.Router();
 var nwo = require('node-weixin-oauth');
 var wx_conf = require('../weixinPay');
-var nodeWeixinPay = require('node-weixin-pay');
-var nodeWeixinConfig = require('node-weixin-config');
+var WXPay = require('weixin-pay');
+var path = require('path');
+var fs = require('fs');
+
+var wxpay = WXPay({
+  appid: wx_conf.appId,
+  mch_id: wx_conf.mchId,
+  partner_key: wx_conf.apiKey, //微信商户平台API密钥
+  pfx: fs.readFileSync(path.resolve('apiclient_cert.p12'))//微信商户平台证书
+});
 
 var app = {
   id: wx_conf.appId,
   secret: wx_conf.secret,
   token: 'weixin'
 };
-
-var merchant = {
-  id: wx_conf.mchId,
-  key: wx_conf.mchKey
-};
-
-var config = {
-  app: app,
-  merchant: merchant
-};
-
-nodeWeixinConfig.app.init(app);
-nodeWeixinConfig.merchant.init(merchant);
 
 router.get('/oauth', function (req, res, next) {
   var url = nwo.createURL(wx_conf.appId, "http://yajore.6655.la/weixin/openId", req.query.orderId, 0);
@@ -47,30 +42,22 @@ router.get('/openId', function (req, res, next) {
 });
 
 router.post('/pay', function (req, res, next) {
-  var params = { openid: req.body.openId,
+  var params = {
+    openid: req.body.openId,
     spbill_create_ip: getClientIp(req),
     notify_url: 'http://yajore.6655.la/weixin/payres',
     body: '好好麦H5支付',
-    out_trade_no: req.body.orderId,
-    total_fee: req.body.amount,
-    trade_type: 'JSAPI',
-    appid: app.id,
-    mch_id: merchant.id,
-    nonce_str: 'XjUw56N8MjeCUqHCwqgiKwr2CJVgYUpe' };
+    detail: '公众号支付',
+    out_trade_no: req.body.orderId+Math.random().toString().substr(2, 10),
+    total_fee: req.body.amount
+  };
 
-  var sign = nodeWeixinPay.sign(merchant, params);
-  var id = 'id';
-  var config = nodeWeixinPay.prepay(app, merchant, id);
-  nodeWeixinPay.api.order.unified(config, params, function(error, data) {
-    if (error) {
-      console.log('nodeWeixinPay error: ' + error);
-      console.log('nodeWeixinPay data: ' + JSON.stringify(data));
-    } else {
-      console.log('nodeWeixinPay error: ' + error);
-      console.log('nodeWeixinPay data: ' + JSON.stringify(data));
-    }
+  wxpay.getBrandWCPayRequestParams(params, function(err, result){
+    // in express
+    res.json({status:1});
+    //res.render('wxpay/jsapi', { payargs:result })
   });
-  res.json({status:1});
+
 });
 
 router.get('/payres', function (req, res, next) {

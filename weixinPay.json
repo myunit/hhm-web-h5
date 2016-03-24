@@ -3,6 +3,7 @@
   "secret":"5c7a120931f5b0a7611d649397b7d545",
   "mchId":"1300450901",
   "mchKey":"49b5b2eaed4c4a089d4ef71ceaed58f3",
+  "apiKey":"weixinmyuncactus1232016032400010",
   "payUrl":"https://api.mch.weixin.qq.com/pay/unifiedorder",
   "authUrl":"http://yajore.6655.la/weixin/oauth",
   "notifyUrl":"http://yajore.gicp.net/XiangHuoQuan/Pay/wxpay/wxcallback.aspx"
