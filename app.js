@@ -15,6 +15,7 @@ var product = require('./routes/product');
 var cart = require('./routes/cart');
 var book = require('./routes/book');
 var address = require('./routes/address');
+var weixin = require('./routes/weixin');
 
 var app = express();
 
@@ -52,6 +53,7 @@ app.use('/product', product);
 app.use('/cart', cart);
 app.use('/book', book);
 app.use('/address', address);
+app.use('/weixin', weixin);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

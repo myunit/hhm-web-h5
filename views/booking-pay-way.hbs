@@ -5,7 +5,7 @@
             <div class="list-block media-list">
                 <ul>
                     <li>
-                        <a href="/book/complete" class="item-link item-content external">
+                        <a href="#" @click.prevent="pay()" class="item-link item-content external">
 
                             <div class="item-media"><img src="../images/weixin.png" style='width: 2.12rem;'></div>
                             <div class="item-inner">
@@ -17,17 +17,6 @@
 
                         </a>
                     </li>
-                    <li>
-                        <a href="/book/complete" class="item-link item-content external">
-                            <div class="item-media"><img src="../images/alipay.png" style='width: 2.12rem;'></div>
-                            <div class="item-inner">
-                                <div class="item-title-row">
-                                    <div class="item-title">支付宝支付</div>
-                                </div>
-                                <div class="item-subtitle my-gray-text my-22-text">推荐有支付宝账户的用户使用</div>
-                            </div>
-                        </a>
-                    </li>
                 </ul>
             </div>
         </div>
@@ -35,4 +24,4 @@
 </div>
 <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
-<script type='text/javascript' src='../js/lib/requirejs.min.js' data-main='../js/controller/book-ctrl.min'></script>
+<script type='text/javascript' src='../js/lib/requirejs.min.js' data-main='../js/controller/book-ctrl'></script>

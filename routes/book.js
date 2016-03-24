@@ -9,6 +9,7 @@ var ApiFactory = require('../common/api_config');
 var router = express.Router();
 
 var shoppingApi = ApiFactory.CreateApi('shopping');
+var orderApi = ApiFactory.CreateApi('order');
 
 router.use(function (req, res, next) {
   if (req.session.uid) {
@@ -57,9 +58,31 @@ router.get('/pay-way', function (req, res, next) {
   res.render('booking-pay-way', {title: '在线支付-好好卖'});
 });
 
-router.get('/detail', function (req, res, next) {
-  res.render('booking-detail', {title: '订单详情-好好卖'});
-});
+router.route('/detail')
+  .get(function (req, res, next) {
+    res.render('booking-detail', {title: '订单详情-好好卖'});
+  })
+  .post(function (req, res, next) {
+    unirest.post(orderApi.getOrderDetail())
+      .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'X-Access-Token': req.session.token})
+      .send({
+        "userId": req.session.uid,
+        "orderId": parseInt(req.body.orderId)
+      })
+      .end(function (response) {
+        var data = response.body.repData;
+        if (data === undefined) {
+          res.json({status: 0, msg: '服务异常'});
+          return;
+        }
+
+        if (data.status) {
+          res.json({status: data.status, order: data.order});
+        } else {
+          res.json({status: data.status, msg: data.msg});
+        }
+      });
+  });
 
 
 module.exports = router;
