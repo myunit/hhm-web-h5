@@ -168,7 +168,7 @@
               $.toast(err, 1000);
             } else {
               if (vm.payment === 1) {
-                location.href = '/weixin/oauth?orderId=' + data.orderId;
+                location.href = '/weixin/oauth?orderId=' + data.orderId + '&name=' + vm.receiver.receiver;
                 $.showPreloader('准备支付...');
                 return;
               }
@@ -195,11 +195,15 @@
         var search = Utils.getSearch(location);
         var openId = 0;
         var orderId = 0;
-        if (!search['openId'] || !search['orderId']) {
+        var userName = '';
+        if (!search['openId'] || !search['state']) {
           location.href = '/';
         }
         openId = search['openId'];
-        orderId = parseInt(search['orderId']);
+        var state = search['state'];
+        state = state.split('@');
+        orderId = parseInt(state[0]);
+        userName = state[1];
 
         var vm = new Vue({
           el: '#page-book-pay-way',
@@ -233,7 +237,6 @@
           WeixinJSBridge.invoke(
             'getBrandWCPayRequest', payargs,
             function (res) {
-              alert(JSON.stringify(res));
               if (res.err_msg == "get_brand_wcpay_request:ok") {
                 location.href = '/book/complete';
               } else {
@@ -247,7 +250,7 @@
         }
 
         function pay() {
-          ajaxPost('/weixin/pay', {openId: openId, orderId: orderId, amount: vm.amount}, function (err, data) {
+          ajaxPost('/weixin/pay', {openId: openId, orderId: orderId, amount: vm.amount, userName:userName}, function (err, data) {
             $.hidePreloader();
             if (err) {
               $.toast(err, 1000);

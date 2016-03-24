@@ -173,5 +173,8 @@ var OrderApi = function(){};
 OrderApi.prototype = {
   getOrderDetail : function(){
     return api_config.orderService.baseUrl + api_config.orderService.method.getOrderDetail;
+  },
+  createPaymentRecord : function(){
+    return api_config.orderService.baseUrl + api_config.orderService.method.createPaymentRecord;
   }
 };
