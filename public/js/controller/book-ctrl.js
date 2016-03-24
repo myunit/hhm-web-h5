@@ -233,12 +233,17 @@
           WeixinJSBridge.invoke(
             'getBrandWCPayRequest', payargs,
             function (res) {
-              if (res.err_msg == "get_brand_wcpay_request：ok") {
-                console.log('pay ok');
+              alert(JSON.stringify(res));
+              if (res.err_msg == "get_brand_wcpay_request:ok") {
+                location.href = '/book/complete';
+              } else {
+                $.toast('支付失败, 请到我的订单重新支付！', 1000);
+                setTimeout(function () {
+                  location.href = '/users/my-book';
+                }, 1000);
               }
             }
-          )
-          ;
+          );
         }
 
         function pay() {
@@ -247,7 +252,6 @@
             if (err) {
               $.toast(err, 1000);
             } else {
-              console.log(data.payargs);
               onBridgeReady(data.payargs);
             }
           });

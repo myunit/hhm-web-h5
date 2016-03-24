@@ -48,7 +48,7 @@ router.post('/pay', function (req, res, next) {
     notify_url: 'http://yajore.6655.la/weixin/pay-notify',
     body: '好好麦H5支付',
     detail: '公众号支付',
-    out_trade_no: req.body.orderId+Math.random().toString().substr(2, 10),
+    out_trade_no: req.body.orderId+'T'+Math.random().toString().substr(2, 10),
     total_fee: req.body.amount
   };
 
@@ -64,9 +64,8 @@ router.post('/pay', function (req, res, next) {
 
 router.use('/pay-notify', wxpay.useWXCallback(function(msg, req, res, next){
   // 处理商户业务逻辑
-  console.log('pay-notify msg:' + msg);
-  console.log('pay-notify req:' + JSON.stringify(req));
-  console.log('pay-notify res:' + JSON.stringify(res));
+
+  console.log('pay-notify msg: ' + JSON.stringify(msg));
   // res.success() 向微信返回处理成功信息，res.fail()返回失败信息。
   res.success();
 }));
