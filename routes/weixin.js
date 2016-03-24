@@ -45,7 +45,7 @@ router.post('/pay', function (req, res, next) {
   var params = {
     openid: req.body.openId,
     spbill_create_ip: getClientIp(req),
-    notify_url: 'http://yajore.6655.la/weixin/payres',
+    notify_url: 'http://yajore.6655.la/weixin/pay-notify',
     body: '好好麦H5支付',
     detail: '公众号支付',
     out_trade_no: req.body.orderId+Math.random().toString().substr(2, 10),
@@ -54,16 +54,22 @@ router.post('/pay', function (req, res, next) {
 
   wxpay.getBrandWCPayRequestParams(params, function(err, result){
     // in express
-    res.json({status:1});
-    //res.render('wxpay/jsapi', { payargs:result })
+    if (err) {
+      res.json({status:0});
+    } else {
+      res.json({status:1, payargs:result});
+    }
   });
-
 });
 
-router.get('/payres', function (req, res, next) {
-  console.log(JSON.stringify(req.body));
-  console.log(JSON.stringify(req.query));
-});
+router.use('/pay-notify', wxpay.useWXCallback(function(msg, req, res, next){
+  // 处理商户业务逻辑
+  console.log('pay-notify msg:' + msg);
+  console.log('pay-notify req:' + JSON.stringify(req));
+  console.log('pay-notify res:' + JSON.stringify(res));
+  // res.success() 向微信返回处理成功信息，res.fail()返回失败信息。
+  res.success();
+}));
 
 function getClientIp(req) {
   var ip =  req.connection.remoteAddress;

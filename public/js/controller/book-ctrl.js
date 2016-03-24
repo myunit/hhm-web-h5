@@ -168,7 +168,7 @@
               $.toast(err, 1000);
             } else {
               if (vm.payment === 1) {
-                location.href = '/weixin/oauth?orderId='+data.orderId;
+                location.href = '/weixin/oauth?orderId=' + data.orderId;
                 $.showPreloader('准备支付...');
                 return;
               }
@@ -212,7 +212,7 @@
           }
         });
 
-        function getOrderDetail(){
+        function getOrderDetail() {
           ajaxPost('/book/detail', {orderId: orderId}, function (err, data) {
             $.hidePreloader();
             if (err) {
@@ -220,7 +220,7 @@
               //location.href = '/users/my-book'
             } else {
               var order = data.order;
-              vm.amount = order.Amount*100;
+              vm.amount = order.Amount * 100;
               vm.isReady = true;
             }
           });
@@ -229,16 +229,26 @@
         getOrderDetail();
         $.showPreloader('请稍等...');
 
-        function pay () {
+        function onBridgeReady(payargs) {
+          WeixinJSBridge.invoke(
+            'getBrandWCPayRequest', payargs,
+            function (res) {
+              if (res.err_msg == "get_brand_wcpay_request：ok") {
+                console.log('pay ok');
+              }
+            }
+          )
+          ;
+        }
+
+        function pay() {
           ajaxPost('/weixin/pay', {openId: openId, orderId: orderId, amount: vm.amount}, function (err, data) {
             $.hidePreloader();
             if (err) {
               $.toast(err, 1000);
             } else {
-              var order = data.order;
-              vm.order.orderId = order.OrderId;
-              vm.order.amount = order.Amount;
-              vm.isReady = true;
+              console.log(data.payargs);
+              onBridgeReady(data.payargs);
             }
           });
         }
@@ -296,4 +306,7 @@
       $.init();
     }
   );
-}());
+}
+()
+)
+;
