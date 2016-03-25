@@ -29,7 +29,7 @@ var app = {
 };
 
 router.get('/oauth', function (req, res, next) {
-  var url = nwo.createURL(wx_conf.appId, "http://yajore.6655.la/weixin/openId", req.query.orderId + '@' + req.query.name, 0);
+  var url = nwo.createURL(wx_conf.appId, wx_conf.authUrl, req.query.orderId + '@' + req.query.name, 0);
   res.header('Access-Control-Allow-Origin', '*');
   res.redirect(url);
 });
@@ -48,7 +48,7 @@ router.post('/pay', function (req, res, next) {
   var params = {
     openid: req.body.openId,
     spbill_create_ip: getClientIp(req),
-    notify_url: 'http://yajore.6655.la/weixin/pay-notify',
+    notify_url: wx_conf.notifyUrl,
     body: '好好麦H5支付',
     detail: '公众号支付',
     out_trade_no: req.body.orderId + 'T' + Math.random().toString().substr(2, 10),
