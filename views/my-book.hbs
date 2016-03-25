@@ -28,9 +28,9 @@
                                 <li>
                                     <div class="row my-div-booking-list" v-cloak>
                                         <div class="col-50 my-gray-text">
-                                            <a href="#" @click.prevent="payOrder($index)" class="button button-red my-inline-display" v-if="order.canPay">去付款</a>
-                                            <a href="#" @click.prevent="cancelOrder($index)" class="button my-inline-display" v-if="order.canCancel">取消订单</a>
-                                            <a href="#" @click.prevent="reBuy($index)" class="button my-inline-display">再次购买</a>
+                                            <a href="#" @click.prevent="payOrder($index, 0)" class="button button-red my-inline-display" v-if="order.canPay">去付款</a>
+                                            <a href="#" @click.prevent="cancelOrder($index, 0)" class="button my-inline-display" v-if="order.canCancel">取消订单</a>
+                                            <a href="#" @click.prevent="reBuy($index, 0)" class="button my-inline-display">再次购买</a>
                                         </div>
                                         <div class="col-50 my-right-text my-22-text" v-cloak>共${order.TotalQuantity}件商品，合计 : ￥${order.Amount}</div>
                                     </div>
@@ -68,9 +68,9 @@
                                 <li>
                                     <div class="row my-div-booking-list" v-cloak>
                                         <div class="col-50 my-gray-text">
-                                            <a href="#" @click.prevent="payOrder($index)" class="button button-red my-inline-display" v-if="order.canPay">去付款</a>
-                                            <a href="#" @click.prevent="cancelOrder($index)" class="button my-inline-display" v-if="order.canCancel">取消订单</a>
-                                            <a href="#" @click.prevent="reBuy($index)" class="button my-inline-display">再次购买</a>
+                                            <a href="#" @click.prevent="payOrder($index, 1)" class="button button-red my-inline-display" v-if="order.canPay">去付款</a>
+                                            <a href="#" @click.prevent="cancelOrder($index, 1)" class="button my-inline-display" v-if="order.canCancel">取消订单</a>
+                                            <a href="#" @click.prevent="reBuy($index, 1)" class="button my-inline-display">再次购买</a>
                                         </div>
                                         <div class="col-50 my-right-text my-22-text" v-cloak>共${order.TotalQuantity}件商品，合计 : ￥${order.Amount}</div>
                                     </div>

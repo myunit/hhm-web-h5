@@ -642,9 +642,52 @@
             countAgo: 0
           },
           methods: {
-
+            payOrder: payOrder,
+            cancelOrder: cancelOrder,
+            reBuy: reBuy
           }
         });
+
+        function payOrder () {
+
+        }
+
+        function cancelOrder (index, type) {
+          $.confirm('确定删除该商品吗?',
+            function () {
+              var order = null;
+              if (type === 0) {
+                order = vm.orderListNow[index];
+              } else {
+                order = vm.orderListAgo[index];
+              }
+
+              ajaxPost('/book/cancel', {
+                orderId: order.OrderId
+              }, function (err, data) {
+                $.hidePreloader();
+                if (err) {
+                  $.toast(err, 1000);
+                } else {
+                  order.Status = "已取消";
+                  order.statusNote = "已取消";
+                  order.canCancel = false;
+                  order.canPay = false;
+                  order.reBuy = true;
+                }
+              });
+
+              $.showPreloader('取消订单');
+            },
+            function () {
+
+            }
+          );
+        }
+
+        function reBuy () {
+
+        }
 
         function upDataOrder (data) {
           var i = 0;

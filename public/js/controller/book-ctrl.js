@@ -293,23 +293,30 @@
         }
 
         function cancelOrder () {
-          ajaxPost('/book/cancel', {
-            orderId: vm.orderId
-          }, function (err, data) {
-            $.hidePreloader();
-            if (err) {
-              $.toast(err, 1000);
-            } else {
-              var order = vm.order;
-              order.Status = "已取消";
-              order.statusNote = "已取消";
-              order.canCancel = false;
-              order.canPay = false;
-              order.reBuy = true;
-            }
-          });
+          $.confirm('确定删除该商品吗?',
+            function () {
+              ajaxPost('/book/cancel', {
+                orderId: vm.orderId
+              }, function (err, data) {
+                $.hidePreloader();
+                if (err) {
+                  $.toast(err, 1000);
+                } else {
+                  var order = vm.order;
+                  order.Status = "已取消";
+                  order.statusNote = "已取消";
+                  order.canCancel = false;
+                  order.canPay = false;
+                  order.reBuy = true;
+                }
+              });
 
-          $.showPreloader('取消订单');
+              $.showPreloader('取消订单');
+            },
+            function () {
+
+            }
+          );
         }
 
         function reBuy () {
