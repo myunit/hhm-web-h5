@@ -12,6 +12,9 @@ var WXPay = require('weixin-pay');
 var path = require('path');
 var fs = require('fs');
 
+var ApiFactory = require('../common/api_config');
+var orderApi = ApiFactory.CreateApi('order');
+
 var wxpay = WXPay({
   appid: wx_conf.appId,
   mch_id: wx_conf.mchId,
@@ -26,15 +29,15 @@ var app = {
 };
 
 router.get('/oauth', function (req, res, next) {
-  var url = nwo.createURL(wx_conf.appId, "http://yajore.6655.la/weixin/openId", req.query.orderId, 0);
+  var url = nwo.createURL(wx_conf.appId, wx_conf.authUrl, req.query.orderId + '@' + req.query.name, 0);
   res.header('Access-Control-Allow-Origin', '*');
   res.redirect(url);
 });
 
 router.get('/openId', function (req, res, next) {
-  nwo.success(app, req.query.code, function(error, body) {
+  nwo.success(app, req.query.code, function (error, body) {
     if (!error) {
-      res.redirect('/book/pay-way?openId=' + body.openid + '&orderId=' + req.query.state);
+      res.redirect('/book/pay-way?openId=' + body.openid + '&state=' + req.query.state);
     } else {
       res.status(500).send('no openid!');
     }
@@ -45,36 +48,60 @@ router.post('/pay', function (req, res, next) {
   var params = {
     openid: req.body.openId,
     spbill_create_ip: getClientIp(req),
-    notify_url: 'http://yajore.6655.la/weixin/pay-notify',
+    notify_url: wx_conf.notifyUrl,
     body: '好好麦H5支付',
     detail: '公众号支付',
-    out_trade_no: req.body.orderId+Math.random().toString().substr(2, 10),
-    total_fee: req.body.amount
+    out_trade_no: req.body.orderId + 'T' + Math.random().toString().substr(2, 10),
+    total_fee: req.body.amount,
+    attach: req.session.uid + '#' + req.body.userName
   };
 
-  wxpay.getBrandWCPayRequestParams(params, function(err, result){
+  wxpay.getBrandWCPayRequestParams(params, function (err, result) {
     // in express
     if (err) {
-      res.json({status:0});
+      res.json({status: 0});
     } else {
-      res.json({status:1, payargs:result});
+      res.json({status: 1, payargs: result});
     }
   });
 });
 
-router.use('/pay-notify', wxpay.useWXCallback(function(msg, req, res, next){
+router.use('/pay-notify', wxpay.useWXCallback(function (msg, req, res, next) {
   // 处理商户业务逻辑
-  console.log('pay-notify msg:' + msg);
-  console.log('pay-notify req:' + JSON.stringify(req));
-  console.log('pay-notify res:' + JSON.stringify(res));
-  // res.success() 向微信返回处理成功信息，res.fail()返回失败信息。
+
+  if (msg.result_code === 'SUCCESS') {
+    var attach = msg.attach;
+    var out_trade_no = msg.out_trade_no;
+    var total = parseInt(msg.total_fee)/100;
+    attach = attach.split('#');
+    out_trade_no = out_trade_no.split('T');
+    var userId = parseInt(attach[0]);
+    var userName = attach[1];
+    var orderId = parseInt(out_trade_no[0]);
+
+    var obj = {
+      "userId": userId,
+      "orderId": orderId,
+      "note": "微信支付",
+      "buyer": userName,
+      "total": total,
+      "tradeId": msg.transaction_id,
+      "type": 13
+    };
+    console.log(JSON.stringify(obj));
+    unirest.post(orderApi.createPaymentRecord())
+      .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
+      .send(obj)
+      .end(function (response) {
+      });
+  }
   res.success();
 }));
 
 function getClientIp(req) {
-  var ip =  req.connection.remoteAddress;
+  var ip = req.connection.remoteAddress;
   ip = ip.split(':');
-  return ip[ip.length-1];
+  return ip[ip.length - 1];
 }
 
 module.exports = router;

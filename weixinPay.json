@@ -5,6 +5,6 @@
   "mchKey":"49b5b2eaed4c4a089d4ef71ceaed58f3",
   "apiKey":"weixinmyuncactus1232016032400010",
   "payUrl":"https://api.mch.weixin.qq.com/pay/unifiedorder",
-  "authUrl":"http://yajore.6655.la/weixin/oauth",
-  "notifyUrl":"http://yajore.gicp.net/XiangHuoQuan/Pay/wxpay/wxcallback.aspx"
+  "authUrl":"http://wxp.xitie10.com/weixin/openId",
+  "notifyUrl":"http://wxp.xitie10.com/weixin/pay-notify"
 }
