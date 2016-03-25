@@ -96,7 +96,7 @@
                             <li>
                                 <a :href="'/product/detail?id='+item.ProductGroupSysNo" class="my-img-auto external"><img :src="item.ImgUrl" alt="">
                                     <h3 class="my-24-text my-black-text">${item.ProductName}</h3>
-                                    <p class="my-0-mar my-28-text my-red-text">￥${item.MinPrice === item.MaxPrice ? item.MaxPrice : item.MinPrice +'~'+ item.MaxPrice}</p>
+                                    <p class="my-0-mar my-28-text my-red-text">￥${item.MinPrice === item.MaxPrice ? item.MaxPrice : item.MinPrice}</p>
                                 </a>
                             </li>
                         </template>
