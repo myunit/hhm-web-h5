@@ -1146,8 +1146,20 @@
             search: '',
             count: 0,
             products: []
+          },
+          methods: {
+            goToDetail: goToDetail
           }
         });
+
+        function goToDetail (index) {
+          var product = vm.products[index];
+          if (product.killStatus !== 1){
+            return false;
+          }
+
+          location.href = '/product/secKill-detail?id='+product.SysNo;
+        }
 
         function computeRemainStartTime(obj) {
           if (obj.RemainStartTotalSeconds > 0) {

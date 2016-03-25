@@ -17,7 +17,7 @@
                         <li>
                             <div class="item-content">
                                 <div class="item-media">
-                                    <a :href="'/product/secKill-detail?id='+product.SysNo" class="external">
+                                    <a href="#" @click.prevent="goToDetail($index)" class="external">
                                         <img :src="product.ImgUrl" style='width: 5.53rem;'>
                                     </a>
                                 </div>
