@@ -1,6 +1,6 @@
 <div class="page-group">
     <div id="page-cart" class="page page-current">
-        <nav class="bar bar-tab my-nav-bar my-nav-bar-fix">
+        <nav class="bar bar-tab my-nav-bar my-nav-bar-fix" v-if="cartsAry.length > 0">
             <ul>
                 <li>
                     <label class="label-checkbox item-content">
@@ -38,7 +38,14 @@
         </nav>
 
         <div class="content native-scroll">
-            <div class="list-block media-list my-list-cart">
+            <div class="content-padded" v-if="cartsAry.length <= 0">
+                <div class="my-none-cart">
+                    <span class="icon icon-cart"></span>
+                    <p class="my-666-text">购物车中还没有商品，
+                        <br>快去采购吧</p>
+                </div>
+            </div>
+            <div class="list-block media-list my-list-cart" v-if="cartsAry.length > 0">
                 <ul v-cloak>
                     <template v-for="cart in cartsAry" track-by="productId">
                         <li>
