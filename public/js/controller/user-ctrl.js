@@ -216,7 +216,7 @@
               return this.oldPW.length === 0 || this.newPW.length === 0 || this.rePW.length === 0;
             }
           },
-          method: {
+          methods: {
             changePW: changePW
           }
         });
