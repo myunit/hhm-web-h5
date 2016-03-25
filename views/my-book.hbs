@@ -6,7 +6,7 @@
         </div>
         <div class="content native-scroll my-tab-fixed">
             <div class="tabs">
-                <div id="tab1" class="in-month infinite-scroll infinite-scroll-bottom tab active">
+                <div id="tab1" class="infinite-scroll tab active">
                     <template v-for="order in orderListNow" track-by="OrderId">
                         <div class="list-block  media-list my-booking-detail">
                             <ul>
@@ -38,11 +38,11 @@
                             </ul>
                         </div>
                     </template>
-                    <div class="in-month infinite-scroll-preloader" v-show="orderListNow.length < countNow">
+                    <div class="infinite-scroll-preloader" v-show="orderListNow.length < countNow">
                         <div class="preloader"></div>
                     </div>
                 </div>
-                <div id="tab2" class="tab month-ago infinite-scroll infinite-scroll-bottom">
+                <div id="tab2" class="tab infinite-scroll">
                     <div class="my-none-cart">
                         <span class="icon icon-bookingnone"></span>
                         <p class="my-666-text">您还没有相关订单</p>

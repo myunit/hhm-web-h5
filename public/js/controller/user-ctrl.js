@@ -673,8 +673,7 @@
           }
         }
 
-        var loadingNow = false;
-        var loadingAgo = false;
+        var loading = false;
         var orderItemsNow = new OrderItems('/users/my-book', 10, 0, 0);
         var orderItemsAgo = new OrderItems('/users/my-book', 10, 1, 0);
         orderItemsNow.addItems(function (err, data) {
@@ -701,75 +700,59 @@
 
         $.showPreloader('请稍等');
 
-        $(page).on('infinite', '.in-month.infinite-scroll-bottomm', function () {
+        $(page).on('infinite', function () {
 
           // 如果正在加载，则退出
-          if (loadingNow) return;
+          if (loading) return;
           // 设置flag
-          loadingNow = true;
+          loading = true;
+          var tabIndex = 0;
+          if($(this).find('.infinite-scroll.active').attr('id') == "tab1"){
+            tabIndex = 0;
+          }
+          if($(this).find('.infinite-scroll.active').attr('id') == "tab2"){
+            tabIndex = 1;
+          }
 
           // 模拟1s的加载过程
           setTimeout(function () {
             // 重置加载flag
-            loadingNow = false;
+            loading = false;
 
             if (vm.orderListNow.length >= vm.countNow) {
-              // 加载完毕，则注销无限加载事件，以防不必要的加载
-              $.detachInfiniteScroll($('.in-month.infinite-scroll'));
-              // 删除加载提示符
-              $('.in-month.infinite-scroll-preloader').remove();
+              $('.infinite-scroll-preloader').eq(tabIndex).hide();
               return;
             }
 
             // 添加新条目
-            orderItemsNow.addItems(function (err, data) {
-              if (err) {
-                $.toast(err, 1000);
-              } else {
-                vm.countNow = data.count;
-                upDataOrder(data);
-                vm.orderListNow = vm.orderListNow.concat(data.order);
-              }
-            });
+            if (tabIndex === 0) {
+              orderItemsNow.addItems(function (err, data) {
+                if (err) {
+                  $.toast(err, 1000);
+                } else {
+                  vm.countNow = data.count;
+                  upDataOrder(data);
+                  vm.orderListNow = vm.orderListNow.concat(data.orders);
+                }
+              });
+            } else {
+              // 添加新条目
+              orderItemsAgo.addItems(function (err, data) {
+                if (err) {
+                  $.toast(err, 1000);
+                } else {
+                  vm.countAgo = data.count;
+                  upDataOrder(data);
+                  vm.orderListAgo = vm.orderListAgo.concat(data.orders);
+                }
+              });
+            }
+
             //容器发生改变,如果是js滚动，需要刷新滚动
             $.refreshScroller();
           }, 1000);
         });
 
-        $(page).on('infinite', '.month-ago.infinite-scroll-bottomm', function () {
-
-          // 如果正在加载，则退出
-          if (loadingAgo) return;
-          // 设置flag
-          loadingAgo = true;
-
-          // 模拟1s的加载过程
-          setTimeout(function () {
-            // 重置加载flag
-            loadingAgo = false;
-
-            if (vm.orderListAgo.length >= vm.countAgo) {
-              // 加载完毕，则注销无限加载事件，以防不必要的加载
-              $.detachInfiniteScroll($('.month-ago.infinite-scroll'));
-              // 删除加载提示符
-              $('.month-ago.infinite-scroll-preloader').remove();
-              return;
-            }
-
-            // 添加新条目
-            orderItemsAgo.addItems(function (err, data) {
-              if (err) {
-                $.toast(err, 1000);
-              } else {
-                vm.countAgo = data.count;
-                upDataOrder(data);
-                vm.orderListAgo = vm.orderListAgo.concat(data.order);
-              }
-            });
-            //容器发生改变,如果是js滚动，需要刷新滚动
-            $.refreshScroller();
-          }, 1000);
-        });
 
       });
 
