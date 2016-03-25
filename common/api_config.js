@@ -176,5 +176,17 @@ OrderApi.prototype = {
   },
   createPaymentRecord : function(){
     return api_config.orderService.baseUrl + api_config.orderService.method.createPaymentRecord;
+  },
+  cancelOrder : function(){
+    return api_config.orderService.baseUrl + api_config.orderService.method.cancelOrder;
+  },
+  getOrderList : function(){
+    return api_config.orderService.baseUrl + api_config.orderService.method.getOrderList;
+  },
+  rebuyByOrderId : function(){
+    return api_config.orderService.baseUrl + api_config.orderService.method.rebuyByOrderId;
+  },
+  setOrderPayment : function(){
+    return api_config.orderService.baseUrl + api_config.orderService.method.setOrderPayment;
   }
 };

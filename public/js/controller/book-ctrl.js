@@ -56,7 +56,7 @@
         var vm = new Vue({
           el: '#page-book-confirm',
           data: {
-            payment: 1,
+            payment: 0,
             receiver: null,
             cartsAry: [],
             countPrice: 0,
@@ -167,13 +167,13 @@
             if (err) {
               $.toast(err, 1000);
             } else {
-              if (vm.payment === 1) {
+              if (vm.payment === 0) {
                 location.href = '/weixin/oauth?orderId=' + data.orderId + '&name=' + vm.receiver.receiver;
                 $.showPreloader('准备支付...');
                 return;
               }
 
-              if (vm.payment === 2) {
+              if (vm.payment === 4) {
                 location.href = '/book/complete';
                 return;
               }

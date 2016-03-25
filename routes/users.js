@@ -5,6 +5,7 @@ var router = express.Router();
 
 var customerApi = ApiFactory.CreateApi('customer');
 var loginApi = ApiFactory.CreateApi('login');
+var orderApi = ApiFactory.CreateApi('order');
 
 /* GET users listing. */
 router.use(function (req, res, next) {
@@ -85,9 +86,32 @@ router.route('/change-password')
       });
   });
 
-router.get('/my-book', function (req, res, next) {
-  res.render('my-book', {title: '我的订单-好好卖'});
-});
+router.route('/my-book')
+  .get(function (req, res, next) {
+    res.render('my-book', {title: '我的订单-好好卖'});
+  }).post(function (req, res, next) {
+    unirest.post(orderApi.getOrderList())
+      .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'X-Access-Token': req.session.token})
+      .send({
+        "userId": req.session.uid,
+        "pageId": req.body.pageId,
+        "pageSize": req.body.pageSize,
+        "type":req.body.type,
+        "orderStatus":req.body.orderStatus
+      })
+      .end(function (response) {
+        var data = response.body.repData;
+        if (data === undefined) {
+          res.json({status: 0, msg: '服务异常'});
+          return;
+        }
+        if (data.status) {
+          res.json({status: data.status, count: data.count, orders: data.order});
+        } else {
+          res.json({status: data.status, msg: data.msg});
+        }
+      });
+  });
 
 router.get('/buy-report', function (req, res, next) {
   res.render('my-buy-report', {title: '采购报表-好好卖'});
@@ -165,7 +189,7 @@ router.route('/my-message')
   .post(function (req, res, next) {
     unirest.post(customerApi.getNoticeMessage())
       .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'X-Access-Token': req.session.token})
-      .send({"userId": req.session.uid, "isRead":0, "pageId":req.body.pageId, "pageSize":req.body.pageSize})
+      .send({"userId": req.session.uid, "isRead": 0, "pageId": req.body.pageId, "pageSize": req.body.pageSize})
       .end(function (response) {
         var data = response.body.repData;
         if (data === undefined) {
@@ -201,7 +225,7 @@ router.post('/get-notice-count', function (req, res, next) {
 router.post('/set-notice-status', function (req, res, next) {
   unirest.post(customerApi.setNoticeStatus())
     .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'X-Access-Token': req.session.token})
-    .send({"userId": req.session.uid, "isRead":true, "noticeId": req.body.noticeId})
+    .send({"userId": req.session.uid, "isRead": true, "noticeId": req.body.noticeId})
     .end(function (response) {
       var data = response.body.repData;
       if (data === undefined) {
