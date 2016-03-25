@@ -648,8 +648,16 @@
           }
         });
 
-        function payOrder () {
+        function payOrder (index, type) {
+          var order = null;
+          if (type === 0) {
+            order = vm.orderListNow[index];
+          } else {
+            order = vm.orderListAgo[index];
+          }
 
+          location.href = '/weixin/oauth?orderId=' + order.OrderId + '&name=' + order.ReceiverName;
+          $.showPreloader('准备支付...');
         }
 
         function cancelOrder (index, type) {

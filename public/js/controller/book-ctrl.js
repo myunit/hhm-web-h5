@@ -289,7 +289,8 @@
         });
 
         function payOrder () {
-
+          location.href = '/weixin/oauth?orderId=' + orderId + '&name=' + vm.order.ReceiverName;
+          $.showPreloader('准备支付...');
         }
 
         function cancelOrder () {
@@ -360,7 +361,4 @@
       $.init();
     }
   );
-}
-()
-)
-;
+}());
