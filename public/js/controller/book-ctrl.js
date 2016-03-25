@@ -280,8 +280,41 @@
           data: {
             orderId: orderId,
             order: {}
+          },
+          methods: {
+            payOrder: payOrder,
+            cancelOrder: cancelOrder,
+            reBuy: reBuy
           }
         });
+
+        function payOrder () {
+
+        }
+
+        function cancelOrder () {
+          ajaxPost('/book/cancel', {
+            orderId: vm.orderId
+          }, function (err, data) {
+            $.hidePreloader();
+            if (err) {
+              $.toast(err, 1000);
+            } else {
+              var order = vm.order;
+              order.Status = "已取消";
+              order.statusNote = "已取消";
+              order.canCancel = false;
+              order.canPay = false;
+              order.reBuy = true;
+            }
+          });
+
+          $.showPreloader('取消订单');
+        }
+
+        function reBuy () {
+
+        }
 
         ajaxPost('/book/detail', {
           orderId: vm.orderId
