@@ -105,15 +105,16 @@
           el: '#page-my',
           data: {
             storeName: '',
+            level: '',
             message: 0
           }
         });
 
-        getStoreName(function (err, storeName) {
+        ajaxPost('/users/get-user-info', {}, function (err, data) {
           if (err) {
-            $.toast(err, 1000);
           } else {
-            vm.storeName = storeName;
+            vm.storeName = data.user.EName;
+            vm.level = data.user.CustomerGroupName;
           }
         });
 

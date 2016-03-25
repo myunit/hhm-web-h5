@@ -20,6 +20,24 @@ router.get('/', function (req, res, next) {
   res.render('my', {title: '我的-好好卖'});
 });
 
+router.post('/get-user-info', function (req, res, next) {
+  unirest.post(customerApi.getUserInfo())
+    .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'X-Access-Token': req.session.token})
+    .send({"userId": req.session.uid})
+    .end(function (response) {
+      var data = response.body.repData;
+      if (data === undefined) {
+        res.json({status: 0, msg: '服务异常'});
+        return;
+      }
+      if (data.status) {
+        res.json({status: data.status, user: data.user});
+      } else {
+        res.json({status: data.status, msg: data.msg});
+      }
+    });
+});
+
 router.post('/getStoreName', function (req, res, next) {
   unirest.post(customerApi.getStoreInfo())
     .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'X-Access-Token': req.session.token})

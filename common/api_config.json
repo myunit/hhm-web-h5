@@ -20,6 +20,7 @@
       "getNoticeMessage": "Customers/get-notice-message",
       "getUnreadNoticeCount": "Customers/get-unread-notice-count",
       "setNoticeStatus": "Customers/set-notice-status",
+      "getUserInfo": "Customers/get-user-info",
       "getReceiver": "Addresses/get-receiver",
       "setDefaultReceiver": "Addresses/set-default-receiver",
       "delReceiver": "Addresses/del-receiver",
