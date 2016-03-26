@@ -84,10 +84,10 @@
             id = buylist[i];
             skus = vm.cartsObj[id].skus;
             for (var j = 0; j < skus.length; j++) {
-              t += skus[j].qty * skus[j].price;
+              t += skus[j].qty * (skus[j].price*100);
             }
           }
-          vm.total = t;
+          vm.total = t/100;
         }
 
         vm.$watch('buyList', function (newVal, oldVal) {
