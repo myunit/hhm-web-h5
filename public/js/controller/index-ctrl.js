@@ -51,7 +51,23 @@
           el: '#page-index',
           data: {
             search: '',
-            banners: [],
+            banners: [
+              {
+                "img": "http://img.alicdn.com/tps/i1/TB1M8ZOLVXXXXX8XpXXX3a8GpXX-700-500.jpg",
+                "url": "http://wxp.xitie10.com/product/new"
+              },
+              {
+                "img": "http://img.alicdn.com/tps/i1/TB11.gILVXXXXaQXpXXP3C8GpXX-700-500.png",
+                "url": "http://wxp.xitie10.com/product/secKill"
+              },
+              {
+                "img": "http://img.alicdn.com/tps/i1/TB1S3oNLVXXXXXSXpXXX3a8GpXX-700-500.jpg",
+                "url": "http://wxp.xitie10.com/product/group"
+              },
+              {
+                "img": "http://img.alicdn.com/tps/i1/TB1S3oNLVXXXXXSXpXXX3a8GpXX-700-500.jpg",
+                "url": "http://wxp.xitie10.com/product/recommend?id=14&name=0323栏目一"
+              }],
             newsImg: '',
             salesImg: '',
             groupImg: '',
@@ -67,27 +83,25 @@
             $.toast(err, 1000);
           } else {
             var home = data.home;
-            vm.banners = home.banner.slice();
             vm.newsImg = home.news.img;
             vm.salesImg = home.sales.img;
             vm.groupImg = home.group.img;
             vm.secKillImg = home.secKill.img;
-            vm.recommends = home.recommend.length > 6 ? home.recommend.slice(0, 6):home.recommend.slice();
-
-            vm.$nextTick(function () {
-              $(function () {
-                $(".swiper-container").swiper({
-                  spaceBetween: 10,
-                  continuous: true,
-                  autoplay: 4000,
-                  autoplayDisableOnInteraction: false
-                });
-              });
-            });
+            vm.recommends = home.recommend.length > 6 ? home.recommend.slice(0, 6) : home.recommend.slice();
           }
         });
         $.showPreloader('请稍等...');
 
+        $(function () {
+          $(".swiper-container").swiper({
+            pagination : '.swiper-pagination',
+            paginationClickable: true,
+            spaceBetween: 10,
+            centeredSlides: true,
+            autoplay: 2500,
+            autoplayDisableOnInteraction: false
+          });
+        });
 
         ajaxPost('/users/get-notice-count', {}, function (err, data) {
           if (err) {
