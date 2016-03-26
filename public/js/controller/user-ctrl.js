@@ -719,7 +719,7 @@
             } else if (order.Status === '待发货' || order.Status === '已发货') {
               order.statusNote = order.Status;
             } else {
-              order.statusNote = order.Status;//已发货
+              order.statusNote = order.Status;
               order.reBuy = true;
             }
           }
