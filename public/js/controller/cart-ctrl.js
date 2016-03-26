@@ -276,7 +276,7 @@
               //$('.my-list-cart input[type=checkbox]').prop('checked', true);
 
               $(page).on('click', '.my-nav-bar .label-checkbox', function (event) {
-                if (!vm.allChecked) {
+                if (vm.allChecked) {
                   vm.buyList.splice(0, vm.buyList.length);
                 } else {
                   vm.buyList.splice(0, vm.buyList.length);
