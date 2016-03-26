@@ -173,7 +173,7 @@ router.route('/rest-password')
   })
   .post(function (req, res, next) {
     unirest.post(loginApi.forgetPassword())
-      .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'X-Access-Token': req.session.token})
+      .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
       .send({"phone": req.body.phone, "newPassword": req.body.password, "code": req.body.captcha})
       .end(function (response) {
         var data = response.body.repData;
