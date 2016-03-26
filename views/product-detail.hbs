@@ -33,7 +33,7 @@
             </div>
 
             <!--<div class="my-product-price my-red-text"><span class="my-24-text">秒杀价：</span>￥15 <del class="my-22-text my-gray-text">￥230</del></div>-->
-            <div class="my-product-price my-red-text" v-cloak>￥${product.MinPrice && product.MaxPrice ? product.MinPrice+'~'+product.MaxPrice:product.Price}</div>
+            <div class="my-product-price my-red-text" v-cloak>￥${product.MinPrice === product.MaxPrice ? product.Price:product.MinPrice+'~'+product.MaxPrice}</div>
             <div class="my-product-detail">
                 <div class="my-28-text">商品详情</div>
                 <ul class="my-ul">

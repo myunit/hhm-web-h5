@@ -68,6 +68,32 @@
     return o;
   }
 
+  function OrderItems(url, number, type, status) {
+    var o = {};
+    o.url = url;
+    o.pageSize = number;
+    o.pageId = 0;
+    o.type = type;
+    o.orderStatus = status;
+    o.addItems = function (cb) {
+      var self = this;
+      ajaxPost(this.url, {
+        pageId: this.pageId,
+        pageSize: this.pageSize,
+        type: this.type,
+        orderStatus: this.orderStatus
+      }, function (err, data) {
+        if (err) {
+          cb(err, null);
+        } else {
+          self.pageId++;
+          cb(null, data);
+        }
+      });
+    };
+    return o;
+  }
+
   require(['Vue', 'Utils'],
     function (Vue, Utils) {
       'use strict';
@@ -79,15 +105,16 @@
           el: '#page-my',
           data: {
             storeName: '',
+            level: '',
             message: 0
           }
         });
 
-        getStoreName(function (err, storeName) {
+        ajaxPost('/users/get-user-info', {}, function (err, data) {
           if (err) {
-            $.toast(err, 1000);
           } else {
-            vm.storeName = storeName;
+            vm.storeName = data.user.EName;
+            vm.level = data.user.CustomerGroupName;
           }
         });
 
@@ -190,7 +217,7 @@
               return this.oldPW.length === 0 || this.newPW.length === 0 || this.rePW.length === 0;
             }
           },
-          method: {
+          methods: {
             changePW: changePW
           }
         });
@@ -575,6 +602,210 @@
           });
           $.showPreloader('保存中');
         });
+      });
+
+      $(document).on("pageInit", "#page-my-account", function (e, id, page) {
+        var vm = new Vue({
+          el: '#page-my-account',
+          data: {
+            storeName: ''
+          }
+        });
+
+        getStoreName(function (err, storeName) {
+          if (err) {
+            $.toast(err, 1000);
+          } else {
+            vm.storeName = storeName;
+          }
+        });
+
+        $(page).on('click', '#linkName', function () {
+          location.href = '/users/change-shop-name';
+        });
+
+        $(page).on('click', '#linkAddress', function () {
+          location.href = '/users/my-address';
+        });
+
+        $(page).on('click', '#linkPassword', function () {
+          location.href = '/users/change-password';
+        });
+      });
+
+      $(document).on("pageInit", "#page-my-book", function (e, id, page) {
+        var vm = new Vue({
+          el: '#page-my-book',
+          data: {
+            orderListNow: [],//一個月內的订单
+            orderListAgo: [],//一個月前的订单,
+            countNow: 0,
+            countAgo: 0
+          },
+          methods: {
+            payOrder: payOrder,
+            cancelOrder: cancelOrder,
+            reBuy: reBuy
+          }
+        });
+
+        function payOrder (index, type) {
+          var order = null;
+          if (type === 0) {
+            order = vm.orderListNow[index];
+          } else {
+            order = vm.orderListAgo[index];
+          }
+
+          location.href = '/weixin/oauth?orderId=' + order.OrderId + '&name=' + order.ReceiverName;
+          $.showPreloader('准备支付...');
+        }
+
+        function cancelOrder (index, type) {
+          $.confirm('确定删除该商品吗?',
+            function () {
+              var order = null;
+              if (type === 0) {
+                order = vm.orderListNow[index];
+              } else {
+                order = vm.orderListAgo[index];
+              }
+
+              ajaxPost('/book/cancel', {
+                orderId: order.OrderId
+              }, function (err, data) {
+                $.hidePreloader();
+                if (err) {
+                  $.toast(err, 1000);
+                } else {
+                  order.Status = "已取消";
+                  order.statusNote = "已取消";
+                  order.canCancel = false;
+                  order.canPay = false;
+                  order.reBuy = true;
+                }
+              });
+
+              $.showPreloader('取消订单');
+            },
+            function () {
+
+            }
+          );
+        }
+
+        function reBuy () {
+
+        }
+
+        function upDataOrder (data) {
+          var i = 0;
+          var order = null;
+          for (i = 0; i < data.orders.length; i++) {
+            order = data.orders[i];
+            order.statusNote = '';
+            order.canCancel = false;
+            order.canPay = false;
+            order.reBuy = false;
+            if (order.Status === '待审核' || order.Status === '待付款') {
+              if (!order.PayMent === '货到付款' && order.PaymentStatus === 0) {
+                order.statusNote = '待付款';
+                order.canCancel = true;
+                order.canPay = true;
+              } else {
+                order.statusNote = '待审核';
+                order.canCancel = true;
+              }
+            } else if (order.Status === '待发货' || order.Status === '已发货') {
+              order.statusNote = order.Status;
+            } else {
+              order.statusNote = order.Status;//已发货
+              order.reBuy = true;
+            }
+          }
+        }
+
+        var loading = false;
+        var orderItemsNow = new OrderItems('/users/my-book', 10, 0, 0);
+        var orderItemsAgo = new OrderItems('/users/my-book', 10, 1, 0);
+        orderItemsNow.addItems(function (err, data) {
+          $.hidePreloader();
+          if (err) {
+            $.toast(err, 1000);
+          } else {
+            vm.countNow = data.count;
+            upDataOrder(data);
+            vm.orderListNow = vm.orderListNow.concat(data.orders);
+
+          }
+        });
+
+        orderItemsAgo.addItems(function (err, data) {
+          if (err) {
+            $.toast(err, 1000);
+          } else {
+            vm.countAgo = data.count;
+            upDataOrder(data);
+            vm.orderListAgo = vm.orderListAgo.concat(data.orders);
+          }
+        });
+
+        $.showPreloader('请稍等');
+
+        $(page).on('infinite', function () {
+
+          // 如果正在加载，则退出
+          if (loading) return;
+          // 设置flag
+          loading = true;
+          var tabIndex = 0;
+          if($(this).find('.infinite-scroll.active').attr('id') == "tab1"){
+            tabIndex = 0;
+          }
+          if($(this).find('.infinite-scroll.active').attr('id') == "tab2"){
+            tabIndex = 1;
+          }
+
+          // 模拟1s的加载过程
+          setTimeout(function () {
+            // 重置加载flag
+            loading = false;
+
+            if (vm.orderListNow.length >= vm.countNow) {
+              $('.infinite-scroll-preloader').eq(tabIndex).hide();
+              return;
+            }
+
+            // 添加新条目
+            if (tabIndex === 0) {
+              orderItemsNow.addItems(function (err, data) {
+                if (err) {
+                  $.toast(err, 1000);
+                } else {
+                  vm.countNow = data.count;
+                  upDataOrder(data);
+                  vm.orderListNow = vm.orderListNow.concat(data.orders);
+                }
+              });
+            } else {
+              // 添加新条目
+              orderItemsAgo.addItems(function (err, data) {
+                if (err) {
+                  $.toast(err, 1000);
+                } else {
+                  vm.countAgo = data.count;
+                  upDataOrder(data);
+                  vm.orderListAgo = vm.orderListAgo.concat(data.orders);
+                }
+              });
+            }
+
+            //容器发生改变,如果是js滚动，需要刷新滚动
+            $.refreshScroller();
+          }, 1000);
+        });
+
+
       });
 
       $.init();

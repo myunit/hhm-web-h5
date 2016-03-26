@@ -2,27 +2,27 @@
     <div id="page-book-detail" class="page page-current">
         <div class="content native-scroll">
             <div class="list-block my-booking-detail ">
-                <ul>
-                    <li class="my-28-text">订单编号 : 10004</li>
-                    <li class="my-26-text my-gray-text">下单时间：2015-06-09 15:36:05
+                <ul v-cloak>
+                    <li class="my-28-text">订单编号 : ${orderId}</li>
+                    <li class="my-26-text my-gray-text">下单时间：${order.FollowingData.SubmitTime}
                         <br> 订单状态：
-                        <span class="my-red-text" v-cloak>${bookStatus}</span>
-                        <br> 订单金额：￥285.00
+                        <span class="my-red-text">${order.statusNote}</span>
+                        <br> 订单金额：￥${order.Amount}
                     </li>
                 </ul>
             </div>
 
             <div class="list-block  media-list my-booking-detail my-booking-address">
-                <ul>
-                    <li class="my-28-text">付款方式: <span class="my-gray-text">在线付款</span></li>
+                <ul v-cloak>
+                    <li class="my-28-text">付款方式: <span class="my-gray-text">${order.PayMent}</span></li>
                     <li class="my-0-pad">
                         <a href="#" class="item-link item-content">
                             <div class="item-inner">
                                 <div class="item-title-row">
-                                    <div class="item-title">王老板</div>
-                                    <div class="item-after">15157333000</div>
+                                    <div class="item-title">${order.ReceiverName}</div>
+                                    <div class="item-after">${order.ReceiverMobile}</div>
                                 </div>
-                                <div class="item-text my-gray-text">浙江省 嘉兴市 南湖区XX路XX号XX小区 门口开心果园
+                                <div class="item-text my-gray-text">${order.PCD} ${order.Address}
                                 </div>
                             </div>
                             <span class="icon icon-address"></span>
@@ -33,61 +33,39 @@
 
             <div class="content-block-title my-list-title my-t20-mar">商品列表:</div>
             <div class="list-block media-list my-booking-list">
-                <ul>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-media">
-                                <a href="/product/detail?id=1" class="external">
-                                    <img src="../images/demo/cart.gif" style="width: 3.4rem;">
-                                </a>
-                            </div>
-                            <div class="item-inner">
-                                <div class="item-title-row">
-                                    <div class="item-title  my-24-text">商品名称商品名称商品名称商品名称商品 名称商品名称
+                <ul v-cloak>
+                    <template v-for="sku in order.Skus" track-by="SpuId">
+                        <li>
+                            <div class="item-content">
+                                <div class="item-media">
+                                    <a :href="'/product/detail?id='+sku.SpuId" class="external">
+                                        <img :src="sku.ImgUrl" style="width: 3.4rem;">
+                                    </a>
+                                </div>
+                                <div class="item-inner">
+                                    <div class="item-title-row">
+                                        <div class="item-title  my-24-text">${sku.Name}
+                                        </div>
+                                    </div>
+                                    <div class="item-subtitle my-gray-text  my-24-text">${sku.SizeName}</div>
+                                    <div class="row">
+                                        <div class="col-50 my-red-text my-24-text">￥${sku.Price}</div>
+                                        <div class="col-50 my-right-text my-24-text">x${sku.Qty}</div>
                                     </div>
                                 </div>
-                                <div class="item-subtitle my-gray-text  my-24-text">规格1/规格2/规格3/规格4/规格5/规格6</div>
-                                <div class="row">
-                                    <div class="col-50 my-red-text my-24-text">￥157.00</div>
-                                    <div class="col-50 my-right-text my-24-text">x1</div>
-                                </div>
                             </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-media">
-                                <a href="/product/detail?id=1" class="external">
-                                    <img src="../images/demo/cart.gif" style="width: 3.4rem;">
-                                </a>
-                            </div>
-                            <div class="item-inner">
-                                <div class="item-title-row">
-                                    <div class="item-title  my-24-text">商品名称商品名称商品名称商品名称商品 名称商品名称
-                                    </div>
-                                </div>
-                                <div class="item-subtitle my-gray-text  my-24-text">规格1/规格2/规格3/规格4/规格5/规格6</div>
-                                <div class="row">
-                                    <div class="col-50 my-red-text my-24-text">￥157.00</div>
-                                    <div class="col-50 my-right-text my-24-text">x1</div>
-                                </div>
-                                <div class="item-subtitle my-gray-text  my-24-text">规格1/规格2/规格3/规格4/规格5/规格6</div>
-                                <div class="row">
-                                    <div class="col-50 my-red-text my-24-text">￥157.00</div>
-                                    <div class="col-50 my-right-text my-24-text">x1</div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
+                        </li>
+                    </template>
                 </ul>
             </div>
             <div class="content-padded my-a-booking-detail" v-cloak>
-                <a href="#" class="button button-fill" v-if="isNeedPay">去付款</a>
-                <a href="#" class="button my-white-bg" v-if="isOperate">${operateName}</a>
+                <a href="#" @click.prevent="payOrder()" class="button button-fill" v-if="order.canPay">去付款</a>
+                <a href="#" @click.prevent="cancelOrder()" class="button my-white-bg" v-if="order.canCancel">取消订单</a>
+                <a href="#" @click.prevent="reBuy()" class="button my-white-bg" v-if="order.reBuy">再次购买</a>
             </div>
         </div>
     </div>
 </div>
 <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
-<script type='text/javascript' src='../js/lib/requirejs.min.js' data-main='../js/controller/book-ctrl.min'></script>
+<script type='text/javascript' src='../js/lib/requirejs.min.js' data-main='../js/controller/book-ctrl'></script>

@@ -34,147 +34,168 @@ var ApiFactory = {
 
 exports = module.exports = ApiFactory;
 
-var LoginApi = function(){};
+var LoginApi = function () {
+};
 
 LoginApi.prototype = {
-  login : function(){
+  login: function () {
     return api_config.loginService.baseUrl + api_config.loginService.method.login;
   },
-  getCaptcha : function(){
+  getCaptcha: function () {
     return api_config.loginService.baseUrl + api_config.loginService.method.getCaptcha;
   },
-  registerAndLogin : function(){
+  registerAndLogin: function () {
     return api_config.loginService.baseUrl + api_config.loginService.method.registerAndLogin;
   },
-  forgetPassword : function(){
+  forgetPassword: function () {
     return api_config.loginService.baseUrl + api_config.loginService.method.forgetPassword;
   },
-  modifyPassword : function(){
+  modifyPassword: function () {
     return api_config.loginService.baseUrl + api_config.loginService.method.modifyPassword;
   }
 };
 
-var CustomerApi = function(){};
+var CustomerApi = function () {
+};
 
 CustomerApi.prototype = {
-  perfectCustomerInfo : function(){
+  perfectCustomerInfo: function () {
     return api_config.customerService.baseUrl + api_config.customerService.method.perfectCustomerInfo;
   },
-  getStoreInfo : function(){
+  getStoreInfo: function () {
     return api_config.customerService.baseUrl + api_config.customerService.method.getStoreInfo;
   },
-  setStoreInfo : function(){
+  setStoreInfo: function () {
     return api_config.customerService.baseUrl + api_config.customerService.method.setStoreInfo;
   },
-  getNoticeMessage : function(){
+  getNoticeMessage: function () {
     return api_config.customerService.baseUrl + api_config.customerService.method.getNoticeMessage;
   },
-  getUnreadNoticeCount : function(){
+  getUnreadNoticeCount: function () {
     return api_config.customerService.baseUrl + api_config.customerService.method.getUnreadNoticeCount;
   },
-  setNoticeStatus : function(){
+  setNoticeStatus: function () {
     return api_config.customerService.baseUrl + api_config.customerService.method.setNoticeStatus;
   },
-  getReceiver : function(){
+  getReceiver: function () {
     return api_config.customerService.baseUrl + api_config.customerService.method.getReceiver;
   },
-  setDefaultReceiver : function(){
+  setDefaultReceiver: function () {
     return api_config.customerService.baseUrl + api_config.customerService.method.setDefaultReceiver;
   },
-  delReceiver : function(){
+  delReceiver: function () {
     return api_config.customerService.baseUrl + api_config.customerService.method.delReceiver;
   },
-  modifyReceiver : function(){
+  modifyReceiver: function () {
     return api_config.customerService.baseUrl + api_config.customerService.method.modifyReceiver;
   },
-  addReceiver : function(){
+  addReceiver: function () {
     return api_config.customerService.baseUrl + api_config.customerService.method.addReceiver;
   }
   ,
-  getMyFavorite : function(){
+  getMyFavorite: function () {
     return api_config.customerService.baseUrl + api_config.customerService.method.getMyFavorite;
   }
   ,
-  addFavorite : function(){
+  addFavorite: function () {
     return api_config.customerService.baseUrl + api_config.customerService.method.addFavorite;
   }
   ,
-  delFavorite : function(){
+  delFavorite: function () {
     return api_config.customerService.baseUrl + api_config.customerService.method.delFavorite;
+  }
+  ,
+  getUserInfo: function () {
+    return api_config.customerService.baseUrl + api_config.customerService.method.getUserInfo;
   }
 };
 
-var ProductApi = function(){};
+var ProductApi = function () {
+};
 
 ProductApi.prototype = {
-  getCategory : function(){
+  getCategory: function () {
     return api_config.productService.baseUrl + api_config.productService.method.getCategory;
   },
-  getCategoryProduct : function(){
+  getCategoryProduct: function () {
     return api_config.productService.baseUrl + api_config.productService.method.getCategoryProduct;
   },
-  getNewProduct : function(){
+  getNewProduct: function () {
     return api_config.productService.baseUrl + api_config.productService.method.getNewProduct;
   },
-  getSalesProduct : function(){
+  getSalesProduct: function () {
     return api_config.productService.baseUrl + api_config.productService.method.getSalesProduct;
   },
-  getSecKillProduct : function(){
+  getSecKillProduct: function () {
     return api_config.productService.baseUrl + api_config.productService.method.getSecKillProduct;
   },
-  getProductDetail : function(){
+  getProductDetail: function () {
     return api_config.productService.baseUrl + api_config.productService.method.getProductDetail;
   },
-  getSecKillProductDetail : function(){
+  getSecKillProductDetail: function () {
     return api_config.productService.baseUrl + api_config.productService.method.getSecKillProductDetail;
   },
-  getGroupProductDetail : function(){
+  getGroupProductDetail: function () {
     return api_config.productService.baseUrl + api_config.productService.method.getGroupProductDetail;
   },
-  getHome : function(){
+  getHome: function () {
     return api_config.productService.baseUrl + api_config.productService.method.getHome;
   },
-  getRecommend : function(){
+  getRecommend: function () {
     return api_config.productService.baseUrl + api_config.productService.method.getRecommend;
   },
-  getRecommendProduct : function(){
+  getRecommendProduct: function () {
     return api_config.productService.baseUrl + api_config.productService.method.getRecommendProduct;
   },
-  getGroupProduct : function(){
+  getGroupProduct: function () {
     return api_config.productService.baseUrl + api_config.productService.method.getGroupProduct;
   }
 };
 
-var ShoppingApi = function(){};
+var ShoppingApi = function () {
+};
 
 ShoppingApi.prototype = {
-  addToCart : function(){
+  addToCart: function () {
     return api_config.shoppingService.baseUrl + api_config.shoppingService.method.addToCart;
   },
-  delInCart : function(){
+  delInCart: function () {
     return api_config.shoppingService.baseUrl + api_config.shoppingService.method.delInCart;
   },
-  getCartInfo : function(){
+  getCartInfo: function () {
     return api_config.shoppingService.baseUrl + api_config.shoppingService.method.getCartInfo;
   },
-  getCountInCart : function(){
+  getCountInCart: function () {
     return api_config.shoppingService.baseUrl + api_config.shoppingService.method.getCountInCart;
   },
-  modifyQtyInCart : function(){
+  modifyQtyInCart: function () {
     return api_config.shoppingService.baseUrl + api_config.shoppingService.method.modifyQtyInCart;
   },
-  submitOrder : function(){
+  submitOrder: function () {
     return api_config.shoppingService.baseUrl + api_config.shoppingService.method.submitOrder;
   }
 };
 
-var OrderApi = function(){};
+var OrderApi = function () {
+};
 
 OrderApi.prototype = {
-  getOrderDetail : function(){
+  getOrderDetail: function () {
     return api_config.orderService.baseUrl + api_config.orderService.method.getOrderDetail;
   },
-  createPaymentRecord : function(){
+  createPaymentRecord: function () {
     return api_config.orderService.baseUrl + api_config.orderService.method.createPaymentRecord;
+  },
+  cancelOrder: function () {
+    return api_config.orderService.baseUrl + api_config.orderService.method.cancelOrder;
+  },
+  getOrderList: function () {
+    return api_config.orderService.baseUrl + api_config.orderService.method.getOrderList;
+  },
+  rebuyByOrderId: function () {
+    return api_config.orderService.baseUrl + api_config.orderService.method.rebuyByOrderId;
+  },
+  setOrderPayment: function () {
+    return api_config.orderService.baseUrl + api_config.orderService.method.setOrderPayment;
   }
 };

@@ -56,7 +56,7 @@
         var vm = new Vue({
           el: '#page-book-confirm',
           data: {
-            payment: 1,
+            payment: 0,
             receiver: null,
             cartsAry: [],
             countPrice: 0,
@@ -167,13 +167,13 @@
             if (err) {
               $.toast(err, 1000);
             } else {
-              if (vm.payment === 1) {
+              if (vm.payment === 0) {
                 location.href = '/weixin/oauth?orderId=' + data.orderId + '&name=' + vm.receiver.receiver;
                 $.showPreloader('准备支付...');
                 return;
               }
 
-              if (vm.payment === 2) {
+              if (vm.payment === 4) {
                 location.href = '/book/complete';
                 return;
               }
@@ -250,7 +250,12 @@
         }
 
         function pay() {
-          ajaxPost('/weixin/pay', {openId: openId, orderId: orderId, amount: vm.amount, userName:userName}, function (err, data) {
+          ajaxPost('/weixin/pay', {
+            openId: openId,
+            orderId: orderId,
+            amount: vm.amount,
+            userName: userName
+          }, function (err, data) {
             $.hidePreloader();
             if (err) {
               $.toast(err, 1000);
@@ -264,56 +269,96 @@
 
       $(document).on("pageInit", "#page-book-detail", function (e, id, page) {
         var search = Utils.getSearch(location);
+        if (!search['id']) {
+          location.href = '/';
+          return;
+        }
+
+        var orderId = parseInt(search['id']);
         var vm = new Vue({
           el: '#page-book-detail',
           data: {
-            type: parseInt(search['status'])
+            orderId: orderId,
+            order: {}
           },
-          computed: {
-            bookStatus: function () {
-              if (this.type === 1) {
-                return '待付款';
-              } else if (this.type === 2) {
-                return '待审核';
-              } else if (this.type === 3) {
-                return '已完成';
-              } else if (this.type === 4) {
-                return '已取消';
-              } else if (this.type === 5) {
-                return '已发货';
-              } else if (this.type === 6) {
-                return '待发货';
-              }
-            },
-            isNeedPay: function () {
-              if (this.type === 1) {
-                return true;
-              } else {
-                return false;
-              }
-            },
-            operateName: function () {
-              if (this.type === 1 || this.type === 2) {
-                return '取消订单';
-              } else if (this.type === 3 || this.type === 4 || this.type === 5) {
-                return '再次购买';
-              }
-            },
-            isOperate: function () {
-              if (this.type === 6) {
-                return false;
-              } else {
-                return true;
-              }
-            }
+          methods: {
+            payOrder: payOrder,
+            cancelOrder: cancelOrder,
+            reBuy: reBuy
           }
         });
+
+        function payOrder () {
+          location.href = '/weixin/oauth?orderId=' + orderId + '&name=' + vm.order.ReceiverName;
+          $.showPreloader('准备支付...');
+        }
+
+        function cancelOrder () {
+          $.confirm('确定删除该商品吗?',
+            function () {
+              ajaxPost('/book/cancel', {
+                orderId: vm.orderId
+              }, function (err, data) {
+                $.hidePreloader();
+                if (err) {
+                  $.toast(err, 1000);
+                } else {
+                  var order = vm.order;
+                  order.Status = "已取消";
+                  order.statusNote = "已取消";
+                  order.canCancel = false;
+                  order.canPay = false;
+                  order.reBuy = true;
+                }
+              });
+
+              $.showPreloader('取消订单');
+            },
+            function () {
+
+            }
+          );
+        }
+
+        function reBuy () {
+
+        }
+
+        ajaxPost('/book/detail', {
+          orderId: vm.orderId
+        }, function (err, data) {
+          $.hidePreloader();
+          if (err) {
+            $.toast(err, 1000);
+          } else {
+            var order = data.order;
+            order.statusNote = '';
+            order.canCancel = false;
+            order.canPay = false;
+            order.reBuy = false;
+            order.PCD = order.PCD.replace(/\-/g,' ');
+            if (order.Status === '待审核' || order.Status === '待付款') {
+              if (!order.PayMent === '货到付款' && order.PayStatus === 'UnPay') {
+                order.statusNote = '待付款';
+                order.canCancel = true;
+                order.canPay = true;
+              } else {
+                order.statusNote = '待审核';
+                order.canCancel = true;
+              }
+            } else if (order.Status === '待发货' || order.Status === '已发货') {
+              order.statusNote = order.Status;
+            } else {
+              order.statusNote = order.Status;//已发货
+              order.reBuy = true;
+            }
+            vm.order = Utils.clone(order);
+          }
+        });
+        $.showPreloader('请稍等');
       });
 
       $.init();
     }
   );
-}
-()
-)
-;
+}());

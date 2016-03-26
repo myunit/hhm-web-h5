@@ -22,7 +22,7 @@
         <div class="content native-scroll">
             <div class="my-div-top clearfix">
                 <div class="my-div-media my-img-auto"><img src="../images/user-default.gif" alt="" /></div>
-                <div class="my-div-title"><span class="my-28-text" v-cloak>${storeName}</span><br><span class="my-vip my-22-text">VIP会员</span></div>
+                <div class="my-div-title"><span class="my-28-text" v-cloak>${storeName}</span><br><span class="my-vip my-22-text" v-cloak>${level}</span></div>
                 <div class="my-div-link"><a href="/users/account" class="external">账户管理</a></div>
             </div>
 
@@ -47,7 +47,7 @@
                     </li>
                     <li>
                         <a href="/users/my-message" class="item-content item-link external">
-                            <div class="item-media"><i class="icon icon-mymessage"></i><span class="badge" v-cloak>${message}</span></div>
+                            <div class="item-media"><i class="icon icon-mymessage"></i><span class="badge" v-cloak v-if="message > 0">${message}</span></div>
                             <div class="item-inner">
                                 <div class="item-title">消息通知</div>
                             </div>

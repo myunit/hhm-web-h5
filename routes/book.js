@@ -84,5 +84,27 @@ router.route('/detail')
       });
   });
 
+router.post('/cancel', function (req, res, next) {
+    unirest.post(orderApi.cancelOrder())
+      .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'X-Access-Token': req.session.token})
+      .send({
+        "userId": req.session.uid,
+        "orderId": parseInt(req.body.orderId)
+      })
+      .end(function (response) {
+        var data = response.body.repData;
+        if (data === undefined) {
+          res.json({status: 0, msg: '服务异常'});
+          return;
+        }
+
+        if (data.status) {
+          res.json({status: data.status});
+        } else {
+          res.json({status: data.status, msg: data.msg});
+        }
+      });
+  });
+
 
 module.exports = router;

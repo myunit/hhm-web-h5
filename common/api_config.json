@@ -20,6 +20,7 @@
       "getNoticeMessage": "Customers/get-notice-message",
       "getUnreadNoticeCount": "Customers/get-unread-notice-count",
       "setNoticeStatus": "Customers/set-notice-status",
+      "getUserInfo": "Customers/get-user-info",
       "getReceiver": "Addresses/get-receiver",
       "setDefaultReceiver": "Addresses/set-default-receiver",
       "delReceiver": "Addresses/del-receiver",
@@ -62,7 +63,11 @@
     "baseUrl": "http://120.27.148.53:30003/order/v1/",
     "method": {
       "getOrderDetail": "Orders/get-order-detail",
-      "createPaymentRecord": "Orders/create-payment-record"
+      "createPaymentRecord": "Orders/create-payment-record",
+      "cancelOrder":"Orders/cancel-order",
+      "getOrderList":"Orders/get-order-list",
+      "rebuyByOrderId":"Orders/rebuy-by-orderId",
+      "setOrderPayment":"Orders/set-order-payment"
     }
   }
 }
