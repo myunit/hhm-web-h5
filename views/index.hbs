@@ -39,7 +39,7 @@
             <div class="swiper-container swiper-container-horizontal" data-space-between="10">
                 <div class="swiper-wrapper">
                     <template v-for="banner in banners">
-                        <div class="swiper-slide"><img :src="banner.img" alt=""></div>
+                        <div class="swiper-slide"><a class="external" :href="banner.url"><img :src="banner.img" alt=""></a></div>
                     </template>
                 </div>
                 <div class="swiper-pagination"></div>
