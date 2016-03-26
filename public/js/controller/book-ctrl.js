@@ -76,7 +76,7 @@
                 if (receivers[i].SysNo === selectId) {
                   vm.receiver = {};
                   vm.receiver.receiverId = receivers[i].SysNo;
-                  vm.receiver.phone = receivers[i].ReceiverPhone;
+                  vm.receiver.phone = receivers[i].ReceiverMobile;
                   vm.receiver.receiver = receivers[i].ReceiverName;
                   vm.receiver.pcdDes = receivers[i].Province + ' ' + receivers[i].City + ' ' + receivers[i].District;
                   vm.receiver.address = receivers[i].Address;
@@ -88,7 +88,7 @@
                 if (receivers[i].IsDefault) {
                   vm.receiver = {};
                   vm.receiver.receiverId = receivers[i].SysNo;
-                  vm.receiver.phone = receivers[i].ReceiverPhone;
+                  vm.receiver.phone = receivers[i].ReceiverMobile;
                   vm.receiver.receiver = receivers[i].ReceiverName;
                   vm.receiver.pcdDes = receivers[i].Province + ' ' + receivers[i].City + ' ' + receivers[i].District;
                   vm.receiver.address = receivers[i].Address;
@@ -100,7 +100,7 @@
             if (vm.receiver === null && len > 0) {
               vm.receiver = {};
               vm.receiver.receiverId = receivers[0].SysNo;
-              vm.receiver.phone = receivers[0].ReceiverPhone;
+              vm.receiver.phone = receivers[0].ReceiverMobile;
               vm.receiver.receiver = receivers[0].ReceiverName;
               vm.receiver.pcdDes = receivers[0].Province + ' ' + receivers[0].City + ' ' + receivers[0].District;
               vm.receiver.address = receivers[0].Address;

@@ -69,7 +69,7 @@
             for (var i = 0; i < len; i++) {
               var obj = {};
               obj.receiverId = receivers[i].SysNo;
-              obj.phone = receivers[i].ReceiverPhone;
+              obj.phone = receivers[i].ReceiverMobile;
               obj.receiver = receivers[i].ReceiverName;
               obj.pcdDes = receivers[i].Province + ' ' + receivers[i].City + ' ' + receivers[i].District;
               obj.address = receivers[i].Address;
@@ -101,7 +101,7 @@
                 el: '#page-address-edit',
                 data: {
                   receiverId: data.receiver.SysNo,
-                  phone: data.receiver.ReceiverPhone,
+                  phone: data.receiver.ReceiverMobile,
                   receiver: data.receiver.ReceiverName,
                   pcdDes: data.receiver.Province + ' ' + data.receiver.City + ' ' + data.receiver.District,
                   address: data.receiver.Address,

@@ -557,7 +557,7 @@
             for (var i = 0; i < len; i++) {
               var obj = {};
               obj.receiverId = receivers[i].SysNo;
-              obj.phone = receivers[i].ReceiverPhone;
+              obj.phone = receivers[i].ReceiverMobile;
               obj.receiver = receivers[i].ReceiverName;
               obj.pcdDes = receivers[i].Province + ' ' + receivers[i].City + ' ' + receivers[i].District;
               obj.address = receivers[i].Address;

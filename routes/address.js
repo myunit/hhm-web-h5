@@ -102,25 +102,25 @@ router.post('/modify-receiver', function (req, res, next) {
       return;
     }
 
+    var obj = {
+      "userId": req.session.uid,
+      "receiverId": req.body.receiverId,
+      "name": req.body.receiver,
+      "phone": req.body.phone,
+      "provinceId": pcd.province.id,
+      "province": pcd.province.name,
+      "cityId": pcd.city.id,
+      "city": pcd.city.name,
+      "districtId": pcd.district.id,
+      "district": pcd.district.name,
+      "address": req.body.address,
+      "isDefault": req.body.isDefault
+    };
     unirest.post(customerApi.modifyReceiver())
       .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'X-Access-Token':req.session.token})
-      .send({
-        "userId": req.session.uid,
-        "receiverId": req.body.receiverId,
-        "name": req.body.receiver,
-        "phone": req.body.phone,
-        "provinceId": pcd.province.id,
-        "province": pcd.province.name,
-        "cityId": pcd.city.id,
-        "city": pcd.city.name,
-        "districtId": pcd.district.id,
-        "district": pcd.district.name,
-        "address": req.body.address,
-        "isDefault": req.body.isDefault
-      })
+      .send(obj)
       .end(function (response) {
         var data = response.body.repData;
-        console.log('data: ' + JSON.stringify(data));
         if (data === undefined) {
           res.json({status: 0, msg: '服务异常'});
           return;
