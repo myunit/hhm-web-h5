@@ -190,34 +190,44 @@
             return;
           }
 
-          ajaxPost('/get-captcha', {'phone': vm.phone, 'type': 1}, function (err, data) {
-            $.hidePreloader();
+          ajaxPost('/is-registered', {'phone': vm.phone}, function (err, data) {
             if (err) {
               $.toast(err, 1000);
             } else {
-              var time = 60;
-              vm.captchaTip = time + '秒';
-              vm.isSendCaptcha = true;
-              vm.isDisable = false;
-              vm.captchaMsg = '如果您未收到短信，请在60秒后再次获取';
-              var sendCaptchaInterval = setInterval(function () {
-                time--;
-                if (time > 9) {
-                  vm.captchaTip = time + '秒';
-                } else {
-                  vm.captchaTip = '0' + time + '秒';
-                }
-                if (time === 0) {
-                  vm.captchaTip = '获取验证码';
-                  vm.isSendCaptcha = false;
-                  vm.captchaMsg = '';
-                  clearInterval(sendCaptchaInterval);
-                }
-              }, 1000);
+              if (!data.isRegistered) {
+                ajaxPost('/get-captcha', {'phone': vm.phone, 'type': 1}, function (err, data) {
+                  $.hidePreloader();
+                  if (err) {
+                    $.toast(err, 1000);
+                  } else {
+                    var time = 60;
+                    vm.captchaTip = time + '秒';
+                    vm.isSendCaptcha = true;
+                    vm.isDisable = false;
+                    vm.captchaMsg = '如果您未收到短信，请在60秒后再次获取';
+                    var sendCaptchaInterval = setInterval(function () {
+                      time--;
+                      if (time > 9) {
+                        vm.captchaTip = time + '秒';
+                      } else {
+                        vm.captchaTip = '0' + time + '秒';
+                      }
+                      if (time === 0) {
+                        vm.captchaTip = '获取验证码';
+                        vm.isSendCaptcha = false;
+                        vm.captchaMsg = '';
+                        clearInterval(sendCaptchaInterval);
+                      }
+                    }, 1000);
+                  }
+                });
+
+                $.showPreloader('发送中');
+              } else {
+                $.toast('该手机号已被注册', 1000);
+              }
             }
           });
-
-          $.showPreloader('发送中');
         }
 
         function submitReg(event) {
@@ -301,7 +311,11 @@
               if (err) {
                 $.toast(err, 1000);
               } else {
-                location.href = data.redirect
+                $.toast('恭喜您, 注册成功！', 1000);
+                var url = data.redirect;
+                setTimeout(function () {
+                  location.href = url;
+                }, 1000);
               }
             }
           );

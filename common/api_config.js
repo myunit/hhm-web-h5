@@ -52,6 +52,9 @@ LoginApi.prototype = {
   },
   modifyPassword: function () {
     return api_config.loginService.baseUrl + api_config.loginService.method.modifyPassword;
+  },
+  isRegistered: function () {
+    return api_config.loginService.baseUrl + api_config.loginService.method.isRegistered;
   }
 };
 
@@ -91,20 +94,16 @@ CustomerApi.prototype = {
   },
   addReceiver: function () {
     return api_config.customerService.baseUrl + api_config.customerService.method.addReceiver;
-  }
-  ,
+  },
   getMyFavorite: function () {
     return api_config.customerService.baseUrl + api_config.customerService.method.getMyFavorite;
-  }
-  ,
+  },
   addFavorite: function () {
     return api_config.customerService.baseUrl + api_config.customerService.method.addFavorite;
-  }
-  ,
+  },
   delFavorite: function () {
     return api_config.customerService.baseUrl + api_config.customerService.method.delFavorite;
-  }
-  ,
+  },
   getUserInfo: function () {
     return api_config.customerService.baseUrl + api_config.customerService.method.getUserInfo;
   }
