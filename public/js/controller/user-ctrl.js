@@ -232,7 +232,7 @@
             return;
           }
 
-          ajaxPost('/users/change-password', {password: vm.newPW}, function (err, data) {
+          ajaxPost('/users/change-password', {newPassword: vm.newPW, oldPassword: vm.oldPW}, function (err, data) {
             $.hidePreloader();
             if (err) {
               $.toast(err, 1000);

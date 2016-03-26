@@ -89,7 +89,7 @@ router.route('/change-password')
   .post(function (req, res, next) {
     unirest.post(loginApi.modifyPassword())
       .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'X-Access-Token': req.session.token})
-      .send({"userId": req.session.uid, "newPassword": req.body.password})
+      .send({"userId": req.session.uid, "newPassword": req.body.newPassword, "oldPassword": req.body.oldPassword})
       .end(function (response) {
         var data = response.body.repData;
         if (data === undefined) {
