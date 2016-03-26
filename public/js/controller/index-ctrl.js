@@ -77,9 +77,9 @@
             vm.$nextTick(function () {
               $(function () {
                 $(".swiper-container").swiper({
-                  spaceBetween: 30,
+                  spaceBetween: 10,
                   continuous: true,
-                  autoplay: 2500,
+                  autoplay: 4000,
                   autoplayDisableOnInteraction: false
                 });
               });

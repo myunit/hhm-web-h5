@@ -55,7 +55,7 @@
         }
 
         if (search['product']) {
-          productIdList = search['product'].split('#');
+          productIdList = search['product'].split('!');
         }
 
         var vm = new Vue({
