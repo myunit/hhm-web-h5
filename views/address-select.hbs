@@ -23,7 +23,8 @@
                                 </div>
                             </a>
                             <div class="row">
-                                <div class="col-50 my-gray-text my-22-text">${receiver.isDefault? '已设为默认地址':'       '}</div>
+                                <div class="col-50 my-gray-text my-22-text" v-if="receiver.isDefault">已设为默认地址</div>
+                                <div class="col-50 my-gray-text my-22-text" v-if="!receiver.isDefault">&nbsp;</div>
                                 <div class="col-50 my-right-text"><a :href="'/address/modify?id='+receiver.receiverId" class="my-gray-text my-22-text external"><span class="icon icon-edit"></span> 修改</a></div>
                             </div>
                         </li>
