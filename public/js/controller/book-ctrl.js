@@ -49,8 +49,13 @@
       $(document).on("pageInit", "#page-book-confirm", function (e, id, page) {
         var search = Utils.getSearch(location);
         var selectId = 0;
+        var productIdList = [];
         if (search['id']) {
           selectId = parseInt(search['id']);
+        }
+
+        if (search['product']) {
+          productIdList = search['product'].split('#');
         }
 
         var vm = new Vue({
@@ -60,7 +65,8 @@
             receiver: null,
             cartsAry: [],
             countPrice: 0,
-            cartIds: []
+            cartIds: [],
+            productIdStr: search['product']
           }
         });
 
@@ -118,6 +124,9 @@
             var cartsObj = {};
             for (var i = 0; i < len; i++) {
               item = cart[i];
+              if (productIdList.indexOf(item.ProductSysNo+'') === -1){
+                continue;
+              }
               var sku = {};
               if (cartsObj[item.ProductSysNo] === undefined) {
                 cartsObj[item.ProductSysNo] = {};

@@ -56,7 +56,8 @@
         var vm = new Vue({
           el: '#page-address-select',
           data: {
-            receivers: []
+            receivers: [],
+            productIdStr: search['product']
           }
         });
 

@@ -8,12 +8,12 @@
                 <div class="list-block media-list my-select-address">
                     <ul v-cloak>
                         <li>
-                            <a :href="'/book/confirm?id='+receiver.receiverId" class="item-content external">
+                            <a :href="'/book/confirm?id='+receiver.receiverId+'&product='+productIdStr" class="item-content external">
                                 <div class="item-inner">
                                     <div class="item-title-row">
                                         <div class="item-title">
-                                            <label class="label-checkbox">
-                                                <input type="radio" :checked="receiver.isDefault" name="single-radio">
+                                            <label class="label-checkbox" v-show="receiver.isSelected">
+                                                <input type="radio" :checked="receiver.isSelected" name="single-radio">
                                                 <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
                                             </label>${receiver.receiver}</div>
                                         <div class="item-after">${receiver.phone}</div>

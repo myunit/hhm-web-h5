@@ -95,8 +95,8 @@
         });
 
         function submitOrder () {
-          if (vm.cartsAry.length > 0) {
-            location.href = '/book/confirm';
+          if (vm.buyList.length > 0) {
+            location.href = '/book/confirm?product=' + vm.buyList.join('#');
           } else {
             $.toast('请先选购商品', 1000);
           }

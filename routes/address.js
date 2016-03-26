@@ -59,6 +59,7 @@ router.post('/get-all-receiver',function (req, res, next) {
   if (req.body.receiverId) {
     obj.receiverId = parseInt(req.body.receiverId);
   }
+
   unirest.post(customerApi.getReceiver())
     .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'X-Access-Token':req.session.token})
     .send(obj)
