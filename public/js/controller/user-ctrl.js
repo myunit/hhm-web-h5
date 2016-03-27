@@ -107,8 +107,15 @@
             storeName: '',
             level: '',
             message: 0
+          },
+          methods: {
+            buyReport: buyReport
           }
         });
+
+        function buyReport () {
+          location.href = '/users/go-to-report';
+        }
 
         ajaxPost('/users/get-user-info', {}, function (err, data) {
           if (err) {
@@ -247,32 +254,73 @@
       });
 
       $(document).on("pageInit", "#page-my-buy-report", function (e, id, page) {
+        var search = Utils.getSearch(location);
+        if (!search['id']) {
+          location.href = '/';
+          return;
+        }
+
         var dateTime = Utils.dateFormat(new Date(), 'yyyy-MM-dd');
         var vm = new Vue({
           el: '#page-my-buy-report',
           data: {
             start: dateTime,
             end: dateTime
+          },
+          methods:{
+            query: query
           }
         });
 
-        $(page).on('click', '.button', function () {
-          $.router.load('/users/buy-report-result');
-        });
+        function query () {
+          var start = (new Date(vm.start)).getTime();
+          var end = (new Date(vm.end)).getTime();
+          location.href = '/users/buy-report-result?p=' + search['id'] + '!' + start + '!' + end;
+        }
 
         $("#my-start-time").calendar({
-          value: [vm.start]
+          value: [vm.start],
+          onChange: function (p, values, displayValues) {
+            vm.start = displayValues;
+          }
         });
         $("#my-end-time").calendar({
-          value: [vm.end]
+          value: [vm.end],
+          onChange: function (p, values, displayValues) {
+            vm.end = displayValues;
+          }
         });
 
       });
 
       $(document).on("pageInit", "#page-my-buy-report-result", function (e, id, page) {
+        var search = Utils.getSearch(location);
+        if (!search['p']) {
+          location.href = '/';
+          return;
+        }
+        var p = search['p'];
+        p = p.split('!');
+        if (p.length < 3) {
+          location.href = '/';
+          return;
+        }
+
+        var userId = parseInt(p[0]);
+        var start = Utils.dateFormat(new Date(parseInt(p[1])), 'yyyy-MM-dd');
+        var end = Utils.dateFormat(new Date(parseInt(p[2])), 'yyyy-MM-dd');
         var vm = new Vue({
           el: '#page-my-buy-report-result',
-          data: {}
+          data: {
+            reports: []
+          }
+        });
+
+        ajaxPost('/users/buy-report-result', {userId: userId, start: start, end: end}, function (err, data) {
+          if (err) {
+          } else {
+            vm.reports = Utils.clone(data.report);
+          }
         });
 
       });

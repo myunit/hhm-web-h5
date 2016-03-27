@@ -27,7 +27,7 @@
                 </div>
                 <div class="col-20">
                     <a href="#" v-cloak>
-                        <span class="like icon" :class="{'icon-like': !isLike, 'icon-likeactive': isLike}"></span>
+                        <span class="like icon" :class="{'icon-like': !product.isLike, 'icon-likeactive': product.isLike}"></span>
                         <span>${liked}</span>
                     </a>
                 </div>
@@ -39,12 +39,14 @@
                 <div class="my-28-text">商品详情</div>
                 <ul class="my-ul" v-cloak>
                     <template v-for="sItem in product.single">
-                        <li class="item-content">
-                            <div class="item-inner clearfix">
-                                <div class="item-title">${sItem.ProductName}</div>
-                                <div class="item-after">${sItem.Size} x ${sItem.Quantity}</div>
-                            </div>
-                        </li>
+                        <a :href="'/product/detail?id='+sItem.ProductGroupSysNo" class="external">
+                            <li class="item-content">
+                                <div class="item-inner clearfix">
+                                    <div class="item-title">${sItem.ProductName}</div>
+                                    <div class="item-after">${sItem.Size} x ${sItem.Quantity}</div>
+                                </div>
+                            </li>
+                        </a>
                     </template>
                 </ul>
                 <div class="my-product-detail-img">

@@ -26,7 +26,7 @@
                 <div class="col-80 my-28-text">${product.Name.length > 30 ? product.Name.substring(0,30)+'...':product.Name}</div>
                 <div class="col-20" v-cloak>
                     <a href="#">
-                        <span class="like icon" :class="{'icon-like': !isLike, 'icon-likeactive': isLike}"></span>
+                        <span class="like icon" :class="{'icon-like': !product.isLike, 'icon-likeactive': product.isLike}"></span>
                         <span>${liked}</span>
                     </a>
                 </div>

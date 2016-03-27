@@ -102,7 +102,7 @@
               }
             }
 
-            if (vm.receiver === null && len > 0) {
+            if (vm.receiver.receiverId === 0 && len > 0) {
               vm.receiver.receiverId = receivers[0].SysNo;
               vm.receiver.phone = receivers[0].ReceiverMobile;
               vm.receiver.receiver = receivers[0].ReceiverName;

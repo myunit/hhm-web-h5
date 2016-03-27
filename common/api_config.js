@@ -106,6 +106,9 @@ CustomerApi.prototype = {
   },
   getUserInfo: function () {
     return api_config.customerService.baseUrl + api_config.customerService.method.getUserInfo;
+  },
+  getBuyReport: function () {
+    return api_config.customerService.baseUrl + api_config.customerService.method.getBuyReport;
   }
 };
 

@@ -9,10 +9,14 @@ var orderApi = ApiFactory.CreateApi('order');
 
 /* GET users listing. */
 router.use(function (req, res, next) {
-  if (req.session.uid) {
-    next();
+  if (req.path.indexOf('buy-report') === -1) {
+    if (req.session.uid) {
+      next();
+    } else {
+      res.redirect('/');
+    }
   } else {
-    res.redirect('/');
+    next();
   }
 });
 
@@ -114,8 +118,8 @@ router.route('/my-book')
         "userId": req.session.uid,
         "pageId": req.body.pageId,
         "pageSize": req.body.pageSize,
-        "type":req.body.type,
-        "orderStatus":req.body.orderStatus
+        "type": req.body.type,
+        "orderStatus": req.body.orderStatus
       })
       .end(function (response) {
         var data = response.body.repData;
@@ -135,14 +139,40 @@ router.get('/buy-report', function (req, res, next) {
   res.render('my-buy-report', {title: '采购报表-好好卖'});
 });
 
-router.get('/buy-report-result', function (req, res, next) {
-  res.render('my-buy-report-result', {title: '采购报表-好好卖'});
+router.get('/go-to-report', function (req, res, next) {
+  res.redirect('/users/buy-report?id=' + req.session.uid);
 });
+
+router.route('/buy-report-result')
+  .get(function (req, res, next) {
+    res.render('my-buy-report-result', {title: '采购报表-好好卖'});
+  }).post(function (req, res, next) {
+    unirest.post(customerApi.getBuyReport())
+      .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
+      .send({
+        "userId": parseInt(req.body.userId),
+        "start": req.body.start,
+        "end": req.body.end
+      })
+      .end(function (response) {
+        var data = response.body.repData;
+        if (data === undefined) {
+          res.json({status: 0, msg: '服务异常'});
+          return;
+        }
+        if (data.status) {
+          res.json({status: data.status, report: data.report});
+        } else {
+          res.json({status: data.status, msg: data.msg});
+        }
+      });
+  });
 
 router.route('/my-fav')
   .get(function (req, res, next) {
     res.render('my-fav', {title: '我的收藏-好好卖'});
-  }).post(function (req, res, next) {
+  })
+  .post(function (req, res, next) {
     unirest.post(customerApi.getMyFavorite())
       .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
       .send({
@@ -167,7 +197,7 @@ router.route('/my-fav')
 router.post('/add-fav', function (req, res, next) {
   unirest.post(customerApi.addFavorite())
     .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'X-Access-Token': req.session.token})
-    .send({"userId": req.session.uid, "productId": req.body.productId})
+    .send({"userId": req.session.uid, "productId": parseInt(req.body.productId)})
     .end(function (response) {
       var data = response.body.repData;
       if (data === undefined) {
@@ -185,7 +215,7 @@ router.post('/add-fav', function (req, res, next) {
 router.post('/del-fav', function (req, res, next) {
   unirest.post(customerApi.delFavorite())
     .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'X-Access-Token': req.session.token})
-    .send({"userId": req.session.uid, "productId": req.body.productId})
+    .send({"userId": req.session.uid, "productId": parseInt(req.body.productId)})
     .end(function (response) {
       var data = response.body.repData;
       if (data === undefined) {

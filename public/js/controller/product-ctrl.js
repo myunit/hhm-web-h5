@@ -122,7 +122,6 @@
         var vm = new Vue({
           el: '#page-product-detail',
           data: {
-            isLike: false,
             cartNum: 0,
             product: null,
             style: [],
@@ -130,7 +129,7 @@
           },
           computed: {
             liked: function () {
-              return this.isLike ? '已收藏' : '收藏';
+              return this.product.isLike ? '已收藏' : '收藏';
             }
           },
           methods: {
@@ -214,17 +213,17 @@
         });
 
         $(page).on('click', '.like', function () {
-          ajaxPost(vm.isLike ? '/users/del-fav' : '/users/add-fav', {
+          ajaxPost(vm.product.isLike ? '/users/del-fav' : '/users/add-fav', {
             productId: parseInt(search['id'])
           }, function (err, data) {
             $.hidePreloader();
             if (err) {
               $.toast(err, 1000);
             } else {
-              vm.isLike = !vm.isLike;
+              vm.product.isLike = !vm.product.isLike;
             }
           });
-          if (vm.isLike) {
+          if (vm.product.isLike) {
             $.showPreloader('取消收藏...');
           } else {
             $.showPreloader('收藏...');
@@ -293,7 +292,6 @@
         var vm = new Vue({
           el: '#page-secKill-product-detail',
           data: {
-            isLike: false,
             cartNum: 0,
             product: null,
             style: [],
@@ -301,7 +299,7 @@
           },
           computed: {
             liked: function () {
-              return this.isLike ? '已收藏' : '收藏';
+              return this.product.isLike ? '已收藏' : '收藏';
             }
           },
           methods: {
@@ -384,17 +382,17 @@
         });
 
         $(page).on('click', '.like', function () {
-          ajaxPost(vm.isLike ? '/users/del-fav' : '/users/add-fav', {
-            productId: parseInt(search['id'])
+          ajaxPost(vm.product.isLike ? '/users/del-fav' : '/users/add-fav', {
+            productId: vm.product.SysNo
           }, function (err, data) {
             $.hidePreloader();
             if (err) {
               $.toast(err, 1000);
             } else {
-              vm.isLike = !vm.isLike;
+              vm.product.isLike = !vm.product.isLike;
             }
           });
-          if (vm.isLike) {
+          if (vm.product.isLike) {
             $.showPreloader('取消收藏...');
           } else {
             $.showPreloader('收藏...');
@@ -463,7 +461,6 @@
         var vm = new Vue({
           el: '#page-product-group-detail',
           data: {
-            isLike: false,
             cartNum: 0,
             product: null,
             style: [],
@@ -471,7 +468,7 @@
           },
           computed: {
             liked: function () {
-              return this.isLike ? '已收藏' : '收藏';
+              return this.product.isLike ? '已收藏' : '收藏';
             }
           },
           methods: {
@@ -554,17 +551,17 @@
         });
 
         $(page).on('click', '.like', function () {
-          ajaxPost(vm.isLike ? '/users/del-fav' : '/users/add-fav', {
+          ajaxPost(vm.product.isLike ? '/users/del-fav' : '/users/add-fav', {
             productId: parseInt(search['id'])
           }, function (err, data) {
             $.hidePreloader();
             if (err) {
               $.toast(err, 1000);
             } else {
-              vm.isLike = !vm.isLike;
+              vm.product.isLike = !vm.product.isLike;
             }
           });
-          if (vm.isLike) {
+          if (vm.product.isLike) {
             $.showPreloader('取消收藏...');
           } else {
             $.showPreloader('收藏...');
