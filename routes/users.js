@@ -197,7 +197,7 @@ router.route('/my-fav')
 router.post('/add-fav', function (req, res, next) {
   unirest.post(customerApi.addFavorite())
     .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'X-Access-Token': req.session.token})
-    .send({"userId": req.session.uid, "productId": req.body.productId})
+    .send({"userId": req.session.uid, "productId": parseInt(req.body.productId)})
     .end(function (response) {
       var data = response.body.repData;
       if (data === undefined) {
@@ -215,7 +215,7 @@ router.post('/add-fav', function (req, res, next) {
 router.post('/del-fav', function (req, res, next) {
   unirest.post(customerApi.delFavorite())
     .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'X-Access-Token': req.session.token})
-    .send({"userId": req.session.uid, "productId": req.body.productId})
+    .send({"userId": req.session.uid, "productId": parseInt(req.body.productId)})
     .end(function (response) {
       var data = response.body.repData;
       if (data === undefined) {
