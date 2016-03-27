@@ -314,7 +314,9 @@
             product: null,
             curPrice: 0,
             curImg: '',
-            curSkuId: 0
+            curSkuId: 0,
+            total: 0,
+            limit: 0
           },
           methods: {
             addToCart: addToCart
@@ -369,6 +371,8 @@
             vm.product = Utils.clone(data.product);
             cartVm.product = vm.product;
             cartVm.curPrice = vm.product.SeckillPrice;
+            cartVm.total = vm.product.TotalCount;
+            cartVm.limit = vm.product.LimitBuyCount;
             var skuList = vm.product.Skus;
             cartVm.curSkuId = skuList[0].SysNo;
             cartVm.curImg = skuList[0].Images[0].ImgUrl;
@@ -413,6 +417,23 @@
             Vue.nextTick(function () {
               cartVm.addCartNum = oldVal;
             });
+            return;
+          }
+
+          if (newVal > cartVm.total) {
+            $.toast('超出库存库存！', 1000);
+            Vue.nextTick(function () {
+              cartVm.addCartNum = oldVal;
+            });
+            return;
+          }
+
+          if (newVal > cartVm.limit) {
+            $.toast('超出限购数量！', 1000);
+            Vue.nextTick(function () {
+              cartVm.addCartNum = oldVal;
+            });
+            return;
           }
         });
 
@@ -427,6 +448,16 @@
         });
 
         $(document).on('click', '.em-op-a', function () {
+          if (cartVm.total < cartVm.addCartNum + 1) {
+            $.toast('超出库存库存！', 500);
+            return;
+          }
+
+          if (cartVm.limit < cartVm.addCartNum + 1) {
+            $.toast('超出限购数量！', 500);
+            return;
+          }
+
           cartVm.addCartNum++;
         });
 
