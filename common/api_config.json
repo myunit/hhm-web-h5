@@ -22,6 +22,7 @@
       "getUnreadNoticeCount": "Customers/get-unread-notice-count",
       "setNoticeStatus": "Customers/set-notice-status",
       "getUserInfo": "Customers/get-user-info",
+      "getBuyReport": "Customers/get-buy-report",
       "getReceiver": "Addresses/get-receiver",
       "setDefaultReceiver": "Addresses/set-default-receiver",
       "delReceiver": "Addresses/del-receiver",
