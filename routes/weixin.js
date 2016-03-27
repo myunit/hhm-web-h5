@@ -99,6 +99,46 @@ router.use('/pay-notify', wxpay.useWXCallback(function (msg, req, res, next) {
   res.success();
 }));
 
+router.use('/pay-notify-app', wxpay.useWXCallback(function (msg, req, res, next) {
+  // 处理商户业务逻辑
+  console.log(JSON.stringify(msg));
+  console.log(msg.sign);
+
+  var wxpayForApp = WXPay({
+    partner_key: wx_conf.apiKeyForAPP
+  });
+
+  console.log(wxpayForApp.sign(msg));
+
+
+  if (msg.result_code === 'SUCCESS') {
+    if (wxpayForApp.sign(msg) === msg.sign) {
+      var out_trade_no = msg.out_trade_no;
+      var total = parseInt(msg.total_fee)/100;
+      out_trade_no = out_trade_no.split('_');
+      var userId = parseInt(out_trade_no[0]);
+      var userName = '';
+      var orderId = parseInt(out_trade_no[1]);
+
+      var obj = {
+        "userId": userId,
+        "orderId": orderId,
+        "note": "微信支付",
+        "buyer": userName,
+        "total": total,
+        "tradeId": msg.transaction_id,
+        "type": 13
+      };
+      unirest.post(orderApi.createPaymentRecord())
+        .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
+        .send(obj)
+        .end(function (response) {
+        });
+    }
+  }
+  res.success();
+}));
+
 function getClientIp(req) {
   var ip = req.connection.remoteAddress;
   ip = ip.split(':');
