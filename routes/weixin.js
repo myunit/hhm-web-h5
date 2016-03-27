@@ -70,30 +70,31 @@ router.use('/pay-notify', wxpay.useWXCallback(function (msg, req, res, next) {
   // 处理商户业务逻辑
 
   if (msg.result_code === 'SUCCESS') {
-    var attach = msg.attach;
-    var out_trade_no = msg.out_trade_no;
-    var total = parseInt(msg.total_fee)/100;
-    attach = attach.split('#');
-    out_trade_no = out_trade_no.split('T');
-    var userId = parseInt(attach[0]);
-    var userName = attach[1];
-    var orderId = parseInt(out_trade_no[0]);
+    if (wxpay.sign(msg) === msg.sign) {
+      var attach = msg.attach;
+      var out_trade_no = msg.out_trade_no;
+      var total = parseInt(msg.total_fee)/100;
+      attach = attach.split('#');
+      out_trade_no = out_trade_no.split('T');
+      var userId = parseInt(attach[0]);
+      var userName = attach[1];
+      var orderId = parseInt(out_trade_no[0]);
 
-    var obj = {
-      "userId": userId,
-      "orderId": orderId,
-      "note": "微信支付",
-      "buyer": userName,
-      "total": total,
-      "tradeId": msg.transaction_id,
-      "type": 13
-    };
-    console.log(JSON.stringify(obj));
-    unirest.post(orderApi.createPaymentRecord())
-      .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
-      .send(obj)
-      .end(function (response) {
-      });
+      var obj = {
+        "userId": userId,
+        "orderId": orderId,
+        "note": "微信支付",
+        "buyer": userName,
+        "total": total,
+        "tradeId": msg.transaction_id,
+        "type": 13
+      };
+      unirest.post(orderApi.createPaymentRecord())
+        .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
+        .send(obj)
+        .end(function (response) {
+        });
+    }
   }
   res.success();
 }));
