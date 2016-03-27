@@ -103,6 +103,7 @@ label.label-checkbox input[type="radio"]:checked + .item-media i.icon-form-check
 .my-list-cart .item-content .item-content .item-title{ overflow:auto; white-space:normal; font-size:.71rem;}
 .my-list-cart .item-content{ align-items:flex-start;}
 .my-list-cart.media-list .item-media .icon-form-checkbox{ margin-top:1.6rem;}
+.my-list-cart label.label-checkbox{margin-right: .75rem;}
 .my-div-cart-detail{ background:#f5f5f5; font-size:.71rem; padding:.2rem .88rem;}
 
 

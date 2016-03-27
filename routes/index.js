@@ -76,6 +76,24 @@ router.route('/register')
       });
   });
 
+router.post('/is-registered', function (req, res, next) {
+  unirest.post(loginApi.isRegistered())
+    .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
+    .send({"phone": req.body.phone})
+    .end(function (response) {
+      var data = response.body.repData;
+      if (data === undefined) {
+        res.json({status: 0, msg: '服务异常'});
+        return;
+      }
+      if (data.status) {
+        res.json({status: data.status, isRegistered: data.isRegistered});
+      } else {
+        res.json({status: data.status, msg: data.msg});
+      }
+    });
+});
+
 router.post('/get-captcha', function (req, res, next) {
   unirest.post(loginApi.getCaptcha())
     .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
@@ -155,7 +173,7 @@ router.route('/rest-password')
   })
   .post(function (req, res, next) {
     unirest.post(loginApi.forgetPassword())
-      .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'X-Access-Token': req.session.token})
+      .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
       .send({"phone": req.body.phone, "newPassword": req.body.password, "code": req.body.captcha})
       .end(function (response) {
         var data = response.body.repData;

@@ -12,8 +12,8 @@
                             <ul>
                                 <li class="my-24-text">
                                     <div class="row" v-cloak>
-                                        <div class="col-50 my-gray-text">下单日期 : ${order.OrderTime}</div>
-                                        <div class="col-50 my-red-text my-right-text">${order.statusNote}</div>
+                                        <div class="col-80 my-gray-text">下单日期 : ${order.OrderTime}</div>
+                                        <div class="col-20 my-red-text my-right-text">${order.statusNote}</div>
                                     </div>
                                 </li>
                                 <li class="my-0-pad">
@@ -27,11 +27,12 @@
                                 </li>
                                 <li>
                                     <div class="row my-div-booking-list" v-cloak>
-                                        <div class="col-50 my-gray-text">
+                                        <div class="col-50 my-gray-text" v-if="order.reBuy || order.canPay || order.canCancel">
                                             <a href="#" @click.prevent="payOrder($index, 0)" class="button button-red my-inline-display" v-if="order.canPay">去付款</a>
                                             <a href="#" @click.prevent="cancelOrder($index, 0)" class="button my-inline-display" v-if="order.canCancel">取消订单</a>
-                                            <a href="#" @click.prevent="reBuy($index, 0)" class="button my-inline-display">再次购买</a>
+                                            <a href="#" @click.prevent="reBuy($index, 0)" class="button my-inline-display" v-if="order.reBuy">再次购买</a>
                                         </div>
+                                        <div class="col-50 my-gray-text" v-if="!order.reBuy && !order.canPay && !order.canCancel">&nbsp;</div>
                                         <div class="col-50 my-right-text my-22-text" v-cloak>共${order.TotalQuantity}件商品，合计 : ￥${order.Amount}</div>
                                     </div>
                                 </li>
@@ -52,8 +53,8 @@
                             <ul>
                                 <li class="my-24-text">
                                     <div class="row" v-cloak>
-                                        <div class="col-50 my-gray-text">下单日期 : ${order.OrderTime}</div>
-                                        <div class="col-50 my-red-text my-right-text">${order.statusNote}</div>
+                                        <div class="col-80 my-gray-text">下单日期 : ${order.OrderTime}</div>
+                                        <div class="col-20 my-red-text my-right-text">${order.statusNote}</div>
                                     </div>
                                 </li>
                                 <li class="my-0-pad">
@@ -70,7 +71,7 @@
                                         <div class="col-50 my-gray-text">
                                             <a href="#" @click.prevent="payOrder($index, 1)" class="button button-red my-inline-display" v-if="order.canPay">去付款</a>
                                             <a href="#" @click.prevent="cancelOrder($index, 1)" class="button my-inline-display" v-if="order.canCancel">取消订单</a>
-                                            <a href="#" @click.prevent="reBuy($index, 1)" class="button my-inline-display">再次购买</a>
+                                            <a href="#" @click.prevent="reBuy($index, 1)" class="button my-inline-display" v-if="order.reBuy">再次购买</a>
                                         </div>
                                         <div class="col-50 my-right-text my-22-text" v-cloak>共${order.TotalQuantity}件商品，合计 : ￥${order.Amount}</div>
                                     </div>
@@ -92,4 +93,4 @@
 </div>
 <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
-<script type='text/javascript' src='../js/lib/requirejs.min.js' data-main='../js/controller/user-ctrl.min'></script>
+<script type='text/javascript' src='../js/lib/requirejs.min.js' data-main='../js/controller/user-ctrl'></script>

@@ -84,10 +84,10 @@
             id = buylist[i];
             skus = vm.cartsObj[id].skus;
             for (var j = 0; j < skus.length; j++) {
-              t += skus[j].qty * skus[j].price;
+              t += skus[j].qty * (skus[j].price*100);
             }
           }
-          vm.total = t;
+          vm.total = t/100;
         }
 
         vm.$watch('buyList', function (newVal, oldVal) {
@@ -95,8 +95,8 @@
         });
 
         function submitOrder () {
-          if (vm.cartsAry.length > 0) {
-            location.href = '/book/confirm';
+          if (vm.buyList.length > 0) {
+            location.href = '/book/confirm?product=' + vm.buyList.join('!');
           } else {
             $.toast('请先选购商品', 1000);
           }
@@ -276,7 +276,7 @@
               //$('.my-list-cart input[type=checkbox]').prop('checked', true);
 
               $(page).on('click', '.my-nav-bar .label-checkbox', function (event) {
-                if (!vm.allChecked) {
+                if (vm.allChecked) {
                   vm.buyList.splice(0, vm.buyList.length);
                 } else {
                   vm.buyList.splice(0, vm.buyList.length);

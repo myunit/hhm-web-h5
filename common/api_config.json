@@ -8,7 +8,8 @@
       "logout": "Customers/logout",
       "modifyPassword": "Customers/modify-password",
       "register": "Customers/register",
-      "registerAndLogin": "Customers/register-and-login"
+      "registerAndLogin": "Customers/register-and-login",
+      "isRegistered": "Customers/is-registered"
     }
   },
   "customerService": {

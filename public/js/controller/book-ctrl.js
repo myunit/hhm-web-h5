@@ -49,8 +49,13 @@
       $(document).on("pageInit", "#page-book-confirm", function (e, id, page) {
         var search = Utils.getSearch(location);
         var selectId = 0;
+        var productIdList = [];
         if (search['id']) {
           selectId = parseInt(search['id']);
+        }
+
+        if (search['product']) {
+          productIdList = search['product'].split('!');
         }
 
         var vm = new Vue({
@@ -60,7 +65,8 @@
             receiver: null,
             cartsAry: [],
             countPrice: 0,
-            cartIds: []
+            cartIds: [],
+            productIdStr: search['product']
           }
         });
 
@@ -71,12 +77,12 @@
             var receivers = data.receiver;
             var len = receivers.length;
             var i = 0;
+            vm.receiver = {receiverId:0, phone:'', receiver:'', pcdDes:'', address:''};
             if (selectId > 0) {
               for (i = 0; i < len; i++) {
                 if (receivers[i].SysNo === selectId) {
-                  vm.receiver = {};
                   vm.receiver.receiverId = receivers[i].SysNo;
-                  vm.receiver.phone = receivers[i].ReceiverPhone;
+                  vm.receiver.phone = receivers[i].ReceiverMobile;
                   vm.receiver.receiver = receivers[i].ReceiverName;
                   vm.receiver.pcdDes = receivers[i].Province + ' ' + receivers[i].City + ' ' + receivers[i].District;
                   vm.receiver.address = receivers[i].Address;
@@ -86,9 +92,8 @@
             } else {
               for (i = 0; i < len; i++) {
                 if (receivers[i].IsDefault) {
-                  vm.receiver = {};
                   vm.receiver.receiverId = receivers[i].SysNo;
-                  vm.receiver.phone = receivers[i].ReceiverPhone;
+                  vm.receiver.phone = receivers[i].ReceiverMobile;
                   vm.receiver.receiver = receivers[i].ReceiverName;
                   vm.receiver.pcdDes = receivers[i].Province + ' ' + receivers[i].City + ' ' + receivers[i].District;
                   vm.receiver.address = receivers[i].Address;
@@ -98,9 +103,8 @@
             }
 
             if (vm.receiver === null && len > 0) {
-              vm.receiver = {};
               vm.receiver.receiverId = receivers[0].SysNo;
-              vm.receiver.phone = receivers[0].ReceiverPhone;
+              vm.receiver.phone = receivers[0].ReceiverMobile;
               vm.receiver.receiver = receivers[0].ReceiverName;
               vm.receiver.pcdDes = receivers[0].Province + ' ' + receivers[0].City + ' ' + receivers[0].District;
               vm.receiver.address = receivers[0].Address;
@@ -118,6 +122,9 @@
             var cartsObj = {};
             for (var i = 0; i < len; i++) {
               item = cart[i];
+              if (productIdList.indexOf(item.ProductSysNo+'') === -1){
+                continue;
+              }
               var sku = {};
               if (cartsObj[item.ProductSysNo] === undefined) {
                 cartsObj[item.ProductSysNo] = {};

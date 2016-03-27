@@ -8,12 +8,12 @@
                 <div class="list-block media-list my-select-address">
                     <ul v-cloak>
                         <li>
-                            <a :href="'/book/confirm?id='+receiver.receiverId" class="item-content external">
+                            <a :href="'/book/confirm?id='+receiver.receiverId+'&product='+productIdStr" class="item-content external">
                                 <div class="item-inner">
                                     <div class="item-title-row">
                                         <div class="item-title">
-                                            <label class="label-checkbox">
-                                                <input type="radio" :checked="receiver.isDefault" name="single-radio">
+                                            <label class="label-checkbox" v-show="receiver.isSelected">
+                                                <input type="radio" :checked="receiver.isSelected" name="single-radio">
                                                 <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
                                             </label>${receiver.receiver}</div>
                                         <div class="item-after">${receiver.phone}</div>
@@ -23,7 +23,8 @@
                                 </div>
                             </a>
                             <div class="row">
-                                <div class="col-50 my-gray-text my-22-text">${receiver.isDefault? '已设为默认地址':'       '}</div>
+                                <div class="col-50 my-gray-text my-22-text" v-if="receiver.isDefault">已设为默认地址</div>
+                                <div class="col-50 my-gray-text my-22-text" v-if="!receiver.isDefault">&nbsp;</div>
                                 <div class="col-50 my-right-text"><a :href="'/address/modify?id='+receiver.receiverId" class="my-gray-text my-22-text external"><span class="icon icon-edit"></span> 修改</a></div>
                             </div>
                         </li>

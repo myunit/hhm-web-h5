@@ -49,20 +49,26 @@
                 <ul v-cloak>
                     <template v-for="cart in cartsAry" track-by="productId">
                         <li>
-                            <label class="label-checkbox item-content">
-                                <input type="checkbox" name="my-radio" :value="cart.productId" v-model="buyList">
-                                <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                            <div class="item-content">
+                                <label class="label-checkbox">
+                                    <input type="checkbox" name="my-radio" :value="cart.productId" v-model="buyList">
+                                    <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
+                                </label>
                                 <div class="item-inner">
                                     <div class="item-content">
-                                        <div class="item-media"><img :src="cart.image" style="width: 3.4rem;"></div>
+                                        <div class="item-media">
+                                            <a :href="'/product/detail?id='+cart.productId" class="external">
+                                                <img :src="cart.image" style="width: 3.4rem;">
+                                            </a>
+                                        </div>
                                         <div class="item-inner">
-                                            <div class="item-title-row" v-cloak>
+                                            <div class="item-title-row">
                                                 <div class="item-title">${cart.name}</div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </label>
+                            </div>
                             <template v-for="sku in cart.skus" track-by="cartId">
                                 <div class="item-content my-div-cart-detail-box" v-cloak>
                                     <div class="item-inner">
@@ -88,4 +94,4 @@
 </div>
 <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
-<script type='text/javascript' src='../js/lib/requirejs.min.js' data-main='../js/controller/cart-ctrl.min'></script>
+<script type='text/javascript' src='../js/lib/requirejs.min.js' data-main='../js/controller/cart-ctrl'></script>

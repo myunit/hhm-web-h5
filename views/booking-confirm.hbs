@@ -13,13 +13,13 @@
             <div class="list-block media-list my-booking-address">
                 <ul>
                     <li v-cloak>
-                        <a :href="'/address?id='+receiver.receiverId" class="item-link item-content external">
+                        <a :href="'/address?id='+receiver.receiverId+'&product='+productIdStr" class="item-link item-content external">
                             <div class="item-inner">
                                 <div class="item-title-row">
                                     <div class="item-title">${receiver.receiver}</div>
                                     <div class="item-after">${receiver.phone}</div>
                                 </div>
-                                <div class="item-text my-gray-text">${receiver.pcdDes} ${receiver.address}
+                                <div class="item-text my-gray-text">${receiver.pcdDes}<br>${receiver.address}
                                 </div>
                             </div>
                             <span class="icon icon-address"></span>
@@ -96,4 +96,4 @@
 
 <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
-<script type='text/javascript' src='../js/lib/requirejs.min.js' data-main='../js/controller/book-ctrl.min'></script>
+<script type='text/javascript' src='../js/lib/requirejs.min.js' data-main='../js/controller/book-ctrl'></script>

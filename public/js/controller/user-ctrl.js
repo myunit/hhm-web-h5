@@ -232,7 +232,7 @@
             return;
           }
 
-          ajaxPost('/users/change-password', {password: vm.newPW}, function (err, data) {
+          ajaxPost('/users/change-password', {newPassword: vm.newPW, oldPassword: vm.oldPW}, function (err, data) {
             $.hidePreloader();
             if (err) {
               $.toast(err, 1000);
@@ -557,7 +557,7 @@
             for (var i = 0; i < len; i++) {
               var obj = {};
               obj.receiverId = receivers[i].SysNo;
-              obj.phone = receivers[i].ReceiverPhone;
+              obj.phone = receivers[i].ReceiverMobile;
               obj.receiver = receivers[i].ReceiverName;
               obj.pcdDes = receivers[i].Province + ' ' + receivers[i].City + ' ' + receivers[i].District;
               obj.address = receivers[i].Address;
@@ -719,7 +719,7 @@
             } else if (order.Status === '待发货' || order.Status === '已发货') {
               order.statusNote = order.Status;
             } else {
-              order.statusNote = order.Status;//已发货
+              order.statusNote = order.Status;
               order.reBuy = true;
             }
           }

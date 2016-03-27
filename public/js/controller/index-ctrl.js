@@ -51,7 +51,23 @@
           el: '#page-index',
           data: {
             search: '',
-            banners: [],
+            banners: [
+              {
+                "img": "http://img.alicdn.com/tps/i1/TB1M8ZOLVXXXXX8XpXXX3a8GpXX-700-500.jpg",
+                "url": "http://wxp.xitie10.com/product/new"
+              },
+              {
+                "img": "http://img.alicdn.com/tps/i1/TB11.gILVXXXXaQXpXXP3C8GpXX-700-500.png",
+                "url": "http://wxp.xitie10.com/product/secKill"
+              },
+              {
+                "img": "http://img.alicdn.com/tps/i1/TB1S3oNLVXXXXXSXpXXX3a8GpXX-700-500.jpg",
+                "url": "http://wxp.xitie10.com/product/group"
+              },
+              {
+                "img": "http://img.alicdn.com/tps/i1/TB1S3oNLVXXXXXSXpXXX3a8GpXX-700-500.jpg",
+                "url": "http://wxp.xitie10.com/product/recommend?id=14&name=0323栏目一"
+              }],
             newsImg: '',
             salesImg: '',
             groupImg: '',
@@ -67,27 +83,25 @@
             $.toast(err, 1000);
           } else {
             var home = data.home;
-            vm.banners = home.banner.slice();
             vm.newsImg = home.news.img;
             vm.salesImg = home.sales.img;
             vm.groupImg = home.group.img;
             vm.secKillImg = home.secKill.img;
-            vm.recommends = home.recommend.slice();
-
-            vm.$nextTick(function () {
-              $(function () {
-                $(".swiper-container").swiper({
-                  spaceBetween: 30,
-                  continuous: true,
-                  autoplay: 2500,
-                  autoplayDisableOnInteraction: false
-                });
-              });
-            });
+            vm.recommends = home.recommend.length > 6 ? home.recommend.slice(0, 6) : home.recommend.slice();
           }
         });
         $.showPreloader('请稍等...');
 
+        $(function () {
+          $(".swiper-container").swiper({
+            pagination : '.swiper-pagination',
+            paginationClickable: true,
+            spaceBetween: 10,
+            centeredSlides: true,
+            autoplay: 2500,
+            autoplayDisableOnInteraction: false
+          });
+        });
 
         ajaxPost('/users/get-notice-count', {}, function (err, data) {
           if (err) {
@@ -190,34 +204,44 @@
             return;
           }
 
-          ajaxPost('/get-captcha', {'phone': vm.phone, 'type': 1}, function (err, data) {
-            $.hidePreloader();
+          ajaxPost('/is-registered', {'phone': vm.phone}, function (err, data) {
             if (err) {
               $.toast(err, 1000);
             } else {
-              var time = 60;
-              vm.captchaTip = time + '秒';
-              vm.isSendCaptcha = true;
-              vm.isDisable = false;
-              vm.captchaMsg = '如果您未收到短信，请在60秒后再次获取';
-              var sendCaptchaInterval = setInterval(function () {
-                time--;
-                if (time > 9) {
-                  vm.captchaTip = time + '秒';
-                } else {
-                  vm.captchaTip = '0' + time + '秒';
-                }
-                if (time === 0) {
-                  vm.captchaTip = '获取验证码';
-                  vm.isSendCaptcha = false;
-                  vm.captchaMsg = '';
-                  clearInterval(sendCaptchaInterval);
-                }
-              }, 1000);
+              if (!data.isRegistered) {
+                ajaxPost('/get-captcha', {'phone': vm.phone, 'type': 1}, function (err, data) {
+                  $.hidePreloader();
+                  if (err) {
+                    $.toast(err, 1000);
+                  } else {
+                    var time = 60;
+                    vm.captchaTip = time + '秒';
+                    vm.isSendCaptcha = true;
+                    vm.isDisable = false;
+                    vm.captchaMsg = '如果您未收到短信，请在60秒后再次获取';
+                    var sendCaptchaInterval = setInterval(function () {
+                      time--;
+                      if (time > 9) {
+                        vm.captchaTip = time + '秒';
+                      } else {
+                        vm.captchaTip = '0' + time + '秒';
+                      }
+                      if (time === 0) {
+                        vm.captchaTip = '获取验证码';
+                        vm.isSendCaptcha = false;
+                        vm.captchaMsg = '';
+                        clearInterval(sendCaptchaInterval);
+                      }
+                    }, 1000);
+                  }
+                });
+
+                $.showPreloader('发送中');
+              } else {
+                $.toast('该手机号已被注册', 1000);
+              }
             }
           });
-
-          $.showPreloader('发送中');
         }
 
         function submitReg(event) {
@@ -301,7 +325,11 @@
               if (err) {
                 $.toast(err, 1000);
               } else {
-                location.href = data.redirect
+                $.toast('恭喜您, 注册成功！', 1000);
+                var url = data.redirect;
+                setTimeout(function () {
+                  location.href = url;
+                }, 1000);
               }
             }
           );
@@ -349,34 +377,44 @@
             return;
           }
 
-          ajaxPost('/get-captcha', {'phone': vm.phone, 'type': 1}, function (err, data) {
-            $.hidePreloader();
+          ajaxPost('/is-registered', {'phone': vm.phone}, function (err, data) {
             if (err) {
               $.toast(err, 1000);
             } else {
-              var time = 60;
-              vm.captchaTip = time + '秒';
-              vm.isSendCaptcha = true;
-              vm.isDisable = false;
-              vm.captchaMsg = '如果您未收到短信，请在60秒后再次获取';
-              var sendCaptchaInterval = setInterval(function () {
-                time--;
-                if (time > 9) {
-                  vm.captchaTip = time + '秒';
-                } else {
-                  vm.captchaTip = '0' + time + '秒';
-                }
-                if (time === 0) {
-                  vm.captchaTip = '获取验证码';
-                  vm.isSendCaptcha = false;
-                  vm.captchaMsg = '';
-                  clearInterval(sendCaptchaInterval);
-                }
-              }, 1000);
+              if (data.isRegistered) {
+                ajaxPost('/get-captcha', {'phone': vm.phone, 'type': 1}, function (err, data) {
+                  $.hidePreloader();
+                  if (err) {
+                    $.toast(err, 1000);
+                  } else {
+                    var time = 60;
+                    vm.captchaTip = time + '秒';
+                    vm.isSendCaptcha = true;
+                    vm.isDisable = false;
+                    vm.captchaMsg = '如果您未收到短信，请在60秒后再次获取';
+                    var sendCaptchaInterval = setInterval(function () {
+                      time--;
+                      if (time > 9) {
+                        vm.captchaTip = time + '秒';
+                      } else {
+                        vm.captchaTip = '0' + time + '秒';
+                      }
+                      if (time === 0) {
+                        vm.captchaTip = '获取验证码';
+                        vm.isSendCaptcha = false;
+                        vm.captchaMsg = '';
+                        clearInterval(sendCaptchaInterval);
+                      }
+                    }, 1000);
+                  }
+                });
+
+                $.showPreloader('发送中');
+              } else {
+                $.toast('该手机号未注册', 1000);
+              }
             }
           });
-
-          $.showPreloader('发送中');
         }
 
         function restPW(event) {
