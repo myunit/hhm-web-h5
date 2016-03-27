@@ -77,10 +77,10 @@
             var receivers = data.receiver;
             var len = receivers.length;
             var i = 0;
+            vm.receiver = {receiverId:0, phone:'', receiver:'', pcdDes:'', address:''};
             if (selectId > 0) {
               for (i = 0; i < len; i++) {
                 if (receivers[i].SysNo === selectId) {
-                  vm.receiver = {};
                   vm.receiver.receiverId = receivers[i].SysNo;
                   vm.receiver.phone = receivers[i].ReceiverMobile;
                   vm.receiver.receiver = receivers[i].ReceiverName;
@@ -92,7 +92,6 @@
             } else {
               for (i = 0; i < len; i++) {
                 if (receivers[i].IsDefault) {
-                  vm.receiver = {};
                   vm.receiver.receiverId = receivers[i].SysNo;
                   vm.receiver.phone = receivers[i].ReceiverMobile;
                   vm.receiver.receiver = receivers[i].ReceiverName;
@@ -104,7 +103,6 @@
             }
 
             if (vm.receiver === null && len > 0) {
-              vm.receiver = {};
               vm.receiver.receiverId = receivers[0].SysNo;
               vm.receiver.phone = receivers[0].ReceiverMobile;
               vm.receiver.receiver = receivers[0].ReceiverName;
