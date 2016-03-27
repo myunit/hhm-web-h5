@@ -3,7 +3,7 @@
         <nav class="bar bar-tab my-booking-bar">
             <div class="row">
                 <div class="col-60 my-28-text">
-                    实付金额 :<span class="my-red-text"v-cloak> ￥${countPrice}</span>
+                    实付金额 :<span class="my-red-text"v-cloak> ￥${countPrice-promotion}</span>
                 </div>
                 <div class="col-40"><a id="submitBook" href="#" class="my-28-text external">提交订单</a></div>
             </div>
@@ -84,11 +84,11 @@
                 </ul>
             </div>
 
-            <div class="row my-div-booking-total">
+            <div class="row my-div-booking-total" v-cloak>
                 <div class="col-50">商品金额
                     <br>优惠</div>
                 <div class="col-50 my-red-text my-right-text">¥ ${countPrice}
-                    <br>¥ -17.00</div>
+                    <br>¥ -${promotion}</div>
             </div>
         </div>
     </div>
