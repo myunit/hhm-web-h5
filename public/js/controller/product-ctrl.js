@@ -383,7 +383,7 @@
 
         $(page).on('click', '.like', function () {
           ajaxPost(vm.product.isLike ? '/users/del-fav' : '/users/add-fav', {
-            productId: parseInt(search['id'])
+            productId: vm.product.SysNo
           }, function (err, data) {
             $.hidePreloader();
             if (err) {
