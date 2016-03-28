@@ -8,7 +8,7 @@
     baseUrl: './js',
     paths: {
       'Vue': './lib/vue.min',
-      'Utils': './lib/utils'
+      'Utils': './lib/utils.min'
     },
     shim: {
       'Vue': {

@@ -50,6 +50,18 @@ gulp.task('city-js', function() {
 });
 
 // JS处理任务
+gulp.task('utils-js', function() {
+  return gulp.src('public/js/lib/utils.js')      //引入所有需处理的JS
+    .pipe(jshint.reporter('default'))         //S代码检查
+    .pipe(concat('utils.js'))                  //合并输出的JS文件名称
+    .pipe(gulp.dest('public/js/lib'))        //完整版输出路径
+    .pipe(rename({ suffix: '.min' }))         //重命名
+    .pipe(uglify())                           //压缩JS
+    .pipe(gulp.dest('public/js/lib'))        //压缩版输出路径
+    .pipe(notify({ message: 'JS文件处理完成' }));
+});
+
+// JS处理任务
 gulp.task('js', function() {
   return gulp.src(['public/js/controller/*.js', '!public/js/controller/*.min.js'])      //引入所有需处理的JS
     .pipe(jshint.reporter('default'))         //S代码检查
@@ -67,7 +79,7 @@ gulp.task('clean', function() {
 
 // 预设任务，执行清理后，
 gulp.task('default', ['clean'], function() {
-  gulp.start('css', 'js', 'city-js');
+  gulp.start('css', 'js', 'city-js', 'utils-js');
 });
 
 

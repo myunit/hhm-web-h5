@@ -11,10 +11,14 @@ var router = express.Router();
 var customerApi = ApiFactory.CreateApi('customer');
 
 router.use(function (req, res, next) {
-  if (req.session.uid) {
-    next();
+  if (req.path.indexOf('get-street') === -1) {
+    if (req.session.uid) {
+      next();
+    } else {
+      res.redirect('/');
+    }
   } else {
-    res.redirect('/');
+    next();
   }
 });
 
@@ -96,91 +100,96 @@ router.post('/del-receiver', function (req, res, next) {
 });
 
 router.post('/modify-receiver', function (req, res, next) {
-  function callback (err, pcd) {
-    if (err) {
-      console.error('get pcd error: ' + err);
-      res.json({status: 0, msg: err});
-      return;
-    }
-
-    var obj = {
-      "userId": req.session.uid,
-      "receiverId": req.body.receiverId,
-      "name": req.body.receiver,
-      "phone": req.body.phone,
-      "provinceId": pcd.province.id,
-      "province": pcd.province.name,
-      "cityId": pcd.city.id,
-      "city": pcd.city.name,
-      "districtId": pcd.district.id,
-      "district": pcd.district.name,
-      "address": req.body.address,
-      "isDefault": req.body.isDefault
-    };
-    unirest.post(customerApi.modifyReceiver())
-      .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'X-Access-Token':req.session.token})
-      .send(obj)
-      .end(function (response) {
-        var data = response.body.repData;
-        if (data === undefined) {
-          res.json({status: 0, msg: '服务异常'});
-          return;
-        }
-        if (data.status) {
-          res.json({status: data.status});
-        } else {
-          res.json({status: data.status, msg: data.msg});
-        }
-      });
-  }
-
-  var pcdDes = req.body.pcdDes.split(' ');
-  CityChoose.getPCD(pcdDes[0], pcdDes[1], pcdDes[2], callback);
-
+  var pcdCode = req.body['pcdCode[]'];
+  var pcdName = req.body['pcdName[]'];
+  var obj = {
+    "userId": req.session.uid,
+    "receiverId": req.body.receiverId,
+    "name": req.body.receiver,
+    "phone": req.body.phone,
+    "provinceId": pcdCode[0],
+    "province": pcdName[0],
+    "cityId": pcdCode[1],
+    "city": pcdName[1],
+    "districtId": pcdCode[2],
+    "district": pcdName[2],
+    "address": req.body.address,
+    "street": req.body.street,
+    "streetId": parseInt(req.body.streetId),
+    "isDefault": req.body.isDefault
+  };
+  unirest.post(customerApi.modifyReceiver())
+    .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'X-Access-Token':req.session.token})
+    .send(obj)
+    .end(function (response) {
+      var data = response.body.repData;
+      if (data === undefined) {
+        res.json({status: 0, msg: '服务异常'});
+        return;
+      }
+      if (data.status) {
+        res.json({status: data.status});
+      } else {
+        res.json({status: data.status, msg: data.msg});
+      }
+    });
 });
 
 router.post('/add-receiver', function (req, res, next) {
-  function callback (err, pcd) {
-    if (err) {
-      console.error('get pcd error: ' + err);
-      res.json({status: 0, msg: err});
-      return;
-    }
+  var pcdCode = req.body['pcdCode[]'];
+  var pcdName = req.body['pcdName[]'];
+  var obj = {
+    "userId": req.session.uid,
+    "receiverId": req.body.receiverId,
+    "name": req.body.receiver,
+    "phone": req.body.phone,
+    "provinceId": pcdCode[0],
+    "province": pcdName[0],
+    "cityId": pcdCode[1],
+    "city": pcdName[1],
+    "districtId": pcdCode[2],
+    "district": pcdName[2],
+    "address": req.body.address,
+    "street": req.body.street,
+    "streetId": parseInt(req.body.streetId),
+    "isDefault": req.body.isDefault
+  };
 
-    unirest.post(customerApi.addReceiver())
-      .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'X-Access-Token':req.session.token})
-      .send({
-        "userId": req.session.uid,
-        "receiverId": req.body.receiverId,
-        "name": req.body.receiver,
-        "phone": req.body.phone,
-        "provinceId": pcd.province.id,
-        "province": pcd.province.name,
-        "cityId": pcd.city.id,
-        "city": pcd.city.name,
-        "districtId": pcd.district.id,
-        "district": pcd.district.name,
-        "address": req.body.address,
-        "isDefault": req.body.isDefault
-      })
-      .end(function (response) {
-        var data = response.body.repData;
-        console.log('data: ' + JSON.stringify(data));
-        if (data === undefined) {
-          res.json({status: 0, msg: '服务异常'});
-          return;
-        }
-        if (data.status) {
-          res.json({status: data.status, receiverId: data.receiverId});
-        } else {
-          res.json({status: data.status, msg: data.msg});
-        }
-      });
-  }
+  unirest.post(customerApi.addReceiver())
+    .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'X-Access-Token':req.session.token})
+    .send(obj)
+    .end(function (response) {
+      var data = response.body.repData;
+      console.log('data: ' + JSON.stringify(data));
+      if (data === undefined) {
+        res.json({status: 0, msg: '服务异常'});
+        return;
+      }
+      if (data.status) {
+        res.json({status: data.status, receiverId: data.receiverId});
+      } else {
+        res.json({status: data.status, msg: data.msg});
+      }
+    });
+});
 
-  var pcdDes = req.body.pcdDes.split(' ');
-  CityChoose.getPCD(pcdDes[0], pcdDes[1], pcdDes[2], callback);
+router.post('/get-street',function (req, res, next) {
+  unirest.post(customerApi.getAllStreet())
+    .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
+    .send({"districtId": parseInt(req.body.districtId)})
+    .end(function (response) {
+      var data = response.body.repData;
+      if (data === undefined) {
+        res.json({status: 0, msg: '服务异常'});
+        return;
+      }
 
+      if (data.status) {
+        res.json({status: data.status, street: data.street});
+      } else {
+        res.json({status: data.status, msg: data.msg});
+      }
+    });
 });
 
 module.exports = router;

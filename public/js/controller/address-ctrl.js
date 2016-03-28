@@ -8,7 +8,7 @@
     baseUrl: '../js',
     paths: {
       'Vue': './lib/vue.min',
-      'Utils': './lib/utils'
+      'Utils': './lib/utils.min'
     },
     shim: {
       'Vue': {
@@ -105,14 +105,32 @@
                   phone: data.receiver.ReceiverMobile,
                   receiver: data.receiver.ReceiverName,
                   pcdDes: data.receiver.Province + ' ' + data.receiver.City + ' ' + data.receiver.District,
+                  pcdCode: [],
+                  pcdName: [],
                   address: data.receiver.Address,
-                  isDefault: data.receiver.IsDefault
+                  isDefault: data.receiver.IsDefault,
+                  street: data.receiver.Street,
+                  streetId: data.receiver.StreetId,
+                  streetList: [],
+                  streetPicker: []
                 }
               });
+              vm.pcdCode.push(data.receiver.ProvinceId);
+              vm.pcdCode.push(data.receiver.CityId);
+              vm.pcdCode.push(data.receiver.DistrictId);
+              vm.pcdName.push(data.receiver.Province);
+              vm.pcdName.push(data.receiver.City);
+              vm.pcdName.push(data.receiver.District);
+
 
               $("#city-picker").cityPicker({
                 toolbarTemplate: '<header class="bar bar-nav"><button class="button button-link pull-right close-picker">\
-              确定</button><h1 class="title">选择收货地址</h1></header>'
+              确定</button><h1 class="title">选择收货地址</h1></header>',
+                onClose: pcdDesChanged
+              });
+
+              getStreetList(data.receiver.DistrictId, function () {
+                setStreetPicker();
               });
             }
           });
@@ -126,14 +144,85 @@
               phone: '',
               receiver: '',
               pcdDes: '浙江省 嘉兴市 南湖区',
+              pcdName: ['浙江省', '嘉兴市', '南湖区'],
+              pcdCode: [13,93,1000],
               address: '',
-              isDefault: false
+              isDefault: false,
+              street: '建设街道',
+              streetId: 12111,
+              streetList: [],
+              streetPicker: []
             }
           });
+
           $("#city-picker").cityPicker({
             toolbarTemplate: '<header class="bar bar-nav"><button class="button button-link pull-right close-picker">\
-          确定</button><h1 class="title">选择收货地址</h1></header>'
+          确定</button><h1 class="title">选择收货地址</h1></header>',
+            onClose: pcdDesChanged
           });
+
+          getStreetList(1000, function () {
+            setStreetPicker();
+          });
+        }
+
+        function setStreetPicker () {
+          $("#street-picker").picker({
+            toolbarTemplate: '<header class="bar bar-nav"><button class="button button-link pull-right close-picker">\
+              确定</button><h1 class="title">选择街道</h1></header>',
+            onClose: streetChanged,
+            cols: [
+              {
+                textAlign: 'center',
+                values: vm.streetPicker
+              }
+            ]
+          });
+        }
+
+        function pcdDesChanged() {
+          var val = vm.pcdDes.split(' ');
+          var pcd = Utils.getPCD(val[0],val[1],val[2]);
+          vm.pcdCode.splice(0, vm.pcdCode.length);
+          vm.pcdName.splice(0, vm.pcdName.length);
+          vm.pcdCode.push(pcd.province.id);
+          vm.pcdCode.push(pcd.city.id);
+          vm.pcdCode.push(pcd.district.id);
+          vm.pcdName.push(val[0]);
+          vm.pcdName.push(val[1]);
+          vm.pcdName.push(val[2]);
+          getStreetList(pcd.district.id, function () {
+            vm.street = vm.streetPicker[0];
+            setStreetPicker();
+          });
+        }
+
+        function streetChanged() {
+          for (var i = 0; i < vm.streetList.length; i++) {
+            var street = vm.streetList[i];
+            if (street.Name === vm.street) {
+              vm.streetId = street.SysNo;
+              return;
+            }
+          }
+        }
+
+        function getStreetList (districtId, cb) {
+          ajaxPost('/address/get-street', {districtId: districtId}, function (err, data) {
+            $.hidePreloader();
+            if (err) {
+              $.toast(err, 1000);
+              cb (err);
+            } else {
+              vm.streetList = data.street.slice();
+              vm.streetPicker.splice(0, vm.streetPicker.length);
+              for(var i = 0; i < vm.streetList.length; i++) {
+                vm.streetPicker.push(vm.streetList[i].Name);
+              }
+              cb(null);
+            }
+          });
+          $.showPreloader('请稍等');
         }
 
         $(page).on('click', '.button', function (event) {
@@ -147,8 +236,10 @@
               'receiverId': vm.receiverId,
               'phone': vm.phone,
               'receiver': vm.receiver,
-              'pcdDes': vm.pcdDes,
-              'address': vm.address,
+              'pcdCode': vm.pcdCode,
+              'pcdName': vm.pcdName,
+              'street': vm.street,
+              'streetId': vm.streetId,
               'isDefault': vm.isDefault
             },
             function (err, data) {

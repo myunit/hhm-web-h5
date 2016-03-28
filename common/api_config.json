@@ -28,6 +28,7 @@
       "delReceiver": "Addresses/del-receiver",
       "modifyReceiver": "Addresses/modify-receiver",
       "addReceiver": "Addresses/add-receiver",
+      "getAllStreet": "Addresses/get-all-street",
       "getMyFavorite": "Favorites/get-my-favorite",
       "addFavorite": "Favorites/add-favorite",
       "delFavorite": "Favorites/del-favorite"
