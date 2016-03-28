@@ -715,7 +715,7 @@
         }
 
         function cancelOrder (index, type) {
-          $.confirm('确定删除该商品吗?',
+          $.confirm('确定取消该订单吗?',
             function () {
               var order = null;
               if (type === 0) {

@@ -313,7 +313,7 @@
         }
 
         function cancelOrder () {
-          $.confirm('确定删除该商品吗?',
+          $.confirm('确定取消该订单吗?',
             function () {
               ajaxPost('/book/cancel', {
                 orderId: vm.orderId
