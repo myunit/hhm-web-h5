@@ -102,7 +102,6 @@ router.use('/pay-notify', wxpay.useWXCallback(function (msg, req, res, next) {
 
 router.use('/pay-notify-app', wxpay.useWXCallback(function (msg, req, res, next) {
   // 处理商户业务逻辑
-  console.log(wx_conf.mchKey);
   function sign (param) {
     var querystring = Object.keys(param).filter(function(key){
         return param[key] !== undefined && param[key] !== '' && ['pfx', 'partner_key', 'sign', 'key'].indexOf(key)<0;
@@ -112,9 +111,6 @@ router.use('/pay-notify-app', wxpay.useWXCallback(function (msg, req, res, next)
 
     return md5(querystring).toUpperCase();
   }
-
-  console.log(sign(msg));
-  console.log(JSON.stringify(msg));
 
   if (msg.result_code === 'SUCCESS') {
     if (sign(msg) === msg.sign) {
