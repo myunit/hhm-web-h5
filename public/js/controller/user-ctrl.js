@@ -320,6 +320,11 @@
           if (err) {
           } else {
             vm.reports = Utils.clone(data.report);
+            for (var i = 0; i < vm.reports.Items.length; i++) {
+              var item = vm.reports.Items[i];
+              $("#mytable").append('<tr><td width="50%">'+item.ProductName+'</td><td width="20%">'+item.Quantity+
+              '</td><td width="30%">￥'+item.ProductAmount+'</td></tr>');
+            }
           }
         });
 
