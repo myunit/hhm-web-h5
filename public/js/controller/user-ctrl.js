@@ -542,13 +542,15 @@
           });
 
           $.modal({
-            title: notice.NoticeTitle+'<span class="my-message-time">'+notice.InDate+'</span>',
-            text: '<p>'+notice.NoticeContext+'<p>',
-            extraClass: 'my-dialog',
+            title:  notice.NoticeTitle+'<span class="my-message-time">'+notice.InDate+'</span>',
+            text: '<p class="my-dialog-content">'+notice.NoticeContext+'<p>',
+            extraClass:'my-dialog',
             buttons: [
-              {text: '<a href="#" class="icon icon-close my-black-text"></a>'}
+              {
+                text: '<a href="#" class="icon icon-close my-black-text"></a>'
+              }
             ]
-          })
+          });
         }
 
         $(page).on('infinite', '.infinite-scroll-bottom', function () {
