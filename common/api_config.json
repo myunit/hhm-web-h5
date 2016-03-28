@@ -58,7 +58,8 @@
       "getCartInfo": "Shopping/get-cart-info",
       "getCountInCart": "Shopping/get-count-in-cart",
       "modifyQtyInCart": "Shopping/modify-qty-in-cart",
-      "submitOrder": "Shopping/submit-order"
+      "submitOrder": "Shopping/submit-order",
+      "getUserPromotion": "Shopping/get-user-promotion"
     }
   },
   "orderService": {

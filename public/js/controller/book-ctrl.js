@@ -66,7 +66,8 @@
             cartsAry: [],
             countPrice: 0,
             cartIds: [],
-            productIdStr: search['product']
+            productIdStr: search['product'],
+            promotion: 0
           }
         });
 
@@ -126,6 +127,7 @@
                 continue;
               }
               var sku = {};
+              vm.promotion += item.PromotionAmount;
               if (cartsObj[item.ProductSysNo] === undefined) {
                 cartsObj[item.ProductSysNo] = {};
                 cartsObj[item.ProductSysNo].name = item.Name;
@@ -159,8 +161,18 @@
                 vm.cartsAry.push(cartsObj[c]);
               }
             }
+
+            ajaxPost('/cart/user-promotion', {cartIds: JSON.stringify(vm.cartIds)}, function (err, data) {
+              $.hidePreloader();
+              if (err) {
+                $.toast(err, 1000);
+              } else {
+                vm.promotion += data.promotion;
+              }
+            });
           }
         });
+        $.showPreloader('请稍等...');
 
         $(page).on('click', '#submitBook', function (event) {
           event.preventDefault();

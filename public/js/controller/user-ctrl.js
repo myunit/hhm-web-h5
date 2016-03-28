@@ -386,7 +386,6 @@
 
 
           cartVm.addCartNum = 1;
-          cartVm.product = null;
         }
 
         function OpenCart(index) {
@@ -481,7 +480,6 @@
 
         $(document).on('click', '.icon-close.close-popup', function () {
           cartVm.addCartNum = 1;
-          cartVm.product = null;
         });
 
         $(document).on('click', '.em-op-d', function () {

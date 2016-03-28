@@ -175,6 +175,9 @@ ShoppingApi.prototype = {
   },
   submitOrder: function () {
     return api_config.shoppingService.baseUrl + api_config.shoppingService.method.submitOrder;
+  },
+  getUserPromotion: function () {
+    return api_config.shoppingService.baseUrl + api_config.shoppingService.method.getUserPromotion;
   }
 };
 
