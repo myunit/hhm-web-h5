@@ -10,7 +10,7 @@
             </div>
             <a class="my-a-message external" href="/users/my-message">
                 <span class="icon icon-message"></span>
-                <span class="badge" v-cloak>${message}</span>
+                <span class="badge" v-cloak v-if="message > 0">${message}</span>
             </a>
         </header>
 
