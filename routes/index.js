@@ -121,49 +121,42 @@ router.route('/register-complete')
     }
   })
   .post(function (req, res, next) {
-    function callback(err, pcd) {
-      if (err) {
-        console.error('get pcd error: ' + err);
-        res.json({status: 0, msg: err});
-        return;
-      }
-
-      unirest.post(customerApi.perfectCustomerInfo())
-        .headers({
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'X-Access-Token': req.session.token
-        })
-        .send({
-          "userId": req.session.uid, "storeName": req.body.storeName,
-          "receiver": {
-            "name": req.body.receiver,
-            "phone": req.body.phone,
-            "provinceId": pcd.province.id,
-            "province": pcd.province.name,
-            "cityId": pcd.city.id,
-            "city": pcd.city.name,
-            "districtId": pcd.district.id,
-            "district": pcd.district.name,
-            "address": req.body.address
-          }
-        })
-        .end(function (response) {
-          var data = response.body.repData;
-          if (data === undefined) {
-            res.json({status: 0, msg: '服务异常'});
-            return;
-          }
-          if (data.status) {
-            res.json({status: data.status, redirect: '/index'});
-          } else {
-            res.json({status: data.status, msg: data.msg});
-          }
-        });
-    }
-
-    var pcdDes = req.body.pcdDes.split(' ');
-    CityChoose.getPCD(pcdDes[0], pcdDes[1], pcdDes[2], callback);
+    var pcdCode = req.body['pcdCode[]'];
+    var pcdName = req.body['pcdName[]'];
+    unirest.post(customerApi.perfectCustomerInfo())
+      .headers({
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'X-Access-Token': req.session.token
+      })
+      .send({
+        "userId": req.session.uid, "storeName": req.body.storeName,
+        "receiver": {
+          "name": req.body.receiver,
+          "phone": req.body.phone,
+          "provinceId": pcdCode[0],
+          "province": pcdName[0],
+          "cityId": pcdCode[1],
+          "city": pcdName[1],
+          "districtId": pcdCode[2],
+          "district": pcdName[2],
+          "street": req.body.street,
+          "streetId": parseInt(req.body.streetId),
+          "address": req.body.address
+        }
+      })
+      .end(function (response) {
+        var data = response.body.repData;
+        if (data === undefined) {
+          res.json({status: 0, msg: '服务异常'});
+          return;
+        }
+        if (data.status) {
+          res.json({status: data.status, redirect: '/index'});
+        } else {
+          res.json({status: data.status, msg: data.msg});
+        }
+      });
 
   });
 

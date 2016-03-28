@@ -95,6 +95,9 @@ CustomerApi.prototype = {
   addReceiver: function () {
     return api_config.customerService.baseUrl + api_config.customerService.method.addReceiver;
   },
+  getAllStreet: function () {
+    return api_config.customerService.baseUrl + api_config.customerService.method.getAllStreet;
+  },
   getMyFavorite: function () {
     return api_config.customerService.baseUrl + api_config.customerService.method.getMyFavorite;
   },

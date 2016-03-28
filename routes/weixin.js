@@ -11,6 +11,7 @@ var wx_conf = require('../weixinPay');
 var WXPay = require('weixin-pay');
 var path = require('path');
 var fs = require('fs');
+var md5 = require('../common/md5');
 
 var ApiFactory = require('../common/api_config');
 var orderApi = ApiFactory.CreateApi('order');
@@ -101,18 +102,22 @@ router.use('/pay-notify', wxpay.useWXCallback(function (msg, req, res, next) {
 
 router.use('/pay-notify-app', wxpay.useWXCallback(function (msg, req, res, next) {
   // 处理商户业务逻辑
+  console.log(wx_conf.mchKey);
+  function sign (param) {
+    var querystring = Object.keys(param).filter(function(key){
+        return param[key] !== undefined && param[key] !== '' && ['pfx', 'partner_key', 'sign', 'key'].indexOf(key)<0;
+      }).sort().map(function(key){
+        return key + '=' + param[key];
+      }).join("&") + "&key=" + wx_conf.mchKey;
+
+    return md5(querystring).toUpperCase();
+  }
+
+  console.log(sign(msg));
   console.log(JSON.stringify(msg));
-  console.log(msg.sign);
-
-  var wxpayForApp = WXPay({
-    partner_key: wx_conf.apiKeyForAPP
-  });
-
-  console.log(wxpayForApp.sign(msg));
-
 
   if (msg.result_code === 'SUCCESS') {
-    if (wxpayForApp.sign(msg) === msg.sign) {
+    if (sign(msg) === msg.sign) {
       var out_trade_no = msg.out_trade_no;
       var total = parseInt(msg.total_fee)/100;
       out_trade_no = out_trade_no.split('_');
