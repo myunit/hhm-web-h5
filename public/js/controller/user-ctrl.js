@@ -605,7 +605,7 @@
               obj.receiverId = receivers[i].SysNo;
               obj.phone = receivers[i].ReceiverMobile;
               obj.receiver = receivers[i].ReceiverName;
-              obj.pcdDes = receivers[i].Province + ' ' + receivers[i].City + ' ' + receivers[i].District;
+              obj.pcdDes = receivers[i].Province + ' ' + receivers[i].City + ' ' + receivers[i].District + ' ' + receivers[i].Street;
               obj.address = receivers[i].Address;
               obj.isDefault = receivers[i].IsDefault;
               vm.receivers.push(obj);
