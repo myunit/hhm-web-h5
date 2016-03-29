@@ -125,7 +125,7 @@
             cartNum: 0,
             product: null,
             style: [],
-            skuImg: []
+            skuImg: ['']
           },
           computed: {
             liked: function () {
@@ -202,6 +202,7 @@
             cartVm.curSkuId = skuList[0].SysNo;
             cartVm.curPrice = skuList[0].Price;
             cartVm.curImg = skuList[0].Images[0].ImgUrl;
+            vm.skuImg.slice();
             for (i = 0; i < skuList.length; i++) {
               vm.style.push(skuList[i].SizeName);
               if (skuList[i].Images.length > 0) {
@@ -298,7 +299,7 @@
             cartNum: 0,
             product: null,
             style: [],
-            skuImg: []
+            skuImg: ['']
           },
           computed: {
             liked: function () {
@@ -378,6 +379,7 @@
             var skuList = vm.product.Skus;
             cartVm.curSkuId = skuList[0].SysNo;
             cartVm.curImg = skuList[0].Images[0].ImgUrl;
+            vm.skuImg.slice();
             for (var i = 0; i < skuList.length; i++) {
               vm.style.push(skuList[i].SizeName);
               if (skuList[i].Images.length > 0) {
@@ -500,7 +502,7 @@
             cartNum: 0,
             product: null,
             style: [],
-            skuImg: []
+            skuImg: ['']
           },
           computed: {
             liked: function () {
@@ -576,6 +578,7 @@
             cartVm.curSkuId = skuList[0].SysNo;
             cartVm.curPrice = skuList[0].Price;
             cartVm.curImg = skuList[0].Images[0].ImgUrl;
+            vm.skuImg.slice();
             for (var i = 0; i < skuList.length; i++) {
               vm.style.push(skuList[i].SizeName);
               if (skuList[i].Images.length > 0) {
