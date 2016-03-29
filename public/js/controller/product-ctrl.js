@@ -208,6 +208,19 @@
                 vm.skuImg.push(skuList[i].Images[0].ImgUrl);
               }
             }
+
+            Vue.nextTick(function () {
+              $(function () {
+                $(".swiper-container").swiper({
+                  pagination : '.swiper-pagination',
+                  paginationClickable: true,
+                  spaceBetween: 10,
+                  centeredSlides: true,
+                  autoplay: 2500,
+                  autoplayDisableOnInteraction: false
+                });
+              });
+            });
           }
         });
 
@@ -268,15 +281,6 @@
           cartVm.curSkuId = sku.SysNo;
           cartVm.curPrice = sku.Price;
           cartVm.curImg = sku.Images[0].ImgUrl;
-        });
-
-        $(function () {
-          $(".swiper-container").swiper({
-            spaceBetween: 30,
-            continuous: true,
-            autoplay: 2500,
-            autoplayDisableOnInteraction: false
-          });
         });
 
       });
@@ -380,6 +384,19 @@
                 vm.skuImg.push(skuList[i].Images[0].ImgUrl);
               }
             }
+
+            Vue.nextTick(function () {
+              $(function () {
+                $(".swiper-container").swiper({
+                  pagination : '.swiper-pagination',
+                  paginationClickable: true,
+                  spaceBetween: 10,
+                  centeredSlides: true,
+                  autoplay: 2500,
+                  autoplayDisableOnInteraction: false
+                });
+              });
+            });
           }
         });
 
@@ -468,16 +485,6 @@
           cartVm.curPrice = sku.Price;
           cartVm.curImg = sku.Images[0].ImgUrl;
         });
-
-        $(function () {
-          $(".swiper-container").swiper({
-            spaceBetween: 30,
-            continuous: true,
-            autoplay: 2500,
-            autoplayDisableOnInteraction: false
-          });
-        });
-
       });
 
       $(document).on("pageInit", "#page-product-group-detail", function (e, id, page) {
@@ -575,6 +582,19 @@
                 vm.skuImg.push(skuList[i].Images[0].ImgUrl);
               }
             }
+
+            Vue.nextTick(function () {
+              $(function () {
+                $(".swiper-container").swiper({
+                  pagination : '.swiper-pagination',
+                  paginationClickable: true,
+                  spaceBetween: 10,
+                  centeredSlides: true,
+                  autoplay: 2500,
+                  autoplayDisableOnInteraction: false
+                });
+              });
+            });
           }
         });
 
@@ -637,14 +657,6 @@
           cartVm.curImg = sku.Images[0].ImgUrl;
         });
 
-        $(function () {
-          $(".swiper-container").swiper({
-            spaceBetween: 30,
-            continuous: true,
-            autoplay: 2500,
-            autoplayDisableOnInteraction: false
-          });
-        });
       });
 
       $(document).on("pageInit", "#page-product-list", function (e, id, page) {
@@ -1163,6 +1175,7 @@
           el: '#page-product-flash-deal-list',
           data: {
             search: '',
+            cartNum: 0,
             count: 0,
             products: []
           },
@@ -1170,6 +1183,17 @@
             goToDetail: goToDetail
           }
         });
+
+        function getCountInCart() {
+          ajaxPost('/cart/get-count-in-cart', {}, function (err, data) {
+            if (err) {
+            } else {
+              vm.cartNum = data.count;
+            }
+          });
+        }
+
+        getCountInCart();
 
         function goToDetail (index) {
           var product = vm.products[index];

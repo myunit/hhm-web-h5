@@ -18,7 +18,7 @@
                                 <img :src="product.ImgUrl" width="316" height="316" alt=""/>
                             </a>
                         </span>
-                        <h3 class="my-28-text">${product.ProductName.length > 15 ? product.ProductName.substring(0,15)+'...':ProductName.Name}</h3>
+                        <h3 class="my-28-text">${product.ProductName.length > 15 ? product.ProductName.substring(0,15)+'...':product.ProductName}</h3>
                         <div class="row">
                             <div class="col-50 my-28-text my-red-text">￥${product.MinPrice === product.MaxPrice ? product.MinPrice:product.MinPrice+'~'+product.MaxPrice}</div>
                             <div class="col-50">

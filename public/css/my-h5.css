@@ -368,7 +368,7 @@ label.label-checkbox input[type="radio"]:checked + .item-media i.icon-form-check
 .my-message-time{ font-size:.65rem; display:block; text-align:center; color:#888;}
 .my-dialog .modal-buttons { background:#fff; display:block !important; position:absolute; top:0rem; right:.75rem;}
 .my-dialog .modal-button{ background:#fff;}
-
+.my-dialog-content{height: 8rem; overflow: scroll}
 /*我要卖*/
 .my-bar-seller a{ width:50%; text-align:center; line-height:2.5rem; color:#333; font-size:.82rem; display:block; float:left;}
 .my-bar-seller a.my-a-confirm{ background:#f86b4f; color:#fff;}

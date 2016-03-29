@@ -320,6 +320,11 @@
           if (err) {
           } else {
             vm.reports = Utils.clone(data.report);
+            for (var i = 0; i < vm.reports.Items.length; i++) {
+              var item = vm.reports.Items[i];
+              $("#mytable").append('<tr><td width="50%">'+item.ProductName+'</td><td width="20%">'+item.Quantity+
+              '</td><td width="30%">￥'+item.ProductAmount+'</td></tr>');
+            }
           }
         });
 
@@ -537,13 +542,15 @@
           });
 
           $.modal({
-            title: notice.NoticeTitle+'<span class="my-message-time">'+notice.InDate+'</span>',
-            text: '<p>'+notice.NoticeContext+'<p>',
-            extraClass: 'my-dialog',
+            title:  notice.NoticeTitle+'<span class="my-message-time">'+notice.InDate+'</span>',
+            text: '<p class="my-dialog-content">'+notice.NoticeContext+'<p>',
+            extraClass:'my-dialog',
             buttons: [
-              {text: '<a href="#" class="icon icon-close my-black-text"></a>'}
+              {
+                text: '<a href="#" class="icon icon-close my-black-text"></a>'
+              }
             ]
-          })
+          });
         }
 
         $(page).on('infinite', '.infinite-scroll-bottom', function () {
@@ -708,7 +715,7 @@
         }
 
         function cancelOrder (index, type) {
-          $.confirm('确定删除该商品吗?',
+          $.confirm('确定取消该订单吗?',
             function () {
               var order = null;
               if (type === 0) {
