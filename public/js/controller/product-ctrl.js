@@ -1175,6 +1175,7 @@
           el: '#page-product-flash-deal-list',
           data: {
             search: '',
+            cartNum: 0,
             count: 0,
             products: []
           },
@@ -1182,6 +1183,17 @@
             goToDetail: goToDetail
           }
         });
+
+        function getCountInCart() {
+          ajaxPost('/cart/get-count-in-cart', {}, function (err, data) {
+            if (err) {
+            } else {
+              vm.cartNum = data.count;
+            }
+          });
+        }
+
+        getCountInCart();
 
         function goToDetail (index) {
           var product = vm.products[index];
