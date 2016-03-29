@@ -63,7 +63,7 @@
         <p class="my-26-text">规格一</p>
         <ul class="my-ul-spec my-ul clearfix">
             <template v-for="sku in product.SkuList" track-by="SysNo">
-                <li :class="{'my-spec-on': $index === 0}" :value="$index"><a href="#">${sku.SizeName}</a></li>
+                <li :class="{'my-spec-on': $index === 0}" :value="$index"><a href="#">${sku.Size}</a></li>
             </template>
         </ul>
         <p class="my-26-text">购买数量&nbsp;&nbsp;&nbsp;<span class="p-num fn-op-num"> <em class="em-op em-op-d">-</em><input name="txt" type="text" class="txt txt-num" v-model="addCartNum"><em class="em-op em-op-a">+</em></span></p>
@@ -73,4 +73,4 @@
 <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
-<script type='text/javascript' src='../js/lib/requirejs.min.js' data-main='../js/controller/product-ctrl.min'></script>
+<script type='text/javascript' src='../js/lib/requirejs.min.js' data-main='../js/controller/product-ctrl'></script>
