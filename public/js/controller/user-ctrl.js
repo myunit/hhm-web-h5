@@ -234,6 +234,11 @@
             return;
           }
 
+          if (vm.newPW.length < 6) {
+            $.toast("密码长度不能小于6位", 1000);
+            return;
+          }
+
           if (vm.newPW != vm.rePW) {
             $.toast("密码输入不一致");
             return;

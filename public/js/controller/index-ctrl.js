@@ -176,12 +176,16 @@
           data: {
             captchaTip: '获取验证码',
             isSendCaptcha: false,
-            isDisable: true,
             captchaMsg: '',
             captcha: '',
             password: '',
             rePassword: '',
             phone: ''
+          },
+          computed:{
+            isDisable: function () {
+              return !(this.phone && this.captcha && this.password && this.rePassword)
+            }
           },
           methods: {
             sendCaptcha: sendCaptcha,
@@ -217,7 +221,6 @@
                     var time = 60;
                     vm.captchaTip = time + '秒';
                     vm.isSendCaptcha = true;
-                    vm.isDisable = false;
                     vm.captchaMsg = '如果您未收到短信，请在60秒后再次获取';
                     var sendCaptchaInterval = setInterval(function () {
                       time--;
@@ -245,7 +248,7 @@
         }
 
         function submitReg(event) {
-          if (!vm.isSendCaptcha) {
+          if (vm.isDisable) {
             return;
           }
 
@@ -256,6 +259,11 @@
 
           if (!vm.captcha) {
             $.toast("验证码不能为空", 1000);
+            return;
+          }
+
+          if (vm.password.length < 6) {
+            $.toast("密码长度不能小于6位", 1000);
             return;
           }
 
@@ -283,7 +291,15 @@
             if (err) {
               $.toast(err, 1000);
             } else {
-              location.href = data.redirect
+              var url = data.redirect;
+              ajaxPost('/', {'username': vm.phone, 'password': vm.password}, function (err, data) {
+                $.hidePreloader();
+                if (err) {
+                  $.toast(err, 1000);
+                } else {
+                  location.href = url;
+                }
+              });
             }
           });
 
@@ -430,6 +446,11 @@
             rePassword: '',
             phone: ''
           },
+          computed:{
+            isDisable: function () {
+              return !(this.phone && this.captcha && this.password && this.rePassword)
+            }
+          },
           methods: {
             sendCaptcha: sendCaptcha,
             restPW: restPW
@@ -492,7 +513,7 @@
         }
 
         function restPW(event) {
-          if (!vm.isSendCaptcha) {
+          if (vm.isDisable) {
             return;
           }
 
@@ -513,6 +534,11 @@
 
           if (!vm.password) {
             $.toast("密码不能为空");
+            return;
+          }
+
+          if (vm.password.length < 6) {
+            $.toast("密码长度不能小于6位", 1000);
             return;
           }
 
