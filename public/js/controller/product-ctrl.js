@@ -1182,7 +1182,8 @@
             products: []
           },
           methods: {
-            goToDetail: goToDetail
+            goToDetail: goToDetail,
+            addToCart : addToCart
           }
         });
 
@@ -1204,6 +1205,21 @@
           }
 
           location.href = '/product/secKill-detail?id='+product.SysNo;
+        }
+
+        function addToCart (index) {
+          var product = vm.products[index];
+          ajaxPost('/cart/add-to-cart', {
+            productId: product.ProductSysNo,
+            skuId: product.SkuSysNo,
+            qty: 1
+          }, function (err, data) {
+            if (err) {
+              $.toast(err, 1000);
+            } else {
+              getCountInCart();
+            }
+          });
         }
 
         function computeRemainStartTime(obj) {

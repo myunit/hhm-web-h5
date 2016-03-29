@@ -16,7 +16,7 @@
                         <li>
                             <div class="item-content">
                                 <div class="item-media">
-                                    <a :href="'/product/detail?id='+favorite.SysNo" class="external">
+                                    <a href="#" @click.prevent="goToDetail($index)" class="external">
                                         <img :src="favorite.ImgUrl" style='width: 5.53rem;'>
                                     </a>
                                 </div>
@@ -83,4 +83,4 @@
 </div>
 <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
-<script type='text/javascript' src='../js/lib/requirejs.min.js' data-main='../js/controller/user-ctrl.min'></script>
+<script type='text/javascript' src='../js/lib/requirejs.min.js' data-main='../js/controller/user-ctrl'></script>

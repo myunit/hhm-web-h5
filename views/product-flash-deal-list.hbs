@@ -34,7 +34,7 @@
                                             <span class="my-gray-text my-22-text ">剩余：${product.TotalCount}件</span>
                                         </div>
                                         <div class="col-50 my-right-text">
-                                            <a :href="'/product/secKill-detail?id='+product.SysNo" class="button button-fill external" v-show="product.killStatus === 1">立即抢购</a>
+                                            <a href="#" @click.prevent="addToCart($index)" class="button button-fill external" v-show="product.killStatus === 1">立即抢购</a>
                                             <a href="#" class="my-flash-deal-time" v-show="product.killStatus === 2"><span>即将开始</span><span class="my-red-text">${product.remainStart}</span></a>
                                             <a href="#" class="button button-fill disabled" v-if="product.killStatus === 0">已结束</a>
                                             <a href="#" class="button button-fill disabled" v-if="product.TotalCount === 0 && product.killStatus === 1">已抢完</a>
@@ -56,4 +56,4 @@
 <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
-<script type='text/javascript' src='../js/lib/requirejs.min.js' data-main='../js/controller/product-ctrl.min'></script>
+<script type='text/javascript' src='../js/lib/requirejs.min.js' data-main='../js/controller/product-ctrl'></script>

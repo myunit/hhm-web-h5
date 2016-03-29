@@ -154,7 +154,11 @@
           for (var i = 0; i < skus.length; i++) {
             sku = skus[i];
             if (sku.cartId == cartId) {
-              if (sku.qty + 1 > product.stock) {
+              if (sku.isSeckillProduct && (sku.qty + 1 > sku.TotalCount)) {
+                $.toast("超出可采购数量！");
+                return;
+              }
+              if (!sku.isSeckillProduct && (sku.qty + 1 > sku.stock)) {
                 $.toast("库存不足！");
                 return;
               }
@@ -248,12 +252,16 @@
                 vm.cartsObj[item.ProductSysNo].image = item.Images.length > 0 ? item.Images[0].ImgUrl : '';
                 vm.cartsObj[item.ProductSysNo].skus = [];
                 vm.cartsObj[item.ProductSysNo].checked = true;
-                vm.cartsObj[item.ProductSysNo].stock = item.Stock;
+
+                sku.TotalCount = item.TotalCount;
                 sku.cartId = item.SysId;
                 sku.skuId = item.SkuSysNo;
                 sku.size = item.SizeName;
                 sku.qty = item.Qty;
                 sku.price = item.Price;
+                sku.stock = item.Stock;
+                sku.isSeckillProduct = item.isSeckillProduct;
+                sku.TotalCount = item.TotalCount;
                 vm.cartsObj[item.ProductSysNo].skus.push(sku);
               } else {
                 sku.cartId = item.SysId;
@@ -261,6 +269,9 @@
                 sku.size = item.SizeName;
                 sku.qty = item.Qty;
                 sku.price = item.Price;
+                sku.stock = item.Stock;
+                sku.isSeckillProduct = item.isSeckillProduct;
+                sku.TotalCount = item.TotalCount;
                 vm.cartsObj[item.ProductSysNo].skus.push(sku);
               }
             }
