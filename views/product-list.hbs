@@ -14,7 +14,7 @@
                 <template v-for="product in products" track-by="SysNo">
                     <li>
                         <span class="my-img-auto">
-                            <a :href="'/product/detail?id='+product.SysNo" class="external">
+                            <a href="#" @click.prevent="goToDetail($index)" class="external">
                                 <img :src="product.ImgUrl" width="316" height="316" alt=""/>
                             </a>
                         </span>

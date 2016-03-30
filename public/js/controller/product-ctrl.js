@@ -685,11 +685,21 @@
             cartNum: 0
           },
           methods: {
-            OpenCart: OpenCart
+            OpenCart: OpenCart,
+            goToDetail: goToDetail
           }
         });
         var productItems = undefined;
         var loading = false;
+
+        function goToDetail (index) {
+          var product = vm.products[index];
+          if (product.IsShowInCombination) {
+            location.href = '/product/group-detail?id='+product.SysNo;
+          } else {
+           location.href = '/product/detail?id='+product.SysNo;
+          }
+        }
 
         function getCountInCart() {
           ajaxPost('/cart/get-count-in-cart', {}, function (err, data) {
