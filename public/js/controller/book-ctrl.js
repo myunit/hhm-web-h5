@@ -68,6 +68,16 @@
             cartIds: [],
             productIdStr: search['product'],
             promotion: 0
+          },
+          computed: {
+            actualPrice: function () {
+              var actual = (this.countPrice*100 - this.promotion*100)/100;
+              if (actual > 0) {
+                return actual.toFixed(2);
+              } else {
+                return 0;
+              }
+            }
           }
         });
 
