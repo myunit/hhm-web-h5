@@ -47,7 +47,7 @@
         </div>
         <a href="/cart/cart-no-footer" class="my-product-cart external">
             <span class="icon icon-cart"></span>
-            <span class="badge" v-cloak>${cartNum}</span>
+            <span class="badge" v-cloak>${cartNum > 99 ? '...':cartNum}</span>
         </a>
     </div>
 
