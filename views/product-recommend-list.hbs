@@ -15,7 +15,7 @@
                     <li>
                         <span class="my-img-auto">
                             <a :href="'/product/detail?id='+product.ProductGroupSysNo" class="external">
-                                <img :src="product.ImgUrl" width="316" height="316" alt=""/>
+                                <img :src="product.ImgUrl" width="316" height="316" alt=""  onerror="this.src='../images/home-blank.png'"/>
                             </a>
                         </span>
                         <h3 class="my-28-text">${product.ProductName.length > 15 ? product.ProductName.substring(0,15)+'...':product.ProductName}</h3>
@@ -47,7 +47,7 @@
         <ul>
             <li>
                 <div class="item-content">
-                    <div class="item-media"><img :src="curImg" style='width: 3.65rem;'></div>
+                    <div class="item-media"><img :src="curImg" style='width: 3.65rem;'  onerror="this.src='../images/home-blank.png'"></div>
                     <div class="item-inner" v-cloak>
                         <div class="item-title-row">
                             <div class="item-title">${product.ProductName}
