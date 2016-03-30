@@ -9,7 +9,7 @@
                                 <div class="item-media"><span class="icon icon-notice"></span><span class="badge" v-if="!notice.IfRead"></span></div>
                                 <div class="item-inner">
                                     <div class="item-title-row">
-                                        <div class="item-title my-30-text"><strong>${notice.NoticeTitle.length > 15 ? notice.NoticeTitle.substring(0,15)+'...':notice.NoticeTitle}</strong></div>
+                                        <div class="item-title my-30-text"><strong>${notice.NoticeTitle.length > 10 ? notice.NoticeTitle.substring(0,10)+'...':notice.NoticeTitle}</strong></div>
                                         <div class="item-after my-22-text my-gray-text">${notice.InDate}</div>
                                     </div>
                                     <div class="item-subtitle my-24-text my-gray-text">${notice.NoticeContext.length > 15 ? notice.NoticeContext.substring(0,15)+'...':notice.NoticeContext}</div>

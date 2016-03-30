@@ -234,6 +234,11 @@
             return;
           }
 
+          if (vm.newPW.length < 6) {
+            $.toast("密码长度不能小于6位", 1000);
+            return;
+          }
+
           if (vm.newPW != vm.rePW) {
             $.toast("密码输入不一致");
             return;
@@ -341,7 +346,8 @@
           },
           methods: {
             addToFav: addToFav,
-            OpenCart: OpenCart
+            OpenCart: OpenCart,
+            goToDetail: goToDetail
           }
         });
 
@@ -358,6 +364,19 @@
             addToCart: addToCart
           }
         });
+
+        function goToDetail (index) {
+          var fav = vm.favList[index];
+          var skus = fav.SkuList.filter(function (item) {
+            return item.IsSeckillProduct;
+          });
+
+          if (skus.length > 0) {
+            location.href = '/product/secKill-detail?id='+skus[0].SeckillSysNo;
+          } else {
+            location.href = '/product/detail?id='+fav.SysNo;
+          }
+        }
 
         function getCountInCart() {
           ajaxPost('/cart/get-count-in-cart', {}, function (err, data) {

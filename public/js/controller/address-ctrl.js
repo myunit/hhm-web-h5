@@ -240,6 +240,7 @@
               'pcdName': vm.pcdName,
               'street': vm.street,
               'streetId': vm.streetId,
+              'address': vm.address,
               'isDefault': vm.isDefault
             },
             function (err, data) {
