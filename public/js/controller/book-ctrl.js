@@ -308,6 +308,8 @@
           });
         }
 
+        window.history.replaceState({cart:1},'','/cart/cart');
+
       });
 
       $(document).on("pageInit", "#page-book-detail", function (e, id, page) {
