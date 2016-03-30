@@ -190,6 +190,8 @@ label.label-checkbox input[type="radio"]:checked + .item-media i.icon-form-check
 .my-product-detail .my-ul .item-title{ float:left; width:30%; color:#888;}
 .my-product-detail .my-ul .item-after{ float:left; width:70%;}
 .my-product-detail-img p{ padding:.588rem; margin:0;}
+.my-product-detail .my-ul.my-ul-group .item-title{ float:left; width:50%; color:#888; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;}
+.my-product-detail .my-ul.my-ul-group .item-after{ float:left; width:50%; text-align:right; padding-left:2%;}
 
 .my-product-bar,.my-booking-bar{ border-top:1px solid #d3d3d3; background:#fff;}
 .my-product-bar .col-66 a{ background:#f86b4f; color:#fff; text-align:center; display:block; line-height:2.5rem;}
