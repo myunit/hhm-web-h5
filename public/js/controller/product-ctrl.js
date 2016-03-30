@@ -125,7 +125,8 @@
             cartNum: 0,
             product: null,
             style: [],
-            skuImg: ['']
+            skuImg: [''],
+            canSale: false
           },
           computed: {
             liked: function () {
@@ -197,18 +198,30 @@
           } else {
             vm.product = Utils.clone(data.product);
             var i = 0;
-            cartVm.product = vm.product;
-            var skuList = vm.product.Skus;
-            cartVm.curSkuId = skuList[0].SysNo;
-            cartVm.curPrice = skuList[0].Price;
-            cartVm.curImg = skuList[0].Images[0].ImgUrl;
             vm.skuImg.slice();
+            var skuList = vm.product.Skus;
             for (i = 0; i < skuList.length; i++) {
               vm.style.push(skuList[i].SizeName);
               if (skuList[i].Images.length > 0) {
                 vm.skuImg.push(skuList[i].Images[0].ImgUrl);
               }
             }
+
+            vm.product.Skus = vm.product.Skus.filter(function (item) {
+              return item.IsOnSale;
+            });
+
+            cartVm.product = vm.product;
+            var skuList = cartVm.product.Skus;
+            if (skuList.length) {
+              vm.canSale =  true;
+              cartVm.curSkuId = skuList[0].SysNo;
+              cartVm.curPrice = skuList[0].Price;
+              cartVm.curImg = skuList[0].Images[0].ImgUrl;
+            } else {
+              vm.canSale =  false;
+            }
+
 
             Vue.nextTick(function () {
               $(function () {

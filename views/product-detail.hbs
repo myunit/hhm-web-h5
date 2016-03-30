@@ -1,6 +1,6 @@
 <div class="page-group">
     <div id="page-product-detail" class="page page-current">
-        <nav class="bar bar-tab my-product-bar">
+        <nav class="bar bar-tab my-product-bar" v-show="canSale">
             <div class="row">
                 <div class="col-33">
                     <a class="external" href="/cart/cart-no-footer">
@@ -63,6 +63,10 @@
         <a href="#" class="my-back-top">
             <span class="icon icon-backtop"></span>
         </a>
+        <a href="/cart/cart-no-footer" class="my-product-cart external" v-show="!canSale">
+            <span class="icon icon-cart"></span>
+            <span class="badge" v-cloak>${cartNum}</span>
+        </a>
     </div>
 </div>
 
@@ -99,4 +103,4 @@
 <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
-<script type='text/javascript' src='../js/lib/requirejs.min.js' data-main='../js/controller/product-ctrl.min'></script>
+<script type='text/javascript' src='../js/lib/requirejs.min.js' data-main='../js/controller/product-ctrl'></script>
