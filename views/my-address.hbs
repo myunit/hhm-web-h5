@@ -1,7 +1,7 @@
 <div class="page-group">
     <div id="page-my-address" class="page page-current">
         <nav class="bar bar-tab my-booking-fix-bar">
-            <a href="/address/add" class="my-28-text external">新增地址</a>
+            <a href="/address/add?type=0" class="my-28-text external">新增地址</a>
         </nav>
         <div class="content native-scroll">
             <template v-for="receiver in receivers">
@@ -22,7 +22,7 @@
                                 <div class="col-50 my-gray-text my-22-text">
                                     <label class="label-checkbox"><input type="radio" @change="setDefault" :checked="receiver.isDefault" :value="$index" v-model="defaultIdx" name="single-radio"><div class="item-media"><i class="icon icon-form-checkbox"></i></div>${receiver.isDefault ? '默认地址':'设为默认'}</label>
                                 </div>
-                                <div class="col-50 my-right-text"><a :href="'/address/modify?id='+receiver.receiverId" class="my-gray-text my-22-text external"><span class="icon icon-edit"></span> 修改</a> <a href="#" @click.prevent="deleteAdr($index, $event)" class="my-gray-text my-22-text"><span class="icon icon-delete"></span> 删除</a></div>
+                                <div class="col-50 my-right-text"><a :href="'/address/modify?type=0&id='+receiver.receiverId" class="my-gray-text my-22-text external"><span class="icon icon-edit"></span> 修改</a> <a href="#" @click.prevent="deleteAdr($index, $event)" class="my-gray-text my-22-text"><span class="icon icon-delete"></span> 删除</a></div>
                             </div>
                         </li>
                     </ul>

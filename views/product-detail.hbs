@@ -5,7 +5,7 @@
                 <div class="col-33">
                     <a class="external" href="/cart/cart-no-footer">
                         <span class="icon icon-cart"></span>
-                        <span class="badge" v-cloak>${cartNum}</span>
+                        <span class="badge" v-cloak>${cartNum > 99 ? '...':cartNum}</span>
                     </a>
                 </div>
                 <div class="col-66"><a href="#" @click.prevent="OpenCart()" class="my-28-text external">加入采购车</a></div>
@@ -65,7 +65,7 @@
         </a>
         <a href="/cart/cart-no-footer" class="my-product-cart external" v-show="!canSale">
             <span class="icon icon-cart"></span>
-            <span class="badge" v-cloak>${cartNum}</span>
+            <span class="badge" v-cloak>${cartNum > 99 ? '...':cartNum}</span>
         </a>
     </div>
 </div>

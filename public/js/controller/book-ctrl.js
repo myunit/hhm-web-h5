@@ -67,7 +67,11 @@
             countPrice: 0,
             cartIds: [],
             productIdStr: search['product'],
-            promotion: 0
+            promotion: 0,
+            receiverCount: 0
+          },
+          methods: {
+            selectAddress: selectAddress
           },
           computed: {
             actualPrice: function () {
@@ -81,12 +85,21 @@
           }
         });
 
+        function selectAddress () {
+          if (vm.receiverCount > 0) {
+            location.href = '/address?id='+vm.receiver.receiverId+'&product='+vm.productIdStr;
+          } else {
+            location.href = '/address/add?type=1&product='+vm.productIdStr;
+          }
+        }
+
         ajaxPost('/address/get-all-receiver', {}, function (err, data) {
           if (err) {
             $.toast(err, 1000);
           } else {
             var receivers = data.receiver;
             var len = receivers.length;
+            vm.receiverCount = len;
             var i = 0;
             vm.receiver = {receiverId:0, phone:'', receiver:'', pcdDes:'', address:''};
             if (selectId > 0) {
@@ -178,6 +191,7 @@
                 $.toast(err, 1000);
               } else {
                 vm.promotion += data.promotion;
+                vm.promotion = vm.promotion.toFixed(2);
               }
             });
           }
@@ -293,6 +307,8 @@
             }
           });
         }
+
+        window.history.replaceState({cart:1},'','/cart/cart');
 
       });
 

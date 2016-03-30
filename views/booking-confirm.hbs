@@ -3,7 +3,7 @@
         <nav class="bar bar-tab my-booking-bar">
             <div class="row">
                 <div class="col-60 my-28-text">
-                    实付金额 :<span class="my-red-text"v-cloak> ￥${actualPrice}</span>
+                    实付金额 :<span class="my-red-text"v-cloak> ￥${actualPrice                                                      }</span>
                 </div>
                 <div class="col-40"><a id="submitBook" href="#" class="my-28-text external">提交订单</a></div>
             </div>
@@ -13,7 +13,7 @@
             <div class="list-block media-list my-booking-address">
                 <ul>
                     <li v-cloak>
-                        <a :href="'/address?id='+receiver.receiverId+'&product='+productIdStr" class="item-link item-content external">
+                        <a href="#" @click.reevent="selectAddress()" class="item-link item-content external">
                             <div class="item-inner">
                                 <div class="item-title-row">
                                     <div class="item-title">${receiver.receiver}</div>

@@ -88,6 +88,7 @@
             }
           }
           vm.total = t/100;
+          vm.total = vm.total.toFixed(2);
         }
 
         vm.$watch('buyList', function (newVal, oldVal) {
