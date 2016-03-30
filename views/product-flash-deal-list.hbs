@@ -22,7 +22,7 @@
                                     </a>
                                 </div>
                                 <div class="item-inner">
-                                    <div class="item-title-row">
+                                    <div class="item-title-row" @click.prevent="goToDetail($index)">
                                         <div class="item-title"><span class="my-red-tag" v-if="product.Tag.length > 0">${product.Tag}</span>${product.Name.length > 15 ? product.Name.substring(0,15)+'...':product.Name}
                                         </div>
                                     </div>
