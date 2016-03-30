@@ -64,7 +64,7 @@
                     <template v-for="cart in cartsAry" track-by="productId">
                         <li>
                             <div class="item-content">
-                                <div class="item-media"><img :src="cart.image" style='width: 3.4rem;'></div>
+                                <div class="item-media"><img :src="cart.image" style='width: 3.4rem;' onerror="this.src='../images/product-blank.png'"></div>
                                 <div class="item-inner">
                                     <div class="item-title-row">
                                         <div class="item-title  my-24-text">${cart.name}

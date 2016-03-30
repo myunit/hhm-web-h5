@@ -20,7 +20,7 @@
                                     <a :href="'/book/detail?id='+order.OrderId" class="item-link item-content external">
                                         <div class="item-media my-div-img-row">
                                             <template v-for="img in order.ImgUrlList">
-                                                <img :src="img" style="width: 3.4rem;">
+                                                <img :src="img" style="width: 3.4rem;" onerror="this.src='../images/product-blank.png'">
                                             </template>
                                         </div>
                                     </a>
@@ -61,7 +61,7 @@
                                     <a :href="'/book/detail?id='+order.OrderId" class="item-link item-content external">
                                         <div class="item-media my-div-img-row">
                                             <template v-for="img in order.ImgUrlList">
-                                                <img :src="img" style="width: 3.4rem;">
+                                                <img :src="img" style="width: 3.4rem;" onerror="this.src='../images/product-blank.png'">
                                             </template>
                                         </div>
                                     </a>
