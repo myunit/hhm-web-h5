@@ -780,7 +780,7 @@
             order.canPay = false;
             order.reBuy = false;
             if (order.Status === '待审核' || order.Status === '待付款') {
-              if (!order.PayMent === '货到付款' && order.PaymentStatus === 0) {
+              if (order.PayMent !== '货到付款' && order.PaymentStatus === 0) {
                 order.statusNote = '待付款';
                 order.canCancel = true;
                 order.canPay = true;
