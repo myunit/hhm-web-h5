@@ -1213,7 +1213,7 @@
 
         function goToDetail (index) {
           var product = vm.products[index];
-          if (product.killStatus !== 1){
+          if (product.killStatus !== 1 || product.TotalCount < 0){
             return false;
           }
 
