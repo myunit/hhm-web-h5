@@ -1,7 +1,7 @@
 <div class="page-group">
     <div id="page-address-select" class="page page-current">
         <nav class="bar bar-tab my-booking-fix-bar">
-            <a href="/address/add" class="my-28-text external">新增地址</a>
+            <a :href="'/address/add?type=1&product='+productIdStr" class="my-28-text external">新增地址</a>
         </nav>
         <div class="content native-scroll">
             <template v-for="receiver in receivers">
@@ -25,7 +25,7 @@
                             <div class="row">
                                 <div class="col-50 my-gray-text my-22-text" v-if="receiver.isDefault">已设为默认地址</div>
                                 <div class="col-50 my-gray-text my-22-text" v-if="!receiver.isDefault">&nbsp;</div>
-                                <div class="col-50 my-right-text"><a :href="'/address/modify?id='+receiver.receiverId" class="my-gray-text my-22-text external"><span class="icon icon-edit"></span> 修改</a></div>
+                                <div class="col-50 my-right-text"><a :href="'/address/modify?type=1&id='+receiver.receiverId+'&product='+productIdStr" class="my-gray-text my-22-text external"><span class="icon icon-edit"></span> 修改</a></div>
                             </div>
                         </li>
                     </ul>

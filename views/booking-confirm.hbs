@@ -13,7 +13,7 @@
             <div class="list-block media-list my-booking-address">
                 <ul>
                     <li v-cloak>
-                        <a :href="'/address?id='+receiver.receiverId+'&product='+productIdStr" class="item-link item-content external">
+                        <a href="#" @click.reevent="selectAddress()" class="item-link item-content external">
                             <div class="item-inner">
                                 <div class="item-title-row">
                                     <div class="item-title">${receiver.receiver}</div>

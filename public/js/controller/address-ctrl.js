@@ -85,9 +85,13 @@
 
       $(document).on("pageInit", "#page-address-edit", function (e, id, page) {
         var vm = undefined;
-
+        var search = Utils.getSearch(location);
+        var type = 0;
+        if (search['type'] !== undefined) {
+          type = parseInt(search['type']);
+        }
         if (location.pathname === '/address/modify') {
-          var search = Utils.getSearch(location);
+
           if (!search['id']) {
             location.pathname = '/';
             return;
@@ -101,6 +105,7 @@
               vm = new Vue({
                 el: '#page-address-edit',
                 data: {
+                  type: type,
                   receiverId: data.receiver.SysNo,
                   phone: data.receiver.ReceiverMobile,
                   receiver: data.receiver.ReceiverName,
@@ -113,6 +118,11 @@
                   streetId: data.receiver.StreetId,
                   streetList: [],
                   streetPicker: []
+                },
+                computed: {
+                  btnTitle: function () {
+                    return this.type === 0 ? '完成':'保存并使用';
+                  }
                 }
               });
               vm.pcdCode.push(data.receiver.ProvinceId);
@@ -140,6 +150,7 @@
           vm = new Vue({
             el: '#page-address-edit',
             data: {
+              type: type,
               receiverId: 0,
               phone: '',
               receiver: '',
@@ -152,6 +163,11 @@
               streetId: 12111,
               streetList: [],
               streetPicker: []
+            },
+            computed: {
+              btnTitle: function () {
+                return this.type === 0 ? '完成':'保存并使用';
+              }
             }
           });
 
@@ -194,6 +210,7 @@
           getStreetList(pcd.district.id, function () {
             vm.street = vm.streetPicker[0];
             setStreetPicker();
+            streetChanged();
           });
         }
 
@@ -248,7 +265,12 @@
               if (err) {
                 $.toast(err, 1000);
               } else {
-                window.history.back();
+                if (!type) {
+                  window.history.back();
+                } else {
+                  location.href = '/book/confirm?id='+data.receiverId+'&product='+search['product']
+                }
+
               }
             }
           );
