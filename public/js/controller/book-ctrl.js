@@ -178,6 +178,7 @@
                 $.toast(err, 1000);
               } else {
                 vm.promotion += data.promotion;
+                vm.promotion = vm.promotion.toFixed(2);
               }
             });
           }

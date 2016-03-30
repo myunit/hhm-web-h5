@@ -65,7 +65,7 @@ body{ font-size:.71rem;}
 
 /*-------------------------------------登录页面自定义样式--------------------------------------*/
 .content-padded { margin: 0.7rem;}
-.my-h1-logo{ width:7.7rem; height:7.7rem; margin:0 auto; margin-top:5rem; border-radius:50%; overflow:hidden;}
+.my-h1-logo{ width:7.7rem; height:7.7rem; margin:0 auto; margin-top:5rem; border-radius:18%; overflow:hidden;}
 .list-block .my-ul-border{ border:1px solid #e1e4e5; border-radius:3px;margin-top:5.11rem;}
 .list-block .my-ul-border li:first-child{}
 .list-block .my-ul-border .icon{ font-size:.85rem; color:#888;}
