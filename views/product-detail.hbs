@@ -16,7 +16,7 @@
             <div class="swiper-container swiper-container-horizontal" data-space-between="10">
                 <div class="swiper-wrapper">
                     <template v-for="img in skuImg">
-                        <div class="swiper-slide"><img :src="img" alt=""></div>
+                        <div class="swiper-slide"><img :src="img" alt=""  onerror="this.src='../images/product-blank.png'"></div>
                     </template>
                 </div>
                 <div class="swiper-pagination"></div>
@@ -55,7 +55,7 @@
 
                 <div class="my-product-detail-img">
                     <template v-for="img in product.ImageDetails">
-                        <p class="my-img-auto pb-popup"><img :src="img" width="600" height="380" alt="" /></p>
+                        <p class="my-img-auto pb-popup"><img :src="img" width="600" height="380" alt=""  onerror="this.src='../images/product-blank.png'"/></p>
                     </template>
                 </div>
             </div>
@@ -76,7 +76,7 @@
         <ul>
             <li>
                 <div class="item-content">
-                    <div class="item-media"><img :src="curImg" style='width: 3.65rem;'></div>
+                    <div class="item-media"><img :src="curImg" style='width: 3.65rem;'  onerror="this.src='../images/product-blank.png'"></div>
                     <div class="item-inner">
                         <div class="item-title-row">
                             <div class="item-title">${product.Name}
