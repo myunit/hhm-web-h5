@@ -44,7 +44,7 @@
                         </div>
                     </li>
                     <template v-for="propertie in product.Properties">
-                        <li class="item-content">
+                        <li class="item-content" v-if="propertie.length > 0">
                             <div class="item-inner clearfix">
                                 <div class="item-title">${$key} </div>
                                 <div class="item-after">${propertie}</div>
