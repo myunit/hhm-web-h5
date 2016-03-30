@@ -58,11 +58,7 @@
                     </template>
                 </ul>
             </div>
-            <div class="content-padded my-a-booking-detail" v-cloak>
-                <a href="#" @click.prevent="payOrder()" class="button button-fill" v-if="order.canPay">去付款</a>
-                <a href="#" @click.prevent="cancelOrder()" class="button my-white-bg" v-if="order.canCancel">取消订单</a>
-                <a href="#" @click.prevent="reBuy()" class="button my-white-bg" v-if="order.reBuy">再次购买</a>
-            </div>
+            <div class="content-padded my-a-booking-detail"><a href="#" @click.prevent="payOrder()" class="button button-fill" v-if="order.canPay">去付款</a> <a href="#" @click.prevent="cancelOrder()" class="button my-white-bg" v-if="order.canCancel">取消订单</a> <a href="#" @click.prevent="reBuy()" class="button my-white-bg" v-if="order.reBuy">再次购买</a></div>
         </div>
     </div>
 </div>

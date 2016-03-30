@@ -405,7 +405,7 @@
             order.reBuy = false;
             order.PCD = order.PCD.replace(/\-/g,' ');
             if (order.Status === '待审核' || order.Status === '待付款') {
-              if (!order.PayMent === '货到付款' && order.PayStatus === 'UnPay') {
+              if (order.PayMent !== '货到付款' && order.PayStatus === 'UnPay') {
                 order.statusNote = '待付款';
                 order.canCancel = true;
                 order.canPay = true;
