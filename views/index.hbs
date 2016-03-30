@@ -4,7 +4,7 @@
             <div class="searchbar">
                 <div class="search-input">
                     <label class="icon icon-search" for="search"></label>
-                    <input type="search" id="search" placeholder="商品名称" v-model="search"/>
+                    <input type="search" id="search" placeholder="商品名称" v-model="searchWord" @keyup.enter="search()"/>
                     <a href="#" class="icon icon-clear"></a>
                 </div>
             </div>
@@ -124,7 +124,8 @@
         </div>
     </div>
 </div>
+
 <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
-<script type='text/javascript' src='js/lib/requirejs.min.js' data-main='js/controller/index-ctrl.min'></script>
+<script type='text/javascript' src='js/lib/requirejs.min.js' data-main='js/controller/index-ctrl'></script>
