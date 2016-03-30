@@ -210,6 +210,7 @@
             if (err) {
               $.toast(err, 1000);
             } else {
+              window.history.replaceState({cart:1},'','/cart/cart');
               if (vm.payment === 0) {
                 location.href = '/weixin/oauth?orderId=' + data.orderId + '&name=' + vm.receiver.receiver;
                 $.showPreloader('准备支付...');
@@ -307,8 +308,6 @@
             }
           });
         }
-
-        window.history.replaceState({cart:1},'','/cart/cart');
 
       });
 
