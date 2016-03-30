@@ -15,7 +15,7 @@
                     <li>
                         <span class="my-img-auto">
                             <a href="#" @click.prevent="goToDetail($index)" class="external">
-                                <img :src="product.ImgUrl" width="316" height="316" alt="" onerror="this.src='../images/home-blank.png'"/>
+                                <img :src="product.ImgUrl" width="316" height="316" alt="" onerror="this.src='../images/product-blank.png'"/>
                             </a>
                         </span>
                         <h3 class="my-28-text">${product.Name.length > 15 ? product.Name.substring(0,15)+'...':product.Name}</h3>
@@ -47,7 +47,7 @@
         <ul>
             <li>
                 <div class="item-content">
-                    <div class="item-media"><img :src="curImg" style='width: 3.65rem;'  onerror="this.src='../images/home-blank.png'"></div>
+                    <div class="item-media"><img :src="curImg" style='width: 3.65rem;'  onerror="this.src='../images/product-blank.png'"></div>
                     <div class="item-inner" v-cloak>
                         <div class="item-title-row">
                             <div class="item-title">${product.Name}
