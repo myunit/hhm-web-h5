@@ -347,7 +347,8 @@
           methods: {
             addToFav: addToFav,
             OpenCart: OpenCart,
-            goToDetail: goToDetail
+            goToDetail: goToDetail,
+            search: search
           }
         });
 
@@ -364,6 +365,10 @@
             addToCart: addToCart
           }
         });
+
+        function search () {
+          location.href = '/product/search?key=' + vm.searchWord;
+        }
 
         function goToDetail (index) {
           var fav = vm.favList[index];

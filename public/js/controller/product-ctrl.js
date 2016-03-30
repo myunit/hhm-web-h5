@@ -113,8 +113,15 @@
             categories: [],
             search: '',
             message: 0
+          },
+          methods: {
+            search: search
           }
         });
+
+        function search () {
+          location.href = '/product/search?key=' + vm.searchWord;
+        }
 
         ajaxPost('/users/get-notice-count', {}, function (err, data) {
           if (err) {
@@ -710,11 +717,16 @@
           },
           methods: {
             OpenCart: OpenCart,
-            goToDetail: goToDetail
+            goToDetail: goToDetail,
+            search: search
           }
         });
         var productItems = undefined;
         var loading = false;
+
+        function search () {
+          location.href = '/product/search?key=' + vm.searchWord;
+        }
 
         function goToDetail (index) {
           var product = vm.products[index];
@@ -906,10 +918,15 @@
             cartNum: 0
           },
           methods: {
-            OpenCart: OpenCart
+            OpenCart: OpenCart,
+            search: search
           }
         });
         var loading = false;
+
+        function search () {
+          location.href = '/product/search?key=' + vm.searchWord;
+        }
 
         function getCountInCart() {
           ajaxPost('/cart/get-count-in-cart', {}, function (err, data) {
@@ -1064,7 +1081,8 @@
             cartNum: 0
           },
           methods: {
-            OpenCart: OpenCart
+            OpenCart: OpenCart,
+            search: search
           }
         });
 
@@ -1074,6 +1092,10 @@
         if (!search['id']) {
           location.pathname = '/';
           return;
+        }
+
+        function search () {
+          location.href = '/product/search?key=' + vm.searchWord;
         }
 
         function getCountInCart() {
@@ -1230,9 +1252,14 @@
           },
           methods: {
             goToDetail: goToDetail,
-            addToCart : addToCart
+            addToCart : addToCart,
+            search: search
           }
         });
+
+        function search () {
+          location.href = '/product/search?key=' + vm.searchWord;
+        }
 
         function getCountInCart() {
           ajaxPost('/cart/get-count-in-cart', {}, function (err, data) {
