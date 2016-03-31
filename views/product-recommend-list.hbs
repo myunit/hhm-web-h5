@@ -6,7 +6,7 @@
                     <label class="icon icon-search" for="search"></label>
                     <input type="search" id="search" placeholder="商品名称" v-model="searchWord" @keyup.enter="search()"/>
                 </form>
-                <a href="#" class="icon icon-clear"></a>
+                <a href="#" class="icon icon-clear" v-show="searchWord.length > 0"></a>
             </div>
             <a href="#" @click.prevent="search()" class="button button-fill-white  col-20">搜索</a>
         </header>

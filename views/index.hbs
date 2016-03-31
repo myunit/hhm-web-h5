@@ -7,7 +7,7 @@
                         <label class="icon icon-search" for="search"></label>
                         <input type="search" id="search" placeholder="商品名称" v-model="searchWord" @keyup.enter="search()"/>
                     </form>
-                    <a href="#" class="icon icon-clear"></a>
+                    <a href="#" class="icon icon-clear" v-show="searchWord.length > 0"></a>
                 </div>
             </div>
             <a class="my-a-message external" href="/users/my-message">
