@@ -1414,7 +1414,7 @@
 
         var urlSearch = Utils.getSearch(location);
         if (urlSearch['key']) {
-          vm.searchWord = decodeURI(search['key']);
+          vm.searchWord = decodeURI(urlSearch['key']);
         }
 
         function search () {
