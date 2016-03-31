@@ -76,9 +76,25 @@
             message: 0
           },
           methods: {
-            search: search
+            search: search,
+            goToDetail: goToDetail
           }
         });
+
+        function goToDetail (recommendId, index) {
+          var recommend = vm.recommends.filter(function (item) {
+            return item.SysNo === recommendId;
+          });
+
+          if (recommend.length > 0) {
+            var product = recommend[0].RecommendItems[index];
+            if (product.isCombination) {
+              location.href = '/product/group-detail?id='+product.ProductGroupSysNo;
+            } else {
+              location.href = '/product/detail?id='+product.ProductGroupSysNo;
+            }
+          }
+        }
 
         function search () {
           location.href = '/product/search?key=' + encodeURI(encodeURI(vm.searchWord));

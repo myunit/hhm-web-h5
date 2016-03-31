@@ -1115,7 +1115,11 @@
 
         function goToDetail (index) {
           var product = vm.products[index];
-          location.href = '/product/detail?id='+product.ProductGroupSysNo;
+          if (product.isCombination) {
+            location.href = '/product/group-detail?id='+product.ProductGroupSysNo;
+          } else {
+            location.href = '/product/detail?id='+product.ProductGroupSysNo;
+          }
         }
 
         function search () {
