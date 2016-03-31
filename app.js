@@ -16,6 +16,7 @@ var cart = require('./routes/cart');
 var book = require('./routes/book');
 var address = require('./routes/address');
 var weixin = require('./routes/weixin');
+var alipay = require('./routes/alipay');
 
 var app = express();
 
@@ -54,6 +55,7 @@ app.use('/cart', cart);
 app.use('/book', book);
 app.use('/address', address);
 app.use('/weixin', weixin);
+app.use('/alipay', alipay);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
