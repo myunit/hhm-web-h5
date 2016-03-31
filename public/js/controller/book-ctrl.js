@@ -226,7 +226,7 @@
                         $.toast(err, 1000);
                       } else {
                         window.history.replaceState({cart:1},'','/users/my-book');
-                        location.href = '/users/my-book';
+                        location.href = '/book/complete';
                         return;
                       }
                     });
