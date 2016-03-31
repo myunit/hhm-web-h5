@@ -37,9 +37,9 @@
                                         </div>
                                         <div class="col-50 my-right-text">
                                             <a href="#" @click.prevent="addToCart($index)" class="button button-fill external" v-show="product.TotalCount > 0 && product.killStatus === 1">立即抢购</a>
-                                            <a href="#" class="my-flash-deal-time" v-show="product.killStatus === 2"><span>即将开始</span><span class="my-red-text">${product.remainStart}</span></a>
-                                            <a href="#" class="button button-fill disabled" v-if="product.killStatus === 0">已结束</a>
-                                            <a href="#" class="button button-fill disabled" v-if="product.TotalCount === 0 && product.killStatus === 1">已抢完</a>
+                                            <a href="#" class="my-flash-deal-time" v-show="product.killStatus === 2 && product.TotalCount !== 0"><span>即将开始</span><span class="my-red-text">${product.remainStart}</span></a>
+                                            <a href="#" class="button button-fill disabled" v-if="product.killStatus === 0 && product.TotalCount !== 0">已结束</a>
+                                            <a href="#" class="button button-fill disabled" v-if="product.TotalCount === 0">已抢完</a>
                                         </div>
                                     </div>
                                 </div>
