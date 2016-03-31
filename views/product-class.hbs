@@ -2,8 +2,10 @@
     <div id="page-product-class" class="page page-current">
         <header class="bar bar-nav row my-search-top">
             <div class="search-input col-80">
-                <label class="icon icon-search" for="search"></label>
-                <input type="search" id="search" placeholder="商品名称" v-model="searchWord" @keyup.enter="search()"/>
+                <form action="javascript:return true;">
+                    <label class="icon icon-search" for="search"></label>
+                    <input type="search" id="search" placeholder="商品名称" v-model="searchWord" @keyup.enter="search()"/>
+                </form>
                 <a href="#" class="icon icon-clear"></a>
             </div>
             <a href="#" @click.prevent="search()" class="button button-fill-white  col-20">搜索</a>
