@@ -38,7 +38,7 @@
                         <li>
                             <div class="item-content">
                                 <div class="item-media">
-                                    <a :href="'/product/detail?id='+sku.SpuId" class="external">
+                                    <a href="#" @click.prevent="goToDetail($index)" class="external">
                                         <img :src="sku.ImgUrl" style="width: 3.4rem;" onerror="this.src='../images/product-blank.png'">
                                     </a>
                                 </div>
