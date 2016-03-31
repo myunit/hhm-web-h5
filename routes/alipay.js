@@ -12,13 +12,12 @@ var ApiFactory = require('../common/api_config');
 var orderApi = ApiFactory.CreateApi('order');
 
 router.get('/pay-notify-app', function (req, res, next) {
-  var trade_status = req.query.trade_status;//交易状态
-
-  libSign.veritySign(req.query, function(result) {
+  var trade_status = req.body.trade_status;//交易状态
+  libSign.veritySign(req.body, function(result) {
     console.log('result: ' + result);
     if (result) {
       console.log('trade_status: ' + trade_status);
-      console.log('query: ' + JSON.stringify(req.query));
+      console.log('query: ' + JSON.stringify(req.body));
       if( trade_status == "TRADE_FINISHED") {
         // 判断该笔订单是否在商户网站中已经做过处理
         // 如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
