@@ -1133,7 +1133,7 @@
 
         getCountInCart();
 
-        var productItems = new ProductItems('/product/recommend', 10, parseInt(search['id']));
+        var productItems = new ProductItems('/product/recommend', 10, parseInt(urlSearch['id']));
         productItems.addItems(function (err, data) {
           $.hidePreloader();
           if (err) {

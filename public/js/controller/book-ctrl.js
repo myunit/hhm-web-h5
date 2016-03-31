@@ -223,7 +223,7 @@
                 } else {
                   var order = detail.order;
                   if (order.Amount === 0) {
-                    ajaxPost('/book/create-pay-record', {
+                    ajaxPost('/book/create-pay-record-no-money', {
                       orderId: orderId
                     }, function (err, data) {
                       if (err) {
@@ -242,8 +242,16 @@
                     }
 
                     if (vm.payment === 4) {
-                      window.history.replaceState({cart:1},'','/users/my-book');
-                      location.href = '/book/complete';
+                      ajaxPost('/book/set-order-payment', {
+                        orderId: orderId
+                      }, function (err, data) {
+                        if (err) {
+                          $.toast(err, 1000);
+                        } else {
+                          window.history.replaceState({cart:1},'','/users/my-book');
+                          location.href = '/book/complete';
+                        }
+                      });
                       return;
                     }
                   }
