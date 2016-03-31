@@ -46,7 +46,7 @@
                                 <template v-for="child in category.ChildList">
                                     <li>
                                         <a :href="'/product/category?CId='+category.CategorySysNo+'&ChildCId='+child.CategorySysNo" class="my-22-text external">
-                                            <span class="my-img-auto"><img src="../images/demo/product-class.gif" width="132" height="132" alt=""/></span>
+                                            <span class="my-img-auto"><img :src="child.ImgUrl" width="132" height="132" alt=""   onerror="this.src='../images/product-blank.png'"/></span>
                                             <span>${child.CategoryName}</span>
                                         </a>
                                     </li>
