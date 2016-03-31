@@ -129,7 +129,7 @@ router.post('/modify-receiver', function (req, res, next) {
         return;
       }
       if (data.status) {
-        res.json({status: data.status});
+        res.json({status: data.status, receiverId: data.receiverId});
       } else {
         res.json({status: data.status, msg: data.msg});
       }
