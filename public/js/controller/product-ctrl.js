@@ -111,7 +111,7 @@
           el: '#page-product-class',
           data: {
             categories: [],
-            search: '',
+            searchWord: '',
             message: 0
           },
           methods: {
@@ -120,7 +120,7 @@
         });
 
         function search () {
-          location.href = '/product/search?key=' + encodeURI(encodeURI(vm.search));
+          location.href = '/product/search?key=' + encodeURI(encodeURI(vm.searchWord));
         }
 
         ajaxPost('/users/get-notice-count', {}, function (err, data) {
@@ -710,7 +710,7 @@
         var vm = new Vue({
           el: '#page-product-list',
           data: {
-            search: '',
+            searchWord: '',
             products: [],
             count: 0,
             cartNum: 0
@@ -725,7 +725,7 @@
         var loading = false;
 
         function search () {
-          location.href = '/product/search?key=' + encodeURI(encodeURI(vm.search));
+          location.href = '/product/search?key=' + encodeURI(encodeURI(vm.searchWord));
         }
 
         function goToDetail (index) {
@@ -912,7 +912,7 @@
         var vm = new Vue({
           el: '#page-product-group-list',
           data: {
-            search: '',
+            searchWord: '',
             products: [],
             count: 0,
             cartNum: 0
@@ -925,7 +925,7 @@
         var loading = false;
 
         function search () {
-          location.href = '/product/search?key=' + encodeURI(encodeURI(vm.search));
+          location.href = '/product/search?key=' + encodeURI(encodeURI(vm.searchWord));
         }
 
         function getCountInCart() {
@@ -1075,7 +1075,7 @@
         var vm = new Vue({
           el: '#page-recommend-list',
           data: {
-            search: '',
+            searchWord: '',
             products: [],
             count: 0,
             cartNum: 0
@@ -1095,7 +1095,7 @@
         }
 
         function search () {
-          location.href = '/product/search?key=' + encodeURI(encodeURI(vm.search));
+          location.href = '/product/search?key=' + encodeURI(encodeURI(vm.searchWord));
         }
 
         function getCountInCart() {
@@ -1245,7 +1245,7 @@
         var vm = new Vue({
           el: '#page-product-flash-deal-list',
           data: {
-            search: '',
+            searchWord: '',
             cartNum: 0,
             count: 0,
             products: []
@@ -1258,7 +1258,7 @@
         });
 
         function search () {
-          location.href = '/product/search?key=' + encodeURI(encodeURI(vm.search));
+          location.href = '/product/search?key=' + encodeURI(encodeURI(vm.searchWord));
         }
 
         function getCountInCart() {
