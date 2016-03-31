@@ -20,9 +20,9 @@
                                 <img :src="product.ImgUrl" width="316" height="316" alt="" onerror="this.src='../images/product-blank.png'"/>
                             </a>
                         </span>
-                        <h3 class="my-28-text">${product.Name.length > 15 ? product.Name.substring(0,15)+'...':product.Name}</h3>
+                        <h3 class="my-28-text" @click.prevent="goToDetail($index)">${product.Name.length > 15 ? product.Name.substring(0,15)+'...':product.Name}</h3>
                         <div class="row">
-                            <div class="col-50 my-28-text my-red-text">￥${product.MinPrice === product.MaxPrice ? product.Price:product.MinPrice+'~'+product.MaxPrice}</div>
+                            <div class="col-50 my-28-text my-red-text" @click.prevent="goToDetail($index)">￥${product.MinPrice === product.MaxPrice ? product.Price:product.MinPrice+'~'+product.MaxPrice}</div>
                             <div class="col-50">
                                 <a href="#" @click.prevent="OpenCart($index)" class="icon icon-addcart"></a>
                             </div>
