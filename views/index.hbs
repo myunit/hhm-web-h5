@@ -3,9 +3,11 @@
         <header class="bar bar-nav my-search-home">
             <div class="searchbar">
                 <div class="search-input">
-                    <label class="icon icon-search" for="search"></label>
-                    <input type="search" id="search" placeholder="商品名称" v-model="searchWord" @keyup.enter="search()"/>
-                    <a href="#" class="icon icon-clear"></a>
+                    <form action="javascript:return true;">
+                        <label class="icon icon-search" for="search"></label>
+                        <input type="search" id="search" placeholder="商品名称" v-model="searchWord" @keyup.enter="search()"/>
+                    </form>
+                    <a href="#" class="icon icon-clear" v-show="searchWord.length > 0"></a>
                 </div>
             </div>
             <a class="my-a-message external" href="/users/my-message">

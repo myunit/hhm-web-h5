@@ -178,6 +178,7 @@
                 vm.cartIds.push(sku.cartId);
               }
             }
+            vm.countPrice = vm.countPrice.toFixed(2);
 
             for (var c in cartsObj) {
               if (cartsObj.hasOwnProperty(c)) {

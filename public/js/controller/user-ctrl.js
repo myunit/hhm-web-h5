@@ -339,7 +339,7 @@
         var vm = new Vue({
           el: '#page-my-fav',
           data: {
-            search: '',
+            searchWord: '',
             cartNum: 0,
             favList: [],
             count: 0
@@ -367,7 +367,7 @@
         });
 
         function search () {
-          location.href = '/product/search?key=' + vm.searchWord;
+          location.href = '/product/search?key=' + encodeURI(encodeURI(vm.searchWord));
         }
 
         function goToDetail (index) {

@@ -2,9 +2,11 @@
     <div id="page-product-flash-deal-list" class="page page-current">
         <header class="bar bar-nav row my-search-top">
             <div class="search-input col-80">
-                <label class="icon icon-search" for="search"></label>
-                <input type="search" id="search" placeholder="商品名称" v-model="search" @keyup.enter="search()"/>
-                <a href="#" class="icon icon-clear"></a>
+                <form action="javascript:return true;">
+                    <label class="icon icon-search" for="search"></label>
+                    <input type="search" id="search" placeholder="商品名称" v-model="searchWord" @keyup.enter="search()"/>
+                </form>
+                <a href="#" class="icon icon-clear" v-show="searchWord.length > 0"></a>
             </div>
             <a href="#" @click.prevent="search()" class="button button-fill-white  col-20">搜索</a>
         </header>
@@ -27,7 +29,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-50">
+                                        <div class="col-50" @click.prevent="goToDetail($index)">
                                             <span class="my-red-text my-30-text">￥${product.SecKillPrice}</span>
                                             <del class="my-22-text my-gray-text">￥${product.OriginPrice}</del>
                                             <br>
@@ -35,9 +37,9 @@
                                         </div>
                                         <div class="col-50 my-right-text">
                                             <a href="#" @click.prevent="addToCart($index)" class="button button-fill external" v-show="product.TotalCount > 0 && product.killStatus === 1">立即抢购</a>
-                                            <a href="#" class="my-flash-deal-time" v-show="product.killStatus === 2"><span>即将开始</span><span class="my-red-text">${product.remainStart}</span></a>
-                                            <a href="#" class="button button-fill disabled" v-if="product.killStatus === 0">已结束</a>
-                                            <a href="#" class="button button-fill disabled" v-if="product.TotalCount === 0 && product.killStatus === 1">已抢完</a>
+                                            <a href="#" class="my-flash-deal-time" v-show="product.killStatus === 2 && product.TotalCount !== 0"><span>即将开始</span><span class="my-red-text">${product.remainStart}</span></a>
+                                            <a href="#" class="button button-fill disabled" v-if="product.killStatus === 0 && product.TotalCount !== 0">已结束</a>
+                                            <a href="#" class="button button-fill disabled" v-if="product.TotalCount === 0">已抢完</a>
                                         </div>
                                     </div>
                                 </div>

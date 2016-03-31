@@ -111,7 +111,7 @@
           el: '#page-product-class',
           data: {
             categories: [],
-            search: '',
+            searchWord: '',
             message: 0
           },
           methods: {
@@ -120,7 +120,7 @@
         });
 
         function search () {
-          location.href = '/product/search?key=' + vm.searchWord;
+          location.href = '/product/search?key=' + encodeURI(encodeURI(vm.searchWord));
         }
 
         ajaxPost('/users/get-notice-count', {}, function (err, data) {
@@ -224,6 +224,7 @@
         ajaxPost('/product/detail', {
           productId: parseInt(search['id'])
         }, function (err, data) {
+          $.hidePreloader();
           if (err) {
             $.toast(err, 1000);
           } else {
@@ -268,6 +269,7 @@
             });
           }
         });
+        $.showPreloader('请稍等');
 
         $(page).on('click', '.like', function () {
           ajaxPost(vm.product.isLike ? '/users/del-fav' : '/users/add-fav', {
@@ -412,6 +414,7 @@
         ajaxPost('/product/secKill-detail', {
           productId: parseInt(search['id'])
         }, function (err, data) {
+          $.hidePreloader();
           if (err) {
             $.toast(err, 1000);
           } else {
@@ -445,6 +448,7 @@
             });
           }
         });
+        $.showPreloader('请稍等');
 
         $(page).on('click', '.like', function () {
           ajaxPost(vm.product.isLike ? '/users/del-fav' : '/users/add-fav', {
@@ -613,6 +617,7 @@
         ajaxPost('/product/group-detail', {
           productId: parseInt(search['id'])
         }, function (err, data) {
+          $.hidePreloader();
           if (err) {
             $.toast(err, 1000);
           } else {
@@ -644,6 +649,7 @@
             });
           }
         });
+        $.showPreloader('请稍等');
 
         $(page).on('click', '.like', function () {
           ajaxPost(vm.product.isLike ? '/users/del-fav' : '/users/add-fav', {
@@ -710,7 +716,7 @@
         var vm = new Vue({
           el: '#page-product-list',
           data: {
-            search: '',
+            searchWord: '',
             products: [],
             count: 0,
             cartNum: 0
@@ -725,7 +731,7 @@
         var loading = false;
 
         function search () {
-          location.href = '/product/search?key=' + vm.searchWord;
+          location.href = '/product/search?key=' + encodeURI(encodeURI(vm.searchWord));
         }
 
         function goToDetail (index) {
@@ -751,6 +757,7 @@
         if (location.pathname === '/product/sales') {//特卖
           productItems = new ProductItems('/product/sales', 10);
           productItems.addItems(function (err, data) {
+            $.hidePreloader();
             if (err) {
               $.toast(err, 1000);
             } else {
@@ -761,6 +768,7 @@
         } else if (location.pathname === '/product/new') {//新品
           productItems = new ProductItems('/product/new', 10);
           productItems.addItems(function (err, data) {
+            $.hidePreloader();
             if (err) {
               $.toast(err, 1000);
             } else {
@@ -769,14 +777,15 @@
             }
           });
         } else if (location.pathname === '/product/category') {
-          var search = Utils.getSearch(location);
-          if (!search['CId'] || !search['ChildCId']) {
+          var urlSearch = Utils.getSearch(location);
+          if (!urlSearch['CId'] || !urlSearch['ChildCId']) {
             location.pathname = '/';
             return;
           }
 
-          productItems = new ProductItems('/product/category', 10, parseInt(search['CId']), parseInt(search['ChildCId']));
+          productItems = new ProductItems('/product/category', 10, parseInt(urlSearch['CId']), parseInt(urlSearch['ChildCId']));
           productItems.addItems(function (err, data) {
+            $.hidePreloader();
             if (err) {
               $.toast(err, 1000);
             } else {
@@ -785,6 +794,7 @@
             }
           });
         }
+        $.showPreloader('请稍等');
 
         $(page).on('infinite', '.infinite-scroll-bottom', function () {
 
@@ -912,20 +922,26 @@
         var vm = new Vue({
           el: '#page-product-group-list',
           data: {
-            search: '',
+            searchWord: '',
             products: [],
             count: 0,
             cartNum: 0
           },
           methods: {
             OpenCart: OpenCart,
-            search: search
+            search: search,
+            goToDetail: goToDetail
           }
         });
         var loading = false;
 
+        function goToDetail (index) {
+          var product = vm.products[index];
+          location.href = '/product/group-detail?id='+product.SysNo;
+        }
+
         function search () {
-          location.href = '/product/search?key=' + vm.searchWord;
+          location.href = '/product/search?key=' + encodeURI(encodeURI(vm.searchWord));
         }
 
         function getCountInCart() {
@@ -941,6 +957,7 @@
 
         var productItems = new ProductItems('/product/group', 10);
         productItems.addItems(function (err, data) {
+          $.hidePreloader();
           if (err) {
             $.toast(err, 1000);
           } else {
@@ -948,6 +965,7 @@
             vm.products = vm.products.concat(data.products);
           }
         });
+        $.showPreloader('请稍等');
 
         $(page).on('infinite', '.infinite-scroll-bottom', function () {
 
@@ -1075,27 +1093,33 @@
         var vm = new Vue({
           el: '#page-recommend-list',
           data: {
-            search: '',
+            searchWord: '',
             products: [],
             count: 0,
             cartNum: 0
           },
           methods: {
             OpenCart: OpenCart,
-            search: search
+            search: search,
+            goToDetail: goToDetail
           }
         });
 
         var loading = false;
 
-        var search = Utils.getSearch(location);
-        if (!search['id']) {
+        var urlSearch = Utils.getSearch(location);
+        if (!urlSearch['id']) {
           location.pathname = '/';
           return;
         }
 
+        function goToDetail (index) {
+          var product = vm.products[index];
+          location.href = '/product/detail?id='+product.ProductGroupSysNo;
+        }
+
         function search () {
-          location.href = '/product/search?key=' + vm.searchWord;
+          location.href = '/product/search?key=' + encodeURI(encodeURI(vm.searchWord));
         }
 
         function getCountInCart() {
@@ -1111,6 +1135,7 @@
 
         var productItems = new ProductItems('/product/recommend', 10, parseInt(search['id']));
         productItems.addItems(function (err, data) {
+          $.hidePreloader();
           if (err) {
             $.toast(err, 1000);
           } else {
@@ -1118,6 +1143,7 @@
             vm.products = vm.products.concat(data.products);
           }
         });
+        $.showPreloader('请稍等');
 
         $(page).on('infinite', '.infinite-scroll-bottom', function () {
 
@@ -1245,7 +1271,7 @@
         var vm = new Vue({
           el: '#page-product-flash-deal-list',
           data: {
-            search: '',
+            searchWord: '',
             cartNum: 0,
             count: 0,
             products: []
@@ -1258,7 +1284,7 @@
         });
 
         function search () {
-          location.href = '/product/search?key=' + vm.searchWord;
+          location.href = '/product/search?key=' + encodeURI(encodeURI(vm.searchWord));
         }
 
         function getCountInCart() {
@@ -1274,7 +1300,7 @@
 
         function goToDetail (index) {
           var product = vm.products[index];
-          if (product.killStatus !== 1 || product.TotalCount < 0){
+          if (product.killStatus !== 1 || product.TotalCount <= 0){
             return false;
           }
 
@@ -1319,6 +1345,7 @@
 
         var productItems = new ProductItems('/product/secKill', 10);
         productItems.addItems(function (err, data) {
+          $.hidePreloader();
           if (err) {
             $.toast(err, 1000);
           } else {
@@ -1343,6 +1370,7 @@
             vm.products = vm.products.concat(data.products);
           }
         });
+        $.showPreloader('请稍等');
 
         setInterval(function () {
           var products = vm.products;
@@ -1384,9 +1412,9 @@
         var searchItems = undefined;
         var loading = false;
 
-        var search = Utils.getSearch(location);
-        if (search['key']) {
-          vm.searchWord = search['key'];
+        var urlSearch = Utils.getSearch(location);
+        if (urlSearch['key']) {
+          vm.searchWord = decodeURI(urlSearch['key']);
         }
 
         function search () {
@@ -1394,6 +1422,7 @@
           loading = false;
           searchItems = new SearchItems('/product/search', 10, vm.searchWord);
           searchItems.addItems(function (err, data) {
+            $.hidePreloader();
             if (err) {
               $.toast(err, 1000);
             } else {
@@ -1402,6 +1431,7 @@
               vm.products = vm.products.concat(data.products);
             }
           });
+          $.showPreloader('请稍等');
         }
 
         function getCountInCart() {
@@ -1426,6 +1456,7 @@
 
         searchItems = new SearchItems('/product/search', 10, vm.searchWord);
         searchItems.addItems(function (err, data) {
+          $.hidePreloader();
           if (err) {
             $.toast(err, 1000);
           } else {
@@ -1433,6 +1464,7 @@
             vm.products = vm.products.concat(data.products);
           }
         });
+        $.showPreloader('请稍等');
 
         $(page).on('infinite', '.infinite-scroll-bottom', function () {
 
@@ -1455,7 +1487,7 @@
             }
 
             // 添加新条目
-            productItems.addItems(function (err, data) {
+            searchItems.addItems(function (err, data) {
               if (err) {
                 $.toast(err, 1000);
               } else {
