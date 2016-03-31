@@ -14,3 +14,5 @@ router.post('/pay-notify-app', function (req, res, next) {
   console.log(JSON.stringify(req));
   res.send();
 });
+
+module.exports = router;
