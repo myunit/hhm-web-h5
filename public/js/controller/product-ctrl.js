@@ -1274,7 +1274,7 @@
 
         function goToDetail (index) {
           var product = vm.products[index];
-          if (product.killStatus !== 1 || product.TotalCount < 0){
+          if (product.killStatus !== 1 || product.TotalCount <= 0){
             return false;
           }
 
