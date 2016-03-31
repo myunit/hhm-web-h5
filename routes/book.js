@@ -125,5 +125,30 @@ router.post('/create-pay-record-no-money', function (req, res, next) {
     });
 });
 
+router.post('/set-order-payment', function (req, res, next) {
+  var obj = {
+    "userId": req.session.uid,
+    "orderId": req.body.orderId,
+    "note": "货到付款"
+  };
+
+  unirest.post(orderApi.setOrderPayment())
+    .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
+    .send(obj)
+    .end(function (response) {
+      var data = response.body.repData;
+      if (data === undefined) {
+        res.json({status: 0, msg: '服务异常'});
+        return;
+      }
+
+      if (data.status) {
+        res.json({status: data.status});
+      } else {
+        res.json({status: data.status, msg: data.msg});
+      }
+    });
+});
+
 
 module.exports = router;
