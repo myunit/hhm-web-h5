@@ -39,7 +39,7 @@
                             <div class="item-content">
                                 <div class="item-media">
                                     <a :href="'/product/detail?id='+sku.SpuId" class="external">
-                                        <img :src="sku.ImgUrl" style="width: 3.4rem;">
+                                        <img :src="sku.ImgUrl" style="width: 3.4rem;" onerror="this.src='../images/product-blank.png'">
                                     </a>
                                 </div>
                                 <div class="item-inner">
@@ -58,11 +58,7 @@
                     </template>
                 </ul>
             </div>
-            <div class="content-padded my-a-booking-detail" v-cloak>
-                <a href="#" @click.prevent="payOrder()" class="button button-fill" v-if="order.canPay">去付款</a>
-                <a href="#" @click.prevent="cancelOrder()" class="button my-white-bg" v-if="order.canCancel">取消订单</a>
-                <a href="#" @click.prevent="reBuy()" class="button my-white-bg" v-if="order.reBuy">再次购买</a>
-            </div>
+            <div class="content-padded my-a-booking-detail"><a href="#" @click.prevent="payOrder()" class="button button-fill" v-if="order.canPay">去付款</a> <a href="#" @click.prevent="cancelOrder()" class="button my-white-bg" v-if="order.canCancel">取消订单</a> <a href="#" @click.prevent="reBuy()" class="button my-white-bg" v-if="order.reBuy">再次购买</a></div>
         </div>
     </div>
 </div>

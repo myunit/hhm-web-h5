@@ -3,10 +3,10 @@
         <header class="bar bar-nav row my-search-top">
             <div class="search-input col-80">
                 <label class="icon icon-search" for="search"></label>
-                <input type="search" id="search" placeholder="输入关键字..." v-model="search"/>
+                <input type="search" id="search" placeholder="商品名称" v-model="search" @keyup.enter="search()"/>
                 <a href="#" class="icon icon-clear"></a>
             </div>
-            <a class="button button-fill-white  col-20">搜索</a>
+            <a href="#" @click.prevent="search()" class="button button-fill-white  col-20">搜索</a>
         </header>
 
         <div class="content infinite-scroll infinite-scroll-bottom" data-distance="50">
@@ -15,7 +15,7 @@
                     <li>
                         <span class="my-img-auto">
                             <a :href="'/product/group-detail?id='+product.SysNo" class="external">
-                                <img :src="product.ImgUrl" width="316" height="316" alt=""/>
+                                <img :src="product.ImgUrl" width="316" height="316" alt=""  onerror="this.src='../images/product-blank.png'"/>
                             </a>
                         </span>
                         <h3 class="my-28-text">${product.Name.length > 15 ? product.Name.substring(0,15)+'...':product.Name}</h3>
@@ -47,7 +47,7 @@
         <ul>
             <li>
                 <div class="item-content">
-                    <div class="item-media"><img :src="curImg" style='width: 3.65rem;'></div>
+                    <div class="item-media"><img :src="curImg" style='width: 3.65rem;'  onerror="this.src='../images/product-blank.png'"></div>
                     <div class="item-inner" v-cloak>
                         <div class="item-title-row">
                             <div class="item-title">${product.Name}

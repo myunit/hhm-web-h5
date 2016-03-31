@@ -106,5 +106,23 @@ router.post('/cancel', function (req, res, next) {
       });
   });
 
+router.post('/create-pay-record', function (req, res, next) {
+  var obj = {
+    "userId": req.session.uid,
+    "orderId": req.body.orderId,
+    "note": "微信支付",
+    "buyer": '',
+    "total": 0,
+    "tradeId": '',
+    "type": 13
+  };
+
+  unirest.post(orderApi.createPaymentRecord())
+    .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
+    .send(obj)
+    .end(function (response) {
+    });
+});
+
 
 module.exports = router;

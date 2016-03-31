@@ -210,18 +210,41 @@
             if (err) {
               $.toast(err, 1000);
             } else {
-              window.history.replaceState({cart:1},'','/cart/cart');
-              if (vm.payment === 0) {
-                location.href = '/weixin/oauth?orderId=' + data.orderId + '&name=' + vm.receiver.receiver;
-                $.showPreloader('准备支付...');
-                return;
-              }
+              var orderId = data.orderId;
+              ajaxPost('/book/detail', {orderId: orderId}, function (err, detail) {
+                $.hidePreloader();
+                if (err) {
+                  $.toast(err, 1000);
+                } else {
+                  var order = detail.order;
+                  if (order.Amount === 0) {
+                    ajaxPost('/book/create-pay-record', {
+                      orderId: orderId
+                    }, function (err, data) {
+                      if (err) {
+                        $.toast(err, 1000);
+                      } else {
+                        window.history.replaceState({cart:1},'','/users/my-book');
+                        location.href = '/users/my-book';
+                        return;
+                      }
+                    });
+                  } else {
+                    window.history.replaceState({cart:1},'','/users/my-book');
+                    if (vm.payment === 0) {
+                      location.href = '/weixin/oauth?orderId=' + data.orderId + '&name=' + vm.receiver.receiver;
+                      return;
+                    }
 
-              if (vm.payment === 4) {
-                location.href = '/book/complete';
-                return;
-              }
-
+                    if (vm.payment === 4) {
+                      window.history.replaceState({cart:1},'','/users/my-book');
+                      location.href = '/book/complete';
+                      return;
+                    }
+                  }
+                }
+              });
+              $.showPreloader('准备支付...');
             }
           });
           $.showPreloader('提交订单...');
@@ -382,7 +405,7 @@
             order.reBuy = false;
             order.PCD = order.PCD.replace(/\-/g,' ');
             if (order.Status === '待审核' || order.Status === '待付款') {
-              if (!order.PayMent === '货到付款' && order.PayStatus === 'UnPay') {
+              if (order.PayMent !== '货到付款' && order.PayStatus === 'UnPay') {
                 order.statusNote = '待付款';
                 order.canCancel = true;
                 order.canPay = true;

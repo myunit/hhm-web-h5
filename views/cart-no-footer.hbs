@@ -31,7 +31,7 @@
                                         <a :href="'/product/detail?id='+cart.productId" class="external">
                                             <div class="item-content">
                                                 <div class="item-media">
-                                                    <img :src="cart.image" style="width: 3.4rem;">
+                                                    <img :src="cart.image" style="width: 3.4rem;"   onerror="this.src='../images/product-blank.png'">
                                                 </div>
                                                 <div class="item-inner">
                                                     <div class="item-title-row">

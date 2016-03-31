@@ -50,7 +50,7 @@
         var vm = new Vue({
           el: '#page-index',
           data: {
-            search: '',
+            searchWord: '',
             banners: [
               {
                 "img": "http://img.alicdn.com/tps/i1/TB1M8ZOLVXXXXX8XpXXX3a8GpXX-700-500.jpg",
@@ -74,8 +74,15 @@
             secKillImg: '',
             recommends: [],
             message: 0
+          },
+          methods: {
+            search: search
           }
         });
+
+        function search () {
+          location.href = '/product/search?key=' + vm.searchWord;
+        }
 
         ajaxPost('/get-home', {}, function (err, data) {
           $.hidePreloader();
@@ -111,7 +118,7 @@
         });
 
         $(page).on('click', '.icon-clear', function () {
-          vm.search = '';
+          vm.searchWord = '';
         });
 
       });

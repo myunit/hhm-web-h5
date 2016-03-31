@@ -270,5 +270,30 @@ router.route('/class')
       });
   });
 
+router.route('/search')
+  .get(function (req, res, next) {
+    res.render('search', {title: '商品列表-好好卖'});
+  }).post(function (req, res, next) {
+    unirest.post(productApi.searchProduct())
+      .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
+      .send({
+        "userId": req.session.uid,
+        "key": req.body.key,
+        "pageId": req.body.pageId,
+        "pageSize": req.body.pageSize
+      })
+      .end(function (response) {
+        var data = response.body.repData;
+        if (data === undefined) {
+          res.json({status: 0, msg: '服务异常'});
+          return;
+        }
+        if (data.status) {
+          res.json({status: data.status, count: data.count, products: data.product});
+        } else {
+          res.json({status: data.status, msg: data.msg});
+        }
+      });
+  });
 
 module.exports = router;
