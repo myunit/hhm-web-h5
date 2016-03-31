@@ -13,7 +13,7 @@ var orderApi = ApiFactory.CreateApi('order');
 
 router.post('/pay-notify-app', function (req, res, next) {
   var trade_status = req.body.trade_status;//交易状态
-  libSign.veritySign(req.body, function(result) {
+  libSign.verity(req.body, function(result) {
     console.log('result: ' + result);
     if (result) {
       console.log('trade_status: ' + trade_status);

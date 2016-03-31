@@ -55,6 +55,21 @@ exports.veritySign = function(params, callback) {
   }
 };
 
+// 验证签名
+exports.verity = function(params, callback) {
+  requestUrl(
+    baseConfig.ALIPAY_HOST,
+    baseConfig.ALIPAY_PORT,
+    baseConfig.HTTPS_VERIFY_PATH + "partner=" + baseConfig.partner + "&notify_id=" + params['notify_id'],
+    function(responseTxt) {
+      if (responseTxt) {
+        callback(true);
+      }else{
+        callback(false);
+      }
+    });
+};
+
 // 创建签名
 exports.buildSign = function (params) {
   if (!params) {
