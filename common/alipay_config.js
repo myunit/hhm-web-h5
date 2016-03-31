@@ -10,7 +10,7 @@ var baseConfig = {
   HTTPS_VERIFY_PATH: '/gateway.do?service=notify_verify&',
 
   // 合作身份者ID，以2088开头由16位纯数字组成的字符串
-  partner: '',
+  partner: '2088021152272033',
 
   // 交易安全检验码，由数字和字母组成的32位字符串
   key: '',
