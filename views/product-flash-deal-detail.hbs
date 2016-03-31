@@ -8,7 +8,11 @@
                         <span class="badge" v-cloak>${cartNum > 99 ? '...':cartNum}</span>
                     </a>
                 </div>
-                <div class="col-66"><a href="#" @click.prevent="OpenCart()" class="my-28-text external">加入采购车</a></div>
+                <div class="col-66">
+                    <a href="#" @click.prevent="OpenCart()" class="my-28-text external" v-if="product.RemainEndTotalSeconds > 0 && product.TotalCount > 0" v-cloak>加入采购车</a>
+                    <a href="#" class="my-28-text disabled external" v-if="product.RemainStartTotalSeconds > 0 && product.TotalCount > 0" v-cloak>秒杀未开始</a>
+                    <a href="#" class="my-28-text disabled external" v-if="(product.RemainEndTotalSeconds === 0 && product.RemainStartTotalSeconds === 0) || product.TotalCount === 0" v-cloak>秒杀已结束</a>
+                </div>
             </div>
         </nav>
 
