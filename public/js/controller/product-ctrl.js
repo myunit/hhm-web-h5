@@ -486,7 +486,7 @@
           }
 
           if (newVal > cartVm.total) {
-            $.toast('超出库存库存！', 1000);
+            $.toast('超出库存数量！', 1000);
             Vue.nextTick(function () {
               cartVm.addCartNum = oldVal;
             });
@@ -514,7 +514,7 @@
 
         $(document).on('click', '.em-op-a', function () {
           if (cartVm.total < cartVm.addCartNum + 1) {
-            $.toast('超出库存库存！', 500);
+            $.toast('超出库存数量！', 500);
             return;
           }
 
@@ -1278,8 +1278,20 @@
           },
           methods: {
             goToDetail: goToDetail,
+            OpenCart : OpenCart,
             addToCart : addToCart,
             search: search
+          }
+        });
+
+        var cartVm = new Vue({
+          el: '#popup-cart',
+          data: {
+            addCartNum: 1,
+            product: null
+          },
+          methods: {
+            addToCart: addToCart
           }
         });
 
@@ -1307,12 +1319,22 @@
           location.href = '/product/secKill-detail?id='+product.SysNo;
         }
 
-        function addToCart (index) {
-          var product = vm.products[index];
+        function OpenCart(index) {
+          cartVm.product = vm.products[index];
+          $.popup('.popup-cart');
+        }
+
+        function addToCart() {
+          if (cartVm.addCartNum === '') {
+            cartVm.addCartNum = 1;
+            $.toast('请输入正确的购买数量', 1000);
+            return;
+          }
+
           ajaxPost('/cart/add-to-cart', {
-            productId: product.ProductSysNo,
-            skuId: product.SkuSysNo,
-            qty: 1
+            productId: cartVm.product.ProductSysNo,
+            skuId: cartVm.product.SkuSysNo,
+            qty: cartVm.addCartNum
           }, function (err, data) {
             if (err) {
               $.toast(err, 1000);
@@ -1320,6 +1342,9 @@
               getCountInCart();
             }
           });
+
+
+          cartVm.addCartNum = 1;
         }
 
         function computeRemainStartTime(obj) {
@@ -1382,14 +1407,70 @@
               computeRemainEndTime(product);
             } else if (product.killStatus === 2) {
               computeRemainStartTime(product);
-            } else {
-              continue;
             }
           }
         }, 1000);
 
         $(page).on('click', '.icon-clear', function () {
           vm.searchWord = '';
+        });
+
+        cartVm.$watch('addCartNum', function (newVal, oldVal) {
+          if (newVal === '') {
+            return;
+          }
+
+          if (!Utils.isPositiveNum(newVal)) {
+            $.toast('请输入正确的购买数量', 500);
+            Vue.nextTick(function () {
+              cartVm.addCartNum = oldVal;
+            });
+          }
+
+          if (newVal > cartVm.product.TotalCount) {
+            $.toast('超出库存数量！', 1000);
+            Vue.nextTick(function () {
+              cartVm.addCartNum = oldVal;
+            });
+            return;
+          }
+
+          if (newVal > cartVm.product.LimitBuyCount) {
+            $.toast('超出限购数量！', 1000);
+            Vue.nextTick(function () {
+              cartVm.addCartNum = oldVal;
+            });
+            return;
+          }
+
+        });
+
+        $(document).on('click', '.icon-close.close-popup', function () {
+          event.preventDefault();
+          cartVm.addCartNum = 1;
+        });
+
+        $(document).on('click', '.em-op-d', function () {
+          if (cartVm.addCartNum > 1) {
+            cartVm.addCartNum--;
+          }
+        });
+
+        $(document).on('click', '.em-op-a', function () {
+          if (cartVm.addCartNum + 1 > cartVm.product.TotalCount) {
+            $.toast('超出库存数量！', 1000);
+            return;
+          }
+
+          if (cartVm.addCartNum + 1  > cartVm.product.LimitBuyCount) {
+            $.toast('超出限购数量！', 1000);
+            return;
+          }
+
+          cartVm.addCartNum++;
+        });
+
+        $(document).on('click', '.my-ul-spec li', function () {
         });
       });
 

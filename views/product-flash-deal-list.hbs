@@ -36,7 +36,7 @@
                                             <span class="my-gray-text my-22-text ">剩余：${product.TotalCount}件</span>
                                         </div>
                                         <div class="col-50 my-right-text">
-                                            <a href="#" @click.prevent="addToCart($index)" class="button button-fill external" v-show="product.TotalCount > 0 && product.killStatus === 1">立即抢购</a>
+                                            <a href="#" @click.prevent="OpenCart($index)" class="button button-fill external" v-show="product.TotalCount > 0 && product.killStatus === 1">立即抢购</a>
                                             <a href="#" class="my-flash-deal-time" v-show="product.killStatus === 2 && product.TotalCount !== 0"><span>即将开始</span><span class="my-red-text">${product.remainStart}</span></a>
                                             <a href="#" class="button button-fill disabled" v-if="product.killStatus === 0 && product.TotalCount !== 0">已结束</a>
                                             <a href="#" class="button button-fill disabled" v-if="product.TotalCount === 0">已抢完</a>
@@ -55,6 +55,35 @@
         </a>
     </div>
 </div>
+
+<div id="popup-cart" class="popup popup-cart">
+    <span class="icon icon-close close-popup"></span>
+    <div class="list-block media-list">
+        <ul>
+            <li>
+                <div class="item-content">
+                    <div class="item-media"><img :src="product.ImgUrl" style='width: 3.65rem;'  onerror="this.src='../images/product-blank.png'"></div>
+                    <div class="item-inner" v-cloak>
+                        <div class="item-title-row">
+                            <div class="item-title">${product.Name}
+                            </div>
+                        </div>
+                        <div class="item-subtitle my-red-text my-30-text">￥${product.SecKillPrice}</div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="content-padded">
+        <p class="my-26-text">规格一</p>
+        <ul class="my-ul-spec my-ul clearfix">
+            <li class="my-spec-on"><a href="#">${product.Size}</a></li>
+        </ul>
+        <p class="my-26-text">购买数量&nbsp;&nbsp;&nbsp;<span class="p-num fn-op-num"> <em class="em-op em-op-d">-</em><input name="txt" type="text" class="txt txt-num" v-model="addCartNum"><em class="em-op em-op-a">+</em></span></p>
+    </div>
+    <a href="#" @click.prevent="addToCart()" class="my-a-cart close-popup">加入采购车</a>
+</div>
+
 <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
