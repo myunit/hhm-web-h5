@@ -11,7 +11,12 @@
             <a href="#" @click.prevent="search()" class="button button-fill-white  col-20">搜索</a>
         </header>
 
-        <div class="content infinite-scroll infinite-scroll-bottom" data-distance="50">
+        <div class="content-padded" v-if="products.length <= 0" v-cloak>
+            <div class="my-none-cart">
+                <p class="my-666-text">没有找到相关商品
+            </div>
+        </div>
+        <div class="content infinite-scroll infinite-scroll-bottom" data-distance="50" v-if="products.length > 0" v-cloak>
             <ul class="my-ul my-product-list" v-cloak>
                 <template v-for="product in products" track-by="SysNo">
                     <li>
