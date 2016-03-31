@@ -17,7 +17,7 @@
                     <li>
                         <span class="my-img-auto">
                             <a href="#" @click.prevent="goToDetail($index)" class="external">
-                                <img :src="product.ImgUrl" width="316" height="316" alt=""  onerror="this.src='../images/product-blank.png'"/>
+                                <img :src="product.ImgUrl" width="316" height="316" alt="" onerror="this.src='../images/product-blank.png'"/>
                             </a>
                         </span>
                         <h3 class="my-28-text" @click.prevent="goToDetail($index)">${product.ProductName.length > 20 ? product.ProductName.substring(0,20)+'...':product.ProductName}</h3>
