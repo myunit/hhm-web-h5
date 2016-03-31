@@ -99,6 +99,10 @@
           } else {
             var receivers = data.receiver;
             var len = receivers.length;
+            if (!len) {
+              location.href = '/address/add?type=1&product='+vm.productIdStr;
+              return;
+            }
             vm.receiverCount = len;
             var i = 0;
             vm.receiver = {receiverId:0, phone:'', receiver:'', pcdDes:'', address:''};
@@ -226,7 +230,7 @@
                         $.toast(err, 1000);
                       } else {
                         window.history.replaceState({cart:1},'','/users/my-book');
-                        location.href = '/users/my-book';
+                        location.href = '/book/complete';
                         return;
                       }
                     });

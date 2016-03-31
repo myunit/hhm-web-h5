@@ -491,7 +491,7 @@
 
 
         $(page).on('click', '.icon-clear', function () {
-          vm.search = '';
+          vm.searchWord = '';
         });
 
         cartVm.$watch('addCartNum', function (newVal, oldVal) {
