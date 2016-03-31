@@ -23,7 +23,7 @@
                                     </a>
                                 </div>
                                 <div class="item-inner">
-                                    <div class="item-title-row">
+                                    <div class="item-title-row" @click.prevent="goToDetail($index)">
                                         <div class="item-title">${favorite.Name.length > 15 ? favorite.Name.substring(0,15)+'...':favorite.Name}
                                             <br>
                                             <span class="my-red-text my-28-text">￥${favorite.MinPrice && favorite.MaxPrice ? favorite.MinPrice+'~'+favorite.MaxPrice:favorite.Price}</span>
