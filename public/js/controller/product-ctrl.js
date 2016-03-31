@@ -139,7 +139,7 @@
         });
 
         $(page).on('click', '.icon-clear', function () {
-          vm.search = '';
+          vm.searchWord = '';
         });
       });
 
@@ -876,7 +876,7 @@
         }
 
         $(page).on('click', '.icon-clear', function () {
-          vm.search = '';
+          vm.searchWord = '';
         });
 
         cartVm.$watch('addCartNum', function (newVal, oldVal) {
@@ -1010,7 +1010,7 @@
         }
 
         $(page).on('click', '.icon-clear', function () {
-          vm.search = '';
+          vm.searchWord = '';
         });
 
         var cartVm = new Vue({
@@ -1188,7 +1188,7 @@
         }
 
         $(page).on('click', '.icon-clear', function () {
-          vm.search = '';
+          vm.searchWord = '';
         });
 
         var cartVm = new Vue({
@@ -1389,7 +1389,7 @@
         }, 1000);
 
         $(page).on('click', '.icon-clear', function () {
-          vm.search = '';
+          vm.searchWord = '';
         });
       });
 
@@ -1546,7 +1546,7 @@
         }
 
         $(page).on('click', '.icon-clear', function () {
-          vm.search = '';
+          vm.searchWord = '';
         });
 
         cartVm.$watch('addCartNum', function (newVal, oldVal) {
