@@ -11,7 +11,7 @@ var libSign = require('../common/alipay-sign');
 var ApiFactory = require('../common/api_config');
 var orderApi = ApiFactory.CreateApi('order');
 
-router.get('/pay-notify-app', function (req, res, next) {
+router.post('/pay-notify-app', function (req, res, next) {
   var trade_status = req.body.trade_status;//交易状态
   libSign.veritySign(req.body, function(result) {
     console.log('result: ' + result);
