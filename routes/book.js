@@ -121,6 +121,7 @@ router.post('/create-pay-record', function (req, res, next) {
     .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
     .send(obj)
     .end(function (response) {
+      res.json({status: 1});
     });
 });
 
