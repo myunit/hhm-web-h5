@@ -81,7 +81,7 @@
         });
 
         function search () {
-          location.href = '/product/search?key=' + vm.searchWord;
+          location.href = '/product/search?key=' + encodeURI(encodeURI(vm.searchWord));
         }
 
         ajaxPost('/get-home', {}, function (err, data) {

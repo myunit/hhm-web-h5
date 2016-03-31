@@ -367,7 +367,7 @@
         });
 
         function search () {
-          location.href = '/product/search?key=' + vm.searchWord;
+          location.href = '/product/search?key=' + encodeURI(encodeURI(vm.search));
         }
 
         function goToDetail (index) {

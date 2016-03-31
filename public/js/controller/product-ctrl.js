@@ -120,7 +120,7 @@
         });
 
         function search () {
-          location.href = '/product/search?key=' + vm.searchWord;
+          location.href = '/product/search?key=' + encodeURI(encodeURI(vm.search));
         }
 
         ajaxPost('/users/get-notice-count', {}, function (err, data) {
@@ -725,7 +725,7 @@
         var loading = false;
 
         function search () {
-          location.href = '/product/search?key=' + vm.searchWord;
+          location.href = '/product/search?key=' + encodeURI(encodeURI(vm.search));
         }
 
         function goToDetail (index) {
@@ -925,7 +925,7 @@
         var loading = false;
 
         function search () {
-          location.href = '/product/search?key=' + vm.searchWord;
+          location.href = '/product/search?key=' + encodeURI(encodeURI(vm.search));
         }
 
         function getCountInCart() {
@@ -1095,7 +1095,7 @@
         }
 
         function search () {
-          location.href = '/product/search?key=' + vm.searchWord;
+          location.href = '/product/search?key=' + encodeURI(encodeURI(vm.search));
         }
 
         function getCountInCart() {
@@ -1258,7 +1258,7 @@
         });
 
         function search () {
-          location.href = '/product/search?key=' + vm.searchWord;
+          location.href = '/product/search?key=' + encodeURI(encodeURI(vm.search));
         }
 
         function getCountInCart() {
@@ -1386,7 +1386,7 @@
 
         var search = Utils.getSearch(location);
         if (search['key']) {
-          vm.searchWord = search['key'];
+          vm.searchWord = decodeURI(search['key']);
         }
 
         function search () {
