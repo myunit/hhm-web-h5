@@ -3,7 +3,7 @@
  * @create by 16-3-31
  * @description
  */
-var baseConfig = require('./config');
+var baseConfig = require('./alipay_config');
 var crypto = require('crypto');
 var https = require('https');
 
