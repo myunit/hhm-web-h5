@@ -30,12 +30,12 @@
 
             <div class="content-block-title my-list-title my-t20-mar">支付方式</div>
             <div class="list-block my-div-pay-way">
-                <ul>
+                <ul v-cloak>
                     <label class="label-checkbox">
                         <li class="item-content">
-                            <div class="item-inner">
+                            <div class="item-inner" v-cloak>
                                 <div class="item-title"><span class="icon icon-card"></span>在线支付</div>
-                                <div class="item-after">
+                                <div class="item-after" >
                                     <input type="radio" checked name="single-radio" v-model="payment" :value="0">
                                     <div class="item-media"><i class="icon icon-form-checkbox"></i></div>
                                 </div>
@@ -44,7 +44,7 @@
                     </label>
                     <label class="label-checkbox">
                         <li class="item-content">
-                            <div class="item-inner">
+                            <div class="item-inner" v-cloak>
                                 <div class="item-title"><span class="icon icon-cashondeliver"></span>货到付款</div>
                                 <div class="item-after">
                                     <input type="radio" name="single-radio" v-model="payment" :value="4">
