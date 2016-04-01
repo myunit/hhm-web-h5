@@ -108,21 +108,19 @@ router.use('/pay-notify-app', wxpay.useWXCallback(function (msg, req, res, next)
         return param[key] !== undefined && param[key] !== '' && ['pfx', 'partner_key', 'sign', 'key'].indexOf(key)<0;
       }).sort().map(function(key){
         return key + '=' + param[key];
-      }).join("&") + "&key=" + wx_conf.mchKey;
+      }).join("&") + "&key=" + wx_conf.mchKeyForApp;
 
     return md5(querystring).toUpperCase();
   }
 
   if (msg.result_code === 'SUCCESS') {
     if (sign(msg) === msg.sign) {
-      var attach = msg.attach;
       var out_trade_no = msg.out_trade_no;
       var total = parseInt(msg.total_fee)/100;
-      attach = attach.split('#');
-      out_trade_no = out_trade_no.split('T');
-      var userId = parseInt(attach[0]);
-      var userName = attach[1];
-      var orderId = parseInt(out_trade_no[0]);
+      out_trade_no = out_trade_no.split('_');
+      var userId = parseInt(out_trade_no[0]);
+      var userName = '';
+      var orderId = parseInt(out_trade_no[1]);
 
       var obj = {
         "userId": userId,

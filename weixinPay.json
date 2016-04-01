@@ -3,6 +3,7 @@
   "secret":"841a9dcdec22c7fdbbb3cbe804848704",
   "mchId":"1243509802",
   "mchKey":"haohaomai0573hHmmyunApPTQWEddfqw",
+  "mchKeyForApp":"2e7d7fde912744e0a9f636c407c5eb5e",
   "apiKey":"haohaomai0573hHmmyunApPTQWEddfqw",
   "payUrl":"https://api.mch.weixin.qq.com/pay/unifiedorder",
   "authUrl":"http://hhmapp.haohaomai.com/weixin/openId",
