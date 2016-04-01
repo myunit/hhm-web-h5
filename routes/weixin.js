@@ -78,13 +78,14 @@ router.use('/pay-notify', wxpay.useWXCallback(function (msg, req, res, next) {
       attach = attach.split('#');
       out_trade_no = out_trade_no.split('T');
       var userId = parseInt(attach[0]);
+      var userName = attach[1];
       var orderId = parseInt(out_trade_no[0]);
 
       var obj = {
         "userId": userId,
         "orderId": orderId,
         "note": "微信支付",
-        "buyer": msg['buyer'],
+        "buyer": userName,
         "total": total,
         "tradeId": msg.transaction_id,
         "seller": '好好卖',
