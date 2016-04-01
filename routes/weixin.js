@@ -90,6 +90,9 @@ router.use('/pay-notify', wxpay.useWXCallback(function (msg, req, res, next) {
         "tradeId": msg.transaction_id,
         "type": 13
       };
+
+      console.log('data: ' + JSON.stringify(data));
+      console.log('msg: ' + JSON.stringify(msg));
       unirest.post(orderApi.createPaymentRecord())
         .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
         .send(obj)
