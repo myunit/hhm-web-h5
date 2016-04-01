@@ -276,15 +276,12 @@
         var search = Utils.getSearch(location);
         var openId = 0;
         var orderId = 0;
-        var userName = '';
         if (!search['openId'] || !search['state']) {
           location.href = '/';
         }
         openId = search['openId'];
         var state = search['state'];
-        state = state.split('@');
-        orderId = parseInt(state[0]);
-        userName = state[1];
+        orderId = parseInt(state);
 
         var vm = new Vue({
           el: '#page-book-pay-way',
@@ -334,8 +331,7 @@
           ajaxPost('/weixin/pay', {
             openId: openId,
             orderId: orderId,
-            amount: vm.amount,
-            userName: userName
+            amount: vm.amount
           }, function (err, data) {
             $.hidePreloader();
             if (err) {

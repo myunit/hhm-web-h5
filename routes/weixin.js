@@ -30,7 +30,7 @@ var app = {
 };
 
 router.get('/oauth', function (req, res, next) {
-  var url = nwo.createURL(wx_conf.appId, wx_conf.authUrl, req.query.orderId + '@' + req.query.name, 0);
+  var url = nwo.createURL(wx_conf.appId, wx_conf.authUrl, req.query.orderId, 0);
   res.header('Access-Control-Allow-Origin', '*');
   res.redirect(url);
 });
@@ -54,7 +54,7 @@ router.post('/pay', function (req, res, next) {
     detail: '公众号支付',
     out_trade_no: req.body.orderId + 'T' + Math.random().toString().substr(2, 10),
     total_fee: req.body.amount,
-    attach: req.session.uid + '#' + req.body.userName
+    attach: req.session.uid
   };
 
   wxpay.getBrandWCPayRequestParams(params, function (err, result) {
@@ -72,14 +72,13 @@ router.use('/pay-notify', wxpay.useWXCallback(function (msg, req, res, next) {
 
   if (msg.return_code === 'SUCCESS' && msg.result_code === 'SUCCESS') {
     if (wxpay.sign(msg) === msg.sign) {
-      var attach = msg.attach;
       var out_trade_no = msg.out_trade_no;
       var total = parseInt(msg.total_fee)/100;
-      attach = attach.split('#');
       out_trade_no = out_trade_no.split('T');
-      var userId = parseInt(attach[0]);
-      var userName = attach[1];
       var orderId = parseInt(out_trade_no[0]);
+
+      var userId = parseInt(msg.attach);
+
 
       var obj = {
         "userId": userId,
