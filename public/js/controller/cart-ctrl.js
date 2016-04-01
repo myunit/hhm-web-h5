@@ -80,7 +80,7 @@
         function goToDetail (index) {
           var product = vm.cartsAry[index];
           var skus = product.skus.filter(function (item) {
-            return item.isOnSeckill;
+            return item.isSeckillProduct;
           });
 
           if (skus.length > 0) {
@@ -285,6 +285,7 @@
                 sku.price = item.Price;
                 sku.stock = item.Stock;
                 sku.isOnSeckill = item.isOnSeckill;
+                sku.isSeckillProduct = item.isSeckillProduct;
                 sku.isCombination = item.isCombination;
                 sku.SeckillSysNo = item.SeckillSysNo;
                 sku.TotalCount = item.TotalCount;
@@ -297,6 +298,7 @@
                 sku.price = item.Price;
                 sku.stock = item.Stock;
                 sku.isOnSeckill = item.isOnSeckill;
+                sku.isSeckillProduct = item.isSeckillProduct;
                 sku.isCombination = item.isCombination;
                 sku.TotalCount = item.TotalCount;
                 vm.cartsObj[item.ProductSysNo].skus.push(sku);
