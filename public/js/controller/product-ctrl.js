@@ -1390,10 +1390,10 @@
               product = products[i];
               product.RemainStartTotalSeconds = parseInt(product.RemainStartTotalSeconds) * 1000;
               product.RemainEndTotalSeconds = parseInt(product.RemainEndTotalSeconds) * 1000;
-              if (product.RemainEndTotalSeconds > 0) {
+              if (product.RemainStartTotalSeconds < 1 && product.RemainEndTotalSeconds > 1) {
                 product.killStatus = 1;//开始秒杀
                 product.remainEnd = computeTime(product.RemainEndTotalSeconds);
-              } else if (product.RemainStartTotalSeconds > 0) {
+              } else if (product.RemainStartTotalSeconds > 1 && product.RemainEndTotalSeconds < 1) {
                 product.killStatus = 2;//即将开始
                 product.remainStart = computeTime(product.RemainStartTotalSeconds);
               } else {
