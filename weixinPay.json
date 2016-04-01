@@ -1,7 +1,7 @@
 {
   "appId":"wxcf8fc4e3098c1094",
   "secret":"841a9dcdec22c7fdbbb3cbe804848704",
-  "mchId":"1322401001",
+  "mchId":"1243509802",
   "mchKey":"haohaomai0573hHmmyunApPTQWEddfqw",
   "apiKey":"haohaomai0573hHmmyunApPTQWEddfqw",
   "payUrl":"https://api.mch.weixin.qq.com/pay/unifiedorder",
