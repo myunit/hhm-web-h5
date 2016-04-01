@@ -65,7 +65,8 @@
             subQty: subQty,
             editQty: editQty,
             onFocusNum: onFocusNum,
-            submitOrder: submitOrder
+            submitOrder: submitOrder,
+            goToDetail: goToDetail
           }
         });
 
@@ -75,6 +76,28 @@
             vm.message = data.count;
           }
         });
+
+        function goToDetail (index) {
+          var product = vm.cartsAry[index];
+          var skus = product.skus.filter(function (item) {
+            return item.isOnSeckill;
+          });
+
+          if (skus.length > 0) {
+            location.href = '/product/secKill-detail?id=' + skus[0].SeckillSysNo;
+            return;
+          }
+
+          skus = product.skus.filter(function (item) {
+            return item.isCombination;
+          });
+
+          if (skus.length > 0) {
+            location.href = '/product/group-detail?id=' + product.productId;
+          } else {
+            location.href = '/product/detail?id=' + product.productId;
+          }
+        }
 
         function computedPrice(buylist) {
           var t = 0;
@@ -155,11 +178,11 @@
           for (var i = 0; i < skus.length; i++) {
             sku = skus[i];
             if (sku.cartId == cartId) {
-              if (sku.isSeckillProduct && (sku.qty + 1 > sku.TotalCount)) {
+              if (sku.isOnSeckill && (sku.qty + 1 > sku.TotalCount)) {
                 $.toast("超出可采购数量！");
                 return;
               }
-              if (!sku.isSeckillProduct && (sku.qty + 1 > sku.stock)) {
+              if (!sku.isOnSeckill && (sku.qty + 1 > sku.stock)) {
                 $.toast("库存不足！");
                 return;
               }
@@ -261,7 +284,9 @@
                 sku.qty = item.Qty;
                 sku.price = item.Price;
                 sku.stock = item.Stock;
-                sku.isSeckillProduct = item.isSeckillProduct;
+                sku.isOnSeckill = item.isOnSeckill;
+                sku.isCombination = item.isCombination;
+                sku.SeckillSysNo = item.SeckillSysNo;
                 sku.TotalCount = item.TotalCount;
                 vm.cartsObj[item.ProductSysNo].skus.push(sku);
               } else {
@@ -271,7 +296,8 @@
                 sku.qty = item.Qty;
                 sku.price = item.Price;
                 sku.stock = item.Stock;
-                sku.isSeckillProduct = item.isSeckillProduct;
+                sku.isOnSeckill = item.isOnSeckill;
+                sku.isCombination = item.isCombination;
                 sku.TotalCount = item.TotalCount;
                 vm.cartsObj[item.ProductSysNo].skus.push(sku);
               }

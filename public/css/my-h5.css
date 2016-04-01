@@ -200,6 +200,7 @@ label.label-checkbox input[type="radio"]:checked + .item-media i.icon-form-check
 
 .my-product-bar,.my-booking-bar{ border-top:1px solid #d3d3d3; background:#fff;}
 .my-product-bar .col-66 a{ background:#f86b4f; color:#fff; text-align:center; display:block; line-height:2.5rem;}
+.my-product-bar .col-66 .disabled{ background:#888;}
 .my-product-bar .col-33{ text-align:center;}
 .my-product-bar .col-33 a{ position:relative; color:#666; display:inline-block; line-height:2.5rem; }
 .my-product-bar .col-33 a .icon{font-size:1.4rem;}

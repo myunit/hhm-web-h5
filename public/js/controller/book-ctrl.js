@@ -364,9 +364,19 @@
           methods: {
             payOrder: payOrder,
             cancelOrder: cancelOrder,
-            reBuy: reBuy
+            reBuy: reBuy,
+            goToDetail: goToDetail
           }
         });
+
+        function goToDetail (index) {
+          var sku = vm.order.Skus[index];
+          if (sku.IsCombination) {
+            location.href = '/product/group-detail?id=' + sku.SpuId;
+          } else {
+            location.href = '/product/detail?id=' + sku.SpuId;
+          }
+        }
 
         function payOrder () {
           location.href = '/weixin/oauth?orderId=' + orderId + '&name=' + vm.order.ReceiverName;

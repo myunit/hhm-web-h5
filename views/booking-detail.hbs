@@ -36,9 +36,9 @@
                 <ul v-cloak>
                     <template v-for="sku in order.Skus" track-by="SpuId">
                         <li>
-                            <div class="item-content">
+                            <div class="item-content" @click.prevent="goToDetail($index)">
                                 <div class="item-media">
-                                    <a :href="'/product/detail?id='+sku.SpuId" class="external">
+                                    <a href="#" class="external">
                                         <img :src="sku.ImgUrl" style="width: 3.4rem;" onerror="this.src='../images/product-blank.png'">
                                     </a>
                                 </div>
