@@ -5,6 +5,6 @@
   "mchKey":"2e7d7fde912744e0a9f636c407c5eb5e",
   "apiKey":"Zhejianghaohaomaidianzishangwu12",
   "payUrl":"https://api.mch.weixin.qq.com/pay/unifiedorder",
-  "authUrl":"http://hhmapp.haohaimai.com/weixin/openId",
-  "notifyUrl":"http://hhmapp.haohaimai.com/weixin/pay-notify"
+  "authUrl":"http://hhmapp.haohaomai.com/weixin/openId",
+  "notifyUrl":"http://hhmapp.haohaomai.com/weixin/pay-notify"
 }
