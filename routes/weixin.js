@@ -85,7 +85,7 @@ router.use('/pay-notify', wxpay.useWXCallback(function (msg, req, res, next) {
         "userId": userId,
         "orderId": orderId,
         "note": "微信支付",
-        "buyer": userName,
+        "buyer": msg['openid'],
         "total": total,
         "tradeId": msg.transaction_id,
         "seller": '好好卖',
