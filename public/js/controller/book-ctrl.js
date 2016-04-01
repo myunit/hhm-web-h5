@@ -93,6 +93,7 @@
           }
         }
 
+        vm.payment = 4;
         ajaxPost('/address/get-all-receiver', {}, function (err, data) {
           if (err) {
             $.toast(err, 1000);
