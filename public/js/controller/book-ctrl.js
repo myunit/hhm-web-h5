@@ -412,7 +412,18 @@
         }
 
         function reBuy () {
-
+          ajaxPost('/book/rebuy', {
+            orderId: vm.orderId
+          }, function (err, data) {
+            $.hidePreloader();
+            if (err) {
+              $.toast(err, 1000);
+            } else {
+              $.toast('已加入购物车！', 1000);
+              location.href = '/cart/cart';
+            }
+            $.showPreloader('请稍等');
+          });
         }
 
         ajaxPost('/book/detail', {
