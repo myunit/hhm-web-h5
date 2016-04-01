@@ -771,8 +771,26 @@
           );
         }
 
-        function reBuy () {
+        function reBuy (index, type) {
+          var order = null;
+          if (type === 0) {
+            order = vm.orderListNow[index];
+          } else {
+            order = vm.orderListAgo[index];
+          }
 
+          ajaxPost('/book/rebuy', {
+            orderId: order.OrderId
+          }, function (err, data) {
+            $.hidePreloader();
+            if (err) {
+              $.toast(err, 1000);
+            } else {
+              $.toast('已加入购物车！', 1000);
+              location.href = '/cart/cart';
+            }
+            $.showPreloader('请稍等');
+          });
         }
 
         function upDataOrder (data) {
