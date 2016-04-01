@@ -734,7 +734,7 @@
             order = vm.orderListAgo[index];
           }
 
-          location.href = '/weixin/oauth?orderId=' + order.OrderId;
+          location.href = '/weixin/oauth?orderId=' + order.OrderId + '&name=' + order.ReceiverName;
           $.showPreloader('准备支付...');
         }
 
