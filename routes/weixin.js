@@ -78,21 +78,19 @@ router.use('/pay-notify', wxpay.useWXCallback(function (msg, req, res, next) {
       attach = attach.split('#');
       out_trade_no = out_trade_no.split('T');
       var userId = parseInt(attach[0]);
-      var userName = attach[1];
       var orderId = parseInt(out_trade_no[0]);
 
       var obj = {
         "userId": userId,
         "orderId": orderId,
         "note": "微信支付",
-        "buyer": userName,
+        "buyer": data['buyer'],
         "total": total,
         "tradeId": msg.transaction_id,
+        "seller": '好好卖',
         "type": 13
       };
 
-      console.log('obj: ' + JSON.stringify(obj));
-      console.log('msg: ' + JSON.stringify(msg));
       unirest.post(orderApi.createPaymentRecord())
         .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
         .send(obj)
