@@ -32,8 +32,12 @@ router.post('/pay-notify-app', function (req, res, next) {
           "buyer": userName,
           "total": total,
           "tradeId": data['trade_no'],
-          "type": 14
+          "type": 1
         };
+
+        console.log('data: ' + data);
+        console.log('trade_no: ' + data['trade_no']);
+        console.log('obj: ' + JSON.stringify(obj));
         unirest.post(orderApi.createPaymentRecord())
           .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
           .send(obj)
