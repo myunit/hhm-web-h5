@@ -344,6 +344,8 @@
           data: {
             cartNum: 0,
             product: null,
+            isGroup: false,
+            group: [],
             style: [],
             skuImg: ['']
           },
@@ -428,6 +430,8 @@
             cartVm.curImg = skuList[0].Images[0].ImgUrl;
             vm.skuImg.splice(0, vm.skuImg.length);
             for (var i = 0; i < skuList.length; i++) {
+              vm.isGroup = skuList[i].IsCombination;
+              vm.group = vm.group.concat(skuList[i].ComSku);
               vm.style.push(skuList[i].SizeName);
               if (skuList[i].Images.length > 0) {
                 vm.skuImg.push(skuList[i].Images[0].ImgUrl);

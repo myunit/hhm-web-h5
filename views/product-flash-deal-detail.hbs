@@ -39,7 +39,7 @@
             <div class="my-product-price my-red-text" v-cloak><span class="my-24-text">秒杀价：</span>￥${product.SeckillPrice} <del class="my-22-text my-gray-text">￥${product.OriginalPrice}</del></div>
             <div class="my-product-detail">
                 <div class="my-28-text">商品详情</div>
-                <ul class="my-ul">
+                <ul class="my-ul" v-if="!isGroup" v-cloak>
                     <li class="item-content">
                         <div class="item-inner clearfix">
                             <div class="item-title">规格</div>
@@ -49,10 +49,23 @@
                     <template v-for="propertie in product.Properties">
                         <li class="item-content">
                             <div class="item-inner clearfix">
-                                <div class="item-title">${$key} </div>
-                                <div class="item-after">${propertie}</div>
+                                <div class="item-title" v-cloak>${$key} </div>
+                                <div class="item-after" v-cloak>${propertie}</div>
                             </div>
                         </li>
+                    </template>
+                </ul>
+
+                <ul class="my-ul my-ul-group" v-if="isGroup" v-cloak>
+                    <template v-for="sItem in group">
+                        <a :href="'/product/group-detail?id='+sItem.ProductGroupSysNo" class="external">
+                            <li class="item-content">
+                                <div class="item-inner clearfix">
+                                    <div class="item-title">${sItem.ProductName}</div>
+                                    <div class="item-after">${sItem.Size} x ${sItem.Quantity}</div>
+                                </div>
+                            </li>
+                        </a>
                     </template>
                 </ul>
 
