@@ -284,7 +284,7 @@
         var state = search['state'];
         state = state.split('@');
         orderId = parseInt(state[0]);
-        userName = decodeURI(state[1]);
+        userName = state[1];
 
         var vm = new Vue({
           el: '#page-book-pay-way',
