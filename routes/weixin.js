@@ -70,7 +70,7 @@ router.post('/pay', function (req, res, next) {
 router.use('/pay-notify', wxpay.useWXCallback(function (msg, req, res, next) {
   // 处理商户业务逻辑
 
-  if (msg.result_code === 'SUCCESS') {
+  if (msg.return_code === 'SUCCESS' && msg.result_code === 'SUCCESS') {
     if (wxpay.sign(msg) === msg.sign) {
       var attach = msg.attach;
       var out_trade_no = msg.out_trade_no;
