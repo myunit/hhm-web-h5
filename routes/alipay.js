@@ -32,10 +32,11 @@ router.post('/pay-notify-app', function (req, res, next) {
           "buyer": userName,
           "total": total,
           "tradeId": data['trade_no'],
+          "seller": data['seller_email'],
           "type": 1
         };
 
-        console.log('data: ' + data);
+        console.log('data: ' + JSON.stringify(data));
         console.log('trade_no: ' + data['trade_no']);
         console.log('obj: ' + JSON.stringify(obj));
         unirest.post(orderApi.createPaymentRecord())
