@@ -238,7 +238,7 @@
                   } else {
                     window.history.replaceState({cart:1},'','/users/my-book');
                     if (vm.payment === 0) {
-                      location.href = '/weixin/oauth?orderId=' + data.orderId + '&name=' + vm.receiver.receiver;
+                      location.href = '/weixin/oauth?orderId=' + data.orderId;
                       return;
                     }
 
@@ -276,15 +276,12 @@
         var search = Utils.getSearch(location);
         var openId = 0;
         var orderId = 0;
-        var userName = '';
         if (!search['openId'] || !search['state']) {
           location.href = '/';
         }
         openId = search['openId'];
         var state = search['state'];
-        state = state.split('@');
-        orderId = parseInt(state[0]);
-        userName = state[1];
+        orderId = parseInt(state);
 
         var vm = new Vue({
           el: '#page-book-pay-way',
@@ -334,8 +331,7 @@
           ajaxPost('/weixin/pay', {
             openId: openId,
             orderId: orderId,
-            amount: vm.amount,
-            userName: userName
+            amount: vm.amount
           }, function (err, data) {
             $.hidePreloader();
             if (err) {
@@ -380,7 +376,7 @@
         }
 
         function payOrder () {
-          location.href = '/weixin/oauth?orderId=' + orderId + '&name=' + vm.order.ReceiverName;
+          location.href = '/weixin/oauth?orderId=' + orderId + '&name=';
           $.showPreloader('准备支付...');
         }
 
