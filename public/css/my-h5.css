@@ -325,7 +325,7 @@ label.label-checkbox input[type="radio"]:checked + .item-media i.icon-form-check
   -webkit-box-orient: vertical;
   height:2.6rem;}
 
-.my-div-feature-column ul{ padding:0 .588rem .588rem 0; display:flex; flex-wrap:wrap;}
+.my-div-feature-column ul{ padding:0 .588rem .588rem 0;}
 
 /*------------------------------------------------我的页面自定义样式----------------------------------------------------------*/
 /*采购报表*/
