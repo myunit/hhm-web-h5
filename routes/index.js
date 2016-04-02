@@ -11,12 +11,10 @@ var productApi = ApiFactory.CreateApi('product');
 /* GET home page. */
 router.route('/')
   .get(function (req, res, next) {
-    if (req.session) {
-      req.session.destroy(function(err) {
-        // cannot access session here
-        req.session = null;
-        res.render('login', {title: '登录-好好卖'});
-      });
+    if (req.session.uid) {
+      res.redirect('/index');
+    } else {
+      res.render('login', {title: '登录-好好卖'});
     }
   })
   .post(function (req, res, next) {
@@ -45,11 +43,9 @@ router.get('/choose-shop-style', function (req, res, next) {
 });
 
 router.get('/logout', function (req, res, next) {
-  if (req.session) {
-    req.session.destroy(function(err) {
-      // cannot access session here
-      req.session = null;
-    });
+  if (req.session.uid) {
+    delete req.session.uid;
+    delete req.session.token;
   }
   res.redirect('/');
 });
