@@ -32,7 +32,7 @@ app.use(compression());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
-app.use(cookieParser());
+app.use(cookieParser('hhmweb_'));
 
 app.use(session({
   store: new RedisStore({
@@ -42,7 +42,7 @@ app.use(session({
   }),
   secret: 'MYun 123!@# web',
   key: 'sid',
-  cookie: {secure: false},
+  cookie: {secure: false, maxAge: 90 * 24 * 3600 * 1000},
   resave: false,
   saveUninitialized: true
 }));
