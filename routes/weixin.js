@@ -113,7 +113,7 @@ router.use('/pay-notify-app', wxpay.useWXCallback(function (msg, req, res, next)
     return md5(querystring).toUpperCase();
   }
 
-  if (msg.result_code === 'SUCCESS') {
+  if (msg.return_code === 'SUCCESS' && msg.result_code === 'SUCCESS') {
     if (sign(msg) === msg.sign) {
       var out_trade_no = msg.out_trade_no;
       var total = parseInt(msg.total_fee)/100;
@@ -126,7 +126,7 @@ router.use('/pay-notify-app', wxpay.useWXCallback(function (msg, req, res, next)
         "userId": userId,
         "orderId": orderId,
         "note": "微信支付",
-        "buyer": userName,
+        "buyer": msg['openid'],
         "total": total,
         "tradeId": msg.transaction_id,
         "type": 13
