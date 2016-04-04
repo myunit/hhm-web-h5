@@ -203,11 +203,12 @@
             captcha: '',
             password: '',
             rePassword: '',
-            phone: ''
+            phone: '',
+            inviteCode: ''
           },
           computed:{
             isDisable: function () {
-              return !(this.phone && this.captcha && this.password && this.rePassword)
+              return !(this.phone && this.captcha && this.password && this.rePassword && this.inviteCode)
             }
           },
           methods: {
@@ -300,6 +301,11 @@
             return;
           }
 
+          if (!vm.inviteCode) {
+            $.toast("邀请码不能为空", 1000);
+            return;
+          }
+
           if (!Utils.checkMobile(vm.phone)) {
             $.toast("请输入正确的手机号", 1000);
             return;
@@ -308,7 +314,8 @@
           ajaxPost('/register', {
             'phone': vm.phone,
             'password': vm.password,
-            'captcha': vm.captcha
+            'captcha': vm.captcha,
+            'inviteCode': vm.inviteCode
           }, function (err, data) {
             $.hidePreloader();
             if (err) {

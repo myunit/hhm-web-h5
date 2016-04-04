@@ -52,6 +52,21 @@
                         </li>
                     </ul>
                 </div>
+                <p id="captchaMsg" class="my-gray-text"></p>
+                <div class="list-block my-0-mar">
+                    <ul class="my-ul-border my-0-mar">
+                        <li>
+                            <div class="item-content">
+                                <div class="item-media"><i class="icon icon-card"></i></div>
+                                <div class="item-inner">
+                                    <div class="item-input">
+                                        <input type="password" placeholder="请输入邀请码" v-model="inviteCode">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
                 <p class="my-50-mar" v-cloak><a href="#" @click.prevent="submitReg" class="button button-fill button-big" :class="{'button-disable': isDisable}">下一步</a></p>
             </div>
         </div>

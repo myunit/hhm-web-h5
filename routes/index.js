@@ -65,7 +65,7 @@ router.route('/register')
   .post(function (req, res, next) {
     unirest.post(loginApi.registerAndLogin())
       .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
-      .send({"phone": req.body.phone, "password": req.body.password, "code": req.body.captcha})
+      .send({"phone": req.body.phone, "password": req.body.password, "code": req.body.captcha, "inviteCode": req.body.inviteCode})
       .end(function (response) {
         var data = response.body.repData;
         if (data === undefined) {
