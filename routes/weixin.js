@@ -72,6 +72,7 @@ router.use('/pay-notify', wxpay.useWXCallback(function (msg, req, res, next) {
 
   if (msg.return_code === 'SUCCESS' && msg.result_code === 'SUCCESS') {
     if (wxpay.sign(msg) === msg.sign) {
+      console.log ('h5 pay record['+ new Date() + ']: ' + JSON.stringify(msg));
       var out_trade_no = msg.out_trade_no;
       var total = parseInt(msg.total_fee)/100;
       out_trade_no = out_trade_no.split('T');
@@ -96,6 +97,8 @@ router.use('/pay-notify', wxpay.useWXCallback(function (msg, req, res, next) {
         .send(obj)
         .end(function (response) {
         });
+    } else {
+      console.error('h5 pay record sign error['+ new Date() + ']: ' + JSON.stringify(msg));
     }
   }
   res.success();
@@ -115,6 +118,7 @@ router.use('/pay-notify-app', wxpay.useWXCallback(function (msg, req, res, next)
 
   if (msg.return_code === 'SUCCESS' && msg.result_code === 'SUCCESS') {
     if (sign(msg) === msg.sign) {
+      console.log ('app pay record['+ new Date() + ']: ' + JSON.stringify(msg));
       var out_trade_no = msg.out_trade_no;
       var total = parseInt(msg.total_fee)/100;
       out_trade_no = out_trade_no.split('_');
@@ -136,6 +140,8 @@ router.use('/pay-notify-app', wxpay.useWXCallback(function (msg, req, res, next)
         .send(obj)
         .end(function (response) {
         });
+    } else {
+      console.error('h5 pay record sign error['+ new Date() + ']: ' + JSON.stringify(msg));
     }
   }
   res.success();
