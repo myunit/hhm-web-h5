@@ -157,7 +157,8 @@
             product: null,
             style: [],
             skuImg: [''],
-            canSale: false
+            canSale: false,
+            swiper: null
           },
           computed: {
             liked: function () {
@@ -256,15 +257,13 @@
 
 
             Vue.nextTick(function () {
-              $(function () {
-                $(".swiper-container").swiper({
-                  pagination : '.swiper-pagination',
-                  paginationClickable: true,
-                  spaceBetween: 10,
-                  centeredSlides: true,
-                  autoplay: 2500,
-                  autoplayDisableOnInteraction: false
-                });
+              vm.swiper = new Swiper('.swiper-container', {
+                pagination: '.swiper-pagination',
+                paginationClickable: true,
+                spaceBetween: 10,
+                centeredSlides: true,
+                autoplay: 2500,
+                autoplayDisableOnInteraction: false
               });
             });
           }
@@ -347,7 +346,8 @@
             isGroup: false,
             group: [],
             style: [],
-            skuImg: ['']
+            skuImg: [''],
+            swiper: null
           },
           computed: {
             liked: function () {
@@ -439,15 +439,13 @@
             }
 
             Vue.nextTick(function () {
-              $(function () {
-                $(".swiper-container").swiper({
-                  pagination : '.swiper-pagination',
-                  paginationClickable: true,
-                  spaceBetween: 10,
-                  centeredSlides: true,
-                  autoplay: 2500,
-                  autoplayDisableOnInteraction: false
-                });
+              vm.swiper = new Swiper('.swiper-container', {
+                pagination: '.swiper-pagination',
+                paginationClickable: true,
+                spaceBetween: 10,
+                centeredSlides: true,
+                autoplay: 2500,
+                autoplayDisableOnInteraction: false
               });
             });
           }
@@ -554,7 +552,8 @@
             cartNum: 0,
             product: null,
             style: [],
-            skuImg: ['']
+            skuImg: [''],
+            swiper: null
           },
           computed: {
             liked: function () {
@@ -640,15 +639,13 @@
             }
 
             Vue.nextTick(function () {
-              $(function () {
-                $(".swiper-container").swiper({
-                  pagination : '.swiper-pagination',
-                  paginationClickable: true,
-                  spaceBetween: 10,
-                  centeredSlides: true,
-                  autoplay: 2500,
-                  autoplayDisableOnInteraction: false
-                });
+              vm.swiper = new Swiper('.swiper-container', {
+                pagination: '.swiper-pagination',
+                paginationClickable: true,
+                spaceBetween: 10,
+                centeredSlides: true,
+                autoplay: 2500,
+                autoplayDisableOnInteraction: false
               });
             });
           }
@@ -1320,7 +1317,7 @@
 
         function goToDetail (index) {
           var product = vm.products[index];
-          if (product.killStatus !== 1 || product.TotalCount <= 0){
+          if ((product.killStatus !== 1 && product.killStatus !== 2) || product.TotalCount <= 0){
             return false;
           }
 

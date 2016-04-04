@@ -169,6 +169,11 @@
           data: {
             storeName: ''
           },
+          computed: {
+            isDisable: function () {
+              return !(this.storeName);
+            }
+          },
           methods: {
             setStoreName: setStoreName
           }
@@ -183,6 +188,10 @@
         });
 
         function setStoreName(event) {
+          if (vm.isDisable) {
+            return;
+          }
+
           ajaxPost('/users/setStoreName', {storeName: vm.storeName}, function (err, data) {
             $.hidePreloader();
             if (err) {

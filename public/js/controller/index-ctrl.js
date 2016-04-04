@@ -73,7 +73,8 @@
             groupImg: '',
             secKillImg: '',
             recommends: [],
-            message: 0
+            message: 0,
+            swiper: null
           },
           methods: {
             search: search,
@@ -115,7 +116,16 @@
         });
         $.showPreloader('请稍等...');
 
-        $(function () {
+        vm.swiper = new Swiper('.swiper-container', {
+          pagination: '.swiper-pagination',
+          paginationClickable: true,
+          spaceBetween: 10,
+          centeredSlides: true,
+          autoplay: 2500,
+          autoplayDisableOnInteraction: false
+        });
+
+        /*$(function () {
           $(".swiper-container").swiper({
             pagination : '.swiper-pagination',
             paginationClickable: true,
@@ -124,7 +134,7 @@
             autoplay: 2500,
             autoplayDisableOnInteraction: false
           });
-        });
+        });*/
 
         ajaxPost('/users/get-notice-count', {}, function (err, data) {
           if (err) {
@@ -203,7 +213,8 @@
             captcha: '',
             password: '',
             rePassword: '',
-            phone: ''
+            phone: '',
+            inviteCode: ''
           },
           computed:{
             isDisable: function () {
@@ -308,7 +319,8 @@
           ajaxPost('/register', {
             'phone': vm.phone,
             'password': vm.password,
-            'captcha': vm.captcha
+            'captcha': vm.captcha,
+            'inviteCode': vm.inviteCode
           }, function (err, data) {
             $.hidePreloader();
             if (err) {
