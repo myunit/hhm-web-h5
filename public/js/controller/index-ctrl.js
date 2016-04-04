@@ -208,7 +208,7 @@
           },
           computed:{
             isDisable: function () {
-              return !(this.phone && this.captcha && this.password && this.rePassword && this.inviteCode)
+              return !(this.phone && this.captcha && this.password && this.rePassword)
             }
           },
           methods: {
@@ -298,11 +298,6 @@
 
           if (vm.password != vm.rePassword) {
             $.toast("密码输入不一致", 1000);
-            return;
-          }
-
-          if (!vm.inviteCode) {
-            $.toast("邀请码不能为空", 1000);
             return;
           }
 
