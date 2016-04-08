@@ -93,7 +93,7 @@
         if (location.pathname === '/address/modify') {
 
           if (!search['id']) {
-            location.pathname = '/';
+            location.href = '/';
             return;
           }
           var receiverId = parseInt(search['id']);
