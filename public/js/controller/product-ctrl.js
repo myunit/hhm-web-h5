@@ -146,7 +146,7 @@
       $(document).on("pageInit", "#page-product-detail", function (e, id, page) {
         var search = Utils.getSearch(location);
         if (!search['id']) {
-          location.pathname = '/';
+          location.href = '/';
           return;
         }
 
@@ -334,7 +334,7 @@
       $(document).on("pageInit", "#page-secKill-product-detail", function (e, id, page) {
         var search = Utils.getSearch(location);
         if (!search['id']) {
-          location.pathname = '/';
+          location.href = '/';
           return;
         }
 
@@ -542,7 +542,7 @@
       $(document).on("pageInit", "#page-product-group-detail", function (e, id, page) {
         var search = Utils.getSearch(location);
         if (!search['id']) {
-          location.pathname = '/';
+          location.href = '/';
           return;
         }
 

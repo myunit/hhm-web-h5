@@ -111,7 +111,8 @@
             vm.salesImg = home.sales.img;
             vm.groupImg = home.group.img;
             vm.secKillImg = home.secKill.img;
-            vm.recommends = home.recommend.length > 6 ? home.recommend.slice(0, 6) : home.recommend.slice();
+            //vm.recommends = home.recommend.length > 6 ? home.recommend.slice(0, 6) : home.recommend.slice();
+            vm.recommends = home.recommend.slice();
           }
         });
         $.showPreloader('请稍等...');
