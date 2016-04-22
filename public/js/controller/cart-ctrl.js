@@ -266,11 +266,13 @@
             var cart = data.cart;
             var len = cart.length;
             var item = null;
+            var index = 0;
             for (var i = 0; i < len; i++) {
               item = cart[i];
               var sku = {};
               if (vm.cartsObj[item.ProductSysNo] === undefined) {
                 vm.cartsObj[item.ProductSysNo] = {};
+                vm.cartsObj[item.ProductSysNo].index = index ++;
                 vm.cartsObj[item.ProductSysNo].name = item.Name;
                 vm.cartsObj[item.ProductSysNo].productId = item.ProductSysNo;
                 vm.cartsObj[item.ProductSysNo].image = item.Images.length > 0 ? item.Images[0].ImgUrl : '';
@@ -305,12 +307,20 @@
               }
             }
 
+            vm.cartsAry.sort(function (first, second) {
+              return first.index - second.index;
+            });
+
             for (var c in vm.cartsObj) {
               if (vm.cartsObj.hasOwnProperty(c)) {
                 vm.cartsAry.push(vm.cartsObj[c]);
                 vm.buyList.push(vm.cartsObj[c].productId);
               }
             }
+
+            vm.cartsAry.sort(function (first, second) {
+              return first.index - second.index;
+            });
 
             vm.$nextTick(function () {
               //$('.my-list-cart input[type=checkbox]').prop('checked', true);
