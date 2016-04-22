@@ -449,6 +449,8 @@ label.label-checkbox input[type="radio"]:checked + .item-media i.icon-form-check
   -webkit-text-stroke-width: 0.2px;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.icon.icon-delete {font-size: 24px;}
 .icon-service:before { content: "\e613"; }
 .icon-service1:before { content: "\e62b"; }
 .icon-report:before { content: "\e62a"; }
