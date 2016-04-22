@@ -215,6 +215,7 @@
         }
 
         function streetChanged() {
+          vm.streetId = 0;
           for (var i = 0; i < vm.streetList.length; i++) {
             var street = vm.streetList[i];
             if (street.Name === vm.street) {
