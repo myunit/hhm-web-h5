@@ -57,14 +57,35 @@ router.post('/pay', function (req, res, next) {
     attach: req.session.uid
   };
 
-  wxpay.getBrandWCPayRequestParams(params, function (err, result) {
-    // in express
-    if (err) {
-      res.json({status: 0});
-    } else {
-      res.json({status: 1, payargs: result});
-    }
-  });
+  unirest.post(orderApi.getOrderDetail())
+    .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'X-Access-Token': req.session.token})
+    .send({
+      "userId": req.session.uid,
+      "orderId": parseInt(req.body.orderId)
+    })
+    .end(function (response) {
+      var data = response.body.repData;
+      if (data === undefined) {
+        res.json({status: 0, msg: '服务异常'});
+        return;
+      }
+
+      if (data.status) {
+        if (data.order.Amount * 100 === req.body.amount) {
+          wxpay.getBrandWCPayRequestParams(params, function (err, result) {
+            if (err) {
+              res.json({status: 0});
+            } else {
+              res.json({status: 1, payargs: result});
+            }
+          });
+        } else {
+          res.json({status: 0, msg: '订单金额异常，请重新支付！'});
+        }
+      } else {
+        res.json({status: data.status, msg: data.msg});
+      }
+    });
 });
 
 router.use('/pay-notify', wxpay.useWXCallback(function (msg, req, res, next) {
