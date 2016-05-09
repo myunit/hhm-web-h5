@@ -60,7 +60,21 @@ define(function () {
     var obj = {};
     for (var f in origin) {
       if (origin.hasOwnProperty(f)) {
-        obj[f] = origin[f];
+        if (typeof  origin[f] === 'object') {
+          if(obj instanceof Array){
+            obj[f] = [];
+            for(var i = 0, len = obj.length; i < len; i++){
+              obj[f].push(clone(obj[i]));
+            }
+          }else{
+            obj[f] = {};
+            for(var k in obj){
+              obj[f][k] = clone(obj[k]);
+            }
+          }
+        } else {
+          obj[f] = origin[f];
+        }
       }
     }
 
