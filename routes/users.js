@@ -29,6 +29,12 @@ router.post('/get-user-info', function (req, res, next) {
     .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'X-Access-Token': req.session.token})
     .send({"userId": req.session.uid})
     .end(function (response) {
+      var error = response.body.error;
+      if (error && error.message === 'Authorization Required') {
+        res.json({status: -1, msg: '您的账号已在其他地方登录，请重新登录！'});
+        return;
+      }
+      
       var data = response.body.repData;
       if (data === undefined) {
         res.json({status: 0, msg: '服务异常'});
@@ -47,6 +53,12 @@ router.post('/getStoreName', function (req, res, next) {
     .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'X-Access-Token': req.session.token})
     .send({"userId": req.session.uid})
     .end(function (response) {
+      var error = response.body.error;
+      if (error && error.message === 'Authorization Required') {
+        res.json({status: -1, msg: '您的账号已在其他地方登录，请重新登录！'});
+        return;
+      }
+      
       var data = response.body.repData;
       if (data === undefined) {
         res.json({status: 0, msg: '服务异常'});
@@ -65,6 +77,12 @@ router.post('/setStoreName', function (req, res, next) {
     .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'X-Access-Token': req.session.token})
     .send({"userId": req.session.uid, "storeName": req.body.storeName})
     .end(function (response) {
+      var error = response.body.error;
+      if (error && error.message === 'Authorization Required') {
+        res.json({status: -1, msg: '您的账号已在其他地方登录，请重新登录！'});
+        return;
+      }
+      
       var data = response.body.repData;
       if (data === undefined) {
         res.json({status: 0, msg: '服务异常'});
@@ -95,6 +113,12 @@ router.route('/change-password')
       .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'X-Access-Token': req.session.token})
       .send({"userId": req.session.uid, "newPassword": req.body.newPassword, "oldPassword": req.body.oldPassword})
       .end(function (response) {
+        var error = response.body.error;
+        if (error && error.message === 'Authorization Required') {
+          res.json({status: -1, msg: '您的账号已在其他地方登录，请重新登录！'});
+          return;
+        }
+        
         var data = response.body.repData;
         if (data === undefined) {
           res.json({status: 0, msg: '服务异常'});
@@ -122,6 +146,12 @@ router.route('/my-book')
         "orderStatus": req.body.orderStatus
       })
       .end(function (response) {
+        var error = response.body.error;
+        if (error && error.message === 'Authorization Required') {
+          res.json({status: -1, msg: '您的账号已在其他地方登录，请重新登录！'});
+          return;
+        }
+        
         var data = response.body.repData;
         if (data === undefined) {
           res.json({status: 0, msg: '服务异常'});
@@ -199,6 +229,12 @@ router.post('/add-fav', function (req, res, next) {
     .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'X-Access-Token': req.session.token})
     .send({"userId": req.session.uid, "productId": parseInt(req.body.productId)})
     .end(function (response) {
+      var error = response.body.error;
+      if (error && error.message === 'Authorization Required') {
+        res.json({status: -1, msg: '您的账号已在其他地方登录，请重新登录！'});
+        return;
+      }
+      
       var data = response.body.repData;
       if (data === undefined) {
         res.json({status: 0, msg: '服务异常'});
@@ -217,6 +253,12 @@ router.post('/del-fav', function (req, res, next) {
     .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'X-Access-Token': req.session.token})
     .send({"userId": req.session.uid, "productId": parseInt(req.body.productId)})
     .end(function (response) {
+      var error = response.body.error;
+      if (error && error.message === 'Authorization Required') {
+        res.json({status: -1, msg: '您的账号已在其他地方登录，请重新登录！'});
+        return;
+      }
+      
       var data = response.body.repData;
       if (data === undefined) {
         res.json({status: 0, msg: '服务异常'});
@@ -239,6 +281,12 @@ router.route('/my-message')
       .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'X-Access-Token': req.session.token})
       .send({"userId": req.session.uid, "isRead": 0, "pageId": req.body.pageId, "pageSize": req.body.pageSize})
       .end(function (response) {
+        var error = response.body.error;
+        if (error && error.message === 'Authorization Required') {
+          res.json({status: -1, msg: '您的账号已在其他地方登录，请重新登录！'});
+          return;
+        }
+        
         var data = response.body.repData;
         if (data === undefined) {
           res.json({status: 0, msg: '服务异常'});
@@ -257,6 +305,12 @@ router.post('/get-notice-count', function (req, res, next) {
     .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'X-Access-Token': req.session.token})
     .send({"userId": req.session.uid})
     .end(function (response) {
+      var error = response.body.error;
+      if (error && error.message === 'Authorization Required') {
+        res.json({status: -1, msg: '您的账号已在其他地方登录，请重新登录！'});
+        return;
+      }
+      
       var data = response.body.repData;
       if (data === undefined) {
         res.json({status: 0, msg: '服务异常'});
@@ -275,6 +329,12 @@ router.post('/set-notice-status', function (req, res, next) {
     .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'X-Access-Token': req.session.token})
     .send({"userId": req.session.uid, "isRead": true, "noticeId": req.body.noticeId})
     .end(function (response) {
+      var error = response.body.error;
+      if (error && error.message === 'Authorization Required') {
+        res.json({status: -1, msg: '您的账号已在其他地方登录，请重新登录！'});
+        return;
+      }
+      
       var data = response.body.repData;
       if (data === undefined) {
         res.json({status: 0, msg: '服务异常'});

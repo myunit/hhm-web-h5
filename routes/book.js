@@ -36,6 +36,12 @@ router.route('/confirm')
         "device": ""
       })
       .end(function (response) {
+        var error = response.body.error;
+        if (error && error.message === 'Authorization Required') {
+          res.json({status: -1, msg: '您的账号已在其他地方登录，请重新登录！'});
+          return;
+        }
+        
         var data = response.body.repData;
         if (data === undefined) {
           res.json({status: 0, msg: '服务异常'});
@@ -70,6 +76,12 @@ router.route('/detail')
         "orderId": parseInt(req.body.orderId)
       })
       .end(function (response) {
+        var error = response.body.error;
+        if (error && error.message === 'Authorization Required') {
+          res.json({status: -1, msg: '您的账号已在其他地方登录，请重新登录！'});
+          return;
+        }
+        
         var data = response.body.repData;
         if (data === undefined) {
           res.json({status: 0, msg: '服务异常'});
@@ -92,6 +104,12 @@ router.post('/cancel', function (req, res, next) {
         "orderId": parseInt(req.body.orderId)
       })
       .end(function (response) {
+        var error = response.body.error;
+        if (error && error.message === 'Authorization Required') {
+          res.json({status: -1, msg: '您的账号已在其他地方登录，请重新登录！'});
+          return;
+        }
+        
         var data = response.body.repData;
         if (data === undefined) {
           res.json({status: 0, msg: '服务异常'});

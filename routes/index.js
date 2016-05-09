@@ -194,6 +194,12 @@ router.post('/get-home', function (req, res, next) {
     .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'X-Access-Token': req.session.token})
     .send({"userId": req.session.uid, "project": 'hhm'})
     .end(function (response) {
+      var error = response.body.error;
+      if (error && error.message === 'Authorization Required') {
+        res.json({status: -1, msg: '您的账号已在其他地方登录，请重新登录！'});
+        return;
+      }
+      
       var data = response.body.repData;
       if (data === undefined) {
         res.json({status: 0, msg: '服务异常'});

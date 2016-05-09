@@ -27,10 +27,17 @@
       data: data,
       timeout: 15000,
       success: function (data, status, xhr) {
-        if (data.status) {
-          cb(null, data);
+        if (data.status === -1) {
+          $.toast(data.msg, 2000);
+          setTimeout(function () {
+            location.href = '/logout';
+          }, 2000);
         } else {
-          cb(data.msg, null);
+          if (data.status) {
+            cb(null, data);
+          } else {
+            cb(data.msg, null);
+          }
         }
       },
       error: function (xhr, errorType, error) {
