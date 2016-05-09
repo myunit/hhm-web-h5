@@ -237,7 +237,6 @@
             $.toast(err, 1000);
           } else {
             vm.product = Utils.clone(data.product);
-            console.log(JSON.stringify(vm.product));
             var i = 0;
             vm.skuImg.splice(0, vm.skuImg.length);
             var skuList = vm.product.Skus;

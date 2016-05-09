@@ -52,33 +52,24 @@ define(function () {
     }
   };
 
-  var clone = function (origin) {
-    if (!origin) {
-      return;
+  var clone = function (obj, newObj) {
+    if (!obj) {
+      return null;
     }
 
-    var obj = {};
-    for (var f in origin) {
-      if (origin.hasOwnProperty(f)) {
-        if (typeof  origin[f] === 'object') {
-          if(obj instanceof Array){
-            obj[f] = [];
-            for(var i = 0, len = obj.length; i < len; i++){
-              obj[f].push(clone(obj[i]));
-            }
-          }else{
-            obj[f] = {};
-            for(var k in obj){
-              obj[f][k] = clone(obj[k]);
-            }
-          }
-        } else {
-          obj[f] = origin[f];
-        }
+    var  newObj = newObj || {};
+    for (var i in obj) {
+      if (obj[i] === null) {
+        newObj[i] = {};
+      } else if (typeof obj[i] === 'object') {
+        newObj[i] = (obj[i].constructor === Array) ? [] : {};
+        clone(obj[i], newObj[i]);
+      } else {
+        newObj[i] = obj[i];
       }
     }
 
-    return obj;
+    return newObj;
   };
 
   var getSearch = function (location) {
