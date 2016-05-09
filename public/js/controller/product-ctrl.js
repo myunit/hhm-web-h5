@@ -27,10 +27,17 @@
       data: data,
       timeout: 15000,
       success: function (data, status, xhr) {
-        if (data.status) {
-          cb(null, data);
+        if (data.status === -1) {
+          $.toast(data.msg, 2000);
+          setTimeout(function () {
+            location.href = '/logout';
+          }, 2000);
         } else {
-          cb(data.msg, null);
+          if (data.status) {
+            cb(null, data);
+          } else {
+            cb(data.msg, null);
+          }
         }
       },
       error: function (xhr, errorType, error) {
@@ -230,6 +237,7 @@
             $.toast(err, 1000);
           } else {
             vm.product = Utils.clone(data.product);
+            console.log(JSON.stringify(vm.product));
             var i = 0;
             vm.skuImg.splice(0, vm.skuImg.length);
             var skuList = vm.product.Skus;

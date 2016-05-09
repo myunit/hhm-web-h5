@@ -28,6 +28,12 @@ router.post('/cart-info', function (req, res, next) {
     .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'X-Access-Token': req.session.token})
     .send({"userId": req.session.uid})
     .end(function (response) {
+      var error = response.body.error;
+      if (error && error.message === 'Authorization Required') {
+        res.json({status: -1, msg: '您的账号已在其他地方登录，请重新登录！'});
+        return;
+      }
+      
       var data = response.body.repData;
       if (data === undefined) {
         res.json({status: 0, msg: '服务异常'});
@@ -51,6 +57,12 @@ router.post('/get-count-in-cart', function (req, res, next) {
     .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'X-Access-Token': req.session.token})
     .send({"userId": req.session.uid})
     .end(function (response) {
+      var error = response.body.error;
+      if (error && error.message === 'Authorization Required') {
+        res.json({status: -1, msg: '您的账号已在其他地方登录，请重新登录！'});
+        return;
+      }
+      
       var data = response.body.repData;
       if (data === undefined) {
         res.json({status: 0, msg: '服务异常'});
@@ -69,6 +81,12 @@ router.post('/modify-cart-qty', function (req, res, next) {
     .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'X-Access-Token': req.session.token})
     .send({"userId": req.session.uid, "cartId": parseInt(req.body.cartId), "qty": parseInt(req.body.qty), "device": ""})
     .end(function (response) {
+      var error = response.body.error;
+      if (error && error.message === 'Authorization Required') {
+        res.json({status: -1, msg: '您的账号已在其他地方登录，请重新登录！'});
+        return;
+      }
+      
       var data = response.body.repData;
       if (data === undefined) {
         res.json({status: 0, msg: '服务异常'});
@@ -87,6 +105,12 @@ router.post('/user-promotion', function (req, res, next) {
     .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'X-Access-Token': req.session.token})
     .send({"userId": req.session.uid, "cartIds": req.body.cartIds})
     .end(function (response) {
+      var error = response.body.error;
+      if (error && error.message === 'Authorization Required') {
+        res.json({status: -1, msg: '您的账号已在其他地方登录，请重新登录！'});
+        return;
+      }
+      
       var data = response.body.repData;
       if (data === undefined) {
         res.json({status: 0, msg: '服务异常'});
@@ -105,6 +129,12 @@ router.post('/del-cart', function (req, res, next) {
     .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'X-Access-Token': req.session.token})
     .send({"userId": req.session.uid, "cartId": req.body.cartId})
     .end(function (response) {
+      var error = response.body.error;
+      if (error && error.message === 'Authorization Required') {
+        res.json({status: -1, msg: '您的账号已在其他地方登录，请重新登录！'});
+        return;
+      }
+      
       var data = response.body.repData;
       if (data === undefined) {
         res.json({status: 0, msg: '服务异常'});
@@ -142,6 +172,12 @@ router.post('/add-to-cart', function (req, res, next) {
       "device": ""
     })
     .end(function (response) {
+      var error = response.body.error;
+      if (error && error.message === 'Authorization Required') {
+        res.json({status: -1, msg: '您的账号已在其他地方登录，请重新登录！'});
+        return;
+      }
+      
       var data = response.body.repData;
       if (data === undefined) {
         res.json({status: 0, msg: '服务异常'});

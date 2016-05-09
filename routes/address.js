@@ -45,6 +45,12 @@ router.post('/set-default-receiver', function (req, res, next) {
     .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'X-Access-Token':req.session.token})
     .send({"userId": req.session.uid, "receiverId": req.body.receiverId})
     .end(function (response) {
+      var error = response.body.error;
+      if (error && error.message === 'Authorization Required') {
+        res.json({status: -1, msg: '您的账号已在其他地方登录，请重新登录！'});
+        return;
+      }
+      
       var data = response.body.repData;
       if (data === undefined) {
         res.json({status: 0, msg: '服务异常'});
@@ -68,8 +74,13 @@ router.post('/get-all-receiver',function (req, res, next) {
     .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'X-Access-Token':req.session.token})
     .send(obj)
     .end(function (response) {
+      var error = response.body.error;
+      if (error && error.message === 'Authorization Required') {
+        res.json({status: -1, msg: '您的账号已在其他地方登录，请重新登录！'});
+        return;
+      }
+
       var data = response.body.repData;
-      console.log('data: ' + JSON.stringify(obj));
       if (data === undefined) {
         res.json({status: 0, msg: '服务异常'});
         return;
@@ -87,6 +98,12 @@ router.post('/del-receiver', function (req, res, next) {
     .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'X-Access-Token':req.session.token})
     .send({"userId": req.session.uid, "receiverId": req.body.receiverId})
     .end(function (response) {
+      var error = response.body.error;
+      if (error && error.message === 'Authorization Required') {
+        res.json({status: -1, msg: '您的账号已在其他地方登录，请重新登录！'});
+        return;
+      }
+      
       var data = response.body.repData;
       if (data === undefined) {
         res.json({status: 0, msg: '服务异常'});
@@ -123,6 +140,12 @@ router.post('/modify-receiver', function (req, res, next) {
     .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'X-Access-Token':req.session.token})
     .send(obj)
     .end(function (response) {
+      var error = response.body.error;
+      if (error && error.message === 'Authorization Required') {
+        res.json({status: -1, msg: '您的账号已在其他地方登录，请重新登录！'});
+        return;
+      }
+      
       var data = response.body.repData;
       if (data === undefined) {
         res.json({status: 0, msg: '服务异常'});
@@ -160,6 +183,12 @@ router.post('/add-receiver', function (req, res, next) {
     .headers({'Accept': 'application/json', 'Content-Type': 'application/json', 'X-Access-Token':req.session.token})
     .send(obj)
     .end(function (response) {
+      var error = response.body.error;
+      if (error && error.message === 'Authorization Required') {
+        res.json({status: -1, msg: '您的账号已在其他地方登录，请重新登录！'});
+        return;
+      }
+      
       var data = response.body.repData;
       console.log('data: ' + JSON.stringify(data));
       if (data === undefined) {
