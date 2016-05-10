@@ -11,7 +11,7 @@ var productApi = ApiFactory.CreateApi('product');
 /* GET home page. */
 router.route('/')
   .get(function (req, res, next) {
-    if (req.session.uid) {
+    if (req.session && req.session.uid) {
       res.redirect('/index');
     } else {
       res.render('login', {title: '登录-好好卖'});
@@ -43,7 +43,7 @@ router.get('/choose-shop-style', function (req, res, next) {
 });
 
 router.get('/logout', function (req, res, next) {
-  if (req.session.uid) {
+  if (req.session && req.session.uid) {
     delete req.session.uid;
     delete req.session.token;
   }
@@ -51,7 +51,7 @@ router.get('/logout', function (req, res, next) {
 });
 
 router.get('/index', function (req, res, next) {
-  if (req.session.uid) {
+  if (req.session && req.session.uid) {
     res.render('index', {title: '首页-好好卖'});
   } else {
     res.redirect('/');
@@ -120,7 +120,7 @@ router.post('/get-captcha', function (req, res, next) {
 
 router.route('/register-complete')
   .get(function (req, res, next) {
-    if (req.session.uid) {
+    if (req.session && req.session.uid) {
       res.render('register-complete', {title: '信息完善-好好卖'});
     } else {
       res.redirect('/');

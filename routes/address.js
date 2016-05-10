@@ -12,7 +12,7 @@ var customerApi = ApiFactory.CreateApi('customer');
 
 router.use(function (req, res, next) {
   if (req.path.indexOf('get-street') === -1) {
-    if (req.session.uid) {
+    if (req.session && req.session.uid) {
       next();
     } else {
       res.redirect('/');
