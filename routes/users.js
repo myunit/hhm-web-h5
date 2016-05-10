@@ -10,7 +10,7 @@ var orderApi = ApiFactory.CreateApi('order');
 /* GET users listing. */
 router.use(function (req, res, next) {
   if (req.path.indexOf('buy-report') === -1) {
-    if (req.session.uid) {
+    if (req.session && req.session.uid) {
       next();
     } else {
       res.redirect('/');
@@ -34,7 +34,7 @@ router.post('/get-user-info', function (req, res, next) {
         res.json({status: -1, msg: '您的账号已在其他地方登录，请重新登录！'});
         return;
       }
-      
+
       var data = response.body.repData;
       if (data === undefined) {
         res.json({status: 0, msg: '服务异常'});
@@ -58,7 +58,7 @@ router.post('/getStoreName', function (req, res, next) {
         res.json({status: -1, msg: '您的账号已在其他地方登录，请重新登录！'});
         return;
       }
-      
+
       var data = response.body.repData;
       if (data === undefined) {
         res.json({status: 0, msg: '服务异常'});
@@ -82,7 +82,7 @@ router.post('/setStoreName', function (req, res, next) {
         res.json({status: -1, msg: '您的账号已在其他地方登录，请重新登录！'});
         return;
       }
-      
+
       var data = response.body.repData;
       if (data === undefined) {
         res.json({status: 0, msg: '服务异常'});
@@ -118,7 +118,7 @@ router.route('/change-password')
           res.json({status: -1, msg: '您的账号已在其他地方登录，请重新登录！'});
           return;
         }
-        
+
         var data = response.body.repData;
         if (data === undefined) {
           res.json({status: 0, msg: '服务异常'});
@@ -151,7 +151,7 @@ router.route('/my-book')
           res.json({status: -1, msg: '您的账号已在其他地方登录，请重新登录！'});
           return;
         }
-        
+
         var data = response.body.repData;
         if (data === undefined) {
           res.json({status: 0, msg: '服务异常'});
@@ -234,7 +234,7 @@ router.post('/add-fav', function (req, res, next) {
         res.json({status: -1, msg: '您的账号已在其他地方登录，请重新登录！'});
         return;
       }
-      
+
       var data = response.body.repData;
       if (data === undefined) {
         res.json({status: 0, msg: '服务异常'});
@@ -258,7 +258,7 @@ router.post('/del-fav', function (req, res, next) {
         res.json({status: -1, msg: '您的账号已在其他地方登录，请重新登录！'});
         return;
       }
-      
+
       var data = response.body.repData;
       if (data === undefined) {
         res.json({status: 0, msg: '服务异常'});
@@ -286,7 +286,7 @@ router.route('/my-message')
           res.json({status: -1, msg: '您的账号已在其他地方登录，请重新登录！'});
           return;
         }
-        
+
         var data = response.body.repData;
         if (data === undefined) {
           res.json({status: 0, msg: '服务异常'});
@@ -310,7 +310,7 @@ router.post('/get-notice-count', function (req, res, next) {
         res.json({status: -1, msg: '您的账号已在其他地方登录，请重新登录！'});
         return;
       }
-      
+
       var data = response.body.repData;
       if (data === undefined) {
         res.json({status: 0, msg: '服务异常'});
@@ -334,7 +334,7 @@ router.post('/set-notice-status', function (req, res, next) {
         res.json({status: -1, msg: '您的账号已在其他地方登录，请重新登录！'});
         return;
       }
-      
+
       var data = response.body.repData;
       if (data === undefined) {
         res.json({status: 0, msg: '服务异常'});

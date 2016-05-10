@@ -11,7 +11,7 @@ var router = express.Router();
 var productApi = ApiFactory.CreateApi('product');
 
 router.use(function (req, res, next) {
-  if (req.session.uid) {
+  if (req.session && req.session.uid) {
     next();
   } else {
     res.redirect('/');

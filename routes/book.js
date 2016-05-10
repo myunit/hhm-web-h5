@@ -12,7 +12,7 @@ var shoppingApi = ApiFactory.CreateApi('shopping');
 var orderApi = ApiFactory.CreateApi('order');
 
 router.use(function (req, res, next) {
-  if (req.session.uid) {
+  if (req.session && req.session.uid) {
     next();
   } else {
     res.redirect('/');
