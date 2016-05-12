@@ -77,7 +77,7 @@ router.post('/pay', function (req, res, next) {
       }
 
       if (data.status) {
-        if (data.order.Amount * 100 === req.body.amount) {
+        if (data.order.Amount * 100 === parseInt(req.body.amount)) {
           wxpay.getBrandWCPayRequestParams(params, function (err, result) {
             if (err) {
               res.json({status: 0});
