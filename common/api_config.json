@@ -1,6 +1,6 @@
 {
   "loginService": {
-    "baseUrl": "http://120.27.148.53:30000/login/v1/",
+    "baseUrl": "http://120.26.216.1:30000/login/v1/",
     "method": {
       "login": "Customers/login",
       "forgetPassword": "Customers/forget-password",
