@@ -47,7 +47,7 @@ router.post('/set-default-receiver', function (req, res, next) {
     .end(function (response) {
       var error = response.body.error;
       if (error && error.message === 'Authorization Required') {
-        res.json({status: -1, msg: '您的账号已在其他地方登录，请重新登录！'});
+        res.json({status: -1, msg: '您的登录已过期，请重新登录！'});
         return;
       }
       
@@ -76,7 +76,7 @@ router.post('/get-all-receiver',function (req, res, next) {
     .end(function (response) {
       var error = response.body.error;
       if (error && error.message === 'Authorization Required') {
-        res.json({status: -1, msg: '您的账号已在其他地方登录，请重新登录！'});
+        res.json({status: -1, msg: '您的登录已过期，请重新登录！'});
         return;
       }
 
@@ -100,7 +100,7 @@ router.post('/del-receiver', function (req, res, next) {
     .end(function (response) {
       var error = response.body.error;
       if (error && error.message === 'Authorization Required') {
-        res.json({status: -1, msg: '您的账号已在其他地方登录，请重新登录！'});
+        res.json({status: -1, msg: '您的登录已过期，请重新登录！'});
         return;
       }
       
@@ -142,7 +142,7 @@ router.post('/modify-receiver', function (req, res, next) {
     .end(function (response) {
       var error = response.body.error;
       if (error && error.message === 'Authorization Required') {
-        res.json({status: -1, msg: '您的账号已在其他地方登录，请重新登录！'});
+        res.json({status: -1, msg: '您的登录已过期，请重新登录！'});
         return;
       }
       
@@ -185,7 +185,7 @@ router.post('/add-receiver', function (req, res, next) {
     .end(function (response) {
       var error = response.body.error;
       if (error && error.message === 'Authorization Required') {
-        res.json({status: -1, msg: '您的账号已在其他地方登录，请重新登录！'});
+        res.json({status: -1, msg: '您的登录已过期，请重新登录！'});
         return;
       }
       
