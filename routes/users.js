@@ -31,7 +31,7 @@ router.post('/get-user-info', function (req, res, next) {
     .end(function (response) {
       var error = response.body.error;
       if (error && error.message === 'Authorization Required') {
-        res.json({status: -1, msg: '您的账号已在其他地方登录，请重新登录！'});
+        res.json({status: -1, msg: '您的登录已过期，请重新登录！'});
         return;
       }
 
@@ -55,7 +55,7 @@ router.post('/getStoreName', function (req, res, next) {
     .end(function (response) {
       var error = response.body.error;
       if (error && error.message === 'Authorization Required') {
-        res.json({status: -1, msg: '您的账号已在其他地方登录，请重新登录！'});
+        res.json({status: -1, msg: '您的登录已过期，请重新登录！'});
         return;
       }
 
@@ -79,7 +79,7 @@ router.post('/setStoreName', function (req, res, next) {
     .end(function (response) {
       var error = response.body.error;
       if (error && error.message === 'Authorization Required') {
-        res.json({status: -1, msg: '您的账号已在其他地方登录，请重新登录！'});
+        res.json({status: -1, msg: '您的登录已过期，请重新登录！'});
         return;
       }
 
@@ -115,7 +115,7 @@ router.route('/change-password')
       .end(function (response) {
         var error = response.body.error;
         if (error && error.message === 'Authorization Required') {
-          res.json({status: -1, msg: '您的账号已在其他地方登录，请重新登录！'});
+          res.json({status: -1, msg: '您的登录已过期，请重新登录！'});
           return;
         }
 
@@ -148,7 +148,7 @@ router.route('/my-book')
       .end(function (response) {
         var error = response.body.error;
         if (error && error.message === 'Authorization Required') {
-          res.json({status: -1, msg: '您的账号已在其他地方登录，请重新登录！'});
+          res.json({status: -1, msg: '您的登录已过期，请重新登录！'});
           return;
         }
 
@@ -231,7 +231,7 @@ router.post('/add-fav', function (req, res, next) {
     .end(function (response) {
       var error = response.body.error;
       if (error && error.message === 'Authorization Required') {
-        res.json({status: -1, msg: '您的账号已在其他地方登录，请重新登录！'});
+        res.json({status: -1, msg: '您的登录已过期，请重新登录！'});
         return;
       }
 
@@ -255,7 +255,7 @@ router.post('/del-fav', function (req, res, next) {
     .end(function (response) {
       var error = response.body.error;
       if (error && error.message === 'Authorization Required') {
-        res.json({status: -1, msg: '您的账号已在其他地方登录，请重新登录！'});
+        res.json({status: -1, msg: '您的登录已过期，请重新登录！'});
         return;
       }
 
@@ -283,7 +283,7 @@ router.route('/my-message')
       .end(function (response) {
         var error = response.body.error;
         if (error && error.message === 'Authorization Required') {
-          res.json({status: -1, msg: '您的账号已在其他地方登录，请重新登录！'});
+          res.json({status: -1, msg: '您的登录已过期，请重新登录！'});
           return;
         }
 
@@ -307,7 +307,7 @@ router.post('/get-notice-count', function (req, res, next) {
     .end(function (response) {
       var error = response.body.error;
       if (error && error.message === 'Authorization Required') {
-        res.json({status: -1, msg: '您的账号已在其他地方登录，请重新登录！'});
+        res.json({status: -1, msg: '您的登录已过期，请重新登录！'});
         return;
       }
 
@@ -331,7 +331,7 @@ router.post('/set-notice-status', function (req, res, next) {
     .end(function (response) {
       var error = response.body.error;
       if (error && error.message === 'Authorization Required') {
-        res.json({status: -1, msg: '您的账号已在其他地方登录，请重新登录！'});
+        res.json({status: -1, msg: '您的登录已过期，请重新登录！'});
         return;
       }
 
