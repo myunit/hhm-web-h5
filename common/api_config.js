@@ -157,6 +157,9 @@ ProductApi.prototype = {
   },
   searchProduct: function () {
     return api_config.productService.baseUrl + api_config.productService.method.searchProduct;
+  },
+  getCarousel: function () {
+    return api_config.productService.baseUrl + api_config.productService.method.getCarousel;
   }
 };
 

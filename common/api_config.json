@@ -1,6 +1,6 @@
 {
   "loginService": {
-    "baseUrl": "http://120.26.216.1:30000/login/v1/",
+    "baseUrl": "http://120.27.148.53:30000/login/v1/",
     "method": {
       "login": "Customers/login",
       "forgetPassword": "Customers/forget-password",
@@ -13,7 +13,7 @@
     }
   },
   "customerService": {
-    "baseUrl": "http://120.26.216.1:30001/customer/v1/",
+    "baseUrl": "http://120.27.148.53:30001/customer/v1/",
     "method": {
       "perfectCustomerInfo": "Customers/perfect-customer-info",
       "getStoreInfo": "Customers/get-store-info",
@@ -35,7 +35,7 @@
     }
   },
   "productService": {
-    "baseUrl": "http://120.26.216.1:30002/product/v1/",
+    "baseUrl": "http://120.27.148.53:30002/product/v1/",
     "method": {
       "getCategory": "Products/get-category",
       "getCategoryProduct": "Products/get-category-product",
@@ -49,11 +49,12 @@
       "getRecommend": "Products/get-recommend",
       "getRecommendProduct": "Products/get-recommend-product",
       "getGroupProduct": "Products/get-group-product",
-      "searchProduct": "Products/search-product"
+      "searchProduct": "Products/search-product",
+      "getCarousel": "Products/get-carousel"
     }
   },
   "shoppingService": {
-    "baseUrl": "http://120.26.216.1:30004/shopping/v1/",
+    "baseUrl": "http://120.27.148.53:30004/shopping/v1/",
     "method": {
       "addToCart": "Shopping/add-to-cart",
       "delInCart": "Shopping/delete-in-cart",
@@ -65,7 +66,7 @@
     }
   },
   "orderService": {
-    "baseUrl": "http://120.26.216.1:30003/order/v1/",
+    "baseUrl": "http://120.27.148.53:30003/order/v1/",
     "method": {
       "getOrderDetail": "Orders/get-order-detail",
       "createPaymentRecord": "Orders/create-payment-record",

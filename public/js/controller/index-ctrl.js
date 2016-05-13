@@ -80,12 +80,14 @@
             groupImg: '',
             secKillImg: '',
             recommends: [],
+            carousels: [],
             message: 0,
             swiper: null
           },
           methods: {
             search: search,
-            goToDetail: goToDetail
+            goToDetail: goToDetail,
+            carouselClick: carouselClick
           }
         });
 
@@ -108,6 +110,39 @@
           location.href = '/product/search?key=' + encodeURI(encodeURI(vm.searchWord));
         }
 
+        function carouselClick (index) {
+          var carousel = vm.carousels[index];
+          if (!carousel) {
+            return;
+          }
+
+          if (carousel.RecommendSubType === 2) {
+            //跳转秒杀
+            location.href = '/product/secKill';
+            return;
+          }
+
+          if (carousel.RecommendSubType === 0) {
+            location.href = '/product/recommend?id='+carousel.SysNo+'&name='+carousel.RecommendName;
+            return;
+          }
+
+          if (carousel.RecommendSubType === 1) {
+            ajaxPost('/product/get-carousel', {carouselId: carousel.SysNo}, function (err, data) {
+              $.hidePreloader();
+              if (err) {
+                $.toast(err, 1000);
+              } else {
+                if (data.carousel.length > 0 && data.carousel[0].RecommendItems.length > 0) {
+                  location.href = '/product/detail?id=' + data.carousel[0].RecommendItems[0].ProductGroupSysNo;
+                }
+              }
+            });
+            $.showPreloader('请稍等...');
+            return;
+          }
+        }
+
         ajaxPost('/get-home', {}, function (err, data) {
           $.hidePreloader();
           if (err) {
@@ -120,29 +155,20 @@
             vm.secKillImg = home.secKill.img;
             //vm.recommends = home.recommend.length > 6 ? home.recommend.slice(0, 6) : home.recommend.slice();
             vm.recommends = home.recommend.slice();
+            vm.carousels = home.carousel.slice();
+            Vue.nextTick(function () {
+              vm.swiper = new Swiper('.swiper-container', {
+                pagination: '.swiper-pagination',
+                paginationClickable: true,
+                spaceBetween: 10,
+                centeredSlides: true,
+                autoplay: 2500,
+                autoplayDisableOnInteraction: false
+              });
+            });
           }
         });
         $.showPreloader('请稍等...');
-
-        vm.swiper = new Swiper('.swiper-container', {
-          pagination: '.swiper-pagination',
-          paginationClickable: true,
-          spaceBetween: 10,
-          centeredSlides: true,
-          autoplay: 2500,
-          autoplayDisableOnInteraction: false
-        });
-
-        /*$(function () {
-          $(".swiper-container").swiper({
-            pagination : '.swiper-pagination',
-            paginationClickable: true,
-            spaceBetween: 10,
-            centeredSlides: true,
-            autoplay: 2500,
-            autoplayDisableOnInteraction: false
-          });
-        });*/
 
         ajaxPost('/users/get-notice-count', {}, function (err, data) {
           if (err) {
