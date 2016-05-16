@@ -296,4 +296,26 @@ router.route('/search')
       });
   });
 
+router.post('/get-carousel', function (req, res, next) {
+  unirest.post(productApi.getCarousel())
+    .headers({'Accept': 'application/json', 'Content-Type': 'application/json'})
+    .send({
+      "userId": req.session.uid,
+      "carouselId": parseInt(req.body.carouselId)
+    })
+    .end(function (response) {
+      var data = response.body.repData;
+      if (data === undefined) {
+        res.json({status: 0, msg: '服务异常'});
+        return;
+      }
+      console.log(11111);
+      if (data.status) {
+        res.json({status: data.status, carousel: data.carousel});
+      } else {
+        res.json({status: data.status, msg: data.msg});
+      }
+    });
+});
+
 module.exports = router;

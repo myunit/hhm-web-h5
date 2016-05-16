@@ -40,16 +40,13 @@
         <div class="content native-scroll">
             <div class="swiper-container">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <a class="external" href="http://hhmapp.haohaomai.com/product/new">
-                            <img src="http://hhmimage.hhm168.com/homepage/5.jpg" alt="">
-                        </a>
-                    </div>
-                    <div class="swiper-slide">
-                        <a class="external" href="http://hhmapp.haohaomai.com/product/secKill">
-                            <img src="http://hhmimage.hhm168.com/homepage/6.jpg" alt="">
-                        </a>
-                    </div>
+                    <template v-for="carousel in carousels">
+                        <div class="swiper-slide">
+                            <a class="external" href="#" @click.prevent="carouselClick($index)">
+                                <img :src="carousel.Img" alt="">
+                            </a>
+                        </div>
+                    </template>
                 </div>
                 <div class="swiper-pagination"></div>
             </div>
